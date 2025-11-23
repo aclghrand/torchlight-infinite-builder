@@ -401,32 +401,29 @@ export const parseAffix = (input: string): ParseResult => {
   const normalized = input.trim().toLowerCase();
 
   const parsers = [
+    // Offense
     parseDmgPct,
     parseCritRatingPct,
-    // Speed parsers ordered by specificity (most specific first)
     parseMinionAspdAndCspdPct,
     parseAspdAndCspdPct,
     parseAspdPct,
     parseCspdPct,
-    // Block chance parsers
+    // Defense parsers
     parseAttackBlockChancePct,
     parseSpellBlockChancePct,
-    // Defense parsers
     parseMaxLifePct,
     parseMaxEnergyShieldPct,
     parseArmorPct,
     parseEvasionPct,
-    // Regain parsers (must come before flat stat parsers to avoid conflicts)
     parseEnergyShieldRegainPct, // Must come before parseLifeRegainPct
     parseLifeRegainPct,
-    // Flat stats (must come before percentage stats)
+    // Attributes
     parseStr,
     parseDex,
-    // Percentage stats
     parseStrPct,
     parseDexPct,
+    // misc
     parseFervorEff,
-    // Mechanic parsers
     parseSteepStrikeChance,
     parseMultistrikeChancePct,
     // Add more parsers here as they're implemented

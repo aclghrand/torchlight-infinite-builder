@@ -58,6 +58,7 @@ src/
 The damage calculation system in [src/tli/](src/tli/) is the heart of this application:
 
 **Core Data Model:**
+
 - `Loadout`: Represents a complete character build with:
   - `GearPage`: Equipment slots (helmet, chest, rings, weapons, etc.)
   - `TalentPage`: Talent tree selections and core talents
@@ -68,6 +69,7 @@ The damage calculation system in [src/tli/](src/tli/) is the heart of this appli
 - `Configuration`: Settings like fervor (enabled/disabled and points)
 
 **Calculation Flow:**
+
 1. Collect all affixes from loadout (`collectAffixes`)
 2. Calculate gear damage for each element (physical, cold, lightning, fire, erosion)
 3. Apply damage percentage modifiers based on skill tags
@@ -75,6 +77,7 @@ The damage calculation system in [src/tli/](src/tli/) is the heart of this appli
 5. Compute final DPS: `avgDps = avgHitWithCrit * aspd`
 
 **Key Concepts:**
+
 - **Increased vs Additive modifiers**: The system distinguishes between "increased" (additive) and "more" (multiplicative) modifiers via the `addn` boolean flag
   - When `addn: false` (increased): modifiers are summed together, then applied once
   - When `addn: true` (more/additive): each modifier is applied multiplicatively
@@ -87,9 +90,11 @@ The damage calculation system in [src/tli/](src/tli/) is the heart of this appli
 - **Stat scaling**: Main stats (STR, DEX, INT) provide damage bonuses at 0.5% per point
 
 **Main Entry Point:**
+
 - `calculateOffense(loadout, skill, configuration)` in [stuff.ts](src/tli/stuff.ts:648-676) is the public API that returns `OffenseSummary`
 
 **Special Systems:**
+
 - **Fervor**: Optional mechanic (enabled/disabled in `Configuration`) that provides crit rating bonus
   - Base: 2% crit rating per fervor point
   - Modified by `FervorEff` affixes (effectiveness multipliers that stack additively)
@@ -120,6 +125,7 @@ The damage calculation system in [src/tli/](src/tli/) is the heart of this appli
 ### Styling
 
 - **Use const arrow functions** instead of function declarations:
+
   ```typescript
   // ✓ Good
   const parseAffix = (input: string): Affix | undefined => {
@@ -133,6 +139,7 @@ The damage calculation system in [src/tli/](src/tli/) is the heart of this appli
   ```
 
 - **Single source of truth for types**: Derive types from const arrays using `as const` and `(typeof ARRAY)[number]`:
+
   ```typescript
   // ✓ Good - only update the array to add new types
   export const DMG_MOD_TYPES = ["global", "fire", "cold", ...] as const;
@@ -142,9 +149,11 @@ The damage calculation system in [src/tli/](src/tli/) is the heart of this appli
   export const DMG_MOD_TYPES = ["global", "fire", "cold", ...];
   export type DmgModType = "global" | "fire" | "cold" | ...;
   ```
+
 ### Domain-Specific Conventions
 
 When working with the damage calculation system:
+
 - **Affixes**: Use discriminated union pattern with a `type` field - create as object literals like `{ type: "DmgPct", value: 0.5, modType: "global", addn: false }`
 - **Extracting affixes**: Use `findAffix(affixes, "DmgPct")` to get first match or `filterAffix(affixes, "DmgPct")` to get all matches (both provide type narrowing)
 - **Damage ranges**: Inclusive min/max `{ min: number, max: number }`
@@ -161,12 +170,23 @@ When working with the damage calculation system:
 
 The affix parser ([affix_parser.ts](src/tli/affix_parser.ts)) converts human-readable strings to Affix objects:
 
-- **Main function**: `parseAffix(input: string): Affix | undefined`
-- **Returns**: First matching affix or `undefined` if no parser matches
-- **Pattern**: Individual parser functions for each affix type (e.g., `parseDmgPct`, `parseCritRatingPct`)
-- **Current parsers**:
-  - `parseDmgPct`: Parses damage percentage affixes
-    - Examples: `"+9% damage"` → global, `"+18% fire damage"` → fire type, `"+9% additional attack damage"` → attack type with addn flag
-  - `parseCritRatingPct`: Parses crit rating affixes
-    - Examples: `"+10% Critical Strike Rating"` → global, `"+10% Attack Critical Strike Rating"` → attack type
-- **Adding new parsers**: Create parser function returning `Extract<Affix, { type: "..." }> | undefined` and add to `parsers` array
+- **Main function**: `parseAffix(input: string): ParseResult`
+  - Returns: `Affix | "unrecognized" | "unimplemented"`
+  - Input is automatically normalized (trimmed and lowercased)
+
+- **Pattern**: Individual parser functions for each affix type
+  - Each parser returns `AffixOfType<"TypeName"> | undefined`
+  - Parsers are tried in order until one matches
+  - Return `undefined` if pattern doesn't match
+
+- **Regex Pattern Examples**:
+  - Percentage with optional type: `/^([+-])?(\d+(?:\.\d+)?)% (?:(\w+) )?damage$/i`
+  - Percentage with "additional": `/^([+-])?(\d+(?:\.\d+)?)% (?:(additional) )?attack speed$/i`
+  - Simple percentage: `/^([+-])?(\d+(?:\.\d+)?)% armor$/i`
+  - Flat value: `/^([+-])?(\d+(?:\.\d+)?) strength$/i`
+
+- **Adding new parsers**:
+  1. Create parser function returning `Extract<Affix, { type: "..." }> | undefined`
+  2. Add to `parsers` array in correct position (consider specificity)
+  3. Add tests in [affix_parser.test.ts](src/tli/affix_parser.test.ts)
+  4. Ensure affix type exists in [affix.ts](src/tli/affix.ts) discriminated union
