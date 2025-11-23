@@ -20,3 +20,5 @@
 * reservation
 * mana costs
 * rosa ramp
+* multistrike
+* steep
