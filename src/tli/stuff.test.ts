@@ -5,7 +5,7 @@ import { Loadout, Configuration } from "./core";
 const initLoadout = (pl: Partial<Loadout> = {}): Loadout => {
   return {
     equipmentPage: pl.equipmentPage || {},
-    talentPage: pl.talentPage || { affixes: [], coreTalents: [] },
+    talentPage: pl.talentPage || { affixes: [] },
     divinityPage: pl.divinityPage || { slates: [] },
     customConfiguration: pl.customConfiguration || [],
   };
@@ -305,7 +305,6 @@ test("calculate offense affixes from equipment, talents, and divinities combine"
           ],
         }, // +30% from talent
       ],
-      coreTalents: [],
     },
     divinityPage: {
       slates: [
@@ -535,7 +534,6 @@ test("calculate offense with fervor and multiple FervorEff modifiers stacking", 
       affixes: [
         { mods: [{ type: "FervorEff", value: 0.1 }] }, // +10% fervor effectiveness
       ],
-      coreTalents: [],
     },
   });
 
@@ -695,7 +693,6 @@ test("calculate offense with multiple CritDmgPerFervor affixes stacking", () => 
       affixes: [
         { mods: [{ type: "CritDmgPerFervor", value: 0.003 }] }, // +0.3% per point
       ],
-      coreTalents: [],
     },
   });
 

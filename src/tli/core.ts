@@ -40,7 +40,6 @@ export interface Gear {
 
 export interface TalentPage {
   affixes: Affix[];
-  coreTalents: Affix[];
 }
 
 export interface DivinityPage {
@@ -65,6 +64,24 @@ export interface Loadout {
   talentPage: TalentPage;
   divinityPage: DivinityPage;
   customConfiguration: Affix[];
+}
+
+export interface RawAllocatedTalentNode {
+  x: number;
+  y: number;
+  points: number;
+}
+
+export interface RawTalentTree {
+  name: string;
+  allocatedNodes: RawAllocatedTalentNode[];
+}
+
+export interface RawTalentPage {
+  tree1: RawTalentTree;
+  tree2: RawTalentTree;
+  tree3: RawTalentTree;
+  tree4: RawTalentTree;
 }
 
 export interface RawGear {

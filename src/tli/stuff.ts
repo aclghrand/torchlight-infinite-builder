@@ -86,7 +86,6 @@ export const collectMods = (loadout: Loadout): Mod.Mod[] => {
       loadout.divinityPage.slates.flatMap((s) => s.affixes)
     ),
     ...collectModsFromAffixes(loadout.talentPage.affixes),
-    ...collectModsFromAffixes(loadout.talentPage.coreTalents),
     ...collectModsFromAffixes(loadout.equipmentPage.helmet?.affixes || []),
     ...collectModsFromAffixes(loadout.equipmentPage.chest?.affixes || []),
     ...collectModsFromAffixes(loadout.equipmentPage.neck?.affixes || []),
