@@ -1,0 +1,327 @@
+[
+  {
+    "nodeType": "micro",
+    "rawAffix": "+9% Melee Damage",
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+18% Melee Damage",
+    "position": {
+      "x": 1,
+      "y": 0
+    },
+    "prerequisite": {
+      "x": 0,
+      "y": 0
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+15% Critical Strike Rating",
+    "position": {
+      "x": 2,
+      "y": 0
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+20% Critical Strike Rating\n+10% Critical Strike Damage",
+    "position": {
+      "x": 3,
+      "y": 0
+    },
+    "prerequisite": {
+      "x": 2,
+      "y": 0
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+6% Attack Speed\n-6% Melee Damage",
+    "position": {
+      "x": 4,
+      "y": 0
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "+32% chance to Multistrike",
+    "position": {
+      "x": 5,
+      "y": 0
+    },
+    "prerequisite": {
+      "x": 4,
+      "y": 0
+    },
+    "levelUpTime": 1
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "+12% Steep Strike chance.",
+    "position": {
+      "x": 6,
+      "y": 0
+    },
+    "prerequisite": {
+      "x": 5,
+      "y": 1
+    },
+    "levelUpTime": 1
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+3% Attack Speed",
+    "position": {
+      "x": 1,
+      "y": 1
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+6% Attack Speed",
+    "position": {
+      "x": 2,
+      "y": 1
+    },
+    "prerequisite": {
+      "x": 1,
+      "y": 1
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+6 Strength\n+6 Dexterity",
+    "position": {
+      "x": 3,
+      "y": 1
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+4% Strength\n+4% Dexterity",
+    "position": {
+      "x": 4,
+      "y": 1
+    },
+    "prerequisite": {
+      "x": 3,
+      "y": 1
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+9% Melee Damage",
+    "position": {
+      "x": 5,
+      "y": 1
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "+33% Demolisher Charge Restoration Speed",
+    "position": {
+      "x": 6,
+      "y": 1
+    },
+    "prerequisite": {
+      "x": 5,
+      "y": 1
+    },
+    "levelUpTime": 1
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+3% Max Life\n+3% Max Energy Shield",
+    "position": {
+      "x": 0,
+      "y": 2
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+6% Max Life\n+6% Max Energy Shield",
+    "position": {
+      "x": 1,
+      "y": 2
+    },
+    "prerequisite": {
+      "x": 0,
+      "y": 2
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+2% Attack Block Chance\n+2% Spell Block Chance",
+    "position": {
+      "x": 2,
+      "y": 2
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+4% Attack Block Chance\n+4% Spell Block Chance",
+    "position": {
+      "x": 3,
+      "y": 2
+    },
+    "prerequisite": {
+      "x": 2,
+      "y": 2
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+18% Melee Damage\n-4% Attack Speed",
+    "position": {
+      "x": 4,
+      "y": 2
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "Every 1 s, +10% additional Melee Damage for the next Main Skill used",
+    "position": {
+      "x": 5,
+      "y": 2
+    },
+    "prerequisite": {
+      "x": 4,
+      "y": 2
+    },
+    "levelUpTime": 1
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "Shadow Quantity +1",
+    "position": {
+      "x": 6,
+      "y": 2
+    },
+    "prerequisite": {
+      "x": 5,
+      "y": 1
+    },
+    "levelUpTime": 1
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+5% Armor\n+5% Evasion",
+    "position": {
+      "x": 1,
+      "y": 3
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+10% Armor\n+10% Evasion",
+    "position": {
+      "x": 2,
+      "y": 3
+    },
+    "prerequisite": {
+      "x": 1,
+      "y": 3
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "1.5% Life Regain\n1.5% Energy Shield Regain",
+    "position": {
+      "x": 4,
+      "y": 3
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+3% Life Regain\n+3% Energy Shield Regain",
+    "position": {
+      "x": 5,
+      "y": 3
+    },
+    "prerequisite": {
+      "x": 4,
+      "y": 3
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+9% Melee Damage",
+    "position": {
+      "x": 0,
+      "y": 4
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+18% Melee Damage",
+    "position": {
+      "x": 1,
+      "y": 4
+    },
+    "prerequisite": {
+      "x": 0,
+      "y": 4
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+4% Fervor effect",
+    "position": {
+      "x": 4,
+      "y": 4
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+8% Fervor effect",
+    "position": {
+      "x": 5,
+      "y": 4
+    },
+    "prerequisite": {
+      "x": 4,
+      "y": 4
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "+20% Fervor effect",
+    "position": {
+      "x": 6,
+      "y": 4
+    },
+    "prerequisite": {
+      "x": 5,
+      "y": 4
+    },
+    "levelUpTime": 1
+  }
+]

@@ -1,0 +1,323 @@
+[
+  {
+    "nodeType": "micro",
+    "rawAffix": "+9% damage",
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+18% damage",
+    "position": {
+      "x": 1,
+      "y": 0
+    },
+    "prerequisite": {
+      "x": 0,
+      "y": 0
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+15% Critical Strike Rating",
+    "position": {
+      "x": 2,
+      "y": 0
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+20% Critical Strike Rating\n+10% Critical Strike Damage",
+    "position": {
+      "x": 3,
+      "y": 0
+    },
+    "prerequisite": {
+      "x": 2,
+      "y": 0
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+2% Attack Block Chance\n+2% Spell Block Chance",
+    "position": {
+      "x": 4,
+      "y": 0
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "Gains 1 stack(s) of Tenacity Blessing every 1 s if you have Blocked recently",
+    "position": {
+      "x": 5,
+      "y": 0
+    },
+    "prerequisite": {
+      "x": 4,
+      "y": 0
+    },
+    "levelUpTime": 1
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+3% Attack and Cast Speed",
+    "position": {
+      "x": 1,
+      "y": 1
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+6% Attack and Cast Speed",
+    "position": {
+      "x": 2,
+      "y": 1
+    },
+    "prerequisite": {
+      "x": 1,
+      "y": 1
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+12% damage dealt when holding a shield",
+    "position": {
+      "x": 3,
+      "y": 1
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+12% damage dealt when holding a shield\n+4% Attack and Cast Speed while holding a Shield",
+    "position": {
+      "x": 4,
+      "y": 1
+    },
+    "prerequisite": {
+      "x": 3,
+      "y": 1
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+3% Max Life\n+3% Max Energy Shield",
+    "position": {
+      "x": 5,
+      "y": 1
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "+5% Block Ratio\nRestores 1% Missing Life and Energy Shield when blocking",
+    "position": {
+      "x": 6,
+      "y": 1
+    },
+    "prerequisite": {
+      "x": 5,
+      "y": 1
+    },
+    "levelUpTime": 1
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+3% Max Life\n+3% Max Energy Shield",
+    "position": {
+      "x": 0,
+      "y": 2
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+6% Max Life\n+6% Max Energy Shield",
+    "position": {
+      "x": 1,
+      "y": 2
+    },
+    "prerequisite": {
+      "x": 0,
+      "y": 2
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "1.5% Life Regain\n1.5% Energy Shield Regain",
+    "position": {
+      "x": 2,
+      "y": 2
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "+6% Life Regain\nRestores 15% of Missing Life when suffer a Severe Injury",
+    "position": {
+      "x": 3,
+      "y": 2
+    },
+    "prerequisite": {
+      "x": 2,
+      "y": 2
+    },
+    "levelUpTime": 1
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+7% Armor",
+    "position": {
+      "x": 5,
+      "y": 2
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "+35% Armor if you have Blocked recently",
+    "position": {
+      "x": 6,
+      "y": 2
+    },
+    "prerequisite": {
+      "x": 5,
+      "y": 2
+    },
+    "levelUpTime": 1
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+4% Spell Block Chance",
+    "position": {
+      "x": 1,
+      "y": 3
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+8% Spell Block Chance",
+    "position": {
+      "x": 2,
+      "y": 3
+    },
+    "prerequisite": {
+      "x": 1,
+      "y": 3
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "+6% Energy Shield Regain\nRestores 15% Missing Energy Shield when suffer Severe Injury",
+    "position": {
+      "x": 3,
+      "y": 3
+    },
+    "prerequisite": {
+      "x": 2,
+      "y": 2
+    },
+    "levelUpTime": 1
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+2% Attack Block Chance\n+2% Spell Block Chance",
+    "position": {
+      "x": 5,
+      "y": 3
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "+4% Attack Block Chance\n+4% Spell Block Chance\n+40% damage if you have Blocked recently",
+    "position": {
+      "x": 6,
+      "y": 3
+    },
+    "prerequisite": {
+      "x": 5,
+      "y": 3
+    },
+    "levelUpTime": 1
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+2% Attack Block Chance\n+6% damage",
+    "position": {
+      "x": 0,
+      "y": 4
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+4% Attack Block Chance\n+12% damage",
+    "position": {
+      "x": 1,
+      "y": 4
+    },
+    "prerequisite": {
+      "x": 0,
+      "y": 4
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+3% Defense",
+    "position": {
+      "x": 2,
+      "y": 4
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "+3 Defensive Skill Level",
+    "position": {
+      "x": 3,
+      "y": 4
+    },
+    "prerequisite": {
+      "x": 2,
+      "y": 4
+    },
+    "levelUpTime": 1
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+4% Defense when holding a Shield",
+    "position": {
+      "x": 4,
+      "y": 4
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "+40% Defense from Shield",
+    "position": {
+      "x": 5,
+      "y": 4
+    },
+    "prerequisite": {
+      "x": 4,
+      "y": 4
+    },
+    "levelUpTime": 1
+  }
+]

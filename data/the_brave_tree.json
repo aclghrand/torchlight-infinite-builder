@@ -1,0 +1,362 @@
+[
+  {
+    "nodeType": "micro",
+    "rawAffix": "+9% Attack Damage",
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+18% Attack Damage",
+    "position": {
+      "x": 1,
+      "y": 0
+    },
+    "prerequisite": {
+      "x": 0,
+      "y": 0
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+15% Attack Critical Strike Rating",
+    "position": {
+      "x": 2,
+      "y": 0
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+20% Attack Critical Strike Rating\n+5% Critical Strike Damage",
+    "position": {
+      "x": 3,
+      "y": 0
+    },
+    "prerequisite": {
+      "x": 2,
+      "y": 0
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+9% Attack Damage when holding a One-Handed Weapon",
+    "position": {
+      "x": 4,
+      "y": 0
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+18% Attack Damage when holding a One-Handed Weapon",
+    "position": {
+      "x": 5,
+      "y": 0
+    },
+    "prerequisite": {
+      "x": 4,
+      "y": 0
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "+8% additional Attack Damage when holding a One-Handed Weapon",
+    "position": {
+      "x": 6,
+      "y": 0
+    },
+    "prerequisite": {
+      "x": 5,
+      "y": 0
+    },
+    "levelUpTime": 1
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+3% Attack Speed",
+    "position": {
+      "x": 1,
+      "y": 1
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+6% Attack Speed\n-4 Skill Cost",
+    "position": {
+      "x": 2,
+      "y": 1
+    },
+    "prerequisite": {
+      "x": 1,
+      "y": 1
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "1.5% Life Regain",
+    "position": {
+      "x": 3,
+      "y": 1
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+3% Life Regain",
+    "position": {
+      "x": 4,
+      "y": 1
+    },
+    "prerequisite": {
+      "x": 3,
+      "y": 1
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+12% damage dealt when holding a shield\n+4% Attack Block Chance when holding a shield",
+    "position": {
+      "x": 5,
+      "y": 1
+    },
+    "prerequisite": {
+      "x": 4,
+      "y": 0
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "+5% Block Ratio when holding a Shield",
+    "position": {
+      "x": 6,
+      "y": 1
+    },
+    "prerequisite": {
+      "x": 5,
+      "y": 1
+    },
+    "levelUpTime": 1
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+3% Max Life",
+    "position": {
+      "x": 0,
+      "y": 2
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+5% Max Life\nRegenerates 0.5% Life per second",
+    "position": {
+      "x": 1,
+      "y": 2
+    },
+    "prerequisite": {
+      "x": 0,
+      "y": 2
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+4% Attack Block Chance",
+    "position": {
+      "x": 2,
+      "y": 2
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+8% Attack Block Chance",
+    "position": {
+      "x": 3,
+      "y": 2
+    },
+    "prerequisite": {
+      "x": 2,
+      "y": 2
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+5% Warcry Cooldown Recovery Speed",
+    "position": {
+      "x": 4,
+      "y": 2
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+6% Warcry Effect",
+    "position": {
+      "x": 5,
+      "y": 2
+    },
+    "prerequisite": {
+      "x": 4,
+      "y": 2
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "The minimum number of enemies affected by Warcry +4",
+    "position": {
+      "x": 6,
+      "y": 2
+    },
+    "prerequisite": {
+      "x": 5,
+      "y": 2
+    },
+    "levelUpTime": 1
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+450 Armor",
+    "position": {
+      "x": 1,
+      "y": 3
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+900 Armor",
+    "position": {
+      "x": 2,
+      "y": 3
+    },
+    "prerequisite": {
+      "x": 1,
+      "y": 3
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+25% chance to gain 1 stacks of Tenacity Blessing when taking damage. Interval: 1 s",
+    "position": {
+      "x": 3,
+      "y": 3
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "+6% Armor per stack of Tenacity Blessing owned",
+    "position": {
+      "x": 4,
+      "y": 3
+    },
+    "prerequisite": {
+      "x": 3,
+      "y": 3
+    },
+    "levelUpTime": 1
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+8 Strength",
+    "position": {
+      "x": 5,
+      "y": 3
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "+1% Armor for every 24 Strength",
+    "position": {
+      "x": 6,
+      "y": 3
+    },
+    "prerequisite": {
+      "x": 5,
+      "y": 3
+    },
+    "levelUpTime": 1
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+7% Armor",
+    "position": {
+      "x": 0,
+      "y": 4
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+14% Armor",
+    "position": {
+      "x": 1,
+      "y": 4
+    },
+    "prerequisite": {
+      "x": 0,
+      "y": 4
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+7% Armor",
+    "position": {
+      "x": 2,
+      "y": 4
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "+40% Defense gained from Chest Armor",
+    "position": {
+      "x": 3,
+      "y": 4
+    },
+    "prerequisite": {
+      "x": 2,
+      "y": 4
+    },
+    "levelUpTime": 1
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+2% Elemental Resistance\n+2% Erosion Resistance",
+    "position": {
+      "x": 5,
+      "y": 4
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "0.5% Elemental Resistance per 3000 Armor. Stacks up to 6% .\n0.5% Erosion Resistance per 3000 Armor. Stacks up to 6% .",
+    "position": {
+      "x": 6,
+      "y": 4
+    },
+    "prerequisite": {
+      "x": 5,
+      "y": 4
+    },
+    "levelUpTime": 1
+  }
+]

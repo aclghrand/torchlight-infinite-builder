@@ -1,0 +1,345 @@
+[
+  {
+    "nodeType": "micro",
+    "rawAffix": "+9% Spell Damage",
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+18% Spell Damage",
+    "position": {
+      "x": 1,
+      "y": 0
+    },
+    "prerequisite": {
+      "x": 0,
+      "y": 0
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+15% Critical Strike Rating",
+    "position": {
+      "x": 2,
+      "y": 0
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+20% Critical Strike Rating\n+5% Critical Strike Damage",
+    "position": {
+      "x": 3,
+      "y": 0
+    },
+    "prerequisite": {
+      "x": 2,
+      "y": 0
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "+20% Attack and Cast Speed when at Full Mana\n+15% Max Mana",
+    "position": {
+      "x": 4,
+      "y": 0
+    },
+    "prerequisite": {
+      "x": 3,
+      "y": 1
+    },
+    "levelUpTime": 1
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+4% Max Mana",
+    "position": {
+      "x": 5,
+      "y": 0
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "8% of damage is taken from Mana before life",
+    "position": {
+      "x": 6,
+      "y": 0
+    },
+    "prerequisite": {
+      "x": 5,
+      "y": 0
+    },
+    "levelUpTime": 1
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+3% Attack and Cast Speed",
+    "position": {
+      "x": 1,
+      "y": 1
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+6% Attack and Cast Speed",
+    "position": {
+      "x": 2,
+      "y": 1
+    },
+    "prerequisite": {
+      "x": 1,
+      "y": 1
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+4% Max Mana",
+    "position": {
+      "x": 3,
+      "y": 1
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "+20% Spell Damage at Low Mana\n+15% Max Mana",
+    "position": {
+      "x": 4,
+      "y": 1
+    },
+    "prerequisite": {
+      "x": 3,
+      "y": 1
+    },
+    "levelUpTime": 1
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+10% Focus Blessing Duration\nRegenerates 0.4% Mana per second when Focus Blessing is active",
+    "position": {
+      "x": 5,
+      "y": 1
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "Max Focus Blessing Stacks +1\nRegenerates 0.4% Mana per second when Focus Blessing is active",
+    "position": {
+      "x": 6,
+      "y": 1
+    },
+    "prerequisite": {
+      "x": 5,
+      "y": 1
+    },
+    "levelUpTime": 1
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+3% Max Energy Shield",
+    "position": {
+      "x": 0,
+      "y": 2
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+6% Max Energy Shield",
+    "position": {
+      "x": 1,
+      "y": 2
+    },
+    "prerequisite": {
+      "x": 0,
+      "y": 2
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "1.5% Energy Shield Regain",
+    "position": {
+      "x": 2,
+      "y": 2
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+3% Energy Shield Regain",
+    "position": {
+      "x": 3,
+      "y": 2
+    },
+    "prerequisite": {
+      "x": 2,
+      "y": 2
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+4% Max Mana",
+    "position": {
+      "x": 4,
+      "y": 2
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+3% Sealed Mana Compensation",
+    "position": {
+      "x": 5,
+      "y": 2
+    },
+    "prerequisite": {
+      "x": 4,
+      "y": 2
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+15 Max Mana",
+    "position": {
+      "x": 1,
+      "y": 3
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+30 Max Mana\nRestores 6 Mana on hit. Interval: 0.1s",
+    "position": {
+      "x": 2,
+      "y": 3
+    },
+    "prerequisite": {
+      "x": 1,
+      "y": 3
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+3% Max Energy Shield",
+    "position": {
+      "x": 3,
+      "y": 3
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "Adds 2% of Max Mana as Energy Shield",
+    "position": {
+      "x": 4,
+      "y": 3
+    },
+    "prerequisite": {
+      "x": 3,
+      "y": 3
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+8 Intelligence",
+    "position": {
+      "x": 5,
+      "y": 3
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "+1 Mana per 6 Intelligence",
+    "position": {
+      "x": 6,
+      "y": 3
+    },
+    "prerequisite": {
+      "x": 5,
+      "y": 3
+    },
+    "levelUpTime": 1
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+6% Max Mana",
+    "position": {
+      "x": 0,
+      "y": 4
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+8% Max Mana",
+    "position": {
+      "x": 1,
+      "y": 4
+    },
+    "prerequisite": {
+      "x": 0,
+      "y": 4
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "Regenerates 0.6% Mana per second",
+    "position": {
+      "x": 2,
+      "y": 4
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+20% Mana Regeneration Speed",
+    "position": {
+      "x": 3,
+      "y": 4
+    },
+    "prerequisite": {
+      "x": 2,
+      "y": 4
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+9% Spell Damage\n+8% Skill Cost",
+    "position": {
+      "x": 5,
+      "y": 4
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "Consumes 4% of current Mana when casting Main Skills\n+8% additional Spell Damage",
+    "position": {
+      "x": 6,
+      "y": 4
+    },
+    "prerequisite": {
+      "x": 5,
+      "y": 4
+    },
+    "levelUpTime": 1
+  }
+]

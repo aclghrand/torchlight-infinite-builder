@@ -1,0 +1,301 @@
+[
+  {
+    "nodeType": "micro",
+    "rawAffix": "+9% damage",
+    "position": {
+      "x": 2,
+      "y": 0
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "+100% chance to gain Blur on defeat",
+    "position": {
+      "x": 3,
+      "y": 0
+    },
+    "prerequisite": {
+      "x": 2,
+      "y": 0
+    },
+    "levelUpTime": 1
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+6 Affliction inflicted per second\n+9% Damage Over Time",
+    "position": {
+      "x": 4,
+      "y": 0
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "Reaps 0.09 s of Damage Over Time when dealing Damage Over Time. The effect has a 6 s cooldown against the same target",
+    "position": {
+      "x": 5,
+      "y": 0
+    },
+    "prerequisite": {
+      "x": 4,
+      "y": 0
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "+1 Persistent Skill Level",
+    "position": {
+      "x": 6,
+      "y": 0
+    },
+    "prerequisite": {
+      "x": 5,
+      "y": 0
+    },
+    "levelUpTime": 1
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+2% Movement Speed\n+7% Skill Area",
+    "position": {
+      "x": 1,
+      "y": 1
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+3% Movement Speed\n+14% Skill Area",
+    "position": {
+      "x": 2,
+      "y": 1
+    },
+    "prerequisite": {
+      "x": 1,
+      "y": 1
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+9% Damage Over Time",
+    "position": {
+      "x": 3,
+      "y": 1
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+9% Damage Over Time\n+2% Skill Effect Duration",
+    "position": {
+      "x": 4,
+      "y": 1
+    },
+    "prerequisite": {
+      "x": 3,
+      "y": 1
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+5 Dexterity\n+5 Intelligence",
+    "position": {
+      "x": 5,
+      "y": 1
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+10 Dexterity\n+10 Intelligence",
+    "position": {
+      "x": 6,
+      "y": 1
+    },
+    "prerequisite": {
+      "x": 5,
+      "y": 1
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+9% damage",
+    "position": {
+      "x": 0,
+      "y": 2
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+18% damage",
+    "position": {
+      "x": 1,
+      "y": 2
+    },
+    "prerequisite": {
+      "x": 0,
+      "y": 2
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+3% Max Life",
+    "position": {
+      "x": 2,
+      "y": 2
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+5% Max Life\nRegenerates 0.5% Life per second",
+    "position": {
+      "x": 3,
+      "y": 2
+    },
+    "prerequisite": {
+      "x": 2,
+      "y": 2
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+3% Max Energy Shield",
+    "position": {
+      "x": 4,
+      "y": 2
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+4% Max Energy Shield\n+4% Energy Shield Charge Speed",
+    "position": {
+      "x": 5,
+      "y": 2
+    },
+    "prerequisite": {
+      "x": 4,
+      "y": 2
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+3% Attack and Cast Speed",
+    "position": {
+      "x": 1,
+      "y": 3
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+6% Attack and Cast Speed\n-4 Skill Cost",
+    "position": {
+      "x": 2,
+      "y": 3
+    },
+    "prerequisite": {
+      "x": 1,
+      "y": 3
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+9% Erosion Damage",
+    "position": {
+      "x": 3,
+      "y": 3
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+8% Deterioration Chance",
+    "position": {
+      "x": 4,
+      "y": 3
+    },
+    "prerequisite": {
+      "x": 3,
+      "y": 3
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+4% Deterioration Damage",
+    "position": {
+      "x": 5,
+      "y": 3
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "10% chance to inflict 1 additional stack(s) of Deterioration\n-15% additional Deterioration Duration",
+    "position": {
+      "x": 6,
+      "y": 3
+    },
+    "prerequisite": {
+      "x": 5,
+      "y": 3
+    },
+    "levelUpTime": 1
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+15% Critical Strike Rating",
+    "position": {
+      "x": 2,
+      "y": 4
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "medium",
+    "rawAffix": "+20% Critical Strike Rating\n+10% Critical Strike Damage",
+    "position": {
+      "x": 3,
+      "y": 4
+    },
+    "prerequisite": {
+      "x": 2,
+      "y": 4
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "micro",
+    "rawAffix": "+9% Erosion Damage",
+    "position": {
+      "x": 5,
+      "y": 4
+    },
+    "levelUpTime": 3
+  },
+  {
+    "nodeType": "legendary",
+    "rawAffix": "8% additional damage applied to Life",
+    "position": {
+      "x": 6,
+      "y": 4
+    },
+    "prerequisite": {
+      "x": 5,
+      "y": 4
+    },
+    "levelUpTime": 1
+  }
+]
