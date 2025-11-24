@@ -1,11 +1,11 @@
 import * as cheerio from "cheerio";
 
 interface TalentNode {
-  node_type: "micro" | "medium" | "legendary";
-  affixes: string[];
+  nodeType: "micro" | "medium" | "legendary";
+  affixLines: string[];
   position: { x: number; y: number };
   prerequisite?: { x: number; y: number };
-  level_up_time: number;
+  levelUpTime: number;
 }
 
 interface NodeData {
@@ -14,7 +14,7 @@ interface NodeData {
   gridX: number;
   gridY: number;
   type: "micro" | "medium" | "legendary";
-  affixes: string[];
+  affixLines: string[];
   levelUpTime: number;
 }
 
@@ -56,13 +56,13 @@ const parseAffixes = (htmlContent: string): string[] => {
   if (!text) return [];
 
   // Split by <br /> or <br> tags in the original HTML
-  const affixes = decoded
+  const affixLines = decoded
     .replace(/<div[^>]*>.*?<\/div>/gi, "") // Remove div tags
     .split(/<br\s*\/?>/i) // Split by <br> tags
     .map((line) => cheerio.load(line).text().trim())
     .filter((line) => line.length > 0);
 
-  return affixes;
+  return affixLines;
 };
 
 /**
@@ -113,7 +113,7 @@ const scrapeProfessionTree = async (
 
       // Extract affixes from tooltip
       const tooltipHtml = $image.attr("data-bs-title") || "";
-      const affixes = parseAffixes(tooltipHtml);
+      const affixLines = parseAffixes(tooltipHtml);
 
       // Find level-up time text element
       // The text is positioned slightly offset from the circle center
@@ -135,7 +135,7 @@ const scrapeProfessionTree = async (
         gridX,
         gridY,
         type,
-        affixes,
+        affixLines,
         levelUpTime,
       });
     });
@@ -164,14 +164,18 @@ const scrapeProfessionTree = async (
       // Find connection where this node's left edge is the endpoint (x1)
       const nodeLeftEdge = node.cx - CIRCLE_RADIUS;
 
-      const connection = $("g.connections line").filter((_, line) => {
-        const $line = $(line);
-        const x1 = parseFloat($line.attr("x1") || "0");
-        const y1 = parseFloat($line.attr("y1") || "0");
+      const connection = $("g.connections line")
+        .filter((_, line) => {
+          const $line = $(line);
+          const x1 = parseFloat($line.attr("x1") || "0");
+          const y1 = parseFloat($line.attr("y1") || "0");
 
-        // Check if this line connects to this node's left edge
-        return Math.abs(x1 - nodeLeftEdge) <= 5 && Math.abs(y1 - node.cy) <= 40;
-      }).first();
+          // Check if this line connects to this node's left edge
+          return (
+            Math.abs(x1 - nodeLeftEdge) <= 5 && Math.abs(y1 - node.cy) <= 40
+          );
+        })
+        .first();
 
       let prerequisite: { x: number; y: number } | undefined;
       if (connection.length > 0) {
@@ -186,11 +190,11 @@ const scrapeProfessionTree = async (
       }
 
       return {
-        node_type: node.type,
-        affixes: node.affixes,
+        nodeType: node.type,
+        affixLines: node.affixLines,
         position: { x: node.gridX, y: node.gridY },
         ...(prerequisite && { prerequisite }),
-        level_up_time: node.levelUpTime,
+        levelUpTime: node.levelUpTime,
       };
     });
 
