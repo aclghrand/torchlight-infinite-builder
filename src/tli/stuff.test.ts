@@ -1,17 +1,12 @@
 import { expect, test } from "vitest";
 import { calculateOffense, collectMods, Loadout, Configuration } from "./stuff";
 
-const initLoadout = (pl: Partial<Loadout>) => {
+const initLoadout = (pl: Partial<Loadout> = {}): Loadout => {
   return {
-    equipmentPage: {},
-    talentPage: {
-      affixes: [],
-      coreTalents: [],
-    },
-    divinityPage: {
-      slates: [],
-    },
-    customConfiguration: [],
+    equipmentPage: pl.equipmentPage || {},
+    talentPage: pl.talentPage || { affixes: [], coreTalents: [] },
+    divinityPage: pl.divinityPage || { slates: [] },
+    customConfiguration: pl.customConfiguration || [],
   };
 };
 
@@ -23,24 +18,17 @@ const defaultConfiguration: Configuration = {
 };
 
 test("calculate offense very basic", () => {
-  let loadout: Loadout = {
+  let loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
         affixes: [{ mods: [{ type: "GearBasePhysFlatDmg", value: 100 }] }],
       },
     },
-    talentPage: {
-      affixes: [],
-      coreTalents: [],
-    },
-    divinityPage: {
-      slates: [],
-    },
     customConfiguration: [
       { mods: [{ type: "DmgPct", value: 1, modType: "global", addn: false }] },
     ],
-  };
+  });
 
   let mods = collectMods(loadout);
   let res = calculateOffense(
@@ -56,19 +44,12 @@ test("calculate offense very basic", () => {
 });
 
 test("calculate offense multiple inc dmg", () => {
-  let loadout: Loadout = {
+  let loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
         affixes: [{ mods: [{ type: "GearBasePhysFlatDmg", value: 100 }] }],
       },
-    },
-    talentPage: {
-      affixes: [],
-      coreTalents: [],
-    },
-    divinityPage: {
-      slates: [],
     },
     customConfiguration: [
       {
@@ -78,7 +59,7 @@ test("calculate offense multiple inc dmg", () => {
         mods: [{ type: "DmgPct", value: 0.3, modType: "global", addn: false }],
       }, // +30% increased
     ],
-  };
+  });
 
   let mods = collectMods(loadout);
   let res = calculateOffense(
@@ -95,25 +76,18 @@ test("calculate offense multiple inc dmg", () => {
 });
 
 test("calculate offense multiple addn dmg", () => {
-  let loadout: Loadout = {
+  let loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
         affixes: [{ mods: [{ type: "GearBasePhysFlatDmg", value: 100 }] }],
       },
     },
-    talentPage: {
-      affixes: [],
-      coreTalents: [],
-    },
-    divinityPage: {
-      slates: [],
-    },
     customConfiguration: [
       { mods: [{ type: "DmgPct", value: 0.5, modType: "global", addn: true }] }, // +50% more
       { mods: [{ type: "DmgPct", value: 0.2, modType: "global", addn: true }] }, // +20% more
     ],
-  };
+  });
 
   let mods = collectMods(loadout);
   let res = calculateOffense(
@@ -131,19 +105,12 @@ test("calculate offense multiple addn dmg", () => {
 });
 
 test("calculate offense multiple mix inc and addn dmg", () => {
-  let loadout: Loadout = {
+  let loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
         affixes: [{ mods: [{ type: "GearBasePhysFlatDmg", value: 100 }] }],
       },
-    },
-    talentPage: {
-      affixes: [],
-      coreTalents: [],
-    },
-    divinityPage: {
-      slates: [],
     },
     customConfiguration: [
       {
@@ -154,7 +121,7 @@ test("calculate offense multiple mix inc and addn dmg", () => {
       }, // +30% increased
       { mods: [{ type: "DmgPct", value: 0.2, modType: "global", addn: true }] }, // +20% more
     ],
-  };
+  });
 
   let mods = collectMods(loadout);
   let res = calculateOffense(
@@ -172,26 +139,19 @@ test("calculate offense multiple mix inc and addn dmg", () => {
 });
 
 test("calculate offense atk dmg mod", () => {
-  let loadout: Loadout = {
+  let loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
         affixes: [{ mods: [{ type: "GearBasePhysFlatDmg", value: 100 }] }],
       },
     },
-    talentPage: {
-      affixes: [],
-      coreTalents: [],
-    },
-    divinityPage: {
-      slates: [],
-    },
     customConfiguration: [
       {
         mods: [{ type: "DmgPct", value: 0.5, modType: "attack", addn: false }],
       }, // +50% increased attack damage
     ],
-  };
+  });
 
   let mods = collectMods(loadout);
   let res = calculateOffense(
@@ -208,24 +168,17 @@ test("calculate offense atk dmg mod", () => {
 });
 
 test("calculate offense spell dmg mod doesn't affect attack skill", () => {
-  let loadout: Loadout = {
+  let loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
         affixes: [{ mods: [{ type: "GearBasePhysFlatDmg", value: 100 }] }],
       },
     },
-    talentPage: {
-      affixes: [],
-      coreTalents: [],
-    },
-    divinityPage: {
-      slates: [],
-    },
     customConfiguration: [
       { mods: [{ type: "DmgPct", value: 0.5, modType: "spell", addn: false }] }, // +50% increased spell damage
     ],
-  };
+  });
 
   let mods = collectMods(loadout);
   let res = calculateOffense(
@@ -243,7 +196,7 @@ test("calculate offense spell dmg mod doesn't affect attack skill", () => {
 });
 
 test("calculate offense elemental damage", () => {
-  let loadout: Loadout = {
+  let loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -262,13 +215,6 @@ test("calculate offense elemental damage", () => {
         ],
       },
     },
-    talentPage: {
-      affixes: [],
-      coreTalents: [],
-    },
-    divinityPage: {
-      slates: [],
-    },
     customConfiguration: [
       {
         mods: [
@@ -276,7 +222,7 @@ test("calculate offense elemental damage", () => {
         ],
       }, // +50% elemental
     ],
-  };
+  });
 
   let mods = collectMods(loadout);
   let res = calculateOffense(
@@ -296,7 +242,7 @@ test("calculate offense elemental damage", () => {
 });
 
 test("calculate offense cold damage", () => {
-  let loadout: Loadout = {
+  let loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -314,17 +260,10 @@ test("calculate offense cold damage", () => {
         ],
       },
     },
-    talentPage: {
-      affixes: [],
-      coreTalents: [],
-    },
-    divinityPage: {
-      slates: [],
-    },
     customConfiguration: [
       { mods: [{ type: "DmgPct", value: 0.8, modType: "cold", addn: false }] }, // +80% cold damage
     ],
-  };
+  });
 
   let mods = collectMods(loadout);
   let res = calculateOffense(
@@ -343,7 +282,7 @@ test("calculate offense cold damage", () => {
 });
 
 test("calculate offense affixes from equipment, talents, and divinities combine", () => {
-  let loadout: Loadout = {
+  let loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -380,8 +319,7 @@ test("calculate offense affixes from equipment, talents, and divinities combine"
         },
       ],
     },
-    customConfiguration: [],
-  };
+  });
 
   let mods = collectMods(loadout);
   let res = calculateOffense(
@@ -400,22 +338,14 @@ test("calculate offense affixes from equipment, talents, and divinities combine"
 });
 
 test("calculate offense with fervor enabled default points", () => {
-  let loadout: Loadout = {
+  let loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
         affixes: [{ mods: [{ type: "GearBasePhysFlatDmg", value: 100 }] }],
       },
     },
-    talentPage: {
-      affixes: [],
-      coreTalents: [],
-    },
-    divinityPage: {
-      slates: [],
-    },
-    customConfiguration: [],
-  };
+  });
 
   let configuration: Configuration = {
     fervor: {
@@ -443,22 +373,14 @@ test("calculate offense with fervor enabled default points", () => {
 });
 
 test("calculate offense with fervor enabled custom points", () => {
-  let loadout: Loadout = {
+  let loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
         affixes: [{ mods: [{ type: "GearBasePhysFlatDmg", value: 100 }] }],
       },
     },
-    talentPage: {
-      affixes: [],
-      coreTalents: [],
-    },
-    divinityPage: {
-      slates: [],
-    },
-    customConfiguration: [],
-  };
+  });
 
   let configuration: Configuration = {
     fervor: {
@@ -486,22 +408,14 @@ test("calculate offense with fervor enabled custom points", () => {
 });
 
 test("calculate offense with fervor disabled", () => {
-  let loadout: Loadout = {
+  let loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
         affixes: [{ mods: [{ type: "GearBasePhysFlatDmg", value: 100 }] }],
       },
     },
-    talentPage: {
-      affixes: [],
-      coreTalents: [],
-    },
-    divinityPage: {
-      slates: [],
-    },
-    customConfiguration: [],
-  };
+  });
 
   let configuration: Configuration = {
     fervor: {
@@ -528,7 +442,7 @@ test("calculate offense with fervor disabled", () => {
 });
 
 test("calculate offense with fervor and other crit rating affixes", () => {
-  let loadout: Loadout = {
+  let loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -538,15 +452,7 @@ test("calculate offense with fervor and other crit rating affixes", () => {
         ],
       },
     },
-    talentPage: {
-      affixes: [],
-      coreTalents: [],
-    },
-    divinityPage: {
-      slates: [],
-    },
-    customConfiguration: [],
-  };
+  });
 
   let configuration: Configuration = {
     fervor: {
@@ -576,7 +482,7 @@ test("calculate offense with fervor and other crit rating affixes", () => {
 });
 
 test("calculate offense with fervor and single FervorEff modifier", () => {
-  let loadout: Loadout = {
+  let loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -586,15 +492,7 @@ test("calculate offense with fervor and single FervorEff modifier", () => {
         ],
       },
     },
-    talentPage: {
-      affixes: [],
-      coreTalents: [],
-    },
-    divinityPage: {
-      slates: [],
-    },
-    customConfiguration: [],
-  };
+  });
 
   let configuration: Configuration = {
     fervor: {
@@ -622,7 +520,7 @@ test("calculate offense with fervor and single FervorEff modifier", () => {
 });
 
 test("calculate offense with fervor and multiple FervorEff modifiers stacking", () => {
-  let loadout: Loadout = {
+  let loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -638,11 +536,7 @@ test("calculate offense with fervor and multiple FervorEff modifiers stacking", 
       ],
       coreTalents: [],
     },
-    divinityPage: {
-      slates: [],
-    },
-    customConfiguration: [],
-  };
+  });
 
   let configuration: Configuration = {
     fervor: {
@@ -671,7 +565,7 @@ test("calculate offense with fervor and multiple FervorEff modifiers stacking", 
 });
 
 test("calculate offense with fervor and FervorEff with custom fervor points", () => {
-  let loadout: Loadout = {
+  let loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -681,15 +575,7 @@ test("calculate offense with fervor and FervorEff with custom fervor points", ()
         ],
       },
     },
-    talentPage: {
-      affixes: [],
-      coreTalents: [],
-    },
-    divinityPage: {
-      slates: [],
-    },
-    customConfiguration: [],
-  };
+  });
 
   let configuration: Configuration = {
     fervor: {
@@ -717,7 +603,7 @@ test("calculate offense with fervor and FervorEff with custom fervor points", ()
 });
 
 test("calculate offense with FervorEff but fervor disabled", () => {
-  let loadout: Loadout = {
+  let loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -727,15 +613,7 @@ test("calculate offense with FervorEff but fervor disabled", () => {
         ],
       },
     },
-    talentPage: {
-      affixes: [],
-      coreTalents: [],
-    },
-    divinityPage: {
-      slates: [],
-    },
-    customConfiguration: [],
-  };
+  });
 
   let configuration: Configuration = {
     fervor: {
@@ -762,7 +640,7 @@ test("calculate offense with FervorEff but fervor disabled", () => {
 });
 
 test("calculate offense with CritDmgPerFervor single affix", () => {
-  let loadout: Loadout = {
+  let loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -772,15 +650,7 @@ test("calculate offense with CritDmgPerFervor single affix", () => {
         ],
       },
     },
-    talentPage: {
-      affixes: [],
-      coreTalents: [],
-    },
-    divinityPage: {
-      slates: [],
-    },
-    customConfiguration: [],
-  };
+  });
 
   let configuration: Configuration = {
     fervor: {
@@ -810,7 +680,7 @@ test("calculate offense with CritDmgPerFervor single affix", () => {
 });
 
 test("calculate offense with multiple CritDmgPerFervor affixes stacking", () => {
-  let loadout: Loadout = {
+  let loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -826,11 +696,7 @@ test("calculate offense with multiple CritDmgPerFervor affixes stacking", () => 
       ],
       coreTalents: [],
     },
-    divinityPage: {
-      slates: [],
-    },
-    customConfiguration: [],
-  };
+  });
 
   let configuration: Configuration = {
     fervor: {
@@ -860,7 +726,7 @@ test("calculate offense with multiple CritDmgPerFervor affixes stacking", () => 
 });
 
 test("calculate offense with CritDmgPerFervor with custom fervor points", () => {
-  let loadout: Loadout = {
+  let loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -870,15 +736,7 @@ test("calculate offense with CritDmgPerFervor with custom fervor points", () => 
         ],
       },
     },
-    talentPage: {
-      affixes: [],
-      coreTalents: [],
-    },
-    divinityPage: {
-      slates: [],
-    },
-    customConfiguration: [],
-  };
+  });
 
   let configuration: Configuration = {
     fervor: {
@@ -908,7 +766,7 @@ test("calculate offense with CritDmgPerFervor with custom fervor points", () => 
 });
 
 test("calculate offense with CritDmgPerFervor but fervor disabled", () => {
-  let loadout: Loadout = {
+  let loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -918,15 +776,7 @@ test("calculate offense with CritDmgPerFervor but fervor disabled", () => {
         ],
       },
     },
-    talentPage: {
-      affixes: [],
-      coreTalents: [],
-    },
-    divinityPage: {
-      slates: [],
-    },
-    customConfiguration: [],
-  };
+  });
 
   let configuration: Configuration = {
     fervor: {
@@ -954,7 +804,7 @@ test("calculate offense with CritDmgPerFervor but fervor disabled", () => {
 });
 
 test("calculate offense with CritDmgPerFervor and other crit damage modifiers", () => {
-  let loadout: Loadout = {
+  let loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -974,15 +824,7 @@ test("calculate offense with CritDmgPerFervor and other crit damage modifiers", 
         ],
       },
     },
-    talentPage: {
-      affixes: [],
-      coreTalents: [],
-    },
-    divinityPage: {
-      slates: [],
-    },
-    customConfiguration: [],
-  };
+  });
 
   let configuration: Configuration = {
     fervor: {
