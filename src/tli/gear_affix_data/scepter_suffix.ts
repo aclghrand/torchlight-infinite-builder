@@ -72,7 +72,7 @@ export const SCEPTER_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "Max Terra Quantity +1\n +5% additional damage",
+    "template": "Max Terra Quantity +1\n+5% additional damage",
     "valueRanges": [],
     "rawAffix": "Max Terra Quantity `+1`<> `+5`% additional damage"
   },
@@ -147,7 +147,7 @@ export const SCEPTER_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "1",
-    "template": "Max Terra Quantity +1\n +1% additional damage",
+    "template": "Max Terra Quantity +1\n+1% additional damage",
     "valueRanges": [],
     "rawAffix": "Max Terra Quantity `+1`<> `+1`% additional damage"
   },
@@ -206,7 +206,7 @@ export const SCEPTER_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "0",
-    "template": "+{0}% Cast Speed\n +{1}% Minion Cast Speed",
+    "template": "+{0}% Cast Speed\n+{1}% Minion Cast Speed",
     "valueRanges": [
       {
         "min": 37,
@@ -339,7 +339,7 @@ export const SCEPTER_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "1",
-    "template": "+{0}% Cast Speed\n +{1}% Minion Cast Speed",
+    "template": "+{0}% Cast Speed\n+{1}% Minion Cast Speed",
     "valueRanges": [
       {
         "min": 26,

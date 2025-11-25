@@ -8,7 +8,7 @@ export const ONE_HANDED_SWORD_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "+120% Fearless Aura\n -20% additional Fearless Sealed Mana Compensation",
+    "template": "+120% Fearless Aura\n-20% additional Fearless Sealed Mana Compensation",
     "valueRanges": [],
     "rawAffix": "`+120`% Fearless Aura<> `-20`% additional Fearless Sealed Mana Compensation"
   },
@@ -19,7 +19,7 @@ export const ONE_HANDED_SWORD_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "+15% additional Deterioration Damage\n 10% chance to inflict 1additional stack(s) of Deterioration",
+    "template": "+15% additional Deterioration Damage\n10% chance to inflict 1additional stack(s) of Deterioration",
     "valueRanges": [],
     "rawAffix": "`+15`% additional Deterioration Damage<> `10`% chance to inflict `1`additional stack(s) of Deterioration"
   },
@@ -30,7 +30,7 @@ export const ONE_HANDED_SWORD_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "+25% Elemental Damage for the gear\n -25% gear Physical Damage",
+    "template": "+25% Elemental Damage for the gear\n-25% gear Physical Damage",
     "valueRanges": [],
     "rawAffix": "`+25`% Elemental Damage for the gear<> `-25`% gear Physical Damage"
   },
@@ -41,7 +41,7 @@ export const ONE_HANDED_SWORD_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "+80% gear Physical Damage\n -20% Attack Critical Strike Rating for this gear",
+    "template": "+80% gear Physical Damage\n-20% Attack Critical Strike Rating for this gear",
     "valueRanges": [],
     "rawAffix": "`+80`% gear Physical Damage<> `-20`% Attack Critical Strike Rating for this gear"
   },

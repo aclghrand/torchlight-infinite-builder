@@ -8,7 +8,7 @@ export const WAND_BASE_STATS_AFFIXES = [
     "affixType": "Base Stats",
     "craftingPool": "",
     "tier": "",
-    "template": "500Critical Strike Rating\n 1.2Attack Speed",
+    "template": "500Critical Strike Rating\n1.2Attack Speed",
     "valueRanges": [],
     "rawAffix": "`500`Critical Strike Rating<> `1.2`Attack Speed"
   },
@@ -19,7 +19,7 @@ export const WAND_BASE_STATS_AFFIXES = [
     "affixType": "Base Stats",
     "craftingPool": "",
     "tier": "",
-    "template": "500Critical Strike Rating\n 1.2Attack Speed",
+    "template": "500Critical Strike Rating\n1.2Attack Speed",
     "valueRanges": [],
     "rawAffix": "`500`Critical Strike Rating<> `1.2`Attack Speed"
   },
@@ -30,7 +30,7 @@ export const WAND_BASE_STATS_AFFIXES = [
     "affixType": "Base Stats",
     "craftingPool": "",
     "tier": "",
-    "template": "500Critical Strike Rating\n 1.2Attack Speed",
+    "template": "500Critical Strike Rating\n1.2Attack Speed",
     "valueRanges": [],
     "rawAffix": "`500`Critical Strike Rating<> `1.2`Attack Speed"
   },
@@ -41,7 +41,7 @@ export const WAND_BASE_STATS_AFFIXES = [
     "affixType": "Base Stats",
     "craftingPool": "",
     "tier": "",
-    "template": "500Critical Strike Rating\n 1.2Attack Speed",
+    "template": "500Critical Strike Rating\n1.2Attack Speed",
     "valueRanges": [],
     "rawAffix": "`500`Critical Strike Rating<> `1.2`Attack Speed"
   },
@@ -52,7 +52,7 @@ export const WAND_BASE_STATS_AFFIXES = [
     "affixType": "Base Stats",
     "craftingPool": "",
     "tier": "",
-    "template": "500Critical Strike Rating\n 1.2Attack Speed",
+    "template": "500Critical Strike Rating\n1.2Attack Speed",
     "valueRanges": [],
     "rawAffix": "`500`Critical Strike Rating<> `1.2`Attack Speed"
   },
@@ -63,7 +63,7 @@ export const WAND_BASE_STATS_AFFIXES = [
     "affixType": "Base Stats",
     "craftingPool": "",
     "tier": "",
-    "template": "500Critical Strike Rating\n 1.2Attack Speed",
+    "template": "500Critical Strike Rating\n1.2Attack Speed",
     "valueRanges": [],
     "rawAffix": "`500`Critical Strike Rating<> `1.2`Attack Speed"
   },
@@ -74,7 +74,7 @@ export const WAND_BASE_STATS_AFFIXES = [
     "affixType": "Base Stats",
     "craftingPool": "",
     "tier": "",
-    "template": "500Critical Strike Rating\n 1.2Attack Speed",
+    "template": "500Critical Strike Rating\n1.2Attack Speed",
     "valueRanges": [],
     "rawAffix": "`500`Critical Strike Rating<> `1.2`Attack Speed"
   },
@@ -85,7 +85,7 @@ export const WAND_BASE_STATS_AFFIXES = [
     "affixType": "Base Stats",
     "craftingPool": "",
     "tier": "",
-    "template": "500Critical Strike Rating\n 1.2Attack Speed",
+    "template": "500Critical Strike Rating\n1.2Attack Speed",
     "valueRanges": [],
     "rawAffix": "`500`Critical Strike Rating<> `1.2`Attack Speed"
   },
@@ -96,7 +96,7 @@ export const WAND_BASE_STATS_AFFIXES = [
     "affixType": "Base Stats",
     "craftingPool": "",
     "tier": "",
-    "template": "500Critical Strike Rating\n 1.2Attack Speed",
+    "template": "500Critical Strike Rating\n1.2Attack Speed",
     "valueRanges": [],
     "rawAffix": "`500`Critical Strike Rating<> `1.2`Attack Speed"
   },
@@ -107,7 +107,7 @@ export const WAND_BASE_STATS_AFFIXES = [
     "affixType": "Base Stats",
     "craftingPool": "",
     "tier": "",
-    "template": "500Critical Strike Rating\n 1.2Attack Speed",
+    "template": "500Critical Strike Rating\n1.2Attack Speed",
     "valueRanges": [],
     "rawAffix": "`500`Critical Strike Rating<> `1.2`Attack Speed"
   },
@@ -118,7 +118,7 @@ export const WAND_BASE_STATS_AFFIXES = [
     "affixType": "Base Stats",
     "craftingPool": "",
     "tier": "",
-    "template": "500Critical Strike Rating\n 1.2Attack Speed",
+    "template": "500Critical Strike Rating\n1.2Attack Speed",
     "valueRanges": [],
     "rawAffix": "`500`Critical Strike Rating<> `1.2`Attack Speed"
   },
@@ -129,7 +129,7 @@ export const WAND_BASE_STATS_AFFIXES = [
     "affixType": "Base Stats",
     "craftingPool": "",
     "tier": "",
-    "template": "500Critical Strike Rating\n 1.2Attack Speed",
+    "template": "500Critical Strike Rating\n1.2Attack Speed",
     "valueRanges": [],
     "rawAffix": "`500`Critical Strike Rating<> `1.2`Attack Speed"
   },
@@ -140,7 +140,7 @@ export const WAND_BASE_STATS_AFFIXES = [
     "affixType": "Base Stats",
     "craftingPool": "",
     "tier": "",
-    "template": "500Critical Strike Rating\n 1.2Attack Speed",
+    "template": "500Critical Strike Rating\n1.2Attack Speed",
     "valueRanges": [],
     "rawAffix": "`500`Critical Strike Rating<> `1.2`Attack Speed"
   },
@@ -151,7 +151,7 @@ export const WAND_BASE_STATS_AFFIXES = [
     "affixType": "Base Stats",
     "craftingPool": "",
     "tier": "",
-    "template": "500Critical Strike Rating\n 1.2Attack Speed",
+    "template": "500Critical Strike Rating\n1.2Attack Speed",
     "valueRanges": [],
     "rawAffix": "`500`Critical Strike Rating<> `1.2`Attack Speed"
   },
@@ -162,7 +162,7 @@ export const WAND_BASE_STATS_AFFIXES = [
     "affixType": "Base Stats",
     "craftingPool": "",
     "tier": "",
-    "template": "500Critical Strike Rating\n 1.2Attack Speed",
+    "template": "500Critical Strike Rating\n1.2Attack Speed",
     "valueRanges": [],
     "rawAffix": "`500`Critical Strike Rating<> `1.2`Attack Speed"
   },
@@ -173,7 +173,7 @@ export const WAND_BASE_STATS_AFFIXES = [
     "affixType": "Base Stats",
     "craftingPool": "",
     "tier": "",
-    "template": "500Critical Strike Rating\n 1.2Attack Speed",
+    "template": "500Critical Strike Rating\n1.2Attack Speed",
     "valueRanges": [],
     "rawAffix": "`500`Critical Strike Rating<> `1.2`Attack Speed"
   },
@@ -184,7 +184,7 @@ export const WAND_BASE_STATS_AFFIXES = [
     "affixType": "Base Stats",
     "craftingPool": "",
     "tier": "",
-    "template": "500Critical Strike Rating\n 1.2Attack Speed",
+    "template": "500Critical Strike Rating\n1.2Attack Speed",
     "valueRanges": [],
     "rawAffix": "`500`Critical Strike Rating<> `1.2`Attack Speed"
   },
@@ -195,7 +195,7 @@ export const WAND_BASE_STATS_AFFIXES = [
     "affixType": "Base Stats",
     "craftingPool": "",
     "tier": "",
-    "template": "500Critical Strike Rating\n 1.2Attack Speed",
+    "template": "500Critical Strike Rating\n1.2Attack Speed",
     "valueRanges": [],
     "rawAffix": "`500`Critical Strike Rating<> `1.2`Attack Speed"
   },
@@ -206,7 +206,7 @@ export const WAND_BASE_STATS_AFFIXES = [
     "affixType": "Base Stats",
     "craftingPool": "",
     "tier": "",
-    "template": "500Critical Strike Rating\n 1.2Attack Speed",
+    "template": "500Critical Strike Rating\n1.2Attack Speed",
     "valueRanges": [],
     "rawAffix": "`500`Critical Strike Rating<> `1.2`Attack Speed"
   },
@@ -217,7 +217,7 @@ export const WAND_BASE_STATS_AFFIXES = [
     "affixType": "Base Stats",
     "craftingPool": "",
     "tier": "",
-    "template": "500Critical Strike Rating\n 1.2Attack Speed",
+    "template": "500Critical Strike Rating\n1.2Attack Speed",
     "valueRanges": [],
     "rawAffix": "`500`Critical Strike Rating<> `1.2`Attack Speed"
   }

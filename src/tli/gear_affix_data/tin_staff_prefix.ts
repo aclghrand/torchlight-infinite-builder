@@ -40,7 +40,7 @@ export const TIN_STAFF_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "+4Jumps\n +{0}% additional damage",
+    "template": "+4Jumps\n+{0}% additional damage",
     "valueRanges": [
       {
         "min": 25,
@@ -137,7 +137,7 @@ export const TIN_STAFF_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "1",
-    "template": "+4Jumps\n +{0}% additional damage",
+    "template": "+4Jumps\n+{0}% additional damage",
     "valueRanges": [
       {
         "min": 18,

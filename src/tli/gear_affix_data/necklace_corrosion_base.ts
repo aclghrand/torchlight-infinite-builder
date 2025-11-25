@@ -168,7 +168,7 @@ export const NECKLACE_CORROSION_BASE_AFFIXES = [
     "affixType": "Corrosion Base",
     "craftingPool": "",
     "tier": "0",
-    "template": "Immune to Ignite\n Immune to Numbed",
+    "template": "Immune to Ignite\nImmune to Numbed",
     "valueRanges": [],
     "rawAffix": "Immune to Ignite<> Immune to Numbed"
   },
@@ -179,7 +179,7 @@ export const NECKLACE_CORROSION_BASE_AFFIXES = [
     "affixType": "Corrosion Base",
     "craftingPool": "",
     "tier": "0",
-    "template": "Immune to Frostbite\n Immune to Numbed",
+    "template": "Immune to Frostbite\nImmune to Numbed",
     "valueRanges": [],
     "rawAffix": "Immune to Frostbite<> Immune to Numbed"
   },

@@ -8,7 +8,7 @@ export const SHIELD_DEX_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "+15% Armor Effective Rate for Non-Physical Damage\n +2400Gear Armor",
+    "template": "+15% Armor Effective Rate for Non-Physical Damage\n+2400Gear Armor",
     "valueRanges": [],
     "rawAffix": "`+15`% Armor Effective Rate for Non-Physical Damage<> `+2400`Gear Armor"
   },
@@ -41,7 +41,7 @@ export const SHIELD_DEX_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "Converts 25% of Physical Damage taken to random Elemental Damage\n -25% Defense",
+    "template": "Converts 25% of Physical Damage taken to random Elemental Damage\n-25% Defense",
     "valueRanges": [],
     "rawAffix": "Converts `25`% of Physical Damage taken to random Elemental Damage<> `-25`% Defense"
   },
@@ -52,7 +52,7 @@ export const SHIELD_DEX_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "Energy Shield starts to Charge when Blocking\n +40% Energy Shield Charge Speed",
+    "template": "Energy Shield starts to Charge when Blocking\n+40% Energy Shield Charge Speed",
     "valueRanges": [],
     "rawAffix": "Energy Shield starts to Charge when Blocking<> `+40`% Energy Shield Charge Speed"
   },
@@ -74,7 +74,7 @@ export const SHIELD_DEX_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "Spell Damage will not further reduce Evasion by default\n +1680gear Evasion",
+    "template": "Spell Damage will not further reduce Evasion by default\n+1680gear Evasion",
     "valueRanges": [],
     "rawAffix": "Spell Damage will not further reduce Evasion by default<> `+1680`gear Evasion"
   },

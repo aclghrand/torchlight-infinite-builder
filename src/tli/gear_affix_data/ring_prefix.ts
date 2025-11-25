@@ -72,7 +72,7 @@ export const RING_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "Max Agility Blessing Stacks +1\n +5% additional damage",
+    "template": "Max Agility Blessing Stacks +1\n+5% additional damage",
     "valueRanges": [],
     "rawAffix": "Max Agility Blessing Stacks `+1`<> `+5`% additional damage"
   },
@@ -83,7 +83,7 @@ export const RING_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "Max Focus Blessing Stacks +1\n +5% additional damage",
+    "template": "Max Focus Blessing Stacks +1\n+5% additional damage",
     "valueRanges": [],
     "rawAffix": "Max Focus Blessing Stacks `+1`<> `+5`% additional damage"
   },
@@ -94,7 +94,7 @@ export const RING_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "Max Tenacity Blessing Stacks +1\n +5% additional damage",
+    "template": "Max Tenacity Blessing Stacks +1\n+5% additional damage",
     "valueRanges": [],
     "rawAffix": "Max Tenacity Blessing Stacks `+1`<> `+5`% additional damage"
   },

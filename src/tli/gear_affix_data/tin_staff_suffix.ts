@@ -72,7 +72,7 @@ export const TIN_STAFF_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "+4Beams\n +{0}% additional damage",
+    "template": "+4Beams\n+{0}% additional damage",
     "valueRanges": [
       {
         "min": 20,
@@ -88,7 +88,7 @@ export const TIN_STAFF_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "Max Terra Quantity +2\n +10% additional damage",
+    "template": "Max Terra Quantity +2\n+10% additional damage",
     "valueRanges": [],
     "rawAffix": "Max Terra Quantity `+2`<> `+10`% additional damage"
   },
@@ -163,7 +163,7 @@ export const TIN_STAFF_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "1",
-    "template": "+4Beams\n +{0}% additional damage",
+    "template": "+4Beams\n+{0}% additional damage",
     "valueRanges": [
       {
         "min": 5,
@@ -179,7 +179,7 @@ export const TIN_STAFF_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "1",
-    "template": "Max Terra Quantity +2\n +1% additional damage",
+    "template": "Max Terra Quantity +2\n+1% additional damage",
     "valueRanges": [],
     "rawAffix": "Max Terra Quantity `+2`<> `+1`% additional damage"
   },
@@ -478,7 +478,7 @@ export const TIN_STAFF_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Basic",
     "tier": "0",
-    "template": "+{0}% Cast Speed\n +{1}% Minion Cast Speed",
+    "template": "+{0}% Cast Speed\n+{1}% Minion Cast Speed",
     "valueRanges": [
       {
         "min": 73,
@@ -578,7 +578,7 @@ export const TIN_STAFF_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Basic",
     "tier": "1",
-    "template": "+{0}% Cast Speed\n +{1}% Minion Cast Speed",
+    "template": "+{0}% Cast Speed\n+{1}% Minion Cast Speed",
     "valueRanges": [
       {
         "min": 51,

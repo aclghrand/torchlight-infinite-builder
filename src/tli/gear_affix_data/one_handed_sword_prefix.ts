@@ -88,7 +88,7 @@ export const ONE_HANDED_SWORD_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "Adds {0}- {1}Elemental Damage to the gear\n -100% gear Physical Damage",
+    "template": "Adds {0}- {1}Elemental Damage to the gear\n-100% gear Physical Damage",
     "valueRanges": [
       {
         "min": 62,
@@ -183,7 +183,7 @@ export const ONE_HANDED_SWORD_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "1",
-    "template": "Adds {0}- {1}Elemental Damage to the gear\n -100% gear Physical Damage",
+    "template": "Adds {0}- {1}Elemental Damage to the gear\n-100% gear Physical Damage",
     "valueRanges": [
       {
         "min": 47,

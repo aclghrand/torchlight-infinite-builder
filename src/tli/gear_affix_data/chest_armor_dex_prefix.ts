@@ -119,7 +119,7 @@ export const CHEST_ARMOR_DEX_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "You can cast 1additional Curses\n +{0}% curse effect",
+    "template": "You can cast 1additional Curses\n+{0}% curse effect",
     "valueRanges": [
       {
         "min": 8,

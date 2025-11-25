@@ -24,7 +24,7 @@ export const BELT_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "+{0}% Critical Strike Rating against Traumatized enemies\n -30% additional Hit Damage",
+    "template": "+{0}% Critical Strike Rating against Traumatized enemies\n-30% additional Hit Damage",
     "valueRanges": [
       {
         "min": 386,
@@ -56,7 +56,7 @@ export const BELT_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "+1Ignite limit\n +5% additional Ignite Damage",
+    "template": "+1Ignite limit\n+5% additional Ignite Damage",
     "valueRanges": [],
     "rawAffix": "`+1`Ignite limit<> `+5`% additional Ignite Damage"
   },
@@ -105,7 +105,7 @@ export const BELT_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "1",
-    "template": "+{0}% Critical Strike Rating against Traumatized enemies\n -30% additional Hit Damage",
+    "template": "+{0}% Critical Strike Rating against Traumatized enemies\n-30% additional Hit Damage",
     "valueRanges": [
       {
         "min": 271,
@@ -282,7 +282,7 @@ export const BELT_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Advanced",
     "tier": "0",
-    "template": "Gains a stack of Fortitude when using a Melee Skill\n {0}% additional damage taken",
+    "template": "Gains a stack of Fortitude when using a Melee Skill\n{0}% additional damage taken",
     "valueRanges": [
       {
         "min": -8,
@@ -410,7 +410,7 @@ export const BELT_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Advanced",
     "tier": "1",
-    "template": "Gains a stack of Fortitude when using a Melee Skill\n {0}% additional damage taken",
+    "template": "Gains a stack of Fortitude when using a Melee Skill\n{0}% additional damage taken",
     "valueRanges": [
       {
         "min": -5,

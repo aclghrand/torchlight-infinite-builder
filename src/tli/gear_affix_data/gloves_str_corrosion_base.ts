@@ -8,7 +8,7 @@ export const GLOVES_STR_CORROSION_BASE_AFFIXES = [
     "affixType": "Corrosion Base",
     "craftingPool": "",
     "tier": "0",
-    "template": "Lucky Critical Strike\n {0}Critical Strike Rating",
+    "template": "Lucky Critical Strike\n{0}Critical Strike Rating",
     "valueRanges": [
       {
         "min": -150,

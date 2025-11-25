@@ -83,7 +83,7 @@ export const SHIELD_INT_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "Max Sentry Quantity +1\n +5% additional damage",
+    "template": "Max Sentry Quantity +1\n+5% additional damage",
     "valueRanges": [],
     "rawAffix": "Max Sentry Quantity `+1`<> `+5`% additional damage"
   },
@@ -196,7 +196,7 @@ export const SHIELD_INT_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "0",
-    "template": "+{0}% Attack and Cast Speed\n +{1}% Minion Attack and Cast Speed",
+    "template": "+{0}% Attack and Cast Speed\n+{1}% Minion Attack and Cast Speed",
     "valueRanges": [
       {
         "min": 34,
@@ -307,7 +307,7 @@ export const SHIELD_INT_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "1",
-    "template": "+{0}% Attack and Cast Speed\n +{1}% Minion Attack and Cast Speed",
+    "template": "+{0}% Attack and Cast Speed\n+{1}% Minion Attack and Cast Speed",
     "valueRanges": [
       {
         "min": 26,

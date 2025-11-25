@@ -88,7 +88,7 @@ export const TWO_HANDED_AXE_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "+60% Steep Strike chance.\n +{0}% additional Steep Strike Damage",
+    "template": "+60% Steep Strike chance.\n+{0}% additional Steep Strike Damage",
     "valueRanges": [
       {
         "min": 49,
@@ -195,7 +195,7 @@ export const TWO_HANDED_AXE_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "1",
-    "template": "+46% Steep Strike chance.\n +{0}% additional Steep Strike Damage",
+    "template": "+46% Steep Strike chance.\n+{0}% additional Steep Strike Damage",
     "valueRanges": [
       {
         "min": 35,
@@ -302,7 +302,7 @@ export const TWO_HANDED_AXE_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "0",
-    "template": "+{0}% Attack and Cast Speed\n +{1}% Minion Attack and Cast Speed",
+    "template": "+{0}% Attack and Cast Speed\n+{1}% Minion Attack and Cast Speed",
     "valueRanges": [
       {
         "min": 66,
@@ -386,7 +386,7 @@ export const TWO_HANDED_AXE_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "1",
-    "template": "+{0}% Attack and Cast Speed\n +{1}% Minion Attack and Cast Speed",
+    "template": "+{0}% Attack and Cast Speed\n+{1}% Minion Attack and Cast Speed",
     "valueRanges": [
       {
         "min": 51,

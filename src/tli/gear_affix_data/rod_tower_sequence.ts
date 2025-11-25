@@ -19,7 +19,7 @@ export const ROD_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "-80Minion Critical Strike Rating\n +200% Minion Critical Strike Damage",
+    "template": "-80Minion Critical Strike Rating\n+200% Minion Critical Strike Damage",
     "valueRanges": [],
     "rawAffix": "`-80`Minion Critical Strike Rating<> `+200`% Minion Critical Strike Damage"
   },
@@ -30,7 +30,7 @@ export const ROD_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "+120% Radical Order Aura Effect\n -20% additional Radical Order Sealed Mana Compensation",
+    "template": "+120% Radical Order Aura Effect\n-20% additional Radical Order Sealed Mana Compensation",
     "valueRanges": [],
     "rawAffix": "`+120`% Radical Order Aura Effect<> `-20`% additional Radical Order Sealed Mana Compensation"
   },
@@ -63,7 +63,7 @@ export const ROD_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "Triggers Lv. 10Entangled Pain Curse and Timid Curse when a Minion deals damage. Cooldown: 1s\n Minions can cast 1additional Curse(s)",
+    "template": "Triggers Lv. 10Entangled Pain Curse and Timid Curse when a Minion deals damage. Cooldown: 1s\nMinions can cast 1additional Curse(s)",
     "valueRanges": [],
     "rawAffix": "Triggers Lv. `10`Entangled Pain Curse and Timid Curse when a Minion deals damage. Cooldown: `1`s<> Minions can cast `1`additional Curse(s)"
   },
@@ -85,7 +85,7 @@ export const ROD_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "When Minions deal damage, inflicts Fire Infiltration . Interval for each enemy: 1s\n When Minions deal damage, inflicts Lightning Infiltration . Interval for each enemy: 1s\n When Minions deal damage, inflicts Cold Infiltration . Interval for each enemy: 1s",
+    "template": "When Minions deal damage, inflicts Fire Infiltration . Interval for each enemy: 1s\nWhen Minions deal damage, inflicts Lightning Infiltration . Interval for each enemy: 1s\nWhen Minions deal damage, inflicts Cold Infiltration . Interval for each enemy: 1s",
     "valueRanges": [],
     "rawAffix": "When Minions deal damage, inflicts Fire Infiltration . Interval for each enemy: `1`s<> When Minions deal damage, inflicts Lightning Infiltration . Interval for each enemy: `1`s<> When Minions deal damage, inflicts Cold Infiltration . Interval for each enemy: `1`s"
   },

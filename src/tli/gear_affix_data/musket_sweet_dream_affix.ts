@@ -8,7 +8,7 @@ export const MUSKET_SWEET_DREAM_AFFIX_AFFIXES = [
     "affixType": "Sweet Dream Affix",
     "craftingPool": "",
     "tier": "0",
-    "template": "Lucky Critical Strike\n {0}% Critical Strike Rating",
+    "template": "Lucky Critical Strike\n{0}% Critical Strike Rating",
     "valueRanges": [
       {
         "min": -50,

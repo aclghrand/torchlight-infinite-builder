@@ -67,7 +67,7 @@ export const FIRE_CANNON_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "Max Terra Quantity +2\n +10% additional damage",
+    "template": "Max Terra Quantity +2\n+10% additional damage",
     "valueRanges": [],
     "rawAffix": "Max Terra Quantity `+2`<> `+10`% additional damage"
   },
@@ -137,7 +137,7 @@ export const FIRE_CANNON_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "1",
-    "template": "Max Terra Quantity +2\n +1% additional damage",
+    "template": "Max Terra Quantity +2\n+1% additional damage",
     "valueRanges": [],
     "rawAffix": "Max Terra Quantity `+2`<> `+1`% additional damage"
   },
@@ -228,7 +228,7 @@ export const FIRE_CANNON_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "0",
-    "template": "+{0}% Attack and Cast Speed\n +{1}% Minion Attack and Cast Speed",
+    "template": "+{0}% Attack and Cast Speed\n+{1}% Minion Attack and Cast Speed",
     "valueRanges": [
       {
         "min": 66,
@@ -312,7 +312,7 @@ export const FIRE_CANNON_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "1",
-    "template": "+{0}% Attack and Cast Speed\n +{1}% Minion Attack and Cast Speed",
+    "template": "+{0}% Attack and Cast Speed\n+{1}% Minion Attack and Cast Speed",
     "valueRanges": [
       {
         "min": 51,

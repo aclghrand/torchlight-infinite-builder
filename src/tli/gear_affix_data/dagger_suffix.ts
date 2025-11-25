@@ -8,7 +8,7 @@ export const DAGGER_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "Shadow Quantity +2\n +{0}% additional Shadow Damage",
+    "template": "Shadow Quantity +2\n+{0}% additional Shadow Damage",
     "valueRanges": [
       {
         "min": 10,
@@ -83,7 +83,7 @@ export const DAGGER_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "1",
-    "template": "Shadow Quantity +2\n -5% additional Shadow Damage",
+    "template": "Shadow Quantity +2\n-5% additional Shadow Damage",
     "valueRanges": [],
     "rawAffix": "Shadow Quantity `+2`<> `-5`% additional Shadow Damage"
   },
@@ -169,7 +169,7 @@ export const DAGGER_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "0",
-    "template": "+{0}% Attack and Cast Speed\n +{1}% Minion Attack and Cast Speed",
+    "template": "+{0}% Attack and Cast Speed\n+{1}% Minion Attack and Cast Speed",
     "valueRanges": [
       {
         "min": 33,
@@ -285,7 +285,7 @@ export const DAGGER_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "1",
-    "template": "+{0}% Attack and Cast Speed\n +{1}% Minion Attack and Cast Speed",
+    "template": "+{0}% Attack and Cast Speed\n+{1}% Minion Attack and Cast Speed",
     "valueRanges": [
       {
         "min": 26,

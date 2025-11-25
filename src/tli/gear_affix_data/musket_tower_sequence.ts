@@ -8,7 +8,7 @@ export const MUSKET_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "+200% Precise Projectiles Aura effect\n -30% additional Precise Projectiles Sealed Mana Compensation",
+    "template": "+200% Precise Projectiles Aura effect\n-30% additional Precise Projectiles Sealed Mana Compensation",
     "valueRanges": [],
     "rawAffix": "`+200`% Precise Projectiles Aura effect<> `-30`% additional Precise Projectiles Sealed Mana Compensation"
   },
@@ -19,7 +19,7 @@ export const MUSKET_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "+30% additional Deterioration Damage\n 10% chance to inflict 2additional stack(s) of Deterioration",
+    "template": "+30% additional Deterioration Damage\n10% chance to inflict 2additional stack(s) of Deterioration",
     "valueRanges": [],
     "rawAffix": "`+30`% additional Deterioration Damage<> `10`% chance to inflict `2`additional stack(s) of Deterioration"
   },
@@ -30,7 +30,7 @@ export const MUSKET_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "+50% Elemental Damage for the gear\n -25% gear Physical Damage",
+    "template": "+50% Elemental Damage for the gear\n-25% gear Physical Damage",
     "valueRanges": [],
     "rawAffix": "`+50`% Elemental Damage for the gear<> `-25`% gear Physical Damage"
   },
@@ -41,7 +41,7 @@ export const MUSKET_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "+80% gear Physical Damage\n -20% Attack Critical Strike Rating for this gear",
+    "template": "+80% gear Physical Damage\n-20% Attack Critical Strike Rating for this gear",
     "valueRanges": [],
     "rawAffix": "`+80`% gear Physical Damage<> `-20`% Attack Critical Strike Rating for this gear"
   },
@@ -74,7 +74,7 @@ export const MUSKET_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "Attack Horizontal Projectiles will return after reaching their max range and will hit enemies on their path again\n -30% additional Projectile Damage",
+    "template": "Attack Horizontal Projectiles will return after reaching their max range and will hit enemies on their path again\n-30% additional Projectile Damage",
     "valueRanges": [],
     "rawAffix": "Attack Horizontal Projectiles will return after reaching their max range and will hit enemies on their path again<> `-30`% additional Projectile Damage"
   },
@@ -96,7 +96,7 @@ export const MUSKET_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "Main Skill is supported by Lv. 25Multiple Projectiles\n +25% additional Projectile Damage",
+    "template": "Main Skill is supported by Lv. 25Multiple Projectiles\n+25% additional Projectile Damage",
     "valueRanges": [],
     "rawAffix": "Main Skill is supported by Lv. `25`Multiple Projectiles<> `+25`% additional Projectile Damage"
   },

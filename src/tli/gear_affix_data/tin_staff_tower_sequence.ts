@@ -8,7 +8,7 @@ export const TIN_STAFF_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "+200% Spell Amplification Aura\n -30% additional Spell Amplification Sealed Mana Compensation",
+    "template": "+200% Spell Amplification Aura\n-30% additional Spell Amplification Sealed Mana Compensation",
     "valueRanges": [],
     "rawAffix": "`+200`% Spell Amplification Aura<> `-30`% additional Spell Amplification Sealed Mana Compensation"
   },
@@ -19,7 +19,7 @@ export const TIN_STAFF_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "+30% additional Deterioration Damage\n 10% chance to inflict 2additional stack(s) of Deterioration",
+    "template": "+30% additional Deterioration Damage\n10% chance to inflict 2additional stack(s) of Deterioration",
     "valueRanges": [],
     "rawAffix": "`+30`% additional Deterioration Damage<> `10`% chance to inflict `2`additional stack(s) of Deterioration"
   },
@@ -41,7 +41,7 @@ export const TIN_STAFF_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "+70% additional damage\n -10% additional Cast Speed",
+    "template": "+70% additional damage\n-10% additional Cast Speed",
     "valueRanges": [],
     "rawAffix": "`+70`% additional damage<> `-10`% additional Cast Speed"
   },
@@ -74,7 +74,7 @@ export const TIN_STAFF_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "Max Tenacity Blessing Stacks -2\n Max Focus Blessing Stacks +2\n Max Agility Blessing Stacks +2",
+    "template": "Max Tenacity Blessing Stacks -2\nMax Focus Blessing Stacks +2\nMax Agility Blessing Stacks +2",
     "valueRanges": [],
     "rawAffix": "Max Tenacity Blessing Stacks `-2`<> Max Focus Blessing Stacks `+2`<> Max Agility Blessing Stacks `+2`"
   },
@@ -85,7 +85,7 @@ export const TIN_STAFF_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "The Main Skill is supported by Lv. 25Control Spell\n +25% additional Spell Damage",
+    "template": "The Main Skill is supported by Lv. 25Control Spell\n+25% additional Spell Damage",
     "valueRanges": [],
     "rawAffix": "The Main Skill is supported by Lv. `25`Control Spell<> `+25`% additional Spell Damage"
   },

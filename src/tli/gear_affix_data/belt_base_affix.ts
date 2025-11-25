@@ -104,7 +104,7 @@ export const BELT_BASE_AFFIX_AFFIXES = [
     "affixType": "Base Affix",
     "craftingPool": "",
     "tier": "1",
-    "template": "Immune to Slow\n Immune to Weaken",
+    "template": "Immune to Slow\nImmune to Weaken",
     "valueRanges": [],
     "rawAffix": "Immune to Slow<> Immune to Weaken"
   },
@@ -115,7 +115,7 @@ export const BELT_BASE_AFFIX_AFFIXES = [
     "affixType": "Base Affix",
     "craftingPool": "",
     "tier": "1",
-    "template": "Immune to Paralysis\n Immune to Blinding",
+    "template": "Immune to Paralysis\nImmune to Blinding",
     "valueRanges": [],
     "rawAffix": "Immune to Paralysis<> Immune to Blinding"
   },

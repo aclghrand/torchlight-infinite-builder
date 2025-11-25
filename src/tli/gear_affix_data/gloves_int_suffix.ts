@@ -8,7 +8,7 @@ export const GLOVES_INT_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "+{0}% Blur Effect\n Gains Blur for 1s after losing Blur",
+    "template": "+{0}% Blur Effect\nGains Blur for 1s after losing Blur",
     "valueRanges": [
       {
         "min": 16,
@@ -56,7 +56,7 @@ export const GLOVES_INT_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "+1Jumps\n +6% additional damage for every Jump (multiplies)",
+    "template": "+1Jumps\n+6% additional damage for every Jump (multiplies)",
     "valueRanges": [],
     "rawAffix": "`+1`Jumps<> `+6`% additional damage for every Jump (multiplies)"
   },
@@ -67,7 +67,7 @@ export const GLOVES_INT_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "1",
-    "template": "+{0}% Blur Effect\n Gains Blur for 1s after losing Blur",
+    "template": "+{0}% Blur Effect\nGains Blur for 1s after losing Blur",
     "valueRanges": [
       {
         "min": 12,
@@ -115,7 +115,7 @@ export const GLOVES_INT_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "1",
-    "template": "+1Jumps\n +{0}% additional damage for every Jump (multiplies)",
+    "template": "+1Jumps\n+{0}% additional damage for every Jump (multiplies)",
     "valueRanges": [
       {
         "min": 4,
@@ -131,7 +131,7 @@ export const GLOVES_INT_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "0",
-    "template": "+{0}% Attack and Cast Speed\n +{1}% Minion Attack and Cast Speed",
+    "template": "+{0}% Attack and Cast Speed\n+{1}% Minion Attack and Cast Speed",
     "valueRanges": [
       {
         "min": 22,
@@ -151,7 +151,7 @@ export const GLOVES_INT_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "0",
-    "template": "+{0}% Skill Area\n +{1}% Minion Skill Area",
+    "template": "+{0}% Skill Area\n+{1}% Minion Skill Area",
     "valueRanges": [
       {
         "min": 49,
@@ -203,7 +203,7 @@ export const GLOVES_INT_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "1",
-    "template": "+{0}% Attack and Cast Speed\n +{1}% Minion Attack and Cast Speed",
+    "template": "+{0}% Attack and Cast Speed\n+{1}% Minion Attack and Cast Speed",
     "valueRanges": [
       {
         "min": 17,
@@ -223,7 +223,7 @@ export const GLOVES_INT_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "1",
-    "template": "+{0}% Skill Area\n +{1}% Minion Skill Area",
+    "template": "+{0}% Skill Area\n+{1}% Minion Skill Area",
     "valueRanges": [
       {
         "min": 35,

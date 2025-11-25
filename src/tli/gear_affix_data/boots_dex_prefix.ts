@@ -51,7 +51,7 @@ export const BOOTS_DEX_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "+{0}% Spell Burst Charge Speed\n +10% chance to immediately gain 1stack(s) of Spell Burst Charge when using a skill. Interval: 0.03s",
+    "template": "+{0}% Spell Burst Charge Speed\n+10% chance to immediately gain 1stack(s) of Spell Burst Charge when using a skill. Interval: 0.03s",
     "valueRanges": [
       {
         "min": 31,
@@ -190,7 +190,7 @@ export const BOOTS_DEX_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "1",
-    "template": "+{0}% Spell Burst Charge Speed\n +10% chance to immediately gain 1stack(s) of Spell Burst Charge when using a skill. Interval: 0.03s",
+    "template": "+{0}% Spell Burst Charge Speed\n+10% chance to immediately gain 1stack(s) of Spell Burst Charge when using a skill. Interval: 0.03s",
     "valueRanges": [
       {
         "min": 21,

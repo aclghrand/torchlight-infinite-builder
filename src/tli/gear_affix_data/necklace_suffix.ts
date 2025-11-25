@@ -238,7 +238,7 @@ export const NECKLACE_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "0",
-    "template": "+{0}% Attack and Cast Speed\n +{1}% Minion Attack and Cast Speed",
+    "template": "+{0}% Attack and Cast Speed\n+{1}% Minion Attack and Cast Speed",
     "valueRanges": [
       {
         "min": 25,
@@ -274,7 +274,7 @@ export const NECKLACE_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "0",
-    "template": "100% chance to gain a Barrier for every 5m you move\n +25% Barrier Shield",
+    "template": "100% chance to gain a Barrier for every 5m you move\n+25% Barrier Shield",
     "valueRanges": [],
     "rawAffix": "`100`% chance to gain a Barrier for every `5`m you move<> `+25`% Barrier Shield"
   },
@@ -312,7 +312,7 @@ export const NECKLACE_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "1",
-    "template": "+{0}% Attack and Cast Speed\n +{1}% Minion Attack and Cast Speed",
+    "template": "+{0}% Attack and Cast Speed\n+{1}% Minion Attack and Cast Speed",
     "valueRanges": [
       {
         "min": 18,

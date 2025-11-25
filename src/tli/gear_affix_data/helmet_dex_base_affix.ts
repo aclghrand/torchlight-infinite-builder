@@ -56,7 +56,7 @@ export const HELMET_DEX_BASE_AFFIX_AFFIXES = [
     "affixType": "Base Affix",
     "craftingPool": "",
     "tier": "1",
-    "template": "+{0}% Armor DMG Mitigation Penetration\n +{1}% Armor DMG Mitigation Penetration for Minions",
+    "template": "+{0}% Armor DMG Mitigation Penetration\n+{1}% Armor DMG Mitigation Penetration for Minions",
     "valueRanges": [
       {
         "min": 5,
@@ -92,7 +92,7 @@ export const HELMET_DEX_BASE_AFFIX_AFFIXES = [
     "affixType": "Base Affix",
     "craftingPool": "",
     "tier": "1",
-    "template": "+{0}% Elemental and Erosion Resistance Penetration\n +{1}% Elemental and Erosion Resistance Penetration for Minions",
+    "template": "+{0}% Elemental and Erosion Resistance Penetration\n+{1}% Elemental and Erosion Resistance Penetration for Minions",
     "valueRanges": [
       {
         "min": 6,
@@ -128,7 +128,7 @@ export const HELMET_DEX_BASE_AFFIX_AFFIXES = [
     "affixType": "Base Affix",
     "craftingPool": "",
     "tier": "1",
-    "template": "When dealing damage, inflicts Lightning Infiltration . Interval for each enemy: 1s\n When Minions deal damage, inflicts Lightning Infiltration . Interval for each enemy: 1s",
+    "template": "When dealing damage, inflicts Lightning Infiltration . Interval for each enemy: 1s\nWhen Minions deal damage, inflicts Lightning Infiltration . Interval for each enemy: 1s",
     "valueRanges": [],
     "rawAffix": "When dealing damage, inflicts Lightning Infiltration . Interval for each enemy: `1`s<> When Minions deal damage, inflicts Lightning Infiltration . Interval for each enemy: `1`s"
   },

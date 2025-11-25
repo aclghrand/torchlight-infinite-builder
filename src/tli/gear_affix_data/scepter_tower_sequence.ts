@@ -8,7 +8,7 @@ export const SCEPTER_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "+120% Deep Pain Aura\n -20% additional Deep Pain Sealed Mana Compensation",
+    "template": "+120% Deep Pain Aura\n-20% additional Deep Pain Sealed Mana Compensation",
     "valueRanges": [],
     "rawAffix": "`+120`% Deep Pain Aura<> `-20`% additional Deep Pain Sealed Mana Compensation"
   },
@@ -30,7 +30,7 @@ export const SCEPTER_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "+25% Movement Speed when standing on a Terra Skill. The effect lasts 2s.\n +100% Skill Area when standing on a Terra Skill. Lasts for 2s",
+    "template": "+25% Movement Speed when standing on a Terra Skill. The effect lasts 2s.\n+100% Skill Area when standing on a Terra Skill. Lasts for 2s",
     "valueRanges": [],
     "rawAffix": "`+25`% Movement Speed when standing on a Terra Skill. The effect lasts `2`s.<> `+100`% Skill Area when standing on a Terra Skill. Lasts for `2`s"
   },
@@ -63,7 +63,7 @@ export const SCEPTER_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "Max Tenacity Blessing Stacks +1\n Max Focus Blessing Stacks -1\n Max Agility Blessing Stacks +1",
+    "template": "Max Tenacity Blessing Stacks +1\nMax Focus Blessing Stacks -1\nMax Agility Blessing Stacks +1",
     "valueRanges": [],
     "rawAffix": "Max Tenacity Blessing Stacks `+1`<> Max Focus Blessing Stacks `-1`<> Max Agility Blessing Stacks `+1`"
   },
@@ -129,7 +129,7 @@ export const SCEPTER_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Intermediate",
     "tier": "",
-    "template": "+16Affliction inflicted per second\n +24% Affliction Effect",
+    "template": "+16Affliction inflicted per second\n+24% Affliction Effect",
     "valueRanges": [],
     "rawAffix": "`+16`Affliction inflicted per second<> `+24`% Affliction Effect"
   },
@@ -195,7 +195,7 @@ export const SCEPTER_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Intermediate",
     "tier": "",
-    "template": "Max Terra Charge Stacks -1\n Max Terra Quantity +1",
+    "template": "Max Terra Charge Stacks -1\nMax Terra Quantity +1",
     "valueRanges": [],
     "rawAffix": "Max Terra Charge Stacks `-1`<> Max Terra Quantity `+1`"
   }

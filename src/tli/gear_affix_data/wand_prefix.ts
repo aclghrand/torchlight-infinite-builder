@@ -56,7 +56,7 @@ export const WAND_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "+2Jumps\n +{0}% additional damage",
+    "template": "+2Jumps\n+{0}% additional damage",
     "valueRanges": [
       {
         "min": 12,
@@ -115,7 +115,7 @@ export const WAND_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "1",
-    "template": "+2Jumps\n +{0}% additional damage",
+    "template": "+2Jumps\n+{0}% additional damage",
     "valueRanges": [
       {
         "min": 8,

@@ -40,7 +40,7 @@ export const SPIRIT_RING_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "+{0}% Elemental Resistance\n +{1}% Erosion Resistance",
+    "template": "+{0}% Elemental Resistance\n+{1}% Erosion Resistance",
     "valueRanges": [
       {
         "min": 13,
@@ -156,7 +156,7 @@ export const SPIRIT_RING_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "1",
-    "template": "+{0}% Elemental Resistance\n +{1}% Erosion Resistance",
+    "template": "+{0}% Elemental Resistance\n+{1}% Erosion Resistance",
     "valueRanges": [
       {
         "min": 9,
@@ -176,7 +176,7 @@ export const SPIRIT_RING_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "0",
-    "template": "+{0}% Attack and Cast Speed\n +{1}% Minion Attack and Cast Speed",
+    "template": "+{0}% Attack and Cast Speed\n+{1}% Minion Attack and Cast Speed",
     "valueRanges": [
       {
         "min": 25,
@@ -244,7 +244,7 @@ export const SPIRIT_RING_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "1",
-    "template": "+{0}% Attack and Cast Speed\n +{1}% Minion Attack and Cast Speed",
+    "template": "+{0}% Attack and Cast Speed\n+{1}% Minion Attack and Cast Speed",
     "valueRanges": [
       {
         "min": 18,

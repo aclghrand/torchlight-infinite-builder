@@ -8,7 +8,7 @@ export const FIRE_CANNON_BASE_AFFIX_AFFIXES = [
     "affixType": "Base Affix",
     "craftingPool": "",
     "tier": "0",
-    "template": "Lucky Critical Strike\n {0}% Critical Strike Rating",
+    "template": "Lucky Critical Strike\n{0}% Critical Strike Rating",
     "valueRanges": [
       {
         "min": -40,

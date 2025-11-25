@@ -174,7 +174,7 @@ export const RING_CORROSION_BASE_AFFIXES = [
     "affixType": "Corrosion Base",
     "craftingPool": "",
     "tier": "0",
-    "template": "Immune to Trauma\n Immune to Wilt",
+    "template": "Immune to Trauma\nImmune to Wilt",
     "valueRanges": [],
     "rawAffix": "Immune to Trauma<> Immune to Wilt"
   },

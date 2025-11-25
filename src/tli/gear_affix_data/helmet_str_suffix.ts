@@ -184,7 +184,7 @@ export const HELMET_STR_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "0",
-    "template": "+{0}% Armor\n +{1}Max Life",
+    "template": "+{0}% Armor\n+{1}Max Life",
     "valueRanges": [
       {
         "min": 19,
@@ -204,7 +204,7 @@ export const HELMET_STR_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "0",
-    "template": "+{0}% Attack and Cast Speed\n +{1}% Minion Attack and Cast Speed",
+    "template": "+{0}% Attack and Cast Speed\n+{1}% Minion Attack and Cast Speed",
     "valueRanges": [
       {
         "min": 25,
@@ -240,7 +240,7 @@ export const HELMET_STR_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "0",
-    "template": "+{0}% Skill Area\n +{1}% Minion Skill Area",
+    "template": "+{0}% Skill Area\n+{1}% Minion Skill Area",
     "valueRanges": [
       {
         "min": 49,
@@ -292,7 +292,7 @@ export const HELMET_STR_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "1",
-    "template": "+{0}% Armor\n +{1}Max Life",
+    "template": "+{0}% Armor\n+{1}Max Life",
     "valueRanges": [
       {
         "min": 14,
@@ -312,7 +312,7 @@ export const HELMET_STR_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "1",
-    "template": "+{0}% Attack and Cast Speed\n +{1}% Minion Attack and Cast Speed",
+    "template": "+{0}% Attack and Cast Speed\n+{1}% Minion Attack and Cast Speed",
     "valueRanges": [
       {
         "min": 18,
@@ -348,7 +348,7 @@ export const HELMET_STR_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "1",
-    "template": "+{0}% Skill Area\n +{1}% Minion Skill Area",
+    "template": "+{0}% Skill Area\n+{1}% Minion Skill Area",
     "valueRanges": [
       {
         "min": 35,

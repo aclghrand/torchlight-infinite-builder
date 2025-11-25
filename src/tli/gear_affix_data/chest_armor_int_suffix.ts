@@ -168,7 +168,7 @@ export const CHEST_ARMOR_INT_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "0",
-    "template": "+{0}% Attack and Cast Speed\n +{1}% Minion Attack and Cast Speed",
+    "template": "+{0}% Attack and Cast Speed\n+{1}% Minion Attack and Cast Speed",
     "valueRanges": [
       {
         "min": 25,
@@ -220,7 +220,7 @@ export const CHEST_ARMOR_INT_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "0",
-    "template": "Inflicts Cold Infiltration when dealing damage. Interval for each enemy: 1s\n When Minions deal damage, inflicts Cold Infiltration . Interval for each enemy: 1s\n +{0}% Cold Infiltration Effect",
+    "template": "Inflicts Cold Infiltration when dealing damage. Interval for each enemy: 1s\nWhen Minions deal damage, inflicts Cold Infiltration . Interval for each enemy: 1s\n+{0}% Cold Infiltration Effect",
     "valueRanges": [
       {
         "min": 40,
@@ -252,7 +252,7 @@ export const CHEST_ARMOR_INT_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "1",
-    "template": "+{0}% Attack and Cast Speed\n +{1}% Minion Attack and Cast Speed",
+    "template": "+{0}% Attack and Cast Speed\n+{1}% Minion Attack and Cast Speed",
     "valueRanges": [
       {
         "min": 18,
@@ -320,7 +320,7 @@ export const CHEST_ARMOR_INT_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "1",
-    "template": "Inflicts Cold Infiltration when dealing damage. Interval for each enemy: 1s\n When Minions deal damage, inflicts Cold Infiltration . Interval for each enemy: 1s\n +{0}% Cold Infiltration Effect",
+    "template": "Inflicts Cold Infiltration when dealing damage. Interval for each enemy: 1s\nWhen Minions deal damage, inflicts Cold Infiltration . Interval for each enemy: 1s\n+{0}% Cold Infiltration Effect",
     "valueRanges": [
       {
         "min": 10,

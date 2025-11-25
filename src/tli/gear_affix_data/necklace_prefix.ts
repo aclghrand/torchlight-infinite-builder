@@ -73,7 +73,7 @@ export const NECKLACE_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "Have Fervor\n +5% additional damage",
+    "template": "Have Fervor\n+5% additional damage",
     "valueRanges": [],
     "rawAffix": "Have Fervor<> `+5`% additional damage"
   },
@@ -309,7 +309,7 @@ export const NECKLACE_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Advanced",
     "tier": "0",
-    "template": "Gains Attack Aggression when casting an Attack Skill\n +{0}% Attack Aggression Effect",
+    "template": "Gains Attack Aggression when casting an Attack Skill\n+{0}% Attack Aggression Effect",
     "valueRanges": [
       {
         "min": 40,
@@ -325,7 +325,7 @@ export const NECKLACE_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Advanced",
     "tier": "0",
-    "template": "Gains Spell Aggression when casting a Spell Skill\n +{0}% Spell Aggression Effect",
+    "template": "Gains Spell Aggression when casting a Spell Skill\n+{0}% Spell Aggression Effect",
     "valueRanges": [
       {
         "min": 40,
@@ -485,7 +485,7 @@ export const NECKLACE_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Advanced",
     "tier": "1",
-    "template": "Gains Attack Aggression when casting an Attack Skill\n +{0}% Attack Aggression Effect",
+    "template": "Gains Attack Aggression when casting an Attack Skill\n+{0}% Attack Aggression Effect",
     "valueRanges": [
       {
         "min": 10,
@@ -501,7 +501,7 @@ export const NECKLACE_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Advanced",
     "tier": "1",
-    "template": "Gains Spell Aggression when casting a Spell Skill\n +{0}% Spell Aggression Effect",
+    "template": "Gains Spell Aggression when casting a Spell Skill\n+{0}% Spell Aggression Effect",
     "valueRanges": [
       {
         "min": 10,

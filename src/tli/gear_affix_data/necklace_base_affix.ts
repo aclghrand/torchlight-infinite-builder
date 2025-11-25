@@ -208,7 +208,7 @@ export const NECKLACE_BASE_AFFIX_AFFIXES = [
     "affixType": "Base Affix",
     "craftingPool": "",
     "tier": "2",
-    "template": "+{0}% damage\n +{1}% Minion Damage",
+    "template": "+{0}% damage\n+{1}% Minion Damage",
     "valueRanges": [
       {
         "min": 20,

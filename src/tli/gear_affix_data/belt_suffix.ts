@@ -232,7 +232,7 @@ export const BELT_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "0",
-    "template": "+{0}% Elemental Resistance\n +{1}% chance to avoid Elemental Ailment",
+    "template": "+{0}% Elemental Resistance\n+{1}% chance to avoid Elemental Ailment",
     "valueRanges": [
       {
         "min": 10,
@@ -332,7 +332,7 @@ export const BELT_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "0",
-    "template": "Warcry is cast immediately\n +2Max Warcry Skill Charges",
+    "template": "Warcry is cast immediately\n+2Max Warcry Skill Charges",
     "valueRanges": [],
     "rawAffix": "Warcry is cast immediately<> `+2`Max Warcry Skill Charges"
   },
@@ -407,7 +407,7 @@ export const BELT_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "1",
-    "template": "+{0}% Elemental Resistance\n +{1}% chance to avoid Elemental Ailment",
+    "template": "+{0}% Elemental Resistance\n+{1}% chance to avoid Elemental Ailment",
     "valueRanges": [
       {
         "min": 7,
@@ -443,7 +443,7 @@ export const BELT_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "1",
-    "template": "Warcry is cast immediately\n +1Max Warcry Skill Charges",
+    "template": "Warcry is cast immediately\n+1Max Warcry Skill Charges",
     "valueRanges": [],
     "rawAffix": "Warcry is cast immediately<> `+1`Max Warcry Skill Charges"
   },

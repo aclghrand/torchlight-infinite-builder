@@ -181,7 +181,7 @@ export const NECKLACE_SWEET_DREAM_AFFIX_AFFIXES = [
     "affixType": "Sweet Dream Affix",
     "craftingPool": "",
     "tier": "2",
-    "template": "+{0}% damage\n +{1}% Minion Damage",
+    "template": "+{0}% damage\n+{1}% Minion Damage",
     "valueRanges": [
       {
         "min": 20,

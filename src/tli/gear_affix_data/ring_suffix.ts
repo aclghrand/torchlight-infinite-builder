@@ -8,7 +8,7 @@ export const RING_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "+{0}% Elemental Resistance\n +{1}% Erosion Resistance",
+    "template": "+{0}% Elemental Resistance\n+{1}% Erosion Resistance",
     "valueRanges": [
       {
         "min": 13,
@@ -220,7 +220,7 @@ export const RING_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "1",
-    "template": "+{0}% Elemental Resistance\n +{1}% Erosion Resistance",
+    "template": "+{0}% Elemental Resistance\n+{1}% Erosion Resistance",
     "valueRanges": [
       {
         "min": 9,
@@ -336,7 +336,7 @@ export const RING_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "0",
-    "template": "+1Combo Points gained from Combo Starters\n +{0}% additional damage",
+    "template": "+1Combo Points gained from Combo Starters\n+{0}% additional damage",
     "valueRanges": [
       {
         "min": 3,
@@ -352,7 +352,7 @@ export const RING_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "0",
-    "template": "100% chance to gain a Barrier for every 5m you move\n +25% Barrier Shield",
+    "template": "100% chance to gain a Barrier for every 5m you move\n+25% Barrier Shield",
     "valueRanges": [],
     "rawAffix": "`100`% chance to gain a Barrier for every `5`m you move<> `+25`% Barrier Shield"
   },
@@ -475,7 +475,7 @@ export const RING_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "1",
-    "template": "+1Combo Points gained from Combo Starters\n +{0}% additional damage",
+    "template": "+1Combo Points gained from Combo Starters\n+{0}% additional damage",
     "valueRanges": [
       {
         "min": 1,

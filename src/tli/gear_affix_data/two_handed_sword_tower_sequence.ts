@@ -8,7 +8,7 @@ export const TWO_HANDED_SWORD_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "+120% gear Physical Damage\n -20% Attack Critical Strike Rating for this gear",
+    "template": "+120% gear Physical Damage\n-20% Attack Critical Strike Rating for this gear",
     "valueRanges": [],
     "rawAffix": "`+120`% gear Physical Damage<> `-20`% Attack Critical Strike Rating for this gear"
   },
@@ -19,7 +19,7 @@ export const TWO_HANDED_SWORD_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "+200% Fearless Aura\n -30% additional Fearless Sealed Mana Compensation",
+    "template": "+200% Fearless Aura\n-30% additional Fearless Sealed Mana Compensation",
     "valueRanges": [],
     "rawAffix": "`+200`% Fearless Aura<> `-30`% additional Fearless Sealed Mana Compensation"
   },
@@ -30,7 +30,7 @@ export const TWO_HANDED_SWORD_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "+30% additional Deterioration Damage\n 10% chance to inflict 2additional stack(s) of Deterioration",
+    "template": "+30% additional Deterioration Damage\n10% chance to inflict 2additional stack(s) of Deterioration",
     "valueRanges": [],
     "rawAffix": "`+30`% additional Deterioration Damage<> `10`% chance to inflict `2`additional stack(s) of Deterioration"
   },
@@ -41,7 +41,7 @@ export const TWO_HANDED_SWORD_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "+50% Elemental Damage for the gear\n -25% gear Physical Damage",
+    "template": "+50% Elemental Damage for the gear\n-25% gear Physical Damage",
     "valueRanges": [],
     "rawAffix": "`+50`% Elemental Damage for the gear<> `-25`% gear Physical Damage"
   },
@@ -96,7 +96,7 @@ export const TWO_HANDED_SWORD_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "Main Skill is supported by Lv. 25Steamroll\n +25% additional Melee Damage",
+    "template": "Main Skill is supported by Lv. 25Steamroll\n+25% additional Melee Damage",
     "valueRanges": [],
     "rawAffix": "Main Skill is supported by Lv. `25`Steamroll<> `+25`% additional Melee Damage"
   },

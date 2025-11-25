@@ -67,7 +67,7 @@ export const HELMET_DEX_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "+1Max Spell Burst\n +10% additional Hit Damage for skills cast by Spell Burst",
+    "template": "+1Max Spell Burst\n+10% additional Hit Damage for skills cast by Spell Burst",
     "valueRanges": [],
     "rawAffix": "`+1`Max Spell Burst<> `+10`% additional Hit Damage for skills cast by Spell Burst"
   },
@@ -110,7 +110,7 @@ export const HELMET_DEX_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "Max Terra Charge Stacks +1\n +30% Terra Charge Recovery Speed",
+    "template": "Max Terra Charge Stacks +1\n+30% Terra Charge Recovery Speed",
     "valueRanges": [],
     "rawAffix": "Max Terra Charge Stacks `+1`<> `+30`% Terra Charge Recovery Speed"
   },

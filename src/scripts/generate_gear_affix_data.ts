@@ -66,6 +66,9 @@ const parseAffixString = (affix: string): ParsedAffix => {
   // Pattern 4: Remove remaining backticks
   template = template.replace(/`/g, "");
 
+  // Pattern 5: Remove spaces after newlines
+  template = template.replace(/\n\s+/g, "\n");
+
   return { template, valueRanges };
 };
 

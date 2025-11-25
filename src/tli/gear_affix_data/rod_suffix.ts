@@ -328,7 +328,7 @@ export const ROD_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Basic",
     "tier": "0",
-    "template": "+{0}% Attack and Cast Speed\n +{1}% Minion Attack and Cast Speed",
+    "template": "+{0}% Attack and Cast Speed\n+{1}% Minion Attack and Cast Speed",
     "valueRanges": [
       {
         "min": 37,
@@ -380,7 +380,7 @@ export const ROD_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Basic",
     "tier": "1",
-    "template": "+{0}% Attack and Cast Speed\n +{1}% Minion Attack and Cast Speed",
+    "template": "+{0}% Attack and Cast Speed\n+{1}% Minion Attack and Cast Speed",
     "valueRanges": [
       {
         "min": 27,

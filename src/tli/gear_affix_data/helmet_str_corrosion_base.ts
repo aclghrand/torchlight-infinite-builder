@@ -104,7 +104,7 @@ export const HELMET_STR_CORROSION_BASE_AFFIXES = [
     "affixType": "Corrosion Base",
     "craftingPool": "",
     "tier": "0",
-    "template": "Immune to Blinding\n Immune to Paralysis",
+    "template": "Immune to Blinding\nImmune to Paralysis",
     "valueRanges": [],
     "rawAffix": "Immune to Blinding<> Immune to Paralysis"
   },

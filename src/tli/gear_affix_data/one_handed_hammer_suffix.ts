@@ -88,7 +88,7 @@ export const ONE_HANDED_HAMMER_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "+30% Steep Strike chance.\n +{0}% additional Steep Strike Damage",
+    "template": "+30% Steep Strike chance.\n+{0}% additional Steep Strike Damage",
     "valueRanges": [
       {
         "min": 23,
@@ -184,7 +184,7 @@ export const ONE_HANDED_HAMMER_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "1",
-    "template": "+23% Steep Strike chance.\n +{0}% additional Steep Strike Damage",
+    "template": "+23% Steep Strike chance.\n+{0}% additional Steep Strike Damage",
     "valueRanges": [
       {
         "min": 16,
@@ -216,7 +216,7 @@ export const ONE_HANDED_HAMMER_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "0",
-    "template": "+{0}% Attack and Cast Speed\n +{1}% Minion Attack and Cast Speed",
+    "template": "+{0}% Attack and Cast Speed\n+{1}% Minion Attack and Cast Speed",
     "valueRanges": [
       {
         "min": 33,
@@ -316,7 +316,7 @@ export const ONE_HANDED_HAMMER_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Advanced",
     "tier": "1",
-    "template": "+{0}% Attack and Cast Speed\n +{1}% Minion Attack and Cast Speed",
+    "template": "+{0}% Attack and Cast Speed\n+{1}% Minion Attack and Cast Speed",
     "valueRanges": [
       {
         "min": 26,

@@ -8,7 +8,7 @@ export const WAND_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "+120% Spell Amplification Aura\n -20% additional Spell Amplification Sealed Mana Compensation",
+    "template": "+120% Spell Amplification Aura\n-20% additional Spell Amplification Sealed Mana Compensation",
     "valueRanges": [],
     "rawAffix": "`+120`% Spell Amplification Aura<> `-20`% additional Spell Amplification Sealed Mana Compensation"
   },
@@ -19,7 +19,7 @@ export const WAND_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "+15% additional Deterioration Damage\n 10% chance to inflict 1additional stack(s) of Deterioration",
+    "template": "+15% additional Deterioration Damage\n10% chance to inflict 1additional stack(s) of Deterioration",
     "valueRanges": [],
     "rawAffix": "`+15`% additional Deterioration Damage<> `10`% chance to inflict `1`additional stack(s) of Deterioration"
   },
@@ -41,7 +41,7 @@ export const WAND_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "+35% additional damage\n -10% additional Cast Speed",
+    "template": "+35% additional damage\n-10% additional Cast Speed",
     "valueRanges": [],
     "rawAffix": "`+35`% additional damage<> `-10`% additional Cast Speed"
   },
@@ -74,7 +74,7 @@ export const WAND_TOWER_SEQUENCE_AFFIXES = [
     "affixType": "Tower Sequence",
     "craftingPool": "Advanced",
     "tier": "",
-    "template": "Max Tenacity Blessing Stacks -1\n Max Focus Blessing Stacks +1\n Max Agility Blessing Stacks +1",
+    "template": "Max Tenacity Blessing Stacks -1\nMax Focus Blessing Stacks +1\nMax Agility Blessing Stacks +1",
     "valueRanges": [],
     "rawAffix": "Max Tenacity Blessing Stacks `-1`<> Max Focus Blessing Stacks `+1`<> Max Agility Blessing Stacks `+1`"
   },

@@ -8,7 +8,7 @@ export const CROSSBOW_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "+{0}% gear Physical Damage\n Adds {1}- {2}Physical Damage to the gear",
+    "template": "+{0}% gear Physical Damage\nAdds {1}- {2}Physical Damage to the gear",
     "valueRanges": [
       {
         "min": 111,
@@ -80,7 +80,7 @@ export const CROSSBOW_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "+{0}% Knockback distance\n +14% additional damage",
+    "template": "+{0}% Knockback distance\n+14% additional damage",
     "valueRanges": [
       {
         "min": 81,
@@ -107,7 +107,7 @@ export const CROSSBOW_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "Adds {0}- {1}Elemental Damage to the gear\n -100% gear Physical Damage",
+    "template": "Adds {0}- {1}Elemental Damage to the gear\n-100% gear Physical Damage",
     "valueRanges": [
       {
         "min": 77,
@@ -175,7 +175,7 @@ export const CROSSBOW_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "1",
-    "template": "+{0}% Knockback distance\n +10% additional damage",
+    "template": "+{0}% Knockback distance\n+10% additional damage",
     "valueRanges": [
       {
         "min": 58,
@@ -191,7 +191,7 @@ export const CROSSBOW_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "1",
-    "template": "+{0}% gear Physical Damage\n Adds {1}- {2}Physical Damage to the gear",
+    "template": "+{0}% gear Physical Damage\nAdds {1}- {2}Physical Damage to the gear",
     "valueRanges": [
       {
         "min": 77,
@@ -226,7 +226,7 @@ export const CROSSBOW_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "1",
-    "template": "Adds {0}- {1}Elemental Damage to the gear\n -100% gear Physical Damage",
+    "template": "Adds {0}- {1}Elemental Damage to the gear\n-100% gear Physical Damage",
     "valueRanges": [
       {
         "min": 59,

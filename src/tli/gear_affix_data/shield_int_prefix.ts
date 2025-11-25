@@ -8,7 +8,7 @@ export const SHIELD_INT_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "+{0}% Armor DMG Mitigation Penetration\n +{1}% Armor DMG Mitigation Penetration for Minions",
+    "template": "+{0}% Armor DMG Mitigation Penetration\n+{1}% Armor DMG Mitigation Penetration for Minions",
     "valueRanges": [
       {
         "min": 26,
@@ -28,7 +28,7 @@ export const SHIELD_INT_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "+{0}% Elemental and Erosion Resistance Penetration\n Minion Damage penetrates {1}% Elemental Resistance",
+    "template": "+{0}% Elemental and Erosion Resistance Penetration\nMinion Damage penetrates {1}% Elemental Resistance",
     "valueRanges": [
       {
         "min": 29,
@@ -64,7 +64,7 @@ export const SHIELD_INT_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "1",
-    "template": "+{0}% Armor DMG Mitigation Penetration\n +{1}% Armor DMG Mitigation Penetration for Minions",
+    "template": "+{0}% Armor DMG Mitigation Penetration\n+{1}% Armor DMG Mitigation Penetration for Minions",
     "valueRanges": [
       {
         "min": 19,
@@ -84,7 +84,7 @@ export const SHIELD_INT_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Ultimate",
     "tier": "1",
-    "template": "+{0}% Elemental and Erosion Resistance Penetration\n Minion Damage penetrates {1}% Elemental Resistance",
+    "template": "+{0}% Elemental and Erosion Resistance Penetration\nMinion Damage penetrates {1}% Elemental Resistance",
     "valueRanges": [
       {
         "min": 22,
@@ -291,7 +291,7 @@ export const SHIELD_INT_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Basic",
     "tier": "0",
-    "template": "+{0}% damage\n +{1}% Minion Damage",
+    "template": "+{0}% damage\n+{1}% Minion Damage",
     "valueRanges": [
       {
         "min": 109,
@@ -423,7 +423,7 @@ export const SHIELD_INT_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Basic",
     "tier": "1",
-    "template": "+{0}% damage\n +{1}% Minion Damage",
+    "template": "+{0}% damage\n+{1}% Minion Damage",
     "valueRanges": [
       {
         "min": 77,

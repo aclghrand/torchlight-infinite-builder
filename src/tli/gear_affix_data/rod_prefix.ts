@@ -174,7 +174,7 @@ export const ROD_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Advanced",
     "tier": "0",
-    "template": "+1to Max Summonable Synthetic Troops\n +{0}% additional Minion Damage",
+    "template": "+1to Max Summonable Synthetic Troops\n+{0}% additional Minion Damage",
     "valueRanges": [
       {
         "min": 10,
@@ -254,7 +254,7 @@ export const ROD_PREFIX_AFFIXES = [
     "affixType": "Prefix",
     "craftingPool": "Advanced",
     "tier": "1",
-    "template": "+1to Max Summonable Synthetic Troops\n +{0}% additional Minion Damage",
+    "template": "+1to Max Summonable Synthetic Troops\n+{0}% additional Minion Damage",
     "valueRanges": [
       {
         "min": 6,

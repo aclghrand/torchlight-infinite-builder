@@ -72,7 +72,7 @@ export const HELMET_STR_SWEET_DREAM_AFFIX_AFFIXES = [
     "affixType": "Sweet Dream Affix",
     "craftingPool": "",
     "tier": "1",
-    "template": "+{0}% Armor DMG Mitigation Penetration\n +{1}% Armor DMG Mitigation Penetration for Minions",
+    "template": "+{0}% Armor DMG Mitigation Penetration\n+{1}% Armor DMG Mitigation Penetration for Minions",
     "valueRanges": [
       {
         "min": 5,
@@ -108,7 +108,7 @@ export const HELMET_STR_SWEET_DREAM_AFFIX_AFFIXES = [
     "affixType": "Sweet Dream Affix",
     "craftingPool": "",
     "tier": "1",
-    "template": "+{0}% Elemental and Erosion Resistance Penetration\n +{1}% Elemental and Erosion Resistance Penetration for Minions",
+    "template": "+{0}% Elemental and Erosion Resistance Penetration\n+{1}% Elemental and Erosion Resistance Penetration for Minions",
     "valueRanges": [
       {
         "min": 6,

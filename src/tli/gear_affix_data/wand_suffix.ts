@@ -8,7 +8,7 @@ export const WAND_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "-15% additional Cast Speed\n +{0}% additional Spell Damage",
+    "template": "-15% additional Cast Speed\n+{0}% additional Spell Damage",
     "valueRanges": [
       {
         "min": 54,
@@ -104,7 +104,7 @@ export const WAND_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "+2Parabolic Projectile Split Quantity\n +{0}% additional Projectile Damage",
+    "template": "+2Parabolic Projectile Split Quantity\n+{0}% additional Projectile Damage",
     "valueRanges": [
       {
         "min": 8,
@@ -120,7 +120,7 @@ export const WAND_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "0",
-    "template": "Max Terra Quantity +1\n +5% additional damage",
+    "template": "Max Terra Quantity +1\n+5% additional damage",
     "valueRanges": [],
     "rawAffix": "Max Terra Quantity `+1`<> `+5`% additional damage"
   },
@@ -131,7 +131,7 @@ export const WAND_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "1",
-    "template": "-15% additional Cast Speed\n +{0}% additional Spell Damage",
+    "template": "-15% additional Cast Speed\n+{0}% additional Spell Damage",
     "valueRanges": [
       {
         "min": 38,
@@ -227,7 +227,7 @@ export const WAND_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "1",
-    "template": "+1Parabolic Projectile Split Quantity\n +{0}% additional Projectile Damage",
+    "template": "+1Parabolic Projectile Split Quantity\n+{0}% additional Projectile Damage",
     "valueRanges": [
       {
         "min": 12,
@@ -243,7 +243,7 @@ export const WAND_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Ultimate",
     "tier": "1",
-    "template": "Max Terra Quantity +1\n +1% additional damage",
+    "template": "Max Terra Quantity +1\n+1% additional damage",
     "valueRanges": [],
     "rawAffix": "Max Terra Quantity `+1`<> `+1`% additional damage"
   },
@@ -526,7 +526,7 @@ export const WAND_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Basic",
     "tier": "0",
-    "template": "+{0}% Cast Speed\n +{1}% Minion Cast Speed",
+    "template": "+{0}% Cast Speed\n+{1}% Minion Cast Speed",
     "valueRanges": [
       {
         "min": 34,
@@ -594,7 +594,7 @@ export const WAND_SUFFIX_AFFIXES = [
     "affixType": "Suffix",
     "craftingPool": "Basic",
     "tier": "1",
-    "template": "+{0}% Cast Speed\n +{1}% Minion Cast Speed",
+    "template": "+{0}% Cast Speed\n+{1}% Minion Cast Speed",
     "valueRanges": [
       {
         "min": 26,
