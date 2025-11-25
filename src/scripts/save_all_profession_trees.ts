@@ -1,39 +1,60 @@
-import { readFile, writeFile } from "fs/promises";
+import { writeFile } from "fs/promises";
 import { join } from "path";
 import { scrapeProfessionTree } from "./scrape_profession_tree";
+import { PROFESSION_TREES, GOD_GODDESS_TREES } from "../tli/talent_tree_types";
+
+const formatTreeAsTypeScript = (
+  treeName: string,
+  treeData: { name: string; nodes: any[] }
+): string => {
+  const constName = treeName.toUpperCase();
+  return `import { TalentTreeData } from "../core";
+
+export const ${constName}: TalentTreeData = ${JSON.stringify(treeData, null, 2)} as const;
+`;
+};
 
 const saveAllProfessionTrees = async (): Promise<void> => {
   try {
-    // Read professions from the JSON file
-    const professionsPath = join(process.cwd(), "data", "professions.json");
-    const professionsData = await readFile(professionsPath, "utf-8");
-    const professions: string[] = JSON.parse(professionsData);
+    // Combine all tree names
+    const allTrees = [...PROFESSION_TREES, ...GOD_GODDESS_TREES];
 
-    console.log(`Found ${professions.length} professions to scrape\n`);
+    console.log(`Found ${allTrees.length} professions to scrape\n`);
+
+    const savedTrees: string[] = [];
 
     // Scrape each profession tree
-    for (let i = 0; i < professions.length; i++) {
-      const profession = professions[i];
-      console.log(`[${i + 1}/${professions.length}] Scraping ${profession}...`);
+    for (let i = 0; i < allTrees.length; i++) {
+      const treeName = allTrees[i];
+      console.log(`[${i + 1}/${allTrees.length}] Scraping ${treeName}...`);
 
       try {
-        // Convert profession name to URL format (replace spaces with underscores)
-        const professionUrlName = profession.replace(/ /g, "_");
-        const talentTree = await scrapeProfessionTree(professionUrlName);
+        const talentTree = await scrapeProfessionTree(treeName);
 
-        // Save to file
-        const filename = `${professionUrlName.toLowerCase()}_tree.json`;
-        const filepath = join(process.cwd(), "data", filename);
-        await writeFile(filepath, JSON.stringify(talentTree, null, 2), "utf-8");
+        // Save to TypeScript file
+        const filename = `${treeName.toLowerCase()}.ts`;
+        const filepath = join(
+          process.cwd(),
+          "src",
+          "tli",
+          "talent_data",
+          filename
+        );
+        const tsContent = formatTreeAsTypeScript(treeName, talentTree);
+        await writeFile(filepath, tsContent, "utf-8");
 
+        savedTrees.push(treeName);
         console.log(`  ✓ Saved ${talentTree.nodes.length} nodes to ${filename}\n`);
       } catch (error) {
-        console.error(`  ✗ Failed to scrape ${profession}:`, error);
+        console.error(`  ✗ Failed to scrape ${treeName}:`, error);
         console.log();
       }
     }
 
     console.log("✓ Finished scraping all profession trees");
+    console.log(
+      `\nSuccessfully saved ${savedTrees.length}/${allTrees.length} trees`
+    );
   } catch (error) {
     console.error("Failed to save profession trees:", error);
     throw error;

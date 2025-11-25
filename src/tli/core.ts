@@ -84,6 +84,20 @@ export interface RawTalentPage {
   tree4: RawTalentTree;
 }
 
+export interface TalentNodeData {
+  nodeType: "micro" | "medium" | "legendary";
+  rawAffix: string;
+  position: { x: number; y: number };
+  prerequisite?: { x: number; y: number };
+  maxPoints: number;
+  iconName: string;
+}
+
+export interface TalentTreeData {
+  name: string;
+  nodes: TalentNodeData[];
+}
+
 export interface RawGear {
   gearType:
     | "helmet"

@@ -1,18 +1,5 @@
 import * as cheerio from "cheerio";
-
-interface TalentTree {
-  name: string;
-  nodes: TalentNode[];
-}
-
-interface TalentNode {
-  nodeType: "micro" | "medium" | "legendary";
-  rawAffix: string;
-  position: { x: number; y: number };
-  prerequisite?: { x: number; y: number };
-  maxPoints: number;
-  iconName: string;
-}
+import { TalentTreeData, TalentNodeData } from "../tli/core";
 
 interface NodeData {
   cx: number;
@@ -78,7 +65,7 @@ const parseAffix = (htmlContent: string): string => {
  */
 const scrapeProfessionTree = async (
   professionName: string
-): Promise<TalentTree> => {
+): Promise<TalentTreeData> => {
   try {
     const url = `https://tlidb.com/en/${professionName}#ProfessionTree`;
     console.log(`Fetching profession tree from: ${url}`);
@@ -175,7 +162,7 @@ const scrapeProfessionTree = async (
     };
 
     // Build final talent node objects
-    const talentNodes: TalentNode[] = nodesData.map((node) => {
+    const talentNodes: TalentNodeData[] = nodesData.map((node) => {
       // Find connection where this node's left edge is the endpoint (x1)
       const nodeLeftEdge = node.cx - CIRCLE_RADIUS;
 

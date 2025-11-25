@@ -1,65 +1,17 @@
-import { RawAllocatedTalentNode } from "./core";
+import { RawAllocatedTalentNode, TalentNodeData, TalentTreeData } from "./core";
+import { TALENT_TREES } from "./talent_data";
+import type { TreeName } from "./talent_tree_types";
 
-// Types matching JSON structure
-export interface TalentNodeData {
-  nodeType: "micro" | "medium" | "legendary";
-  rawAffix: string;
-  position: { x: number; y: number };
-  maxPoints: number;
-  iconName: string;
-  prerequisite?: { x: number; y: number };
-}
+// Re-export tree name constants and types
+export {
+  GOD_GODDESS_TREES,
+  PROFESSION_TREES,
+  isGodGoddessTree,
+} from "./talent_tree_types";
+export type { TreeName } from "./talent_tree_types";
 
-export interface TalentTreeData {
-  name: string;
-  nodes: TalentNodeData[];
-}
-
-// Tree name constants
-export const GOD_GODDESS_TREES = [
-  "God_of_War",
-  "God_of_Might",
-  "God_of_Machines",
-  "Goddess_of_Hunting",
-  "Goddess_of_Knowledge",
-  "Goddess_of_Deception",
-] as const;
-
-export const PROFESSION_TREES = [
-  "Warrior",
-  "Warlord",
-  "Onslaughter",
-  "The_Brave",
-  "Marksman",
-  "Bladerunner",
-  "Druid",
-  "Assassin",
-  "Magister",
-  "Arcanist",
-  "Elementalist",
-  "Prophet",
-  "Shadowdancer",
-  "Ranger",
-  "Sentinel",
-  "Shadowmaster",
-  "Psychic",
-  "Warlock",
-  "Lich",
-  "Machinist",
-  "Steel_Vanguard",
-  "Alchemist",
-  "Artisan",
-  "Ronin",
-] as const;
-
-export type TreeName =
-  | (typeof GOD_GODDESS_TREES)[number]
-  | (typeof PROFESSION_TREES)[number];
-
-// Check if a tree name is a god/goddess tree
-export const isGodGoddessTree = (name: string): boolean => {
-  return GOD_GODDESS_TREES.includes(name as (typeof GOD_GODDESS_TREES)[number]);
-};
+// Re-export data types
+export type { TalentNodeData, TalentTreeData };
 
 // Calculate total points in a specific column
 export const calculateColumnPoints = (
@@ -175,23 +127,7 @@ export const canDeallocateNode = (
   return true;
 };
 
-// Tree loading with client-side caching
-const treeCache = new Map<TreeName, TalentTreeData>();
-
-export const loadTalentTree = async (
-  treeName: TreeName
-): Promise<TalentTreeData> => {
-  // Check cache first
-  if (treeCache.has(treeName)) {
-    return treeCache.get(treeName)!;
-  }
-
-  const fileName = `${treeName.toLowerCase()}_tree.json`;
-  const response = await fetch(`/data/${fileName}`);
-  if (!response.ok) {
-    throw new Error(`Failed to load tree: ${treeName}`);
-  }
-  const data = await response.json();
-  treeCache.set(treeName, data);
-  return data;
+// Tree loading function - now synchronous since data is imported
+export const loadTalentTree = (treeName: TreeName): TalentTreeData => {
+  return TALENT_TREES[treeName];
 };
