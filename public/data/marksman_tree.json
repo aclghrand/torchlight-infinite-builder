@@ -1,0 +1,387 @@
+{
+  "name": "Marksman",
+  "nodes": [
+    {
+      "nodeType": "micro",
+      "rawAffix": "+9% Projectile Damage",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "DmgExtra"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+18% Projectile Damage",
+      "position": {
+        "x": 1,
+        "y": 0
+      },
+      "prerequisite": {
+        "x": 0,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "DmgAll"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+5% Projectile Damage\n+3% Projectile Speed",
+      "position": {
+        "x": 2,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "DmgExtra"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+12% Projectile Speed",
+      "position": {
+        "x": 3,
+        "y": 0
+      },
+      "prerequisite": {
+        "x": 2,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "Agi"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+10% Projectile Speed\nProjectile Damage increases with the distance traveled, dealing up to +48% damage to distant enemies",
+      "position": {
+        "x": 4,
+        "y": 0
+      },
+      "prerequisite": {
+        "x": 3,
+        "y": 0
+      },
+      "maxPoints": 1,
+      "iconName": "DmgAll"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "Parabolic Projectile Splits quantity +1",
+      "position": {
+        "x": 6,
+        "y": 0
+      },
+      "prerequisite": {
+        "x": 5,
+        "y": 1
+      },
+      "maxPoints": 1,
+      "iconName": "Crossbow02"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+3% Attack and Cast Speed",
+      "position": {
+        "x": 1,
+        "y": 1
+      },
+      "maxPoints": 3,
+      "iconName": "CastSpeed"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+6% Attack and Cast Speed",
+      "position": {
+        "x": 2,
+        "y": 1
+      },
+      "prerequisite": {
+        "x": 1,
+        "y": 1
+      },
+      "maxPoints": 3,
+      "iconName": "Agi"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+30% Projectile Critical Strike Rating",
+      "position": {
+        "x": 3,
+        "y": 1
+      },
+      "prerequisite": {
+        "x": 2,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "Crit02"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+60% Projectile Damage against enemies in proximity",
+      "position": {
+        "x": 4,
+        "y": 1
+      },
+      "prerequisite": {
+        "x": 3,
+        "y": 1
+      },
+      "maxPoints": 1,
+      "iconName": "Crit03"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+9% Projectile Damage",
+      "position": {
+        "x": 5,
+        "y": 1
+      },
+      "maxPoints": 3,
+      "iconName": "DmgExtra"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+1 Jumps",
+      "position": {
+        "x": 6,
+        "y": 1
+      },
+      "prerequisite": {
+        "x": 5,
+        "y": 1
+      },
+      "maxPoints": 1,
+      "iconName": "Bow01"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+3% Max Life",
+      "position": {
+        "x": 0,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "AtkSpeed"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+6% Max Life",
+      "position": {
+        "x": 1,
+        "y": 2
+      },
+      "prerequisite": {
+        "x": 0,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Dagger03"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+15% Projectile Critical Strike Rating",
+      "position": {
+        "x": 2,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Es"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+15% Projectile Critical Strike Damage",
+      "position": {
+        "x": 3,
+        "y": 2
+      },
+      "prerequisite": {
+        "x": 2,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "DmgPhys"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+8 Dexterity",
+      "position": {
+        "x": 4,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Es"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+1% Evasion per 24 Dexterity",
+      "position": {
+        "x": 5,
+        "y": 2
+      },
+      "prerequisite": {
+        "x": 4,
+        "y": 2
+      },
+      "maxPoints": 1,
+      "iconName": "Evasion"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+2 Horizontal Projectile Penetration(s)",
+      "position": {
+        "x": 6,
+        "y": 2
+      },
+      "prerequisite": {
+        "x": 5,
+        "y": 1
+      },
+      "maxPoints": 1,
+      "iconName": "Crit04"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+450 Evasion",
+      "position": {
+        "x": 1,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "Evasion"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+900 Evasion",
+      "position": {
+        "x": 2,
+        "y": 3
+      },
+      "prerequisite": {
+        "x": 1,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "Evasion"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+7% Evasion",
+      "position": {
+        "x": 3,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "Evasion"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+12% Evasion\n+12% chance to avoid Elemental Ailments",
+      "position": {
+        "x": 4,
+        "y": 3
+      },
+      "prerequisite": {
+        "x": 3,
+        "y": 3
+      },
+      "maxPoints": 1,
+      "iconName": "Evasion"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+10% Agility Blessing Duration\n+7% Evasion while Agility Blessing is active",
+      "position": {
+        "x": 5,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "Area"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+6% Evasion per stack of Agility Blessing owned",
+      "position": {
+        "x": 6,
+        "y": 3
+      },
+      "prerequisite": {
+        "x": 5,
+        "y": 3
+      },
+      "maxPoints": 1,
+      "iconName": "DmgLightning"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+7% Evasion",
+      "position": {
+        "x": 0,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Evasion"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+14% Evasion",
+      "position": {
+        "x": 1,
+        "y": 4
+      },
+      "prerequisite": {
+        "x": 0,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Evasion"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "1.5% chance to avoid damage",
+      "position": {
+        "x": 2,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Defence01"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+3% chance to avoid damage",
+      "position": {
+        "x": 3,
+        "y": 4
+      },
+      "prerequisite": {
+        "x": 2,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Defence01"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+7% Evasion",
+      "position": {
+        "x": 5,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Agi"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+20% additional Evasion on Spell Damage",
+      "position": {
+        "x": 6,
+        "y": 4
+      },
+      "prerequisite": {
+        "x": 5,
+        "y": 4
+      },
+      "maxPoints": 1,
+      "iconName": "DmgLightning"
+    }
+  ]
+}

@@ -1,0 +1,369 @@
+{
+  "name": "Prophet",
+  "nodes": [
+    {
+      "nodeType": "micro",
+      "rawAffix": "+6% chance to inflict Frostbite\n+9% Cold Damage",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "Claw02"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+12% chance to inflict Frostbite\n+18% Cold Damage",
+      "position": {
+        "x": 1,
+        "y": 0
+      },
+      "prerequisite": {
+        "x": 0,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "Claw02"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+15% Critical Strike Rating\n+15% Minion Critical Strike Rating",
+      "position": {
+        "x": 2,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "Crit01"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+20% Critical Strike Rating\n+20% Minion Critical Strike Rating\n+5% Critical Strike Damage\n+5% Minion Critical Strike Damage",
+      "position": {
+        "x": 3,
+        "y": 0
+      },
+      "prerequisite": {
+        "x": 2,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "Crit04"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+6% Freeze Duration",
+      "position": {
+        "x": 4,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "Bow02"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+12% Freeze Duration",
+      "position": {
+        "x": 5,
+        "y": 0
+      },
+      "prerequisite": {
+        "x": 4,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "Bow02"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+10% additional damage taken by enemies Frozen by you recently",
+      "position": {
+        "x": 6,
+        "y": 0
+      },
+      "prerequisite": {
+        "x": 5,
+        "y": 0
+      },
+      "maxPoints": 1,
+      "iconName": "Bow02"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+3% Attack and Cast Speed\n+3% Minion Attack and Cast Speed",
+      "position": {
+        "x": 1,
+        "y": 1
+      },
+      "maxPoints": 3,
+      "iconName": "Atk"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+6% Attack and Cast Speed\n+6% Minion Attack and Cast Speed",
+      "position": {
+        "x": 2,
+        "y": 1
+      },
+      "prerequisite": {
+        "x": 1,
+        "y": 1
+      },
+      "maxPoints": 3,
+      "iconName": "Atk"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+5% Frostbite inflicted",
+      "position": {
+        "x": 4,
+        "y": 1
+      },
+      "maxPoints": 3,
+      "iconName": "DmgExtra"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+10% Frostbite inflicted",
+      "position": {
+        "x": 5,
+        "y": 1
+      },
+      "prerequisite": {
+        "x": 4,
+        "y": 1
+      },
+      "maxPoints": 3,
+      "iconName": "DmgExtra"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "Inflicts 5 Frostbite Rating to Frostbitten enemies every second",
+      "position": {
+        "x": 6,
+        "y": 1
+      },
+      "prerequisite": {
+        "x": 5,
+        "y": 1
+      },
+      "maxPoints": 1,
+      "iconName": "DmgCold"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+3% Max Life\n+3% Max Energy Shield",
+      "position": {
+        "x": 0,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Aura"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+6% Max Life\n+6% Max Energy Shield",
+      "position": {
+        "x": 1,
+        "y": 2
+      },
+      "prerequisite": {
+        "x": 0,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Aura"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+4% Cold Resistance",
+      "position": {
+        "x": 2,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Dual03"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+18% Cold Resistance\nMinions are immune to Cold Damage\nMinions are immune to Frostbite and Freeze",
+      "position": {
+        "x": 3,
+        "y": 2
+      },
+      "prerequisite": {
+        "x": 2,
+        "y": 2
+      },
+      "maxPoints": 1,
+      "iconName": "DmgCold"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+8 Intelligence",
+      "position": {
+        "x": 4,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Blind"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+5% Intelligence",
+      "position": {
+        "x": 5,
+        "y": 2
+      },
+      "prerequisite": {
+        "x": 4,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Flask02"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+4% Max Mana",
+      "position": {
+        "x": 1,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "Dagger02"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+8% Max Mana",
+      "position": {
+        "x": 2,
+        "y": 3
+      },
+      "prerequisite": {
+        "x": 1,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "Freeze"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "1.5% Life Regain\n1.5% Energy Shield Regain",
+      "position": {
+        "x": 3,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "Defence02"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+3% Life Regain\n+3% Energy Shield Regain",
+      "position": {
+        "x": 4,
+        "y": 3
+      },
+      "prerequisite": {
+        "x": 3,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "Defence02"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+10% Focus Blessing Duration\n+10% damage when Focus Blessing is active",
+      "position": {
+        "x": 5,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "Crit01"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+100% chance to gain a stack of Focus Blessing upon inflicting damage to a Frostbitten enemy. Interval: 0.1s",
+      "position": {
+        "x": 6,
+        "y": 3
+      },
+      "prerequisite": {
+        "x": 5,
+        "y": 3
+      },
+      "maxPoints": 1,
+      "iconName": "Ailment"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+9% Cold Damage\n+9% Minion Cold Damage",
+      "position": {
+        "x": 0,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "DmgCold"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+18% Cold Damage\n+18% Minion Cold Damage",
+      "position": {
+        "x": 1,
+        "y": 4
+      },
+      "prerequisite": {
+        "x": 0,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "DmgAll"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "1.5% Cold Penetration\n1.5% Cold Penetration for Minions",
+      "position": {
+        "x": 3,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Es"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "Inflicts Cold Infiltration when dealing damage to Frozen enemies",
+      "position": {
+        "x": 4,
+        "y": 4
+      },
+      "prerequisite": {
+        "x": 3,
+        "y": 4
+      },
+      "maxPoints": 1,
+      "iconName": "DmgEle"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+9% Cold Damage\n+9% Minion Cold Damage",
+      "position": {
+        "x": 5,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "DmgCold"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "Converts 100% of Physical Damage to Cold Damage\nConverts 100% of Minion Physical Damage to Cold Damage",
+      "position": {
+        "x": 6,
+        "y": 4
+      },
+      "prerequisite": {
+        "x": 5,
+        "y": 4
+      },
+      "maxPoints": 1,
+      "iconName": "DmgExtra"
+    }
+  ]
+}

@@ -1,0 +1,369 @@
+{
+  "name": "Artisan",
+  "nodes": [
+    {
+      "nodeType": "micro",
+      "rawAffix": "+12% Sentry Damage",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "Channel01"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+24% Sentry Damage",
+      "position": {
+        "x": 1,
+        "y": 0
+      },
+      "prerequisite": {
+        "x": 0,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "Channel01"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+8% Sentry Skill Critical Strike Damage",
+      "position": {
+        "x": 2,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "Dagger02"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+15% Sentry Skill Critical Strike Damage",
+      "position": {
+        "x": 3,
+        "y": 0
+      },
+      "prerequisite": {
+        "x": 2,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "Dagger02"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+12% Sentry Damage",
+      "position": {
+        "x": 5,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "Channel01"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+1 Sentry quantity that can be deployed at a time",
+      "position": {
+        "x": 6,
+        "y": 0
+      },
+      "prerequisite": {
+        "x": 5,
+        "y": 0
+      },
+      "maxPoints": 1,
+      "iconName": "Armor"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+3% Sentry Skill cast frequency",
+      "position": {
+        "x": 1,
+        "y": 1
+      },
+      "maxPoints": 3,
+      "iconName": "Bow01"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+6% Sentry Skill cast frequency",
+      "position": {
+        "x": 2,
+        "y": 1
+      },
+      "prerequisite": {
+        "x": 1,
+        "y": 1
+      },
+      "maxPoints": 3,
+      "iconName": "Duration"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+12% Sentry Damage",
+      "position": {
+        "x": 3,
+        "y": 1
+      },
+      "maxPoints": 3,
+      "iconName": "Channel01"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+20% Sentry Damage\n+18% Sentry Skill Area\n+9% Sentry Projectile Speed",
+      "position": {
+        "x": 4,
+        "y": 1
+      },
+      "prerequisite": {
+        "x": 3,
+        "y": 1
+      },
+      "maxPoints": 3,
+      "iconName": "Flask02"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+3% Sentry Skill cast frequency",
+      "position": {
+        "x": 5,
+        "y": 1
+      },
+      "maxPoints": 3,
+      "iconName": "Bow01"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+30% Sentry Skill cast frequency\n-5% additional Sentry Damage",
+      "position": {
+        "x": 6,
+        "y": 1
+      },
+      "prerequisite": {
+        "x": 5,
+        "y": 1
+      },
+      "maxPoints": 1,
+      "iconName": "DmgFire"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+3% Max Life",
+      "position": {
+        "x": 0,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Es"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+6% Max Life",
+      "position": {
+        "x": 1,
+        "y": 2
+      },
+      "prerequisite": {
+        "x": 0,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Es"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+3% Max Energy Shield",
+      "position": {
+        "x": 2,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Defence02"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+6% Max Energy Shield",
+      "position": {
+        "x": 3,
+        "y": 2
+      },
+      "prerequisite": {
+        "x": 2,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Es"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+8% Sentry Damage\n-8% additional Sentry Start Time",
+      "position": {
+        "x": 4,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Agi"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+8% additional Sentry Damage\n-25% additional Sentry Start Time",
+      "position": {
+        "x": 5,
+        "y": 2
+      },
+      "prerequisite": {
+        "x": 4,
+        "y": 2
+      },
+      "maxPoints": 1,
+      "iconName": "Area"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+7% Barrier Shield",
+      "position": {
+        "x": 1,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "Flask01"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+14% Barrier Shield",
+      "position": {
+        "x": 2,
+        "y": 3
+      },
+      "prerequisite": {
+        "x": 1,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "Dagger01"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "Gains 1 stack(s) of Tenacity Blessing every 1 s when having Barrier",
+      "position": {
+        "x": 3,
+        "y": 3
+      },
+      "prerequisite": {
+        "x": 2,
+        "y": 3
+      },
+      "maxPoints": 1,
+      "iconName": "Agi"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+7% Barrier Shield",
+      "position": {
+        "x": 4,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "Flask01"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+14% Barrier Shield",
+      "position": {
+        "x": 5,
+        "y": 3
+      },
+      "prerequisite": {
+        "x": 4,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "Dagger01"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+8% Barrier Absorption Rate",
+      "position": {
+        "x": 6,
+        "y": 3
+      },
+      "prerequisite": {
+        "x": 5,
+        "y": 3
+      },
+      "maxPoints": 1,
+      "iconName": "Defence03"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+15% Sentry Skill Critical Strike Rating",
+      "position": {
+        "x": 0,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Crossbow02"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+30% Sentry Skill Critical Strike Rating",
+      "position": {
+        "x": 1,
+        "y": 4
+      },
+      "prerequisite": {
+        "x": 0,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Crossbow02"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+2% Movement Speed",
+      "position": {
+        "x": 2,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Agi"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+4% Movement Speed\n+20% Sentry Damage when moving",
+      "position": {
+        "x": 3,
+        "y": 4
+      },
+      "prerequisite": {
+        "x": 2,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Agi"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+7% Armor",
+      "position": {
+        "x": 4,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Armor"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+8% Armor\nAdds 0.5% of Armor to Barrier Shield",
+      "position": {
+        "x": 5,
+        "y": 4
+      },
+      "prerequisite": {
+        "x": 4,
+        "y": 4
+      },
+      "maxPoints": 1,
+      "iconName": "Armor"
+    }
+  ]
+}

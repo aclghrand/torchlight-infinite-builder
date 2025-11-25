@@ -1,0 +1,359 @@
+{
+  "name": "Warrior",
+  "nodes": [
+    {
+      "nodeType": "micro",
+      "rawAffix": "+9% damage",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "DmgAll"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+18% damage",
+      "position": {
+        "x": 1,
+        "y": 0
+      },
+      "prerequisite": {
+        "x": 0,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "DmgAll"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+15% Critical Strike Rating",
+      "position": {
+        "x": 2,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "Crit01"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+20% Critical Strike Rating\n+5% Critical Strike Damage",
+      "position": {
+        "x": 3,
+        "y": 0
+      },
+      "prerequisite": {
+        "x": 2,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "Crit04"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+9% damage",
+      "position": {
+        "x": 4,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "DmgAll"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+50% damage against Low Life enemies",
+      "position": {
+        "x": 5,
+        "y": 0
+      },
+      "prerequisite": {
+        "x": 4,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "Axe02"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+25% additional damage against Low Life enemies",
+      "position": {
+        "x": 6,
+        "y": 0
+      },
+      "prerequisite": {
+        "x": 5,
+        "y": 0
+      },
+      "maxPoints": 1,
+      "iconName": "Axe02"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+3% Attack and Cast Speed\n+3% Minion Attack and Cast Speed",
+      "position": {
+        "x": 1,
+        "y": 1
+      },
+      "maxPoints": 3,
+      "iconName": "Agi"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+6% Attack and Cast Speed\n+6% Minion Attack and Cast Speed",
+      "position": {
+        "x": 2,
+        "y": 1
+      },
+      "prerequisite": {
+        "x": 1,
+        "y": 1
+      },
+      "maxPoints": 3,
+      "iconName": "Agi"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "0.3% Attack Speed for every 1% of Life lost",
+      "position": {
+        "x": 3,
+        "y": 1
+      },
+      "prerequisite": {
+        "x": 2,
+        "y": 1
+      },
+      "maxPoints": 1,
+      "iconName": "Atk"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+3% Defense",
+      "position": {
+        "x": 0,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Armor"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+6% Defense",
+      "position": {
+        "x": 1,
+        "y": 2
+      },
+      "prerequisite": {
+        "x": 0,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Armor"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "1.5% Life Regain",
+      "position": {
+        "x": 3,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Defence02"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "-15% additional Life Regain Interval\nConsumes 2% of current Life when you use Attack Skills",
+      "position": {
+        "x": 4,
+        "y": 2
+      },
+      "prerequisite": {
+        "x": 3,
+        "y": 2
+      },
+      "maxPoints": 1,
+      "iconName": "Atk"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+12% damage if you have taken damage recently",
+      "position": {
+        "x": 5,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Armor"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "Gains a stack of Fortitude when using a Melee Skill",
+      "position": {
+        "x": 6,
+        "y": 2
+      },
+      "prerequisite": {
+        "x": 5,
+        "y": 2
+      },
+      "maxPoints": 1,
+      "iconName": "Armor"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+40 Max Life",
+      "position": {
+        "x": 1,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "DmgAll"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+80 Max Life",
+      "position": {
+        "x": 2,
+        "y": 3
+      },
+      "prerequisite": {
+        "x": 1,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "DmgAll"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+3% Max Life",
+      "position": {
+        "x": 3,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "Es"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "Restores 3% of Life on defeat",
+      "position": {
+        "x": 4,
+        "y": 3
+      },
+      "prerequisite": {
+        "x": 3,
+        "y": 3
+      },
+      "maxPoints": 1,
+      "iconName": "Es"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+8 Strength",
+      "position": {
+        "x": 5,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "Atk"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+1 Max Life per 5 Strength",
+      "position": {
+        "x": 6,
+        "y": 3
+      },
+      "prerequisite": {
+        "x": 5,
+        "y": 3
+      },
+      "maxPoints": 1,
+      "iconName": "Dot"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+3% Max Life",
+      "position": {
+        "x": 0,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Es"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+6% Max Life",
+      "position": {
+        "x": 1,
+        "y": 4
+      },
+      "prerequisite": {
+        "x": 0,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Es"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "Regenerates 0.4% Life per second",
+      "position": {
+        "x": 2,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Flask01"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "Regenerates 0.8% Life per second",
+      "position": {
+        "x": 3,
+        "y": 4
+      },
+      "prerequisite": {
+        "x": 2,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Flask01"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+8% additional damage if you have lost Life recently",
+      "position": {
+        "x": 4,
+        "y": 4
+      },
+      "prerequisite": {
+        "x": 3,
+        "y": 4
+      },
+      "maxPoints": 1,
+      "iconName": "Es"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+3% Max Life",
+      "position": {
+        "x": 5,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Es"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+3% injury buffer",
+      "position": {
+        "x": 6,
+        "y": 4
+      },
+      "prerequisite": {
+        "x": 5,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Area"
+    }
+  ]
+}

@@ -1,0 +1,359 @@
+{
+  "name": "Machinist",
+  "nodes": [
+    {
+      "nodeType": "micro",
+      "rawAffix": "+9% Minion Damage",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "DmgExtra"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+18% Minion Damage",
+      "position": {
+        "x": 1,
+        "y": 0
+      },
+      "prerequisite": {
+        "x": 0,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "DmgExtra"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+15% Minion Critical Strike Rating",
+      "position": {
+        "x": 2,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "Crit04"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+20% Minion Critical Strike Rating\n+5% Minion Critical Strike Damage",
+      "position": {
+        "x": 3,
+        "y": 0
+      },
+      "prerequisite": {
+        "x": 2,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "Crit03"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+9% Minion Damage",
+      "position": {
+        "x": 4,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "Crit02"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+4% chance for Synthetic Troop Minions to deal Double Damage",
+      "position": {
+        "x": 5,
+        "y": 0
+      },
+      "prerequisite": {
+        "x": 4,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "DmgAll"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+1 Synthetic Troop Skill Level",
+      "position": {
+        "x": 6,
+        "y": 0
+      },
+      "prerequisite": {
+        "x": 5,
+        "y": 0
+      },
+      "maxPoints": 1,
+      "iconName": "Defence01"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+3% Minion Attack and Cast Speed",
+      "position": {
+        "x": 1,
+        "y": 1
+      },
+      "maxPoints": 3,
+      "iconName": "Atk"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+6% Minion Attack and Cast Speed",
+      "position": {
+        "x": 2,
+        "y": 1
+      },
+      "prerequisite": {
+        "x": 1,
+        "y": 1
+      },
+      "maxPoints": 3,
+      "iconName": "Accuracy"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+ 1 Command per second",
+      "position": {
+        "x": 4,
+        "y": 1
+      },
+      "maxPoints": 3,
+      "iconName": "DmgAll"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+ 2 Command per second",
+      "position": {
+        "x": 5,
+        "y": 1
+      },
+      "prerequisite": {
+        "x": 4,
+        "y": 1
+      },
+      "maxPoints": 3,
+      "iconName": "Evasion"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+1% Minion Attack and Cast Speed for every 2 Command owned",
+      "position": {
+        "x": 6,
+        "y": 1
+      },
+      "prerequisite": {
+        "x": 5,
+        "y": 1
+      },
+      "maxPoints": 1,
+      "iconName": "Crit02"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+3% Max Life\n+3% Max Energy Shield",
+      "position": {
+        "x": 0,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Defence02"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+6% Max Life\n+6% Max Energy Shield",
+      "position": {
+        "x": 1,
+        "y": 2
+      },
+      "prerequisite": {
+        "x": 0,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "BlockSpell"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+7% Minion Max Life",
+      "position": {
+        "x": 2,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Defence02"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+14% Minion Max Life",
+      "position": {
+        "x": 3,
+        "y": 2
+      },
+      "prerequisite": {
+        "x": 2,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "EsReg"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+3% Minion Life Regeneration Speed",
+      "position": {
+        "x": 4,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Crit02"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+6% Minion Life Regeneration Speed",
+      "position": {
+        "x": 5,
+        "y": 2
+      },
+      "prerequisite": {
+        "x": 4,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Crit02"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+7% Barrier Shield",
+      "position": {
+        "x": 1,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "Flask01"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+14% Barrier Shield",
+      "position": {
+        "x": 2,
+        "y": 3
+      },
+      "prerequisite": {
+        "x": 1,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "Flask01"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+8% Minion Damage\n+12% chance for Minions to inflict Ailment",
+      "position": {
+        "x": 3,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "DmgExtra"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+16% Minion Damage\n+24% chance for Minions to inflict Ailment",
+      "position": {
+        "x": 4,
+        "y": 3
+      },
+      "prerequisite": {
+        "x": 3,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "DmgExtra"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "Adds 10 Base Ailment Damage to Minions",
+      "position": {
+        "x": 5,
+        "y": 3
+      },
+      "prerequisite": {
+        "x": 4,
+        "y": 3
+      },
+      "maxPoints": 1,
+      "iconName": "Agi"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+2% Max Life\nRegenerates 0.4% Life per second",
+      "position": {
+        "x": 0,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Flask02"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+4% Max Life\nRegenerates 0.6% Life per second",
+      "position": {
+        "x": 1,
+        "y": 4
+      },
+      "prerequisite": {
+        "x": 0,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Flask01"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+2% Max Energy Shield\n+2% Energy Shield Charge Speed",
+      "position": {
+        "x": 2,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Armor"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+4% Max Energy Shield\n+4% Energy Shield Charge Speed",
+      "position": {
+        "x": 3,
+        "y": 4
+      },
+      "prerequisite": {
+        "x": 2,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "DmgEle"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+12% Minion Damage if a Synthetic Troop Skill has been cast recently",
+      "position": {
+        "x": 4,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "DmgExtra"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+8% additional Minion Damage if a Synthetic Troop Skill has been cast recently",
+      "position": {
+        "x": 5,
+        "y": 4
+      },
+      "prerequisite": {
+        "x": 4,
+        "y": 4
+      },
+      "maxPoints": 1,
+      "iconName": "Agi"
+    }
+  ]
+}

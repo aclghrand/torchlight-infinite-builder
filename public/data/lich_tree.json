@@ -1,0 +1,369 @@
+{
+  "name": "Lich",
+  "nodes": [
+    {
+      "nodeType": "micro",
+      "rawAffix": "+9% damage\n+9% Minion Damage",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "DmgExtra"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+18% damage\n+18% Minion Damage",
+      "position": {
+        "x": 1,
+        "y": 0
+      },
+      "prerequisite": {
+        "x": 0,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "DmgExtra"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+15% Critical Strike Rating\n+15% Minion Critical Strike Rating",
+      "position": {
+        "x": 2,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "Crit02"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+20% Critical Strike Rating\n+20% Minion Critical Strike Rating\n+5% Critical Strike Damage\n+5% Minion Critical Strike Damage",
+      "position": {
+        "x": 3,
+        "y": 0
+      },
+      "prerequisite": {
+        "x": 2,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "Crit04"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+9% damage\n+9% Minion Damage",
+      "position": {
+        "x": 4,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "Dagger03"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+6% Attack and Cast Speed\n+6% Minion Attack and Cast Speed",
+      "position": {
+        "x": 5,
+        "y": 0
+      },
+      "prerequisite": {
+        "x": 4,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "Flask02"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+1 all skills' level",
+      "position": {
+        "x": 6,
+        "y": 0
+      },
+      "prerequisite": {
+        "x": 5,
+        "y": 0
+      },
+      "maxPoints": 1,
+      "iconName": "Dual01"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+6% Affliction Effect",
+      "position": {
+        "x": 1,
+        "y": 1
+      },
+      "maxPoints": 3,
+      "iconName": "Curse"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "-4 Skill Cost\n+12% Affliction Effect",
+      "position": {
+        "x": 2,
+        "y": 1
+      },
+      "prerequisite": {
+        "x": 1,
+        "y": 1
+      },
+      "maxPoints": 3,
+      "iconName": "Duration"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+5 all stats",
+      "position": {
+        "x": 3,
+        "y": 1
+      },
+      "maxPoints": 3,
+      "iconName": "Dagger03"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+10 all stats",
+      "position": {
+        "x": 4,
+        "y": 1
+      },
+      "prerequisite": {
+        "x": 3,
+        "y": 1
+      },
+      "maxPoints": 3,
+      "iconName": "Dagger03"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "1.5% Cooldown Recovery Speed",
+      "position": {
+        "x": 5,
+        "y": 1
+      },
+      "maxPoints": 3,
+      "iconName": "Agi"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+8% Cooldown Recovery Speed\n+1 Max Charges",
+      "position": {
+        "x": 6,
+        "y": 1
+      },
+      "prerequisite": {
+        "x": 5,
+        "y": 1
+      },
+      "maxPoints": 1,
+      "iconName": "Agi"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+3% Max Life\n+3% Max Energy Shield",
+      "position": {
+        "x": 0,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Defence02"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+6% Max Life\n+6% Max Energy Shield",
+      "position": {
+        "x": 1,
+        "y": 2
+      },
+      "prerequisite": {
+        "x": 0,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Es"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+3% Max Energy Shield\n+3% Energy Shield Charge Speed",
+      "position": {
+        "x": 2,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Es"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+10% Max Energy Shield\nGains Blur when Energy Shield starts to Charge",
+      "position": {
+        "x": 3,
+        "y": 2
+      },
+      "prerequisite": {
+        "x": 2,
+        "y": 2
+      },
+      "maxPoints": 1,
+      "iconName": "Defence02"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+2% Skill Effect Duration",
+      "position": {
+        "x": 4,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Duration"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+4% Skill Effect Duration",
+      "position": {
+        "x": 5,
+        "y": 2
+      },
+      "prerequisite": {
+        "x": 4,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Curse"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+3% Attack and Cast Speed\n+3% Minion Attack and Cast Speed",
+      "position": {
+        "x": 1,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "Agi"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+6% Attack and Cast Speed\n+6% Minion Attack and Cast Speed\n-4 Skill Cost",
+      "position": {
+        "x": 2,
+        "y": 3
+      },
+      "prerequisite": {
+        "x": 1,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "Flask02"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "1.5% Blur Effect",
+      "position": {
+        "x": 3,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "DmgEle"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "0.2% Blur effect for every 1% of Life lost",
+      "position": {
+        "x": 4,
+        "y": 3
+      },
+      "prerequisite": {
+        "x": 3,
+        "y": 3
+      },
+      "maxPoints": 1,
+      "iconName": "Axe02"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+3% Max Life\n+3% Max Energy Shield",
+      "position": {
+        "x": 5,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "Defence02"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+10% additional damage when having both Sealed Mana and Life",
+      "position": {
+        "x": 6,
+        "y": 3
+      },
+      "prerequisite": {
+        "x": 5,
+        "y": 3
+      },
+      "maxPoints": 1,
+      "iconName": "Es"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+4% Max Mana",
+      "position": {
+        "x": 0,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Area"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+8% Max Mana",
+      "position": {
+        "x": 1,
+        "y": 4
+      },
+      "prerequisite": {
+        "x": 0,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Dot"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "1.5% Sealed Mana Compensation",
+      "position": {
+        "x": 4,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Bow01"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+3% Sealed Mana Compensation",
+      "position": {
+        "x": 5,
+        "y": 4
+      },
+      "prerequisite": {
+        "x": 4,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Crossbow02"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+8% Sealed Mana Compensation",
+      "position": {
+        "x": 6,
+        "y": 4
+      },
+      "prerequisite": {
+        "x": 5,
+        "y": 4
+      },
+      "maxPoints": 1,
+      "iconName": "Bow01"
+    }
+  ]
+}

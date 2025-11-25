@@ -1,0 +1,377 @@
+{
+  "name": "Bladerunner",
+  "nodes": [
+    {
+      "nodeType": "micro",
+      "rawAffix": "+9% Attack Damage",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "DmgExtra"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+18% Attack Damage",
+      "position": {
+        "x": 1,
+        "y": 0
+      },
+      "prerequisite": {
+        "x": 0,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "DmgExtra"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+15% Critical Strike Rating",
+      "position": {
+        "x": 2,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "Crit01"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+20% Critical Strike Rating\n+5% Critical Strike Damage",
+      "position": {
+        "x": 3,
+        "y": 0
+      },
+      "prerequisite": {
+        "x": 2,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "Crit04"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+9% Attack Damage when Dual Wielding",
+      "position": {
+        "x": 4,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "DmgLightning"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+6% Attack Speed while Dual Wielding",
+      "position": {
+        "x": 5,
+        "y": 0
+      },
+      "prerequisite": {
+        "x": 4,
+        "y": 0
+      },
+      "maxPoints": 2,
+      "iconName": "DmgAll"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+6% additional Attack Speed while Dual Wielding",
+      "position": {
+        "x": 6,
+        "y": 0
+      },
+      "prerequisite": {
+        "x": 5,
+        "y": 0
+      },
+      "maxPoints": 1,
+      "iconName": "Dual01"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+3% Attack Speed",
+      "position": {
+        "x": 1,
+        "y": 1
+      },
+      "maxPoints": 3,
+      "iconName": "Agi"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+6% Attack Speed",
+      "position": {
+        "x": 2,
+        "y": 1
+      },
+      "prerequisite": {
+        "x": 1,
+        "y": 1
+      },
+      "maxPoints": 3,
+      "iconName": "Accuracy"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "25% chance to gain Attack Aggression on defeat",
+      "position": {
+        "x": 3,
+        "y": 1
+      },
+      "prerequisite": {
+        "x": 2,
+        "y": 1
+      },
+      "maxPoints": 1,
+      "iconName": "Agi"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+18% Attack Damage when Dual Wielding",
+      "position": {
+        "x": 5,
+        "y": 1
+      },
+      "prerequisite": {
+        "x": 4,
+        "y": 0
+      },
+      "maxPoints": 3,
+      "iconName": "DmgLightning"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+5% additional Attack Damage for each unique type of weapon equipped while Dual Wielding",
+      "position": {
+        "x": 6,
+        "y": 1
+      },
+      "prerequisite": {
+        "x": 5,
+        "y": 1
+      },
+      "maxPoints": 1,
+      "iconName": "Dual01"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+3% Max Life\n+3% Max Energy Shield",
+      "position": {
+        "x": 0,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Dagger02"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+6% Max Life\n+6% Max Energy Shield",
+      "position": {
+        "x": 1,
+        "y": 2
+      },
+      "prerequisite": {
+        "x": 0,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Dagger02"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "1.5% Life Regain\n1.5% Energy Shield Regain",
+      "position": {
+        "x": 2,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Es"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+3% Life Regain\n+3% Energy Shield Regain",
+      "position": {
+        "x": 3,
+        "y": 2
+      },
+      "prerequisite": {
+        "x": 2,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Es"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "2.5% Movement Speed",
+      "position": {
+        "x": 4,
+        "y": 2
+      },
+      "maxPoints": 3,
+      "iconName": "Agi"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "35% of the bonuses for Movement Speed is also applied to the Cooldown Recovery Speed of Mobility skills\n70% of the bonuses for Movement Speed is also applied to the Attack and Cast Speed of Mobility Skills",
+      "position": {
+        "x": 5,
+        "y": 2
+      },
+      "prerequisite": {
+        "x": 4,
+        "y": 2
+      },
+      "maxPoints": 1,
+      "iconName": "Agi"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "Gains a stack Agility Blessing when using Mobility Skills",
+      "position": {
+        "x": 6,
+        "y": 2
+      },
+      "prerequisite": {
+        "x": 5,
+        "y": 2
+      },
+      "maxPoints": 1,
+      "iconName": "Agi"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "4.5% Projectile Speed",
+      "position": {
+        "x": 1,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "Area"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+9% Projectile Speed",
+      "position": {
+        "x": 2,
+        "y": 3
+      },
+      "prerequisite": {
+        "x": 1,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "Area"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+6% chance to Multistrike\n+6% Minion Multistrike chance",
+      "position": {
+        "x": 4,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "Atk"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+3% additional Attack Speed when performing Multistrikes",
+      "position": {
+        "x": 5,
+        "y": 3
+      },
+      "prerequisite": {
+        "x": 4,
+        "y": 3
+      },
+      "maxPoints": 3,
+      "iconName": "Atk"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "Multistrikes deal 16% increasing damage",
+      "position": {
+        "x": 6,
+        "y": 3
+      },
+      "prerequisite": {
+        "x": 5,
+        "y": 3
+      },
+      "maxPoints": 1,
+      "iconName": "DmgAll"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+3% Attack Speed",
+      "position": {
+        "x": 0,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Agi"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+6% Attack Speed\n-4 Skill Cost",
+      "position": {
+        "x": 1,
+        "y": 4
+      },
+      "prerequisite": {
+        "x": 0,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Accuracy"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+7% Evasion",
+      "position": {
+        "x": 2,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Evasion"
+    },
+    {
+      "nodeType": "medium",
+      "rawAffix": "+14% Evasion",
+      "position": {
+        "x": 3,
+        "y": 4
+      },
+      "prerequisite": {
+        "x": 2,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "Evasion"
+    },
+    {
+      "nodeType": "micro",
+      "rawAffix": "+8 Dexterity",
+      "position": {
+        "x": 5,
+        "y": 4
+      },
+      "maxPoints": 3,
+      "iconName": "DmgFire"
+    },
+    {
+      "nodeType": "legendary",
+      "rawAffix": "+1% Attack Speed per 40 Dexterity",
+      "position": {
+        "x": 6,
+        "y": 4
+      },
+      "prerequisite": {
+        "x": 5,
+        "y": 4
+      },
+      "maxPoints": 1,
+      "iconName": "DmgAll"
+    }
+  ]
+}
