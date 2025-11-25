@@ -1,53 +1,36 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Next.js 16 + React 19 + TypeScript character build planner for Torchlight Infinite.
 
-## Project Overview
+## Architecture
 
-This is a Next.js 16 application built with React 19, TypeScript, and Tailwind CSS 4. It's a character build planner for "Torchlight Infinite" (TLI), a game with complex character builds involving equipment, talents, and divinity systems.
+- **UI** ([src/app/](src/app/)) - React components, localStorage state
+- **Calculation Engine** ([src/tli/offense.ts](src/tli/offense.ts)) - DPS/stat calculations
+- **Mod Parser** ([src/tli/mod_parser.ts](src/tli/mod_parser.ts)) - String → typed Mod conversion
+- **Data Models** ([src/tli/core.ts](src/tli/core.ts), [src/tli/mod.ts](src/tli/mod.ts)) - Type definitions
 
-**Main Components:**
+## Key Conventions
 
-1. **Frontend UI** ([src/app/](src/app/)) - Interactive build planner interface
-2. **Calculation Engine** ([src/tli/](src/tli/)) - Damage calculator that computes DPS and other offensive stats
+**Code Style:**
+- Use `const` arrow functions, not `function` declarations
+- Derive types from const arrays: `const X = [...] as const; type T = (typeof X)[number]`
+- No backwards compatibility for localStorage schemas
 
-## Documentation
+**Data Flow:**
+```
+RawLoadout (UI, strings) → parseMod() → Loadout (typed Mods) → calculateOffense() → Results
+```
 
-- **[docs/development.md](docs/development.md)** - Development setup, commands, code conventions, and project structure
-- **[docs/ui-patterns.md](docs/ui-patterns.md)** - Frontend UI patterns and React conventions
-- **[docs/data-models.md](docs/data-models.md)** - Type definitions and data structures
-- **[docs/calculation-engine.md](docs/calculation-engine.md)** - Damage calculation system and formulas
-- **[docs/mod-parser.md](docs/mod-parser.md)** - Parser implementation and adding new mod types
+**Testing:** Use existing test files, run with `pnpm test <file>`
 
-## Quick Reference
+## Common Tasks
 
-| Task                                                                | Documentation                                                                                        |
-| ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| Setting up development                                              | [docs/development.md](docs/development.md)                                                           |
-| Working on UI ([src/app/](src/app/))                                | [docs/ui-patterns.md](docs/ui-patterns.md), [docs/data-models.md](docs/data-models.md)               |
-| Working on calculations ([src/tli/offense.ts](src/tli/offense.ts))  | [docs/calculation-engine.md](docs/calculation-engine.md), [docs/data-models.md](docs/data-models.md) |
-| Working on parsers ([src/tli/mod_parser.ts](src/tli/mod_parser.ts)) | [docs/mod-parser.md](docs/mod-parser.md)                                                             |
-| Adding new mod types                                                | [docs/mod-parser.md](docs/mod-parser.md), [docs/calculation-engine.md](docs/calculation-engine.md)   |
-| Updating talent trees                                               | [docs/development.md#talent-tree-data-system](docs/development.md#talent-tree-data-system)           |
-| Data extraction and HTML parsing                                    | [docs/development.md#data-extraction-scripts](docs/development.md#data-extraction-scripts)           |
+**Add mod type:** Define in [mod.ts](src/tli/mod.ts) → parser in [mod_parser.ts](src/tli/mod_parser.ts) → handler in [offense.ts](src/tli/offense.ts) → test
 
-## Documentation Guidelines
+**Add skill:** Add to `offensiveSkillConfs` in [offense.ts](src/tli/offense.ts), type auto-updates
 
-**Keep this file minimal.** When updating documentation:
+**Update talent trees:** `tsx src/scripts/save_all_profession_trees.ts`
 
-- **This file (CLAUDE.md)** should only contain:
-  - Brief project overview
-  - Links to detailed documentation
-  - Quick reference table
+## Detailed Docs
 
-- **Detailed content belongs in [docs/](docs/)**:
-  - Add new sections to appropriate existing doc files
-  - Create new doc files for distinct topics
-  - Update links in this file to point to the detailed docs
-
-- **Follow the separation of concerns**:
-  - [docs/development.md](docs/development.md) - Setup, commands, conventions, workflows
-  - [docs/data-models.md](docs/data-models.md) - Type definitions and data structures
-  - [docs/ui-patterns.md](docs/ui-patterns.md) - UI/React patterns and conventions
-  - [docs/calculation-engine.md](docs/calculation-engine.md) - Calculation formulas and logic
-  - [docs/mod-parser.md](docs/mod-parser.md) - Parser implementation and patterns
+See [docs/](docs/) for implementation details only when needed.
