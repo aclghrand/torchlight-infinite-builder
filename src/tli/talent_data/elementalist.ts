@@ -1,0 +1,409 @@
+import { TalentTreeData } from "../core";
+
+export const ELEMENTALIST: TalentTreeData = {
+  name: "Elementalist",
+  nodes: [
+    {
+      nodeType: "micro",
+      rawAffix: "+9% damage for Channeled Skills",
+      position: {
+        x: 0,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "DmgAll",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+18% damage for Channeled Skills",
+      position: {
+        x: 1,
+        y: 0,
+      },
+      prerequisite: {
+        x: 0,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "Channel03",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+4% Max Mana",
+      position: {
+        x: 2,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "Crit04",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+8% Max Mana",
+      position: {
+        x: 3,
+        y: 0,
+      },
+      prerequisite: {
+        x: 2,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "Es",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+3% Attack and Cast Speed for Channeled Skills",
+      position: {
+        x: 4,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "Flask02",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+6% damage for every +1 additional Max Channeled Stack(s)",
+      position: {
+        x: 5,
+        y: 0,
+      },
+      prerequisite: {
+        x: 4,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "Channel02",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix: "Max Channeled Stacks +1",
+      position: {
+        x: 6,
+        y: 0,
+      },
+      prerequisite: {
+        x: 5,
+        y: 0,
+      },
+      maxPoints: 1,
+      iconName: "Channel03",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+3% Attack and Cast Speed",
+      position: {
+        x: 1,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "Atk",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+6% Attack and Cast Speed\n-4 Skill Cost",
+      position: {
+        x: 2,
+        y: 1,
+      },
+      prerequisite: {
+        x: 1,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "Atk",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+9% damage for Channeled Skills",
+      position: {
+        x: 3,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "DmgAll",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix: "+60% damage while standing still",
+      position: {
+        x: 4,
+        y: 1,
+      },
+      prerequisite: {
+        x: 3,
+        y: 1,
+      },
+      maxPoints: 1,
+      iconName: "Agi",
+    },
+    {
+      nodeType: "medium",
+      rawAffix:
+        "+12% Attack and Cast Speed when channeled stacks have not reached cap",
+      position: {
+        x: 5,
+        y: 1,
+      },
+      prerequisite: {
+        x: 4,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "Blind",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix: "+40% additional Beam Length",
+      position: {
+        x: 6,
+        y: 1,
+      },
+      prerequisite: {
+        x: 5,
+        y: 1,
+      },
+      maxPoints: 1,
+      iconName: "Accuracy",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+3% Max Life\n+3% Max Energy Shield",
+      position: {
+        x: 0,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Aura",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+6% Max Life\n+6% Max Energy Shield",
+      position: {
+        x: 1,
+        y: 2,
+      },
+      prerequisite: {
+        x: 0,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Aura",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+3% chance to avoid Elemental Ailments",
+      position: {
+        x: 2,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "DmgAll",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+7% chance to avoid Elemental Ailments",
+      position: {
+        x: 3,
+        y: 2,
+      },
+      prerequisite: {
+        x: 2,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "DmgAll",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+8 Intelligence",
+      position: {
+        x: 4,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Blind",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+5% Intelligence",
+      position: {
+        x: 5,
+        y: 2,
+      },
+      prerequisite: {
+        x: 4,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Flask02",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix: "+1 Fire Skill Level",
+      position: {
+        x: 6,
+        y: 2,
+      },
+      prerequisite: {
+        x: 5,
+        y: 3,
+      },
+      maxPoints: 1,
+      iconName: "DmgFire",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+15% Critical Strike Rating",
+      position: {
+        x: 1,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "Crit01",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+20% Critical Strike Rating\n+5% Critical Strike Damage",
+      position: {
+        x: 2,
+        y: 3,
+      },
+      prerequisite: {
+        x: 1,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "Crit04",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix:
+        "+24% chance to inflict Elemental Ailments\nAdds 5 Base Elemental Ailment Damage",
+      position: {
+        x: 3,
+        y: 3,
+      },
+      prerequisite: {
+        x: 2,
+        y: 4,
+      },
+      maxPoints: 1,
+      iconName: "Crit01",
+    },
+    {
+      nodeType: "micro",
+      rawAffix:
+        "Adds 2 - 2 Fire Damage to Attacks and Spells\nAdds 1 - 3 Lightning Damage to Attacks and Spells\nAdds 2 - 2 Cold Damage to Attacks and Spells",
+      position: {
+        x: 5,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "Atk",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix: "+1 Lightning Skill Level",
+      position: {
+        x: 6,
+        y: 3,
+      },
+      prerequisite: {
+        x: 5,
+        y: 3,
+      },
+      maxPoints: 1,
+      iconName: "DmgLightning",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+9% Elemental Damage",
+      position: {
+        x: 0,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "DmgEle",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+18% Elemental Damage",
+      position: {
+        x: 1,
+        y: 4,
+      },
+      prerequisite: {
+        x: 0,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "DmgEle",
+    },
+    {
+      nodeType: "micro",
+      rawAffix:
+        "+12% chance to inflict Elemental Ailments\nDamage Penetrates 1.5% Elemental Resistance",
+      position: {
+        x: 2,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "DmgEle",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix:
+        "Upon inflicting damage, penetrates 3% of Elemental Resistance for each type of Elemental Ailment the enemy has",
+      position: {
+        x: 3,
+        y: 4,
+      },
+      prerequisite: {
+        x: 2,
+        y: 4,
+      },
+      maxPoints: 1,
+      iconName: "Duration",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+2% Elemental Resistance",
+      position: {
+        x: 4,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "DmgEle",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix:
+        "-5% additional Elemental Damage taken for every type of Elemental Damage recently received",
+      position: {
+        x: 5,
+        y: 4,
+      },
+      prerequisite: {
+        x: 4,
+        y: 4,
+      },
+      maxPoints: 1,
+      iconName: "Defence03",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix: "+1 Cold Skill Level",
+      position: {
+        x: 6,
+        y: 4,
+      },
+      prerequisite: {
+        x: 5,
+        y: 3,
+      },
+      maxPoints: 1,
+      iconName: "DmgCold",
+    },
+  ],
+} as const;

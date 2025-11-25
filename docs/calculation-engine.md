@@ -13,11 +13,13 @@ calculateOffense(loadout: Loadout, skill: Skill, configuration: Configuration): 
 ```
 
 **Parameters:**
+
 - `loadout` - Complete character build with gear, talents, divinity (see [data-models.md](data-models.md))
 - `skill` - The skill to calculate damage for
 - `configuration` - Settings like fervor points
 
 **Returns:**
+
 - `OffenseSummary` - Object containing DPS, crit chance, attack speed, etc.
 
 ## Calculation Flow
@@ -55,13 +57,13 @@ Step 2: Apply more mods multiplicatively
 
 ```typescript
 const calculateDmgInc = (base: number, mods: Mod[]): number => {
-  const increasedMods = filterMod(mods, "DmgPct").filter(m => !m.addn);
-  const totalInc = sumBy(increasedMods, m => m.value);
+  const increasedMods = filterMod(mods, "DmgPct").filter((m) => !m.addn);
+  const totalInc = sumBy(increasedMods, (m) => m.value);
   return base * (1 + totalInc);
 };
 
 const calculateDmgAddn = (base: number, mods: Mod[]): number => {
-  const moreMods = filterMod(mods, "DmgPct").filter(m => m.addn);
+  const moreMods = filterMod(mods, "DmgPct").filter((m) => m.addn);
   return moreMods.reduce((acc, m) => acc * (1 + m.value), base);
 };
 ```
@@ -73,7 +75,7 @@ Skills have tags that determine which damage modifiers apply:
 ```typescript
 interface Skill {
   name: string;
-  tags: SkillTag[];  // e.g., ["Attack", "Melee", "Area"]
+  tags: SkillTag[]; // e.g., ["Attack", "Melee", "Area"]
 }
 
 type SkillTag = "Attack" | "Spell" | "Melee" | "Ranged" | "Area" | "Projectile";
@@ -97,17 +99,17 @@ type DamageType = "physical" | "cold" | "lightning" | "fire" | "erosion";
 
 ```typescript
 const DMG_MOD_TYPES = [
-  "global",      // All damage
-  "melee",       // Melee attacks only
-  "area",        // Area of effect
-  "attack",      // Physical attacks
-  "spell",       // Spell-based abilities
-  "physical",    // Physical element
-  "cold",        // Cold element
-  "lightning",   // Lightning element
-  "fire",        // Fire element
-  "erosion",     // Erosion element
-  "elemental",   // All elemental (cold, lightning, fire, erosion)
+  "global", // All damage
+  "melee", // Melee attacks only
+  "area", // Area of effect
+  "attack", // Physical attacks
+  "spell", // Spell-based abilities
+  "physical", // Physical element
+  "cold", // Cold element
+  "lightning", // Lightning element
+  "fire", // Fire element
+  "erosion", // Erosion element
+  "elemental", // All elemental (cold, lightning, fire, erosion)
 ] as const;
 ```
 
@@ -130,18 +132,21 @@ Example: 100 STR = 100 × 0.005 = 0.5 (50% increased damage)
 Optional mechanic providing crit rating bonus:
 
 **Base Formula:**
+
 ```typescript
 const BASE_CRIT_RATING_PER_FERVOR = 0.02; // 2% per point
 ```
 
 **With Effectiveness Modifiers:**
+
 ```typescript
 const fervorEffMods = filterMod(mods, "FervorEff");
-const totalEff = sumBy(fervorEffMods, m => m.value);
+const totalEff = sumBy(fervorEffMods, (m) => m.value);
 const critRating = fervorPoints * 0.02 * (1 + totalEff);
 ```
 
 **Example:**
+
 - 100 fervor points
 - +50% fervor effectiveness (`FervorEff` mod)
 - Result: 100 × 0.02 × (1 + 0.5) = 3.0 (300% crit rating)
@@ -152,7 +157,7 @@ const critRating = fervorPoints * 0.02 * (1 + totalEff);
 
 ```typescript
 const critDmgPerFervorMods = filterMod(mods, "CritDmgPerFervor");
-const bonusCritDmg = sumBy(critDmgPerFervorMods, m => m.value * fervorPoints);
+const bonusCritDmg = sumBy(critDmgPerFervorMods, (m) => m.value * fervorPoints);
 ```
 
 **Important:** Fervor mechanics only apply when `configuration.fervor.enabled` is true.
@@ -168,7 +173,8 @@ const critChance = Math.min(critRating / 100, 1.0); // Cap at 100%
 **Average Damage with Crit:**
 
 ```typescript
-const avgDmgWithCrit = baseDmg * (1 - critChance) + (baseDmg * critDmgMult * critChance);
+const avgDmgWithCrit =
+  baseDmg * (1 - critChance) + baseDmg * critDmgMult * critChance;
 ```
 
 **Crit Damage Multiplier:**
@@ -176,7 +182,7 @@ const avgDmgWithCrit = baseDmg * (1 - critChance) + (baseDmg * critDmgMult * cri
 ```typescript
 const BASE_CRIT_DMG = 1.5; // 150% base (50% extra damage)
 const critDmgMods = filterMod(mods, "CritDmgPct");
-const totalCritDmg = sumBy(critDmgMods, m => m.value);
+const totalCritDmg = sumBy(critDmgMods, (m) => m.value);
 const critDmgMult = BASE_CRIT_DMG + totalCritDmg;
 ```
 
@@ -190,11 +196,17 @@ Comes from gear (`GearBaseAspd` mod).
 
 ```typescript
 const aspdMods = filterMod(mods, "AspdPct");
-const totalAspdInc = sumBy(aspdMods.filter(m => !m.addn), m => m.value);
+const totalAspdInc = sumBy(
+  aspdMods.filter((m) => !m.addn),
+  (m) => m.value,
+);
 const baseWithInc = baseAspd * (1 + totalAspdInc);
 
-const aspdMoreMods = aspdMods.filter(m => m.addn);
-const finalAspd = aspdMoreMods.reduce((acc, m) => acc * (1 + m.value), baseWithInc);
+const aspdMoreMods = aspdMods.filter((m) => m.addn);
+const finalAspd = aspdMoreMods.reduce(
+  (acc, m) => acc * (1 + m.value),
+  baseWithInc,
+);
 ```
 
 ## Working with Mods
@@ -224,16 +236,16 @@ Use discriminated union pattern:
 ```typescript
 const dmgMod: Mod = {
   type: "DmgPct",
-  value: 0.5,        // 50%
+  value: 0.5, // 50%
   modType: "global",
-  addn: false        // Increased, not more
+  addn: false, // Increased, not more
 };
 
 const critMod: Mod = {
   type: "CritRatingPct",
-  value: 0.1,        // 10%
+  value: 0.1, // 10%
   modType: "attack",
-  addn: false
+  addn: false,
 };
 ```
 
@@ -244,15 +256,15 @@ const critMod: Mod = {
 ```typescript
 export type Mod =
   | { type: "DmgPct"; value: number; modType: DmgModType; addn: boolean }
-  | { type: "YourNewMod"; value: number; /* other fields */ }
-  // ... other types
+  | { type: "YourNewMod"; value: number /* other fields */ };
+// ... other types
 ```
 
 2. **Handle in calculations** in [src/tli/stuff.ts](../src/tli/stuff.ts):
 
 ```typescript
 const yourNewMods = filterMod(mods, "YourNewMod");
-const totalValue = sumBy(yourNewMods, m => m.value);
+const totalValue = sumBy(yourNewMods, (m) => m.value);
 // Apply to calculation
 ```
 
@@ -293,10 +305,14 @@ test("calculates fire damage correctly", () => {
     equipmentPage: {
       mainHand: {
         gearType: "sword",
-        affixes: [{
-          mods: [{ type: "DmgPct", value: 0.5, modType: "fire", addn: false }]
-        }]
-      }
+        affixes: [
+          {
+            mods: [
+              { type: "DmgPct", value: 0.5, modType: "fire", addn: false },
+            ],
+          },
+        ],
+      },
     },
     // ... rest of loadout
   };

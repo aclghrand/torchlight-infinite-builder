@@ -6,10 +6,10 @@ This document covers all type definitions in [src/tli/core.ts](../src/tli/core.t
 
 The codebase uses two parallel data formats:
 
-| Format | Used By | Affix Format | Purpose |
-|--------|---------|--------------|---------|
-| **Raw** | UI, localStorage | `string[]` | User input, serialization |
-| **Parsed** | Calculation engine | `Affix[]` (typed `Mod` objects) | Type-safe calculations |
+| Format     | Used By            | Affix Format                    | Purpose                   |
+| ---------- | ------------------ | ------------------------------- | ------------------------- |
+| **Raw**    | UI, localStorage   | `string[]`                      | User input, serialization |
+| **Parsed** | Calculation engine | `Affix[]` (typed `Mod` objects) | Type-safe calculations    |
 
 ### Conversion Flow
 
@@ -35,6 +35,7 @@ interface RawLoadout {
 ```
 
 **Storage:**
+
 - LocalStorage key: `"tli-planner-loadout"`
 - Serialized as JSON
 
@@ -65,31 +66,36 @@ Individual equipment piece:
 
 ```typescript
 interface RawGear {
-  gearType: "helmet" | "chest" | "neck" | "gloves" | "belt" | "boots" | "ring" | "sword" | "shield";
-  affixes: string[];  // Human-readable strings like "+10% fire damage"
+  gearType:
+    | "helmet"
+    | "chest"
+    | "neck"
+    | "gloves"
+    | "belt"
+    | "boots"
+    | "ring"
+    | "sword"
+    | "shield";
+  affixes: string[]; // Human-readable strings like "+10% fire damage"
 }
 ```
 
 **Slot → Gear Type Mapping:**
 
-| Slot Name | Gear Type |
-|-----------|-----------|
-| `leftRing` | `ring` |
-| `rightRing` | `ring` |
-| `mainHand` | `sword` |
-| `offHand` | `sword` or `shield` |
-| All others | Same as slot name |
+| Slot Name   | Gear Type           |
+| ----------- | ------------------- |
+| `leftRing`  | `ring`              |
+| `rightRing` | `ring`              |
+| `mainHand`  | `sword`             |
+| `offHand`   | `sword` or `shield` |
+| All others  | Same as slot name   |
 
 **Example:**
 
 ```typescript
 const rawHelmet: RawGear = {
   gearType: "helmet",
-  affixes: [
-    "+10% fire damage",
-    "+5% attack speed",
-    "+50 strength"
-  ]
+  affixes: ["+10% fire damage", "+5% attack speed", "+50 strength"],
 };
 ```
 
@@ -137,8 +143,17 @@ Individual equipment (parsed):
 
 ```typescript
 interface Gear {
-  gearType: "helmet" | "chest" | "neck" | "gloves" | "belt" | "boots" | "ring" | "sword" | "shield";
-  affixes: Affix[];  // Parsed modifier objects
+  gearType:
+    | "helmet"
+    | "chest"
+    | "neck"
+    | "gloves"
+    | "belt"
+    | "boots"
+    | "ring"
+    | "sword"
+    | "shield";
+  affixes: Affix[]; // Parsed modifier objects
 }
 ```
 
@@ -149,21 +164,15 @@ const parsedHelmet: Gear = {
   gearType: "helmet",
   affixes: [
     {
-      mods: [
-        { type: "DmgPct", value: 0.1, modType: "fire", addn: false }
-      ]
+      mods: [{ type: "DmgPct", value: 0.1, modType: "fire", addn: false }],
     },
     {
-      mods: [
-        { type: "AspdPct", value: 0.05, addn: false }
-      ]
+      mods: [{ type: "AspdPct", value: 0.05, addn: false }],
     },
     {
-      mods: [
-        { type: "Str", value: 50 }
-      ]
-    }
-  ]
+      mods: [{ type: "Str", value: 50 }],
+    },
+  ],
 };
 ```
 
@@ -173,9 +182,9 @@ Container for mods with optional metadata:
 
 ```typescript
 interface Affix {
-  mods: Mod[];           // Array of typed modifiers
-  maxDivinity?: number;  // Optional divinity level cap
-  src?: string;          // Optional source identifier
+  mods: Mod[]; // Array of typed modifiers
+  maxDivinity?: number; // Optional divinity level cap
+  src?: string; // Optional source identifier
 }
 ```
 
@@ -187,8 +196,8 @@ Talent tree and core talents:
 
 ```typescript
 interface TalentPage {
-  affixes: Affix[];        // Talent tree selections
-  coreTalents: Affix[];    // Core talent selections
+  affixes: Affix[]; // Talent tree selections
+  coreTalents: Affix[]; // Core talent selections
 }
 ```
 
@@ -219,9 +228,9 @@ Mods are a discriminated union with a `type` field. See [src/tli/mod.ts](../src/
 ```typescript
 {
   type: "DmgPct";
-  value: number;      // 0.1 = 10%
+  value: number; // 0.1 = 10%
   modType: DmgModType;
-  addn: boolean;      // false = increased, true = more
+  addn: boolean; // false = increased, true = more
 }
 ```
 
@@ -231,11 +240,15 @@ Mods are a discriminated union with a `type` field. See [src/tli/mod.ts](../src/
 {
   type: "FlatGearDmg";
   damageType: "physical" | "cold" | "lightning" | "fire" | "erosion";
-  dmg: { min: number; max: number };
+  dmg: {
+    min: number;
+    max: number;
+  }
 }
 ```
 
 **Skill-Specific:**
+
 - `SteepStrikeDmg` - Steep Strike damage modifier
 - `SweepSlashDmg` - Sweep Slash damage modifier
 - `DblDmg` - Double damage chance
@@ -258,7 +271,7 @@ Mods are a discriminated union with a `type` field. See [src/tli/mod.ts](../src/
 ```typescript
 {
   type: "CritDmgPct";
-  value: number;      // 0.5 = +50% crit damage
+  value: number; // 0.5 = +50% crit damage
   addn: boolean;
 }
 ```
@@ -281,22 +294,24 @@ Mods are a discriminated union with a `type` field. See [src/tli/mod.ts](../src/
 ### Attribute Mods
 
 **Flat Stats:**
+
 - `Str` - Flat strength
 - `Dex` - Flat dexterity
 
 **Percentage Stats:**
+
 - `StrPct` - Percentage strength
 - `DexPct` - Percentage dexterity
 
 ```typescript
 {
   type: "Str";
-  value: number;  // Flat amount (e.g., 50)
+  value: number; // Flat amount (e.g., 50)
 }
 
 {
   type: "StrPct";
-  value: number;  // Percentage (e.g., 0.1 = 10%)
+  value: number; // Percentage (e.g., 0.1 = 10%)
 }
 ```
 
@@ -307,7 +322,7 @@ Mods are a discriminated union with a `type` field. See [src/tli/mod.ts](../src/
 ```typescript
 {
   type: "Fervor";
-  value: number;  // Flat fervor points
+  value: number; // Flat fervor points
 }
 ```
 
@@ -316,7 +331,7 @@ Mods are a discriminated union with a `type` field. See [src/tli/mod.ts](../src/
 ```typescript
 {
   type: "FervorEff";
-  value: number;  // 0.5 = +50% effectiveness
+  value: number; // 0.5 = +50% effectiveness
 }
 ```
 
@@ -325,7 +340,7 @@ Mods are a discriminated union with a `type` field. See [src/tli/mod.ts](../src/
 ```typescript
 {
   type: "CritDmgPerFervor";
-  value: number;  // e.g., 0.002 = 0.2% crit dmg per point
+  value: number; // e.g., 0.002 = 0.2% crit dmg per point
 }
 ```
 
@@ -363,7 +378,14 @@ These come from base gear stats:
 ```typescript
 {
   type: "CoreTalent";
-  talent: "Last Stand" | "Dirty Tricks" | "Centralize" | "Tenacity" | "Hidden Mastery" | "Formless" | "Tradeoff" | "Unmatched Valor";
+  talent: "Last Stand" |
+    "Dirty Tricks" |
+    "Centralize" |
+    "Tenacity" |
+    "Hidden Mastery" |
+    "Formless" |
+    "Tradeoff" |
+    "Unmatched Valor";
 }
 ```
 
@@ -377,17 +399,17 @@ Damage modifiers can target specific types:
 
 ```typescript
 type DmgModType =
-  | "global"      // All damage
-  | "melee"       // Melee attacks
-  | "area"        // Area of effect
-  | "attack"      // Physical attacks
-  | "spell"       // Spell-based
-  | "physical"    // Physical element
-  | "cold"        // Cold element
-  | "lightning"   // Lightning element
-  | "fire"        // Fire element
-  | "erosion"     // Erosion element
-  | "elemental";  // All elemental (cold, lightning, fire, erosion)
+  | "global" // All damage
+  | "melee" // Melee attacks
+  | "area" // Area of effect
+  | "attack" // Physical attacks
+  | "spell" // Spell-based
+  | "physical" // Physical element
+  | "cold" // Cold element
+  | "lightning" // Lightning element
+  | "fire" // Fire element
+  | "erosion" // Erosion element
+  | "elemental"; // All elemental (cold, lightning, fire, erosion)
 ```
 
 **From const array:**
@@ -403,9 +425,9 @@ Critical strike modifiers:
 
 ```typescript
 type CritRatingModType =
-  | "global"   // All critical strikes
-  | "attack"   // Attack-based crits
-  | "spell";   // Spell-based crits
+  | "global" // All critical strikes
+  | "attack" // Attack-based crits
+  | "spell"; // Spell-based crits
 ```
 
 ---
@@ -473,7 +495,11 @@ const createEmptyLoadout = (): RawLoadout => ({
 ### Adding Gear
 
 ```typescript
-const addGear = (loadout: RawLoadout, slot: GearSlot, gear: RawGear): RawLoadout => ({
+const addGear = (
+  loadout: RawLoadout,
+  slot: GearSlot,
+  gear: RawGear,
+): RawLoadout => ({
   ...loadout,
   equipmentPage: {
     ...loadout.equipmentPage,
@@ -490,7 +516,7 @@ Convert string affixes to typed mods (see [mod-parser.md](mod-parser.md)):
 import { parseMod } from "@/src/tli/mod_parser";
 
 const affixStrings = ["+10% fire damage", "+5% attack speed"];
-const affixes: Affix[] = affixStrings.map(str => {
+const affixes: Affix[] = affixStrings.map((str) => {
   const mod = parseMod(str);
   if (typeof mod === "string") {
     // Handle parse error
@@ -510,10 +536,10 @@ const convertToLoadout = (raw: RawLoadout): Loadout => {
     if (rawGear) {
       gearPage[slot as keyof GearPage] = {
         gearType: rawGear.gearType,
-        affixes: rawGear.affixes.map(str => {
+        affixes: rawGear.affixes.map((str) => {
           const mod = parseMod(str);
           return typeof mod === "string" ? { mods: [] } : { mods: [mod] };
-        })
+        }),
       };
     }
   }

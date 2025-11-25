@@ -1,4 +1,5 @@
 import { Mod } from "./mod";
+import { TreeName } from "./talent_tree_types";
 
 export interface Affix {
   mods: Mod[];
@@ -94,7 +95,7 @@ export interface TalentNodeData {
 }
 
 export interface TalentTreeData {
-  name: string;
+  name: TreeName;
   nodes: TalentNodeData[];
 }
 

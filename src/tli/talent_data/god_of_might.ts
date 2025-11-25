@@ -1,0 +1,328 @@
+import { TalentTreeData } from "../core";
+
+export const GOD_OF_MIGHT: TalentTreeData = {
+  name: "God_of_Might",
+  nodes: [
+    {
+      nodeType: "micro",
+      rawAffix:
+        "+10% Attack Critical Strike Rating\n+3% Critical Strike Damage",
+      position: {
+        x: 2,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "DmgExtra",
+    },
+    {
+      nodeType: "medium",
+      rawAffix:
+        "+20% Attack Critical Strike Rating\n+5% Critical Strike Damage",
+      position: {
+        x: 3,
+        y: 0,
+      },
+      prerequisite: {
+        x: 2,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "DmgExtra",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+9% Attack Damage\n+2% Movement Speed",
+      position: {
+        x: 4,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "Atk",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+18% Attack Damage\n+4% Movement Speed",
+      position: {
+        x: 5,
+        y: 0,
+      },
+      prerequisite: {
+        x: 4,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "DmgAll",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix: "+1 to Attack Skill Level",
+      position: {
+        x: 6,
+        y: 0,
+      },
+      prerequisite: {
+        x: 5,
+        y: 0,
+      },
+      maxPoints: 1,
+      iconName: "DmgAll",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+3% Attack Speed",
+      position: {
+        x: 1,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "Atk",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+6% Attack Speed\n-4 Attack Skill Cost",
+      position: {
+        x: 2,
+        y: 1,
+      },
+      prerequisite: {
+        x: 1,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "Agi",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+2% Max Life\n1.5% Life Regain",
+      position: {
+        x: 4,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "DmgExtra",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+4% Max Life\n+3% Life Regain",
+      position: {
+        x: 5,
+        y: 1,
+      },
+      prerequisite: {
+        x: 4,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "DmgExtra",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+9% damage",
+      position: {
+        x: 0,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "DmgAll",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+18% damage",
+      position: {
+        x: 1,
+        y: 2,
+      },
+      prerequisite: {
+        x: 0,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "DmgAll",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+5% Armor\n+2% Max Life",
+      position: {
+        x: 2,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Armor",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+10% Armor\n+4% Max Life",
+      position: {
+        x: 3,
+        y: 2,
+      },
+      prerequisite: {
+        x: 2,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "DmgFire",
+    },
+    {
+      nodeType: "micro",
+      rawAffix:
+        "+10% Tenacity Blessing Duration\n+10% Attack Damage when Tenacity Blessing is active",
+      position: {
+        x: 4,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Dagger01",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix: "Max Tenacity Blessing Stacks +1",
+      position: {
+        x: 5,
+        y: 2,
+      },
+      prerequisite: {
+        x: 4,
+        y: 2,
+      },
+      maxPoints: 1,
+      iconName: "Defence03",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+9% Attack Damage",
+      position: {
+        x: 1,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "Atk",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+18% Attack Damage",
+      position: {
+        x: 2,
+        y: 3,
+      },
+      prerequisite: {
+        x: 1,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "Atk",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+8 Strength",
+      position: {
+        x: 3,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "Crossbow02",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+16 Strength",
+      position: {
+        x: 4,
+        y: 3,
+      },
+      prerequisite: {
+        x: 3,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "Crossbow02",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "Regenerates 0.4% Life per second",
+      position: {
+        x: 5,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "Flask01",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix:
+        "+2% Life Regeneration Speed per stack of Tenacity Blessing owned\n25 Life Regeneration per second per stack of Tenacity Blessing owned",
+      position: {
+        x: 6,
+        y: 3,
+      },
+      prerequisite: {
+        x: 5,
+        y: 3,
+      },
+      maxPoints: 1,
+      iconName: "Armor",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+7% Skill Area\n+5% Projectile Speed",
+      position: {
+        x: 2,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "DmgAll",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+14% Skill Area\n+10% Projectile Speed",
+      position: {
+        x: 3,
+        y: 4,
+      },
+      prerequisite: {
+        x: 2,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "DmgAll",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+9% Attack Damage",
+      position: {
+        x: 4,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "Atk",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+10% Warcry Cooldown Recovery Speed",
+      position: {
+        x: 5,
+        y: 4,
+      },
+      prerequisite: {
+        x: 4,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "Crossbow02",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix:
+        "+8% additional Attack Damage if you have used a Warcry Skill in the last 8s",
+      position: {
+        x: 6,
+        y: 4,
+      },
+      prerequisite: {
+        x: 5,
+        y: 4,
+      },
+      maxPoints: 1,
+      iconName: "DmgFire",
+    },
+  ],
+} as const;

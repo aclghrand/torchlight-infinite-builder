@@ -1,0 +1,372 @@
+import { TalentTreeData } from "../core";
+
+export const GOD_OF_MACHINES: TalentTreeData = {
+  name: "God_of_Machines",
+  nodes: [
+    {
+      nodeType: "micro",
+      rawAffix: "+15% Minion Critical Strike Rating\n+7% Minion Skill Area",
+      position: {
+        x: 2,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "Crit03",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+15% Minion Critical Strike Damage\n+10% Minion Skill Area",
+      position: {
+        x: 3,
+        y: 0,
+      },
+      prerequisite: {
+        x: 2,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "Crit03",
+    },
+    {
+      nodeType: "medium",
+      rawAffix:
+        "+27% Spirit Magus Ultimate Damage and Ailment Damage dealt by Ultimate.",
+      position: {
+        x: 4,
+        y: 0,
+      },
+      prerequisite: {
+        x: 3,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "CastSpeed",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+9% Minion Damage",
+      position: {
+        x: 5,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "DmgExtra",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix: "+1 Minion Skill Level",
+      position: {
+        x: 6,
+        y: 0,
+      },
+      prerequisite: {
+        x: 5,
+        y: 0,
+      },
+      maxPoints: 1,
+      iconName: "Flask02",
+    },
+    {
+      nodeType: "micro",
+      rawAffix:
+        "+3% Minion Attack and Cast Speed\nRegenerates 4 Mana per second",
+      position: {
+        x: 1,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "Atk",
+    },
+    {
+      nodeType: "medium",
+      rawAffix:
+        "+6% Minion Attack and Cast Speed\nRegenerates 8 Mana per second",
+      position: {
+        x: 2,
+        y: 1,
+      },
+      prerequisite: {
+        x: 1,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "Atk",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+9% Minion Damage",
+      position: {
+        x: 3,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "Axe02",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+18% Minion Damage",
+      position: {
+        x: 4,
+        y: 1,
+      },
+      prerequisite: {
+        x: 3,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "CastSpeed",
+    },
+    {
+      nodeType: "micro",
+      rawAffix:
+        "+ 1 Command per second\nSpirit Magi +2% chance to use an Enhanced Skill",
+      position: {
+        x: 5,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "Agi",
+    },
+    {
+      nodeType: "medium",
+      rawAffix:
+        "+ 2 Command per second\nSpirit Magi +6% chance to use an Enhanced Skill",
+      position: {
+        x: 6,
+        y: 1,
+      },
+      prerequisite: {
+        x: 5,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "AtkSpeed",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+9% damage\n+9% Minion Damage",
+      position: {
+        x: 0,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "AtkSpeed",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+18% damage\n+18% Minion Damage",
+      position: {
+        x: 1,
+        y: 2,
+      },
+      prerequisite: {
+        x: 0,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "AtkSpeed",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+3% Max Life\n+3% Max Energy Shield",
+      position: {
+        x: 2,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Es",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+6% Max Life\n+6% Max Energy Shield",
+      position: {
+        x: 3,
+        y: 2,
+      },
+      prerequisite: {
+        x: 2,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Es",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+9% Spirit Magus Ultimate Cooldown Recovery Speed",
+      position: {
+        x: 4,
+        y: 2,
+      },
+      prerequisite: {
+        x: 3,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "Area",
+    },
+    {
+      nodeType: "micro",
+      rawAffix:
+        "Regenerates 0.4% Life per second\n+2% Energy Shield Charge Speed\n+2% Movement Speed",
+      position: {
+        x: 5,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Flask02",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix:
+        "+10% Life Regeneration Speed\n-10% additional Energy Shield Charge Interval\n+8% Movement Speed",
+      position: {
+        x: 6,
+        y: 2,
+      },
+      prerequisite: {
+        x: 5,
+        y: 2,
+      },
+      maxPoints: 1,
+      iconName: "Flask01",
+    },
+    {
+      nodeType: "micro",
+      rawAffix:
+        "+7% Sentry Skill Area\n+10% Sentry Duration\n4.5% Sentry Projectile Speed",
+      position: {
+        x: 1,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "Bow01",
+    },
+    {
+      nodeType: "medium",
+      rawAffix:
+        "+7% Sentry Skill Area\n+20% Sentry Duration\n+9% Sentry Projectile Speed",
+      position: {
+        x: 2,
+        y: 3,
+      },
+      prerequisite: {
+        x: 1,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "Bow01",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+8% Barrier Shield",
+      position: {
+        x: 3,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "Area",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+16% Barrier Shield",
+      position: {
+        x: 4,
+        y: 3,
+      },
+      prerequisite: {
+        x: 3,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "Area",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+4% Sentry Skill cast frequency",
+      position: {
+        x: 5,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "Duration",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+8% Sentry Skill cast frequency",
+      position: {
+        x: 6,
+        y: 3,
+      },
+      prerequisite: {
+        x: 5,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "Bow02",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+15% Sentry Skill Critical Strike Rating",
+      position: {
+        x: 2,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "Channel02",
+    },
+    {
+      nodeType: "medium",
+      rawAffix:
+        "+20% Sentry Skill Critical Strike Rating\n+5% Sentry Skill Critical Strike Damage",
+      position: {
+        x: 3,
+        y: 4,
+      },
+      prerequisite: {
+        x: 2,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "Dagger02",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+12% Sentry Damage",
+      position: {
+        x: 4,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "AtkSpeed",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+24% Sentry Damage",
+      position: {
+        x: 5,
+        y: 4,
+      },
+      prerequisite: {
+        x: 4,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "Crossbow02",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix:
+        "+10% additional Sentry Damage if Sentry Skill is not used in the last 1 s",
+      position: {
+        x: 6,
+        y: 4,
+      },
+      prerequisite: {
+        x: 5,
+        y: 4,
+      },
+      maxPoints: 1,
+      iconName: "Dual01",
+    },
+  ],
+} as const;

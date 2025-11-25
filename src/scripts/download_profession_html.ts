@@ -13,7 +13,9 @@ const downloadProfessionHTML = async (): Promise<void> => {
     // Download HTML for each profession tree
     for (let i = 0; i < professions.length; i++) {
       const profession = professions[i];
-      console.log(`[${i + 1}/${professions.length}] Downloading ${profession}...`);
+      console.log(
+        `[${i + 1}/${professions.length}] Downloading ${profession}...`,
+      );
 
       try {
         // Convert profession name to URL format (replace spaces with underscores)
@@ -24,7 +26,7 @@ const downloadProfessionHTML = async (): Promise<void> => {
         const response = await fetch(url);
         if (!response.ok) {
           throw new Error(
-            `Failed to fetch: ${response.status} ${response.statusText}`
+            `Failed to fetch: ${response.status} ${response.statusText}`,
           );
         }
 

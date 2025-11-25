@@ -11,7 +11,7 @@ const scrapeTalentPage = async (): Promise<string[]> => {
     const response = await fetch(TALENT_PAGE_URL);
     if (!response.ok) {
       throw new Error(
-        `Failed to fetch: ${response.status} ${response.statusText}`
+        `Failed to fetch: ${response.status} ${response.statusText}`,
       );
     }
 

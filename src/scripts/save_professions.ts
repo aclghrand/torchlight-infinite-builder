@@ -9,7 +9,9 @@ const saveProfessions = async (): Promise<void> => {
 
     await writeFile(dataPath, JSON.stringify(professions, null, 2), "utf-8");
 
-    console.log(`✓ Saved ${professions.length} professions to data/professions.json`);
+    console.log(
+      `✓ Saved ${professions.length} professions to data/professions.json`,
+    );
   } catch (error) {
     console.error("Failed to save professions:", error);
     throw error;

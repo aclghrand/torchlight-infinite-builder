@@ -5,6 +5,7 @@ This document covers React patterns, component architecture, and UI-specific con
 ## File Location
 
 All UI code lives in [src/app/](../src/app/):
+
 - `page.tsx` - Main build planner component (client-side)
 - `layout.tsx` - Root layout with metadata
 
@@ -46,6 +47,7 @@ const GEAR_SLOTS: { key: GearSlot; label: string }[] = [
 ```
 
 **Features:**
+
 - Visual feedback for selected slot (blue highlight)
 - Responsive grid (2 cols mobile → 5 cols desktop)
 - Click to select a slot
@@ -55,6 +57,7 @@ const GEAR_SLOTS: { key: GearSlot; label: string }[] = [
 Shows affixes for currently selected slot:
 
 **Features:**
+
 - Text input + Add button for new affixes (arbitrary strings)
 - Enter key support for quick adding
 - Delete button for each affix

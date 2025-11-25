@@ -1,0 +1,364 @@
+import { TalentTreeData } from "../core";
+
+export const PSYCHIC: TalentTreeData = {
+  name: "Psychic",
+  nodes: [
+    {
+      nodeType: "micro",
+      rawAffix: "+9% Damage Over Time",
+      position: {
+        x: 0,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "Duration",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+18% Damage Over Time",
+      position: {
+        x: 1,
+        y: 0,
+      },
+      prerequisite: {
+        x: 0,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "DmgAll",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+9% Terra Skill Damage",
+      position: {
+        x: 2,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "Flask02",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+18% Terra Skill Damage",
+      position: {
+        x: 3,
+        y: 0,
+      },
+      prerequisite: {
+        x: 2,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "Flask02",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+6% Reaping Cooldown Recovery Speed",
+      position: {
+        x: 4,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "Curse",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+12% Reaping Cooldown Recovery Speed",
+      position: {
+        x: 5,
+        y: 0,
+      },
+      prerequisite: {
+        x: 4,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "Dot",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix: "Gains 1 stack(s) of Focus Blessing when Reaping",
+      position: {
+        x: 6,
+        y: 0,
+      },
+      prerequisite: {
+        x: 5,
+        y: 0,
+      },
+      maxPoints: 1,
+      iconName: "Axe02",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+2% Skill Effect Duration",
+      position: {
+        x: 1,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "Duration",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+4% Skill Effect Duration",
+      position: {
+        x: 2,
+        y: 1,
+      },
+      prerequisite: {
+        x: 1,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "Curse",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+12% Terra Charge Recovery Speed",
+      position: {
+        x: 3,
+        y: 1,
+      },
+      prerequisite: {
+        x: 2,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "Claw02",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+6 Affliction inflicted per second\n+6% Affliction Effect",
+      position: {
+        x: 5,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "DmgExtra",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix:
+        "+18 Affliction inflicted per second\n-8% All Resistance when the enemy has max Affliction",
+      position: {
+        x: 6,
+        y: 1,
+      },
+      prerequisite: {
+        x: 5,
+        y: 1,
+      },
+      maxPoints: 1,
+      iconName: "Duration",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+3% Max Energy Shield",
+      position: {
+        x: 0,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Defence02",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+6% Max Energy Shield",
+      position: {
+        x: 1,
+        y: 2,
+      },
+      prerequisite: {
+        x: 0,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Defence02",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+3% Max Life",
+      position: {
+        x: 2,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "DmgFire",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+6% Max Life",
+      position: {
+        x: 3,
+        y: 2,
+      },
+      prerequisite: {
+        x: 2,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Es",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "1.5% Blur Effect",
+      position: {
+        x: 5,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "DmgEle",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix:
+        "+10% Movement Speed while Blur is active\nMovement Speed cannot be reduced to below the base value when Blur is active",
+      position: {
+        x: 6,
+        y: 2,
+      },
+      prerequisite: {
+        x: 5,
+        y: 2,
+      },
+      maxPoints: 1,
+      iconName: "BlockSpell",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+3% Defense",
+      position: {
+        x: 1,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "Area",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+3% injury buffer",
+      position: {
+        x: 2,
+        y: 3,
+      },
+      prerequisite: {
+        x: 1,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "Area",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+6% Reaping Duration",
+      position: {
+        x: 3,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "Curse",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+12% Reaping Duration",
+      position: {
+        x: 4,
+        y: 3,
+      },
+      prerequisite: {
+        x: 3,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "Curse",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix: "+5% chance to gain Blur when Reaping",
+      position: {
+        x: 5,
+        y: 3,
+      },
+      prerequisite: {
+        x: 4,
+        y: 3,
+      },
+      maxPoints: 1,
+      iconName: "Crit03",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+3% Attack and Cast Speed",
+      position: {
+        x: 0,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "Agi",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+6% Attack and Cast Speed",
+      position: {
+        x: 1,
+        y: 4,
+      },
+      prerequisite: {
+        x: 0,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "CastSpeed",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+6% Affliction Effect",
+      position: {
+        x: 2,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "Curse",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+12% Affliction Effect",
+      position: {
+        x: 3,
+        y: 4,
+      },
+      prerequisite: {
+        x: 2,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "Curse",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+9% Damage Over Time",
+      position: {
+        x: 4,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "Duration",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix:
+        "Gains a stack of Torment when dealing damage to enemies with max Affliction",
+      position: {
+        x: 5,
+        y: 4,
+      },
+      prerequisite: {
+        x: 4,
+        y: 4,
+      },
+      maxPoints: 1,
+      iconName: "Cannon03",
+    },
+  ],
+} as const;

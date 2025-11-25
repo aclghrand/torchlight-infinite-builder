@@ -64,7 +64,7 @@ const parseAffix = (htmlContent: string): string => {
  * Scrapes the profession tree page and returns all talent nodes
  */
 const scrapeProfessionTree = async (
-  professionName: string
+  professionName: string,
 ): Promise<TalentTreeData> => {
   try {
     const url = `https://tlidb.com/en/${professionName}#ProfessionTree`;
@@ -73,7 +73,7 @@ const scrapeProfessionTree = async (
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(
-        `Failed to fetch: ${response.status} ${response.statusText}`
+        `Failed to fetch: ${response.status} ${response.statusText}`,
       );
     }
 
@@ -111,8 +111,7 @@ const scrapeProfessionTree = async (
       const rawAffix = parseAffix(tooltipHtml);
 
       // Extract icon name from href attribute
-      const href =
-        $image.attr("xlink:href") || $image.attr("href") || "";
+      const href = $image.attr("xlink:href") || $image.attr("href") || "";
       const iconMatch = href.match(/\/(\w+)_64\.webp$/);
       const iconName = iconMatch ? iconMatch[1] : "";
 
@@ -123,7 +122,7 @@ const scrapeProfessionTree = async (
         (_, el) => {
           const y = parseFloat($(el).attr("y") || "0");
           return Math.abs(y - (cy + 26)) < 5; // Allow small tolerance
-        }
+        },
       );
 
       const maxPoints = parseInt($levelUpText.text() || "0", 10);
@@ -150,7 +149,7 @@ const scrapeProfessionTree = async (
     const findNodeByEdge = (
       edgeX: number,
       edgeY: number,
-      isRightEdge: boolean
+      isRightEdge: boolean,
     ): NodeData | undefined => {
       // Convert edge coordinate to center coordinate
       const cx = isRightEdge ? edgeX - CIRCLE_RADIUS : edgeX + CIRCLE_RADIUS;

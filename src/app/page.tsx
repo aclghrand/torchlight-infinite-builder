@@ -1,7 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { RawLoadout, RawGearPage, RawGear, RawAllocatedTalentNode } from "@/src/tli/core";
+import {
+  RawLoadout,
+  RawGearPage,
+  RawGear,
+  RawAllocatedTalentNode,
+} from "@/src/tli/core";
 import {
   TalentTreeData,
   TalentNodeData,
@@ -70,9 +75,15 @@ export default function Home() {
   const [selectedSlot, setSelectedSlot] = useState<GearSlot>("helmet");
   const [newAffix, setNewAffix] = useState("");
   const [mounted, setMounted] = useState(false);
-  const [activePage, setActivePage] = useState<"equipment" | "talents">("equipment");
-  const [activeTreeSlot, setActiveTreeSlot] = useState<"tree1" | "tree2" | "tree3" | "tree4">("tree1");
-  const [treeData, setTreeData] = useState<Record<string, TalentTreeData | null>>({
+  const [activePage, setActivePage] = useState<"equipment" | "talents">(
+    "equipment",
+  );
+  const [activeTreeSlot, setActiveTreeSlot] = useState<
+    "tree1" | "tree2" | "tree3" | "tree4"
+  >("tree1");
+  const [treeData, setTreeData] = useState<
+    Record<string, TalentTreeData | null>
+  >({
     tree1: null,
     tree2: null,
     tree3: null,
@@ -172,7 +183,7 @@ export default function Home() {
   // Talent page handlers
   const handleTreeChange = (
     slot: "tree1" | "tree2" | "tree3" | "tree4",
-    newTreeName: string
+    newTreeName: string,
   ) => {
     // Prevent changing tree if points are allocated
     if (loadout.talentPage[slot].allocatedNodes.length > 0) {
@@ -216,13 +227,13 @@ export default function Home() {
   const handleAllocate = (
     slot: "tree1" | "tree2" | "tree3" | "tree4",
     x: number,
-    y: number
+    y: number,
   ) => {
     setLoadout((prev) => {
       const tree = prev.talentPage[slot];
       const existing = tree.allocatedNodes.find((n) => n.x === x && n.y === y);
       const nodeData = treeData[slot]?.nodes.find(
-        (n) => n.position.x === x && n.position.y === y
+        (n) => n.position.x === x && n.position.y === y,
       );
       if (!nodeData) return prev;
 
@@ -231,7 +242,7 @@ export default function Home() {
       if (existing) {
         if (existing.points >= nodeData.maxPoints) return prev;
         updatedNodes = tree.allocatedNodes.map((n) =>
-          n.x === x && n.y === y ? { ...n, points: n.points + 1 } : n
+          n.x === x && n.y === y ? { ...n, points: n.points + 1 } : n,
         );
       } else {
         updatedNodes = [...tree.allocatedNodes, { x, y, points: 1 }];
@@ -250,7 +261,7 @@ export default function Home() {
   const handleDeallocate = (
     slot: "tree1" | "tree2" | "tree3" | "tree4",
     x: number,
-    y: number
+    y: number,
   ) => {
     setLoadout((prev) => {
       const tree = prev.talentPage[slot];
@@ -261,11 +272,11 @@ export default function Home() {
 
       if (existing.points > 1) {
         updatedNodes = tree.allocatedNodes.map((n) =>
-          n.x === x && n.y === y ? { ...n, points: n.points - 1 } : n
+          n.x === x && n.y === y ? { ...n, points: n.points - 1 } : n,
         );
       } else {
         updatedNodes = tree.allocatedNodes.filter(
-          (n) => !(n.x === x && n.y === y)
+          (n) => !(n.x === x && n.y === y),
         );
       }
 
@@ -306,18 +317,18 @@ export default function Home() {
             isFullyAllocated
               ? "border-green-500 bg-green-50 dark:bg-green-900/20"
               : allocated > 0
-              ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20"
-              : isLocked
-              ? "border-zinc-300 dark:border-zinc-600 bg-zinc-100 dark:bg-zinc-800 opacity-50"
-              : "border-zinc-400 dark:border-zinc-500 bg-white dark:bg-zinc-700 hover:border-blue-400"
+                ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20"
+                : isLocked
+                  ? "border-zinc-300 dark:border-zinc-600 bg-zinc-100 dark:bg-zinc-800 opacity-50"
+                  : "border-zinc-400 dark:border-zinc-500 bg-white dark:bg-zinc-700 hover:border-blue-400"
           }
         `}
         title={`${
           node.nodeType === "micro"
             ? "Micro Talent"
             : node.nodeType === "medium"
-            ? "Medium Talent"
-            : "Legendary Talent"
+              ? "Medium Talent"
+              : "Legendary Talent"
         }\n${node.rawAffix}`}
       >
         {/* Icon */}
@@ -444,7 +455,8 @@ export default function Home() {
             {/* Affix Manager */}
             <div className="mb-8 bg-white dark:bg-zinc-800 rounded-lg p-6 shadow">
               <h2 className="text-xl font-semibold mb-4 text-zinc-800 dark:text-zinc-200">
-                Affixes for {GEAR_SLOTS.find((s) => s.key === selectedSlot)?.label}
+                Affixes for{" "}
+                {GEAR_SLOTS.find((s) => s.key === selectedSlot)?.label}
               </h2>
 
               {/* Affix List */}
@@ -508,10 +520,9 @@ export default function Home() {
               </h2>
               <div className="grid grid-cols-4 gap-2">
                 {(["tree1", "tree2", "tree3", "tree4"] as const).map((slot) => {
-                  const totalPoints = loadout.talentPage[slot].allocatedNodes.reduce(
-                    (sum, node) => sum + node.points,
-                    0
-                  );
+                  const totalPoints = loadout.talentPage[
+                    slot
+                  ].allocatedNodes.reduce((sum, node) => sum + node.points, 0);
 
                   return (
                     <button
@@ -527,14 +538,14 @@ export default function Home() {
                       `}
                     >
                       <div className="font-semibold">
-                        {slot === "tree1" ? "Slot 1 (God/Goddess)" : `Slot ${slot.slice(-1)}`}
+                        {slot === "tree1"
+                          ? "Slot 1 (God/Goddess)"
+                          : `Slot ${slot.slice(-1)}`}
                       </div>
                       <div className="text-sm mt-1 truncate">
                         {loadout.talentPage[slot].name.replace(/_/g, " ")}
                       </div>
-                      <div className="text-xs mt-1">
-                        {totalPoints} points
-                      </div>
+                      <div className="text-xs mt-1">{totalPoints} points</div>
                     </button>
                   );
                 })}
@@ -544,13 +555,20 @@ export default function Home() {
             {/* Tree Selection Dropdown with Reset Button */}
             <div className="mb-6 bg-white dark:bg-zinc-800 rounded-lg p-4 shadow">
               <label className="block text-sm font-medium mb-2 text-zinc-700 dark:text-zinc-300">
-                Select Tree for {activeTreeSlot === "tree1" ? "Slot 1" : `Slot ${activeTreeSlot.slice(-1)}`}
+                Select Tree for{" "}
+                {activeTreeSlot === "tree1"
+                  ? "Slot 1"
+                  : `Slot ${activeTreeSlot.slice(-1)}`}
               </label>
               <div className="flex gap-2">
                 <select
                   value={loadout.talentPage[activeTreeSlot].name}
-                  onChange={(e) => handleTreeChange(activeTreeSlot, e.target.value)}
-                  disabled={loadout.talentPage[activeTreeSlot].allocatedNodes.length > 0}
+                  onChange={(e) =>
+                    handleTreeChange(activeTreeSlot, e.target.value)
+                  }
+                  disabled={
+                    loadout.talentPage[activeTreeSlot].allocatedNodes.length > 0
+                  }
                   className="flex-1 px-4 py-2 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {activeTreeSlot === "tree1" && (
@@ -573,7 +591,10 @@ export default function Home() {
 
                 <button
                   onClick={() => handleResetTree(activeTreeSlot)}
-                  disabled={loadout.talentPage[activeTreeSlot].allocatedNodes.length === 0}
+                  disabled={
+                    loadout.talentPage[activeTreeSlot].allocatedNodes.length ===
+                    0
+                  }
                   className="px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors disabled:bg-zinc-400 disabled:cursor-not-allowed"
                 >
                   Reset
@@ -607,34 +628,37 @@ export default function Home() {
                     className="absolute inset-0 pointer-events-none"
                     style={{ width: "100%", height: "100%", zIndex: 0 }}
                   >
-                    {treeData[activeTreeSlot]!.nodes
-                      .filter((node) => node.prerequisite)
-                      .map((node, idx) => {
-                        const from = getNodeCenter(
-                          node.prerequisite!.x,
-                          node.prerequisite!.y
-                        );
-                        const to = getNodeCenter(node.position.x, node.position.y);
+                    {treeData[activeTreeSlot]!.nodes.filter(
+                      (node) => node.prerequisite,
+                    ).map((node, idx) => {
+                      const from = getNodeCenter(
+                        node.prerequisite!.x,
+                        node.prerequisite!.y,
+                      );
+                      const to = getNodeCenter(
+                        node.position.x,
+                        node.position.y,
+                      );
 
-                        const isSatisfied = isPrerequisiteSatisfied(
-                          node.prerequisite,
-                          loadout.talentPage[activeTreeSlot].allocatedNodes,
-                          treeData[activeTreeSlot]!
-                        );
+                      const isSatisfied = isPrerequisiteSatisfied(
+                        node.prerequisite,
+                        loadout.talentPage[activeTreeSlot].allocatedNodes,
+                        treeData[activeTreeSlot]!,
+                      );
 
-                        return (
-                          <line
-                            key={idx}
-                            x1={from.cx}
-                            y1={from.cy}
-                            x2={to.cx}
-                            y2={to.cy}
-                            stroke={isSatisfied ? "#22c55e" : "#71717a"}
-                            strokeWidth="2"
-                            opacity="0.5"
-                          />
-                        );
-                      })}
+                      return (
+                        <line
+                          key={idx}
+                          x1={from.cx}
+                          y1={from.cy}
+                          x2={to.cx}
+                          y2={to.cy}
+                          stroke={isSatisfied ? "#22c55e" : "#71717a"}
+                          strokeWidth="2"
+                          opacity="0.5"
+                        />
+                      );
+                    })}
                   </svg>
 
                   {/* Node Grid */}
@@ -643,7 +667,7 @@ export default function Home() {
                       <div key={y} className="grid grid-cols-7 gap-2 mb-2">
                         {[0, 1, 2, 3, 4, 5, 6].map((x) => {
                           const node = treeData[activeTreeSlot]!.nodes.find(
-                            (n) => n.position.x === x && n.position.y === y
+                            (n) => n.position.x === x && n.position.y === y,
                           );
 
                           if (!node) {
@@ -662,15 +686,19 @@ export default function Home() {
                               allocated={allocated}
                               canAllocate={canAllocateNode(
                                 node,
-                                loadout.talentPage[activeTreeSlot].allocatedNodes,
-                                treeData[activeTreeSlot]!
+                                loadout.talentPage[activeTreeSlot]
+                                  .allocatedNodes,
+                                treeData[activeTreeSlot]!,
                               )}
                               canDeallocate={canDeallocateNode(
                                 node,
-                                loadout.talentPage[activeTreeSlot].allocatedNodes,
-                                treeData[activeTreeSlot]!
+                                loadout.talentPage[activeTreeSlot]
+                                  .allocatedNodes,
+                                treeData[activeTreeSlot]!,
                               )}
-                              onAllocate={() => handleAllocate(activeTreeSlot, x, y)}
+                              onAllocate={() =>
+                                handleAllocate(activeTreeSlot, x, y)
+                              }
                               onDeallocate={() =>
                                 handleDeallocate(activeTreeSlot, x, y)
                               }

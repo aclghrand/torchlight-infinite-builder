@@ -1,0 +1,359 @@
+import { TalentTreeData } from "../core";
+
+export const STEEL_VANGUARD: TalentTreeData = {
+  name: "Steel_Vanguard",
+  nodes: [
+    {
+      nodeType: "micro",
+      rawAffix: "+9% damage\n+9% Minion Damage",
+      position: {
+        x: 0,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "DmgExtra",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+18% damage\n+18% Minion Damage",
+      position: {
+        x: 1,
+        y: 0,
+      },
+      prerequisite: {
+        x: 0,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "DmgExtra",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+4% Max Mana",
+      position: {
+        x: 2,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "Dot",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+8% Max Mana",
+      position: {
+        x: 3,
+        y: 0,
+      },
+      prerequisite: {
+        x: 2,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "Armor",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+2% Aura Effect",
+      position: {
+        x: 4,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "Bow03",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+3% Aura Effect",
+      position: {
+        x: 5,
+        y: 0,
+      },
+      prerequisite: {
+        x: 4,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "Axe02",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+3% Attack and Cast Speed\n+3% Minion Attack and Cast Speed",
+      position: {
+        x: 1,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "Agi",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+6% Attack and Cast Speed\n+6% Minion Attack and Cast Speed",
+      position: {
+        x: 2,
+        y: 1,
+      },
+      prerequisite: {
+        x: 1,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "CastSpeed",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+9% damage\n+9% Minion Damage",
+      position: {
+        x: 3,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "Dagger02",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+1 Empower Skill Level",
+      position: {
+        x: 4,
+        y: 1,
+      },
+      prerequisite: {
+        x: 3,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "Flask01",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+9% damage\n+9% Minion Damage",
+      position: {
+        x: 5,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "Channel01",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix:
+        "8% additional damage applied to Life\nMinions deal 8% additional damage to Life",
+      position: {
+        x: 6,
+        y: 1,
+      },
+      prerequisite: {
+        x: 5,
+        y: 1,
+      },
+      maxPoints: 1,
+      iconName: "Channel02",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+3% Max Life\n+3% Max Energy Shield",
+      position: {
+        x: 0,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Es",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+6% Max Life\n+6% Max Energy Shield",
+      position: {
+        x: 1,
+        y: 2,
+      },
+      prerequisite: {
+        x: 0,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Es",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "1.5% Life Regain\n1.5% Energy Shield Regain",
+      position: {
+        x: 2,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Accuracy",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+3% Life Regain\n+3% Energy Shield Regain",
+      position: {
+        x: 3,
+        y: 2,
+      },
+      prerequisite: {
+        x: 2,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Flask02",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "4.5% Focus Speed",
+      position: {
+        x: 4,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Area",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+9% Focus Speed",
+      position: {
+        x: 5,
+        y: 2,
+      },
+      prerequisite: {
+        x: 4,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Area",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix: "+1 Focus Skill Level",
+      position: {
+        x: 6,
+        y: 2,
+      },
+      prerequisite: {
+        x: 5,
+        y: 2,
+      },
+      maxPoints: 1,
+      iconName: "DmgPhys",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+4% Erosion Resistance",
+      position: {
+        x: 1,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "DmgChaos",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+8% Erosion Resistance",
+      position: {
+        x: 2,
+        y: 3,
+      },
+      prerequisite: {
+        x: 1,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "DmgChaos",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+7% Barrier Shield",
+      position: {
+        x: 5,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "Freeze",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix: "+40% Barrier Shield",
+      position: {
+        x: 6,
+        y: 3,
+      },
+      prerequisite: {
+        x: 5,
+        y: 3,
+      },
+      maxPoints: 1,
+      iconName: "Freeze",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+2% Elemental Resistance",
+      position: {
+        x: 0,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "DmgEle",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+4% Elemental Resistance",
+      position: {
+        x: 1,
+        y: 4,
+      },
+      prerequisite: {
+        x: 0,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "DmgEle",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "Restoration Skills gain 0.5 Charging Progress every second",
+      position: {
+        x: 2,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "Area",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix: "+1% Restoration Skill Effect for every 2% of Life lost",
+      position: {
+        x: 3,
+        y: 4,
+      },
+      prerequisite: {
+        x: 2,
+        y: 4,
+      },
+      maxPoints: 1,
+      iconName: "Duration",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "-4% additional Elemental Damage taken",
+      position: {
+        x: 4,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "DmgExtra",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix:
+        "Converts 6% of Physical Damage taken to random Elemental Damage",
+      position: {
+        x: 5,
+        y: 4,
+      },
+      prerequisite: {
+        x: 4,
+        y: 4,
+      },
+      maxPoints: 1,
+      iconName: "DmgEle",
+    },
+  ],
+} as const;

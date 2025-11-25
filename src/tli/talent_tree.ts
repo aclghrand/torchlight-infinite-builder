@@ -16,7 +16,7 @@ export type { TalentNodeData, TalentTreeData };
 // Calculate total points in a specific column
 export const calculateColumnPoints = (
   allocatedNodes: RawAllocatedTalentNode[],
-  columnIndex: number
+  columnIndex: number,
 ): number => {
   return allocatedNodes
     .filter((node) => node.x === columnIndex)
@@ -26,7 +26,7 @@ export const calculateColumnPoints = (
 // Calculate total points allocated before a specific column
 export const getTotalPointsBeforeColumn = (
   allocatedNodes: RawAllocatedTalentNode[],
-  columnIndex: number
+  columnIndex: number,
 ): number => {
   let total = 0;
   for (let x = 0; x < columnIndex; x++) {
@@ -38,10 +38,13 @@ export const getTotalPointsBeforeColumn = (
 // Check if a column is unlocked based on point requirements
 export const isColumnUnlocked = (
   allocatedNodes: RawAllocatedTalentNode[],
-  columnIndex: number
+  columnIndex: number,
 ): boolean => {
   const requiredPoints = columnIndex * 3;
-  const pointsAllocated = getTotalPointsBeforeColumn(allocatedNodes, columnIndex);
+  const pointsAllocated = getTotalPointsBeforeColumn(
+    allocatedNodes,
+    columnIndex,
+  );
   return pointsAllocated >= requiredPoints;
 };
 
@@ -49,17 +52,17 @@ export const isColumnUnlocked = (
 export const isPrerequisiteSatisfied = (
   prerequisite: { x: number; y: number } | undefined,
   allocatedNodes: RawAllocatedTalentNode[],
-  treeData: TalentTreeData
+  treeData: TalentTreeData,
 ): boolean => {
   if (!prerequisite) return true;
 
   const prereqNode = treeData.nodes.find(
-    (n) => n.position.x === prerequisite.x && n.position.y === prerequisite.y
+    (n) => n.position.x === prerequisite.x && n.position.y === prerequisite.y,
   );
   if (!prereqNode) return false;
 
   const allocation = allocatedNodes.find(
-    (n) => n.x === prerequisite.x && n.y === prerequisite.y
+    (n) => n.x === prerequisite.x && n.y === prerequisite.y,
   );
 
   return allocation !== undefined && allocation.points >= prereqNode.maxPoints;
@@ -69,7 +72,7 @@ export const isPrerequisiteSatisfied = (
 export const canAllocateNode = (
   node: TalentNodeData,
   allocatedNodes: RawAllocatedTalentNode[],
-  treeData: TalentTreeData
+  treeData: TalentTreeData,
 ): boolean => {
   // Check column gating
   if (!isColumnUnlocked(allocatedNodes, node.position.x)) {
@@ -83,7 +86,7 @@ export const canAllocateNode = (
 
   // Check if already at max
   const current = allocatedNodes.find(
-    (n) => n.x === node.position.x && n.y === node.position.y
+    (n) => n.x === node.position.x && n.y === node.position.y,
   );
   if (current && current.points >= node.maxPoints) {
     return false;
@@ -96,11 +99,11 @@ export const canAllocateNode = (
 export const canDeallocateNode = (
   node: TalentNodeData,
   allocatedNodes: RawAllocatedTalentNode[],
-  treeData: TalentTreeData
+  treeData: TalentTreeData,
 ): boolean => {
   // Must have points allocated
   const current = allocatedNodes.find(
-    (n) => n.x === node.position.x && n.y === node.position.y
+    (n) => n.x === node.position.x && n.y === node.position.y,
   );
   if (!current || current.points === 0) {
     return false;
@@ -114,7 +117,7 @@ export const canDeallocateNode = (
 
     // Check if the dependent node is allocated
     const dependentAllocation = allocatedNodes.find(
-      (n) => n.x === otherNode.position.x && n.y === otherNode.position.y
+      (n) => n.x === otherNode.position.x && n.y === otherNode.position.y,
     );
     return dependentAllocation !== undefined && dependentAllocation.points > 0;
   });

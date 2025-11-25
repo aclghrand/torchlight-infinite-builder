@@ -36,7 +36,7 @@ test("calculate offense very basic", () => {
     loadout,
     mods,
     "[Test] Simple Attack",
-    defaultConfiguration
+    defaultConfiguration,
   );
 
   // base * bonusdmg * crit * skill bonus
@@ -67,7 +67,7 @@ test("calculate offense multiple inc dmg", () => {
     loadout,
     mods,
     "[Test] Simple Attack",
-    defaultConfiguration
+    defaultConfiguration,
   );
 
   // base * (1 + sum of increased) * crit
@@ -95,7 +95,7 @@ test("calculate offense multiple addn dmg", () => {
     loadout,
     mods,
     "[Test] Simple Attack",
-    defaultConfiguration
+    defaultConfiguration,
   );
 
   // base * (1 + more1) * (1 + more2) * crit
@@ -129,7 +129,7 @@ test("calculate offense multiple mix inc and addn dmg", () => {
     loadout,
     mods,
     "[Test] Simple Attack",
-    defaultConfiguration
+    defaultConfiguration,
   );
 
   // base * (1 + sum of increased) * (1 + more) * crit
@@ -159,7 +159,7 @@ test("calculate offense atk dmg mod", () => {
     loadout,
     mods,
     "[Test] Simple Attack",
-    defaultConfiguration
+    defaultConfiguration,
   );
 
   // [Test] Simple Attack has "Attack" tag, so attack modifiers apply
@@ -186,7 +186,7 @@ test("calculate offense spell dmg mod doesn't affect attack skill", () => {
     loadout,
     mods,
     "[Test] Simple Attack",
-    defaultConfiguration
+    defaultConfiguration,
   );
 
   // [Test] Simple Attack has "Attack" tag, NOT "Spell" tag
@@ -230,7 +230,7 @@ test("calculate offense elemental damage", () => {
     loadout,
     mods,
     "[Test] Simple Attack",
-    defaultConfiguration
+    defaultConfiguration,
   );
 
   // GearPlusEleMinusPhysDmg removes all physical damage and adds elemental
@@ -271,7 +271,7 @@ test("calculate offense cold damage", () => {
     loadout,
     mods,
     "[Test] Simple Attack",
-    defaultConfiguration
+    defaultConfiguration,
   );
 
   // Physical: 100 (no bonuses)
@@ -326,7 +326,7 @@ test("calculate offense affixes from equipment, talents, and divinities combine"
     loadout,
     mods,
     "[Test] Simple Attack",
-    defaultConfiguration
+    defaultConfiguration,
   );
 
   // All affixes from equipment, talents, and divinities are collected
@@ -359,7 +359,7 @@ test("calculate offense with fervor enabled default points", () => {
     loadout,
     mods,
     "[Test] Simple Attack",
-    configuration
+    configuration,
   );
 
   // Base damage: 100
@@ -394,7 +394,7 @@ test("calculate offense with fervor enabled custom points", () => {
     loadout,
     mods,
     "[Test] Simple Attack",
-    configuration
+    configuration,
   );
 
   // Base damage: 100
@@ -429,7 +429,7 @@ test("calculate offense with fervor disabled", () => {
     loadout,
     mods,
     "[Test] Simple Attack",
-    configuration
+    configuration,
   );
 
   // Fervor disabled, so no bonus despite having 100 points
@@ -466,7 +466,7 @@ test("calculate offense with fervor and other crit rating affixes", () => {
     loadout,
     mods,
     "[Test] Simple Attack",
-    configuration
+    configuration,
   );
 
   // Base damage: 100
@@ -506,7 +506,7 @@ test("calculate offense with fervor and single FervorEff modifier", () => {
     loadout,
     mods,
     "[Test] Simple Attack",
-    configuration
+    configuration,
   );
 
   // Base damage: 100
@@ -549,7 +549,7 @@ test("calculate offense with fervor and multiple FervorEff modifiers stacking", 
     loadout,
     mods,
     "[Test] Simple Attack",
-    configuration
+    configuration,
   );
 
   // Base damage: 100
@@ -588,7 +588,7 @@ test("calculate offense with fervor and FervorEff with custom fervor points", ()
     loadout,
     mods,
     "[Test] Simple Attack",
-    configuration
+    configuration,
   );
 
   // Base damage: 100
@@ -626,7 +626,7 @@ test("calculate offense with FervorEff but fervor disabled", () => {
     loadout,
     mods,
     "[Test] Simple Attack",
-    configuration
+    configuration,
   );
 
   // FervorEff has no effect when fervor is disabled
@@ -663,7 +663,7 @@ test("calculate offense with CritDmgPerFervor single affix", () => {
     loadout,
     mods,
     "[Test] Simple Attack",
-    configuration
+    configuration,
   );
 
   // Base damage: 100
@@ -708,7 +708,7 @@ test("calculate offense with multiple CritDmgPerFervor affixes stacking", () => 
     loadout,
     mods,
     "[Test] Simple Attack",
-    configuration
+    configuration,
   );
 
   // Base damage: 100
@@ -748,7 +748,7 @@ test("calculate offense with CritDmgPerFervor with custom fervor points", () => 
     loadout,
     mods,
     "[Test] Simple Attack",
-    configuration
+    configuration,
   );
 
   // Base damage: 100
@@ -788,7 +788,7 @@ test("calculate offense with CritDmgPerFervor but fervor disabled", () => {
     loadout,
     mods,
     "[Test] Simple Attack",
-    configuration
+    configuration,
   );
 
   // CritDmgPerFervor has no effect when fervor is disabled
@@ -836,7 +836,7 @@ test("calculate offense with CritDmgPerFervor and other crit damage modifiers", 
     loadout,
     mods,
     "[Test] Simple Attack",
-    configuration
+    configuration,
   );
 
   // Base damage: 100

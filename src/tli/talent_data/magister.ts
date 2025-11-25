@@ -1,0 +1,403 @@
+import { TalentTreeData } from "../core";
+
+export const MAGISTER: TalentTreeData = {
+  name: "Magister",
+  nodes: [
+    {
+      nodeType: "micro",
+      rawAffix: "+9% Spell Damage",
+      position: {
+        x: 0,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "DmgExtra",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+18% Spell Damage",
+      position: {
+        x: 1,
+        y: 0,
+      },
+      prerequisite: {
+        x: 0,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "DmgAll",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+15% Spell Critical Strike Rating",
+      position: {
+        x: 2,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "Crit04",
+    },
+    {
+      nodeType: "medium",
+      rawAffix:
+        "+20% Spell Critical Strike Rating\n+5% Spell Critical Strike Damage",
+      position: {
+        x: 3,
+        y: 0,
+      },
+      prerequisite: {
+        x: 2,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "Crit04",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+4% Spell Burst Charge Speed",
+      position: {
+        x: 4,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "DmgExtra",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+8% Spell Burst Charge Speed",
+      position: {
+        x: 5,
+        y: 0,
+      },
+      prerequisite: {
+        x: 4,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "DmgAll",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix: "+1 Max Spell Burst",
+      position: {
+        x: 6,
+        y: 0,
+      },
+      prerequisite: {
+        x: 5,
+        y: 0,
+      },
+      maxPoints: 1,
+      iconName: "Aura",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+3% Cast Speed",
+      position: {
+        x: 1,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "CastSpeed",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+6% Cast Speed",
+      position: {
+        x: 2,
+        y: 1,
+      },
+      prerequisite: {
+        x: 1,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "CastSpeed",
+    },
+    {
+      nodeType: "micro",
+      rawAffix:
+        "+10% Focus Blessing Duration\n+10% Spell Damage when having Focus Blessing",
+      position: {
+        x: 3,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "Crit01",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix:
+        "Gains 1 stack(s) of Focus Blessing when activating Spell Burst",
+      position: {
+        x: 4,
+        y: 1,
+      },
+      prerequisite: {
+        x: 3,
+        y: 1,
+      },
+      maxPoints: 1,
+      iconName: "DmgExtra",
+    },
+    {
+      nodeType: "micro",
+      rawAffix:
+        "+10% Focus Blessing Duration\n+4% Cast Speed when Focus Blessing is active",
+      position: {
+        x: 5,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "Crit01",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix:
+        "+5% Spell Critical Strike Damage per stack of Focus Blessing owned",
+      position: {
+        x: 6,
+        y: 1,
+      },
+      prerequisite: {
+        x: 5,
+        y: 1,
+      },
+      maxPoints: 1,
+      iconName: "Dot",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+4% Max Mana",
+      position: {
+        x: 0,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Defence03",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+6% Max Mana\n+18% Mana Regeneration Speed",
+      position: {
+        x: 1,
+        y: 2,
+      },
+      prerequisite: {
+        x: 0,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Agi",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+3% Max Energy Shield",
+      position: {
+        x: 2,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Es",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix: "Restores 3% of Energy Shield on defeat",
+      position: {
+        x: 3,
+        y: 2,
+      },
+      prerequisite: {
+        x: 2,
+        y: 2,
+      },
+      maxPoints: 1,
+      iconName: "Area",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+8 Intelligence",
+      position: {
+        x: 4,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Dagger01",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix: "+12% Intelligence",
+      position: {
+        x: 5,
+        y: 2,
+      },
+      prerequisite: {
+        x: 4,
+        y: 2,
+      },
+      maxPoints: 1,
+      iconName: "Flask02",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+12% Spell Damage when holding a shield",
+      position: {
+        x: 1,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "Area",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+24% Spell Damage when holding a shield",
+      position: {
+        x: 2,
+        y: 3,
+      },
+      prerequisite: {
+        x: 1,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "Area",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "1.5% Energy Shield Regain",
+      position: {
+        x: 3,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "Defence02",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix:
+        "-8% additional Energy Shield Regain Interval\n+8% Energy Shield Regain",
+      position: {
+        x: 4,
+        y: 3,
+      },
+      prerequisite: {
+        x: 3,
+        y: 3,
+      },
+      maxPoints: 1,
+      iconName: "Es",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+9% Spell Damage",
+      position: {
+        x: 5,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "DmgExtra",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix: "Inflicts Frail on Spell hit",
+      position: {
+        x: 6,
+        y: 3,
+      },
+      prerequisite: {
+        x: 5,
+        y: 3,
+      },
+      maxPoints: 1,
+      iconName: "Bleed",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+3% Max Energy Shield",
+      position: {
+        x: 0,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "Es",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+6% Max Energy Shield",
+      position: {
+        x: 1,
+        y: 4,
+      },
+      prerequisite: {
+        x: 0,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "Es",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+4% Spell Block Chance",
+      position: {
+        x: 2,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "BlockSpell",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix:
+        "+12% Spell Block Chance\n+15% Energy Shield gained from Shield",
+      position: {
+        x: 3,
+        y: 4,
+      },
+      prerequisite: {
+        x: 2,
+        y: 4,
+      },
+      maxPoints: 1,
+      iconName: "BlockSpell",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+75 Max Energy Shield",
+      position: {
+        x: 4,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "Defence02",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix: "+2 Max Energy Shield per 5 Intelligence",
+      position: {
+        x: 5,
+        y: 4,
+      },
+      prerequisite: {
+        x: 4,
+        y: 4,
+      },
+      maxPoints: 1,
+      iconName: "Defence02",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix:
+        "Immediately starts Energy Shield Charge upon entering the Low Energy Shield status",
+      position: {
+        x: 6,
+        y: 4,
+      },
+      prerequisite: {
+        x: 5,
+        y: 4,
+      },
+      maxPoints: 1,
+      iconName: "Cannon02",
+    },
+  ],
+} as const;

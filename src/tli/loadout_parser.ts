@@ -99,7 +99,7 @@ const parseTalentTree = (rawTree: RawTalentTree): Affix[] => {
   // Load the tree data from JSON file
   const treeFilePath = join(process.cwd(), "data", treeFileName);
   const treeData: TalentTreeData = JSON.parse(
-    readFileSync(treeFilePath, "utf-8")
+    readFileSync(treeFilePath, "utf-8"),
   );
 
   const affixes: Affix[] = [];
@@ -109,12 +109,12 @@ const parseTalentTree = (rawTree: RawTalentTree): Affix[] => {
     // Find the node at the specified coordinates
     const node = treeData.nodes.find(
       (n) =>
-        n.position.x === allocatedNode.x && n.position.y === allocatedNode.y
+        n.position.x === allocatedNode.x && n.position.y === allocatedNode.y,
     );
 
     if (!node) {
       throw new Error(
-        `Node not found at (${allocatedNode.x}, ${allocatedNode.y}) in tree ${rawTree.name}`
+        `Node not found at (${allocatedNode.x}, ${allocatedNode.y}) in tree ${rawTree.name}`,
       );
     }
 

@@ -51,7 +51,7 @@ const downloadTalentIcons = async (): Promise<void> => {
 
         if (!response.ok) {
           throw new Error(
-            `Failed to fetch: ${response.status} ${response.statusText}`
+            `Failed to fetch: ${response.status} ${response.statusText}`,
           );
         }
 

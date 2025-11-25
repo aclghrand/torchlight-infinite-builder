@@ -5,7 +5,7 @@ import { PROFESSION_TREES, GOD_GODDESS_TREES } from "../tli/talent_tree_types";
 
 const formatTreeAsTypeScript = (
   treeName: string,
-  treeData: { name: string; nodes: any[] }
+  treeData: { name: string; nodes: any[] },
 ): string => {
   const constName = treeName.toUpperCase();
   return `import { TalentTreeData } from "../core";
@@ -38,13 +38,15 @@ const saveAllProfessionTrees = async (): Promise<void> => {
           "src",
           "tli",
           "talent_data",
-          filename
+          filename,
         );
         const tsContent = formatTreeAsTypeScript(treeName, talentTree);
         await writeFile(filepath, tsContent, "utf-8");
 
         savedTrees.push(treeName);
-        console.log(`  ✓ Saved ${talentTree.nodes.length} nodes to ${filename}\n`);
+        console.log(
+          `  ✓ Saved ${talentTree.nodes.length} nodes to ${filename}\n`,
+        );
       } catch (error) {
         console.error(`  ✗ Failed to scrape ${treeName}:`, error);
         console.log();
@@ -53,7 +55,7 @@ const saveAllProfessionTrees = async (): Promise<void> => {
 
     console.log("✓ Finished scraping all profession trees");
     console.log(
-      `\nSuccessfully saved ${savedTrees.length}/${allTrees.length} trees`
+      `\nSuccessfully saved ${savedTrees.length}/${allTrees.length} trees`,
     );
   } catch (error) {
     console.error("Failed to save profession trees:", error);

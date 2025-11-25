@@ -1,0 +1,377 @@
+import { TalentTreeData } from "../core";
+
+export const RANGER: TalentTreeData = {
+  name: "Ranger",
+  nodes: [
+    {
+      nodeType: "micro",
+      rawAffix: "+15% Critical Strike Rating",
+      position: {
+        x: 0,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "Crit02",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+30% Critical Strike Rating",
+      position: {
+        x: 1,
+        y: 0,
+      },
+      prerequisite: {
+        x: 0,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "Crit02",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+3% Attack and Cast Speed",
+      position: {
+        x: 2,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "CastSpeed",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+6% Attack and Cast Speed",
+      position: {
+        x: 3,
+        y: 0,
+      },
+      prerequisite: {
+        x: 2,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "CastSpeed",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+4% Fervor effect",
+      position: {
+        x: 4,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "Axe01",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix: "0.5% Critical Strike Damage per Fervor Rating",
+      position: {
+        x: 5,
+        y: 0,
+      },
+      prerequisite: {
+        x: 4,
+        y: 0,
+      },
+      maxPoints: 1,
+      iconName: "Crit04",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "7.5% Critical Strike Damage",
+      position: {
+        x: 1,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "Crit01",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+15% Critical Strike Damage",
+      position: {
+        x: 2,
+        y: 1,
+      },
+      prerequisite: {
+        x: 1,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "Crit04",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix: "100% chance to gain Agility Blessing on Critical Strike",
+      position: {
+        x: 3,
+        y: 1,
+      },
+      prerequisite: {
+        x: 2,
+        y: 1,
+      },
+      maxPoints: 1,
+      iconName: "Crit04",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+9% damage",
+      position: {
+        x: 5,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "Armor",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix: "Critical Strikes can eliminate enemies under 8% Life",
+      position: {
+        x: 6,
+        y: 1,
+      },
+      prerequisite: {
+        x: 5,
+        y: 1,
+      },
+      maxPoints: 1,
+      iconName: "Cannon02",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+3% Max Life\n+3% Max Energy Shield",
+      position: {
+        x: 0,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Defence02",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+6% Max Life\n+6% Max Energy Shield",
+      position: {
+        x: 1,
+        y: 2,
+      },
+      prerequisite: {
+        x: 0,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Es",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+2% Attack Block Chance\n+2% Spell Block Chance",
+      position: {
+        x: 2,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Atk",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+4% Attack Block Chance\n+4% Spell Block Chance",
+      position: {
+        x: 3,
+        y: 2,
+      },
+      prerequisite: {
+        x: 2,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Atk",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+15% Critical Strike Rating",
+      position: {
+        x: 4,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Crit02",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix:
+        "+25% chance to Mark the enemy on Critical Strike\n+20% Mark effect",
+      position: {
+        x: 5,
+        y: 2,
+      },
+      prerequisite: {
+        x: 4,
+        y: 2,
+      },
+      maxPoints: 1,
+      iconName: "Crit02",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+25% damage dealt to Nearby enemies",
+      position: {
+        x: 1,
+        y: 3,
+      },
+      prerequisite: {
+        x: 0,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "DmgExtra",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+9% Area Damage",
+      position: {
+        x: 2,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "Area",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+18% Area Damage",
+      position: {
+        x: 3,
+        y: 3,
+      },
+      prerequisite: {
+        x: 2,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "DmgExtra",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+9% Melee Damage",
+      position: {
+        x: 4,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "Flask01",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+18% Melee Damage",
+      position: {
+        x: 5,
+        y: 3,
+      },
+      prerequisite: {
+        x: 4,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "DmgChaos",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix: "+10% additional damage taken by enemies in Proximity",
+      position: {
+        x: 6,
+        y: 3,
+      },
+      prerequisite: {
+        x: 5,
+        y: 3,
+      },
+      maxPoints: 1,
+      iconName: "Defence03",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+9% damage",
+      position: {
+        x: 0,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "DmgExtra",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+25% damage to Distant enemies",
+      position: {
+        x: 1,
+        y: 4,
+      },
+      prerequisite: {
+        x: 0,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "DmgAll",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+9% Projectile Damage\n4.5% Projectile Speed",
+      position: {
+        x: 2,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "DmgAll",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+18% Projectile Damage\n+9% Projectile Speed",
+      position: {
+        x: 3,
+        y: 4,
+      },
+      prerequisite: {
+        x: 2,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "DmgExtra",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+10% chance to cause Knockbacks",
+      position: {
+        x: 4,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "Crossbow01",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+15% Knockback distance",
+      position: {
+        x: 5,
+        y: 4,
+      },
+      prerequisite: {
+        x: 4,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "Dual02",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix:
+        "120% of the increase/decrease on Knockback distance is also applied to damage bonus",
+      position: {
+        x: 6,
+        y: 4,
+      },
+      prerequisite: {
+        x: 5,
+        y: 4,
+      },
+      maxPoints: 1,
+      iconName: "Crit04",
+    },
+  ],
+} as const;

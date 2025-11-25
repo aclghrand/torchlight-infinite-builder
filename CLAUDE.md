@@ -7,6 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This is a Next.js 16 application built with React 19, TypeScript, and Tailwind CSS 4. It's a character build planner for "Torchlight Infinite" (TLI), a game with complex character builds involving equipment, talents, and divinity systems.
 
 The application has two main components:
+
 1. **Frontend UI** ([src/app/](src/app/)) - Interactive build planner interface
 2. **Calculation Engine** ([src/tli/](src/tli/)) - Damage calculator that computes DPS and other offensive stats
 
@@ -95,13 +96,17 @@ For specific topics, see:
 ## Quick Reference
 
 ### Working on the UI (src/app/)
+
 → Read [docs/ui-patterns.md](docs/ui-patterns.md) and [docs/data-models.md](docs/data-models.md)
 
 ### Working on calculations (src/tli/stuff.ts)
+
 → Read [docs/calculation-engine.md](docs/calculation-engine.md) and [docs/data-models.md](docs/data-models.md)
 
 ### Working on parsers (src/tli/mod_parser.ts)
+
 → Read [docs/mod-parser.md](docs/mod-parser.md) and [docs/data-models.md](docs/data-models.md)
 
 ### Adding new mod types
+
 → Read [docs/mod-parser.md](docs/mod-parser.md) and [docs/calculation-engine.md](docs/calculation-engine.md)

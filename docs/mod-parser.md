@@ -13,6 +13,7 @@ type ParseResult = Mod | "unrecognized" | "unimplemented";
 ```
 
 **Examples:**
+
 - Input: `"+10% fire damage"` → Output: `{ type: "DmgPct", value: 0.1, modType: "fire", addn: false }`
 - Input: `"+5% additional attack speed"` → Output: `{ type: "AspdPct", value: 0.05, addn: true }`
 - Input: `"gibberish"` → Output: `"unrecognized"`
@@ -35,6 +36,7 @@ export const parseMod = (input: string): ParseResult => {
 ```
 
 **Key points:**
+
 - Input is normalized (trimmed and lowercased)
 - Parsers are tried in order
 - First match wins
@@ -43,6 +45,7 @@ export const parseMod = (input: string): ParseResult => {
 ### Parser Pattern
 
 Each parser is a function that:
+
 - Takes normalized input string
 - Returns typed `Mod | undefined`
 - Returns `undefined` if pattern doesn't match
@@ -58,7 +61,9 @@ type ModParser = (input: string) => Mod | undefined;
 ### Basic Pattern
 
 ```typescript
-const parseYourMod = (input: string): Extract<Mod, { type: "YourMod" }> | undefined => {
+const parseYourMod = (
+  input: string,
+): Extract<Mod, { type: "YourMod" }> | undefined => {
   const match = input.match(/^your-regex-pattern$/);
   if (!match) return undefined;
 
@@ -78,8 +83,9 @@ const parseYourMod = (input: string): Extract<Mod, { type: "YourMod" }> | undefi
 **Percentage with optional prefix:**
 
 ```typescript
-/^([+-])?(\d+(?:\.\d+)?)%/
+/^([+-])?(\d+(?:\.\d+)?)%/;
 ```
+
 - `([+-])?` - Optional +/- sign (group 1)
 - `(\d+(?:\.\d+)?)` - Number with optional decimal (group 2)
 - `%` - Literal percent
@@ -87,24 +93,27 @@ const parseYourMod = (input: string): Extract<Mod, { type: "YourMod" }> | undefi
 **Percentage with optional type:**
 
 ```typescript
-/^([+-])?(\d+(?:\.\d+)?)% (?:(\w+) )?damage$/
+/^([+-])?(\d+(?:\.\d+)?)% (?:(\w+) )?damage$/;
 ```
+
 - `(?:(\w+) )?` - Optional word (group 3), non-capturing outer group
 - Matches: `"10% damage"`, `"10% fire damage"`, `"+10% global damage"`
 
 **Percentage with "additional" flag:**
 
 ```typescript
-/^([+-])?(\d+(?:\.\d+)?)% (?:(additional) )?attack speed$/
+/^([+-])?(\d+(?:\.\d+)?)% (?:(additional) )?attack speed$/;
 ```
+
 - `(?:(additional) )?` - Optional "additional" keyword (group 3)
 - Sets `addn: true` if present
 
 **Flat value:**
 
 ```typescript
-/^([+-])?(\d+(?:\.\d+)?) strength$/
+/^([+-])?(\d+(?:\.\d+)?) strength$/;
 ```
+
 - No percent sign
 - Just a number followed by the stat name
 
@@ -113,8 +122,12 @@ const parseYourMod = (input: string): Extract<Mod, { type: "YourMod" }> | undefi
 **Damage Percentage:**
 
 ```typescript
-const parseDmgPct = (input: string): Extract<Mod, { type: "DmgPct" }> | undefined => {
-  const match = input.match(/^([+-])?(\d+(?:\.\d+)?)% (?:(additional) )?(?:(\w+) )?damage$/);
+const parseDmgPct = (
+  input: string,
+): Extract<Mod, { type: "DmgPct" }> | undefined => {
+  const match = input.match(
+    /^([+-])?(\d+(?:\.\d+)?)% (?:(additional) )?(?:(\w+) )?damage$/,
+  );
   if (!match) return undefined;
 
   const sign = match[1] === "-" ? -1 : 1;
@@ -134,8 +147,12 @@ const parseDmgPct = (input: string): Extract<Mod, { type: "DmgPct" }> | undefine
 **Attack Speed:**
 
 ```typescript
-const parseAspdPct = (input: string): Extract<Mod, { type: "AspdPct" }> | undefined => {
-  const match = input.match(/^([+-])?(\d+(?:\.\d+)?)% (?:(additional) )?attack speed$/);
+const parseAspdPct = (
+  input: string,
+): Extract<Mod, { type: "AspdPct" }> | undefined => {
+  const match = input.match(
+    /^([+-])?(\d+(?:\.\d+)?)% (?:(additional) )?attack speed$/,
+  );
   if (!match) return undefined;
 
   const sign = match[1] === "-" ? -1 : 1;
@@ -170,8 +187,12 @@ const parseStr = (input: string): Extract<Mod, { type: "Str" }> | undefined => {
 **Critical Strike Rating:**
 
 ```typescript
-const parseCritRatingPct = (input: string): Extract<Mod, { type: "CritRatingPct" }> | undefined => {
-  const match = input.match(/^([+-])?(\d+(?:\.\d+)?)% (?:(additional) )?(?:(attack|spell|global) )?critical strike rating$/);
+const parseCritRatingPct = (
+  input: string,
+): Extract<Mod, { type: "CritRatingPct" }> | undefined => {
+  const match = input.match(
+    /^([+-])?(\d+(?:\.\d+)?)% (?:(additional) )?(?:(attack|spell|global) )?critical strike rating$/,
+  );
   if (!match) return undefined;
 
   const sign = match[1] === "-" ? -1 : 1;
@@ -197,14 +218,16 @@ Ensure the mod type exists in [src/tli/mod.ts](../src/tli/mod.ts):
 ```typescript
 export type Mod =
   | { type: "DmgPct"; value: number; modType: DmgModType; addn: boolean }
-  | { type: "YourNewMod"; value: number; /* other fields */ }
-  // ...
+  | { type: "YourNewMod"; value: number /* other fields */ };
+// ...
 ```
 
 ### Step 2: Create Parser Function
 
 ```typescript
-const parseYourNewMod = (input: string): Extract<Mod, { type: "YourNewMod" }> | undefined => {
+const parseYourNewMod = (
+  input: string,
+): Extract<Mod, { type: "YourNewMod" }> | undefined => {
   const match = input.match(/^your-regex$/);
   if (!match) return undefined;
 
@@ -224,7 +247,7 @@ Add your parser to the `parsers` array in order of specificity:
 const parsers: ModParser[] = [
   parseDmgPct,
   parseAspdPct,
-  parseYourNewMod,  // Add here
+  parseYourNewMod, // Add here
   parseStr,
   // ... other parsers
 ];
@@ -266,16 +289,16 @@ Order matters! More specific patterns must come before generic ones:
 ```typescript
 // ✓ Good - specific before generic
 const parsers = [
-  parseDmgPct,           // "10% fire damage"
-  parseAspdPct,          // "10% attack speed"
-  parseGenericPercent,   // "10% anything"
+  parseDmgPct, // "10% fire damage"
+  parseAspdPct, // "10% attack speed"
+  parseGenericPercent, // "10% anything"
 ];
 
 // ✗ Bad - generic parser will match first
 const parsers = [
-  parseGenericPercent,   // Matches everything!
-  parseDmgPct,           // Never reached
-  parseAspdPct,          // Never reached
+  parseGenericPercent, // Matches everything!
+  parseDmgPct, // Never reached
+  parseAspdPct, // Never reached
 ];
 ```
 
@@ -290,6 +313,7 @@ const sign = match[1] === "-" ? -1 : 1;
 ```
 
 Examples:
+
 - `"+10% damage"` → `value: 0.1`
 - `"-10% damage"` → `value: -0.1`
 - `"10% damage"` → `value: 0.1` (implicit +)
@@ -303,6 +327,7 @@ const value = parseFloat(match[2]) / 100;
 ```
 
 Examples:
+
 - `"10%"` → `0.1`
 - `"50%"` → `0.5`
 - `"0.5%"` → `0.005`
@@ -312,10 +337,11 @@ Examples:
 Use non-capturing groups with optional capture:
 
 ```typescript
-/^(?:(additional) )?/  // Captures "additional" if present
+/^(?:(additional) )?/; // Captures "additional" if present
 ```
 
 Examples:
+
 - `"10% attack speed"` → `addn: false`
 - `"10% additional attack speed"` → `addn: true`
 
@@ -328,6 +354,7 @@ const modType = (match[3] || "global") as DmgModType;
 ```
 
 Examples:
+
 - `"10% damage"` → `modType: "global"`
 - `"10% fire damage"` → `modType: "fire"`
 
@@ -336,6 +363,7 @@ Examples:
 ### Unit Tests
 
 Test each parser with:
+
 - Basic valid input
 - Positive/negative values
 - Decimal values
@@ -352,7 +380,7 @@ test("parses complex affix strings", () => {
     "+10% fire damage",
     "+5% additional attack speed",
     "+50 strength",
-    "-10% global damage"
+    "-10% global damage",
   ];
 
   const results = inputs.map(parseMod);
@@ -365,13 +393,13 @@ test("parses complex affix strings", () => {
 ### Damage Modifiers
 
 ```typescript
-/^([+-])?(\d+(?:\.\d+)?)% (?:(additional) )?(?:(physical|cold|lightning|fire|erosion|elemental|global|melee|area|attack|spell) )?damage$/
+/^([+-])?(\d+(?:\.\d+)?)% (?:(additional) )?(?:(physical|cold|lightning|fire|erosion|elemental|global|melee|area|attack|spell) )?damage$/;
 ```
 
 ### Speed Modifiers
 
 ```typescript
-/^([+-])?(\d+(?:\.\d+)?)% (?:(additional) )?(attack|cast) speed$/
+/^([+-])?(\d+(?:\.\d+)?)% (?:(additional) )?(attack|cast) speed$/;
 ```
 
 ### Stat Modifiers
@@ -384,7 +412,7 @@ test("parses complex affix strings", () => {
 ### Critical Strike
 
 ```typescript
-/^([+-])?(\d+(?:\.\d+)?)% (?:(additional) )?(?:(attack|spell|global) )?critical strike (rating|damage)$/
+/^([+-])?(\d+(?:\.\d+)?)% (?:(additional) )?(?:(attack|spell|global) )?critical strike (rating|damage)$/;
 ```
 
 ## Debugging Parsers
@@ -393,14 +421,14 @@ test("parses complex affix strings", () => {
 
 ```typescript
 const match = input.match(/your-pattern/);
-console.log(match);  // See all capture groups
+console.log(match); // See all capture groups
 ```
 
 ### Test Normalization
 
 ```typescript
 const normalized = input.trim().toLowerCase();
-console.log(normalized);  // Verify normalization
+console.log(normalized); // Verify normalization
 ```
 
 ### Verify Parser Order

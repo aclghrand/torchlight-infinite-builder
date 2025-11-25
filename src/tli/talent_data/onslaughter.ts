@@ -1,0 +1,366 @@
+import { TalentTreeData } from "../core";
+
+export const ONSLAUGHTER: TalentTreeData = {
+  name: "Onslaughter",
+  nodes: [
+    {
+      nodeType: "micro",
+      rawAffix: "+9% Attack Damage",
+      position: {
+        x: 0,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "DmgExtra",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+18% Attack Damage",
+      position: {
+        x: 1,
+        y: 0,
+      },
+      prerequisite: {
+        x: 0,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "Atk",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+15% Attack Critical Strike Rating",
+      position: {
+        x: 2,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "Atk",
+    },
+    {
+      nodeType: "medium",
+      rawAffix:
+        "+20% Attack Critical Strike Rating\n+5% Critical Strike Damage",
+      position: {
+        x: 3,
+        y: 0,
+      },
+      prerequisite: {
+        x: 2,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "DmgAll",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+12% Attack Damage when holding a Two-Handed Weapon",
+      position: {
+        x: 4,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "AtkSpeed",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+4% additional Base Damage for Two-Handed Weapons",
+      position: {
+        x: 5,
+        y: 0,
+      },
+      prerequisite: {
+        x: 4,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "DmgExtra",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix: "+10% additional Base Damage for Two-Handed Weapons",
+      position: {
+        x: 6,
+        y: 0,
+      },
+      prerequisite: {
+        x: 5,
+        y: 0,
+      },
+      maxPoints: 1,
+      iconName: "Atk",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+18% Attack Damage\n-4% Attack Speed",
+      position: {
+        x: 1,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "DmgExtra",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+30% Attack Damage\n-5% Attack Speed",
+      position: {
+        x: 2,
+        y: 1,
+      },
+      prerequisite: {
+        x: 1,
+        y: 1,
+      },
+      maxPoints: 3,
+      iconName: "DmgExtra",
+    },
+    {
+      nodeType: "medium",
+      rawAffix:
+        "+40% Attack Critical Strike Rating when holding a Two-Handed Weapon",
+      position: {
+        x: 5,
+        y: 1,
+      },
+      prerequisite: {
+        x: 4,
+        y: 0,
+      },
+      maxPoints: 3,
+      iconName: "Agi",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix:
+        "+80% inflicted Paralysis Effect when holding a Two-Handed Weapon",
+      position: {
+        x: 6,
+        y: 1,
+      },
+      prerequisite: {
+        x: 5,
+        y: 1,
+      },
+      maxPoints: 1,
+      iconName: "CastSpeed",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+3% Max Life",
+      position: {
+        x: 0,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Agi",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+6% Max Life",
+      position: {
+        x: 1,
+        y: 2,
+      },
+      prerequisite: {
+        x: 0,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Bow01",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+3% Defense",
+      position: {
+        x: 2,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Armor",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+6% Defense",
+      position: {
+        x: 3,
+        y: 2,
+      },
+      prerequisite: {
+        x: 2,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "Armor",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "-4% additional Physical Damage taken",
+      position: {
+        x: 4,
+        y: 2,
+      },
+      maxPoints: 3,
+      iconName: "DmgExtra",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix: "-6% additional damage taken",
+      position: {
+        x: 5,
+        y: 2,
+      },
+      prerequisite: {
+        x: 4,
+        y: 2,
+      },
+      maxPoints: 1,
+      iconName: "DmgAll",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "1.5% Life Regain",
+      position: {
+        x: 1,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "Axe01",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+3% Life Regain",
+      position: {
+        x: 2,
+        y: 3,
+      },
+      prerequisite: {
+        x: 1,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "Axe01",
+    },
+    {
+      nodeType: "micro",
+      rawAffix:
+        "+10% Tenacity Blessing Duration\n+10% Attack Damage when Tenacity Blessing is active",
+      position: {
+        x: 3,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "Dagger01",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix:
+        "Gains 1 stack(s) of Tenacity Blessing per second when at Full Life",
+      position: {
+        x: 4,
+        y: 3,
+      },
+      prerequisite: {
+        x: 3,
+        y: 3,
+      },
+      maxPoints: 1,
+      iconName: "Dagger01",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+4% Strength",
+      position: {
+        x: 5,
+        y: 3,
+      },
+      maxPoints: 3,
+      iconName: "DmgExtra",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix: "+12% Strength",
+      position: {
+        x: 6,
+        y: 3,
+      },
+      prerequisite: {
+        x: 5,
+        y: 3,
+      },
+      maxPoints: 1,
+      iconName: "DmgExtra",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+9% Area Damage",
+      position: {
+        x: 0,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "DmgExtra",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+18% Area Damage",
+      position: {
+        x: 1,
+        y: 4,
+      },
+      prerequisite: {
+        x: 0,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "DmgExtra",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+7% Skill Area",
+      position: {
+        x: 2,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "Dagger03",
+    },
+    {
+      nodeType: "medium",
+      rawAffix: "+14% Skill Area",
+      position: {
+        x: 3,
+        y: 4,
+      },
+      prerequisite: {
+        x: 2,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "Dagger03",
+    },
+    {
+      nodeType: "micro",
+      rawAffix: "+9% Area Damage",
+      position: {
+        x: 4,
+        y: 4,
+      },
+      maxPoints: 3,
+      iconName: "DmgExtra",
+    },
+    {
+      nodeType: "legendary",
+      rawAffix: "+40% Skill Area if Main Skill is not used in the last 2 s",
+      position: {
+        x: 5,
+        y: 4,
+      },
+      prerequisite: {
+        x: 4,
+        y: 4,
+      },
+      maxPoints: 1,
+      iconName: "Duration",
+    },
+  ],
+} as const;
