@@ -62,13 +62,6 @@ const parseAffixText = (
   // Then replace our BR markers with actual newlines
   text = text.replace(/{REPLACEME} /g, "\n");
 
-  // Clean up any lines that are now empty
-  // text = text
-  //   .split("\n")
-  //   .map((line) => line.trim())
-  //   .filter((line) => line.length > 0)
-  //   .join("\n");
-
   return text;
 };
 
