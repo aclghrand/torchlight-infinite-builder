@@ -153,5 +153,4 @@ pnpm test src/tli/gear_affix_data/
 
 # Run specific test file
 pnpm test src/tli/gear_affix_data/craft.test.ts
-pnpm test src/tli/gear_affix_data/index.test.ts
 ```
