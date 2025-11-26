@@ -1,0 +1,103 @@
+import { BaseGearAffix } from "../gear_data_types";
+
+export const GLOVES_INT_BASE_STATS_AFFIXES = [
+  {
+    equipmentSlot: "Gloves",
+    equipmentType: "Gloves (INT)",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix: "+103 gear Energy Shield",
+  },
+  {
+    equipmentSlot: "Gloves",
+    equipmentType: "Gloves (INT)",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix: "+120 gear Energy Shield",
+  },
+  {
+    equipmentSlot: "Gloves",
+    equipmentType: "Gloves (INT)",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix: "+13 gear Energy Shield",
+  },
+  {
+    equipmentSlot: "Gloves",
+    equipmentType: "Gloves (INT)",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix: "+146 gear Energy Shield",
+  },
+  {
+    equipmentSlot: "Gloves",
+    equipmentType: "Gloves (INT)",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix: "+18 gear Energy Shield",
+  },
+  {
+    equipmentSlot: "Gloves",
+    equipmentType: "Gloves (INT)",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix: "+26 gear Energy Shield",
+  },
+  {
+    equipmentSlot: "Gloves",
+    equipmentType: "Gloves (INT)",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix: "+35 gear Energy Shield",
+  },
+  {
+    equipmentSlot: "Gloves",
+    equipmentType: "Gloves (INT)",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix: "+43 gear Energy Shield",
+  },
+  {
+    equipmentSlot: "Gloves",
+    equipmentType: "Gloves (INT)",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix: "+56 gear Energy Shield",
+  },
+  {
+    equipmentSlot: "Gloves",
+    equipmentType: "Gloves (INT)",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix: "+69 gear Energy Shield",
+  },
+  {
+    equipmentSlot: "Gloves",
+    equipmentType: "Gloves (INT)",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix: "+86 gear Energy Shield",
+  },
+  {
+    equipmentSlot: "Gloves",
+    equipmentType: "Gloves (INT)",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix: "+9 gear Energy Shield",
+  },
+] as const satisfies readonly BaseGearAffix[];
+
+export type GlovesIntBaseStatsAffix =
+  (typeof GLOVES_INT_BASE_STATS_AFFIXES)[number];

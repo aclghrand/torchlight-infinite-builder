@@ -1,0 +1,156 @@
+import { BaseGearAffix } from "../gear_data_types";
+
+export const HELMET_DEX_BASE_AFFIX_AFFIXES = [
+  {
+    equipmentSlot: "Helmet",
+    equipmentType: "Helmet (DEX)",
+    affixType: "Base Affix",
+    craftingPool: "",
+    tier: "0",
+    craftableAffix: "+(3-5)% Max Elemental Resistance",
+  },
+  {
+    equipmentSlot: "Helmet",
+    equipmentType: "Helmet (DEX)",
+    affixType: "Base Affix",
+    craftingPool: "",
+    tier: "0",
+    craftableAffix:
+      "Converts (12-15)% of Physical Damage taken to Lightning Damage",
+  },
+  {
+    equipmentSlot: "Helmet",
+    equipmentType: "Helmet (DEX)",
+    affixType: "Base Affix",
+    craftingPool: "",
+    tier: "0",
+    craftableAffix:
+      "Converts (27-35)% of Erosion Damage taken to Lightning Damage",
+  },
+  {
+    equipmentSlot: "Helmet",
+    equipmentType: "Helmet (DEX)",
+    affixType: "Base Affix",
+    craftingPool: "",
+    tier: "1",
+    craftableAffix:
+      "+(5-7)% Armor DMG Mitigation Penetration\n+(5-7)% Armor DMG Mitigation Penetration for Minions",
+  },
+  {
+    equipmentSlot: "Helmet",
+    equipmentType: "Helmet (DEX)",
+    affixType: "Base Affix",
+    craftingPool: "",
+    tier: "1",
+    craftableAffix: "+(6-8)% Sealed Mana Compensation",
+  },
+  {
+    equipmentSlot: "Helmet",
+    equipmentType: "Helmet (DEX)",
+    affixType: "Base Affix",
+    craftingPool: "",
+    tier: "1",
+    craftableAffix:
+      "+(6-8)% Elemental and Erosion Resistance Penetration\n+(6-8)% Elemental and Erosion Resistance Penetration for Minions",
+  },
+  {
+    equipmentSlot: "Helmet",
+    equipmentType: "Helmet (DEX)",
+    affixType: "Base Affix",
+    craftingPool: "",
+    tier: "1",
+    craftableAffix: "+(7-8)% Aura Effect",
+  },
+  {
+    equipmentSlot: "Helmet",
+    equipmentType: "Helmet (DEX)",
+    affixType: "Base Affix",
+    craftingPool: "",
+    tier: "1",
+    craftableAffix:
+      "When dealing damage, inflicts Lightning Infiltration . Interval for each enemy: 1 s\nWhen Minions deal damage, inflicts Lightning Infiltration . Interval for each enemy: 1 s",
+  },
+  {
+    equipmentSlot: "Helmet",
+    equipmentType: "Helmet (DEX)",
+    affixType: "Base Affix",
+    craftingPool: "",
+    tier: "2",
+    craftableAffix: "+(15-20) Dexterity",
+  },
+  {
+    equipmentSlot: "Helmet",
+    equipmentType: "Helmet (DEX)",
+    affixType: "Base Affix",
+    craftingPool: "",
+    tier: "2",
+    craftableAffix: "+(15-20) Intelligence",
+  },
+  {
+    equipmentSlot: "Helmet",
+    equipmentType: "Helmet (DEX)",
+    affixType: "Base Affix",
+    craftingPool: "",
+    tier: "2",
+    craftableAffix: "+(15-20) Strength",
+  },
+  {
+    equipmentSlot: "Helmet",
+    equipmentType: "Helmet (DEX)",
+    affixType: "Base Affix",
+    craftingPool: "",
+    tier: "2",
+    craftableAffix: "+(20-24)% Skill Area",
+  },
+  {
+    equipmentSlot: "Helmet",
+    equipmentType: "Helmet (DEX)",
+    affixType: "Base Affix",
+    craftingPool: "",
+    tier: "2",
+    craftableAffix: "+(5-10)% Cold Resistance",
+  },
+  {
+    equipmentSlot: "Helmet",
+    equipmentType: "Helmet (DEX)",
+    affixType: "Base Affix",
+    craftingPool: "",
+    tier: "2",
+    craftableAffix: "+(5-10)% Erosion Resistance",
+  },
+  {
+    equipmentSlot: "Helmet",
+    equipmentType: "Helmet (DEX)",
+    affixType: "Base Affix",
+    craftingPool: "",
+    tier: "2",
+    craftableAffix: "+(5-10)% Fire Resistance",
+  },
+  {
+    equipmentSlot: "Helmet",
+    equipmentType: "Helmet (DEX)",
+    affixType: "Base Affix",
+    craftingPool: "",
+    tier: "2",
+    craftableAffix: "+(5-10)% Lightning Resistance",
+  },
+  {
+    equipmentSlot: "Helmet",
+    equipmentType: "Helmet (DEX)",
+    affixType: "Base Affix",
+    craftingPool: "",
+    tier: "2",
+    craftableAffix: "+(54-74) Max Life",
+  },
+  {
+    equipmentSlot: "Helmet",
+    equipmentType: "Helmet (DEX)",
+    affixType: "Base Affix",
+    craftingPool: "",
+    tier: "2",
+    craftableAffix: "+(760-960) Evasion",
+  },
+] as const satisfies readonly BaseGearAffix[];
+
+export type HelmetDexBaseAffixAffix =
+  (typeof HELMET_DEX_BASE_AFFIX_AFFIXES)[number];

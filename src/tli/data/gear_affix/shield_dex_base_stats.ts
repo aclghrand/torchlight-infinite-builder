@@ -1,0 +1,103 @@
+import { BaseGearAffix } from "../gear_data_types";
+
+export const SHIELD_DEX_BASE_STATS_AFFIXES = [
+  {
+    equipmentSlot: "Shield",
+    equipmentType: "Shield (DEX)",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix: "+1122 gear Evasion",
+  },
+  {
+    equipmentSlot: "Shield",
+    equipmentType: "Shield (DEX)",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix: "+1346 gear Evasion",
+  },
+  {
+    equipmentSlot: "Shield",
+    equipmentType: "Shield (DEX)",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix: "+1615 gear Evasion",
+  },
+  {
+    equipmentSlot: "Shield",
+    equipmentType: "Shield (DEX)",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix: "+168 gear Evasion",
+  },
+  {
+    equipmentSlot: "Shield",
+    equipmentType: "Shield (DEX)",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix: "+1777 gear Evasion",
+  },
+  {
+    equipmentSlot: "Shield",
+    equipmentType: "Shield (DEX)",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix: "+1920 gear Evasion",
+  },
+  {
+    equipmentSlot: "Shield",
+    equipmentType: "Shield (DEX)",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix: "+235 gear Evasion",
+  },
+  {
+    equipmentSlot: "Shield",
+    equipmentType: "Shield (DEX)",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix: "+329 gear Evasion",
+  },
+  {
+    equipmentSlot: "Shield",
+    equipmentType: "Shield (DEX)",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix: "+461 gear Evasion",
+  },
+  {
+    equipmentSlot: "Shield",
+    equipmentType: "Shield (DEX)",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix: "+599 gear Evasion",
+  },
+  {
+    equipmentSlot: "Shield",
+    equipmentType: "Shield (DEX)",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix: "+779 gear Evasion",
+  },
+  {
+    equipmentSlot: "Shield",
+    equipmentType: "Shield (DEX)",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix: "+935 gear Evasion",
+  },
+] as const satisfies readonly BaseGearAffix[];
+
+export type ShieldDexBaseStatsAffix =
+  (typeof SHIELD_DEX_BASE_STATS_AFFIXES)[number];
