@@ -13,7 +13,7 @@ interface CraftingAffix {
 
 /**
  * Parses the affix text from a <td> element, handling:
- * - <span class="val"> tags (unwrap and wrap in backticks)
+ * - <span class="val"> tags (remove, keep inner text with en-dash → hyphen conversion)
  * - <span class="tooltip"> tags (remove, keep inner text)
  * - <br> tags (convert to newlines)
  * - En-dashes (–) to hyphens (-)
@@ -25,10 +25,16 @@ const parseAffixText = (
   // Clone the element to avoid modifying the original
   const clone = td.clone();
 
-  // Process <span class="val"> tags: unwrap and wrap in backticks
+  // Process <span class="val"> tags: remove and keep text with en-dash conversion
   clone.find("span.val").each((_, elem) => {
     const text = $(elem).text().replace(/–/g, "-"); // Replace en-dash with hyphen
-    $(elem).replaceWith(`\`${text}\``);
+    const nextSibling = elem.nextSibling;
+    $(elem).replaceWith(text);
+
+    // Remove leading space from next text node if present
+    if (nextSibling && nextSibling.type === "text" && nextSibling.data?.startsWith(" ")) {
+      nextSibling.data = nextSibling.data.slice(1);
+    }
   });
 
   // Remove <span class="tooltip"> tags but keep their text content
