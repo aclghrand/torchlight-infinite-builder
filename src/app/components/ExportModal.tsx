@@ -30,7 +30,7 @@ export const ExportModal: React.FC<ExportModalProps> = ({
     (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     },
-    [onClose]
+    [onClose],
   );
 
   useEffect(() => {
@@ -98,6 +98,6 @@ export const ExportModal: React.FC<ExportModalProps> = ({
         </div>
       </div>
     </div>,
-    document.body
+    document.body,
   );
 };

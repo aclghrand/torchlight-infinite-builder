@@ -70,7 +70,7 @@ interface BaseGearAffix {
 ```typescript
 // By equipment slot
 const allBootsAffixes = ALL_GEAR_AFFIXES.filter(
-  (a) => a.equipmentSlot === "Boots"
+  (a) => a.equipmentSlot === "Boots",
 );
 
 // By affix type
@@ -78,12 +78,12 @@ const prefixes = ALL_GEAR_AFFIXES.filter((a) => a.affixType === "Prefix");
 
 // By equipment type key
 const ringAffixes = ALL_GEAR_AFFIXES.filter(
-  (a) => a.equipmentTypeKey === "ring"
+  (a) => a.equipmentTypeKey === "ring",
 );
 
 // Search by template content
 const cooldownAffixes = ALL_GEAR_AFFIXES.filter((a) =>
-  a.template.toLowerCase().includes("cooldown")
+  a.template.toLowerCase().includes("cooldown"),
 );
 ```
 

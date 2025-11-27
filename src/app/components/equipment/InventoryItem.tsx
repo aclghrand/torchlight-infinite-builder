@@ -82,7 +82,7 @@ export const InventoryItem: React.FC<InventoryItemProps> = ({
               )}
             </div>
           </div>,
-          document.body
+          document.body,
         )}
     </div>
   );

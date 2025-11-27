@@ -24,7 +24,7 @@ export const decodeBuildCode = (code: string): RawLoadout | null => {
     // Version check - can add migration logic later
     if (parsed.v !== BUILD_CODE_VERSION) {
       console.warn(
-        `Build code version mismatch: expected ${BUILD_CODE_VERSION}, got ${parsed.v}`
+        `Build code version mismatch: expected ${BUILD_CODE_VERSION}, got ${parsed.v}`,
       );
     }
 

@@ -60,7 +60,7 @@ export default function Home() {
   const [affixSelections, setAffixSelections] = useState<AffixSlotState[]>(
     Array(6)
       .fill(null)
-      .map(() => ({ affixIndex: null, percentage: 50 }))
+      .map(() => ({ affixIndex: null, percentage: 50 })),
   );
   const [debugMode, setDebugMode] = useState<boolean>(false);
   const [debugPanelExpanded, setDebugPanelExpanded] = useState<boolean>(true);
@@ -109,7 +109,7 @@ export default function Home() {
       selectedEquipmentType
         ? getFilteredAffixes(selectedEquipmentType, "Prefix")
         : [],
-    [selectedEquipmentType]
+    [selectedEquipmentType],
   );
 
   const suffixAffixes = useMemo(
@@ -117,7 +117,7 @@ export default function Home() {
       selectedEquipmentType
         ? getFilteredAffixes(selectedEquipmentType, "Suffix")
         : [],
-    [selectedEquipmentType]
+    [selectedEquipmentType],
   );
 
   // Inventory handlers
@@ -151,7 +151,7 @@ export default function Home() {
     setAffixSelections(
       Array(6)
         .fill(null)
-        .map(() => ({ affixIndex: null, percentage: 50 }))
+        .map(() => ({ affixIndex: null, percentage: 50 })),
     );
   };
 
@@ -225,14 +225,14 @@ export default function Home() {
   };
 
   const handleEquipmentTypeChange = (
-    e: React.ChangeEvent<HTMLSelectElement>
+    e: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     const newType = e.target.value as EquipmentType;
     setSelectedEquipmentType(newType);
     setAffixSelections(
       Array(6)
         .fill(null)
-        .map(() => ({ affixIndex: null, percentage: 50 }))
+        .map(() => ({ affixIndex: null, percentage: 50 })),
     );
   };
 
@@ -281,7 +281,11 @@ export default function Home() {
   };
 
   const handleReset = () => {
-    if (confirm("Reset loadout? This will clear all equipment, talents, skills, and inventory items.")) {
+    if (
+      confirm(
+        "Reset loadout? This will clear all equipment, talents, skills, and inventory items.",
+      )
+    ) {
       setLoadout(createEmptyLoadout());
     }
   };
@@ -332,7 +336,7 @@ export default function Home() {
       if (!tree) return prev;
       const existing = tree.allocatedNodes.find((n) => n.x === x && n.y === y);
       const nodeData = treeData[slot]?.nodes.find(
-        (n) => n.position.x === x && n.position.y === y
+        (n) => n.position.x === x && n.position.y === y,
       );
       if (!nodeData) return prev;
 
@@ -341,7 +345,7 @@ export default function Home() {
       if (existing) {
         if (existing.points >= nodeData.maxPoints) return prev;
         updatedNodes = tree.allocatedNodes.map((n) =>
-          n.x === x && n.y === y ? { ...n, points: n.points + 1 } : n
+          n.x === x && n.y === y ? { ...n, points: n.points + 1 } : n,
         );
       } else {
         updatedNodes = [...tree.allocatedNodes, { x, y, points: 1 }];
@@ -368,11 +372,11 @@ export default function Home() {
 
       if (existing.points > 1) {
         updatedNodes = tree.allocatedNodes.map((n) =>
-          n.x === x && n.y === y ? { ...n, points: n.points - 1 } : n
+          n.x === x && n.y === y ? { ...n, points: n.points - 1 } : n,
         );
       } else {
         updatedNodes = tree.allocatedNodes.filter(
-          (n) => !(n.x === x && n.y === y)
+          (n) => !(n.x === x && n.y === y),
         );
       }
 
@@ -413,7 +417,7 @@ export default function Home() {
       ...prev,
       skillPage: {
         skills: prev.skillPage.skills.map((s, i) =>
-          i === index ? { ...s, enabled: !s.enabled } : s
+          i === index ? { ...s, enabled: !s.enabled } : s,
         ),
       },
     }));
@@ -615,7 +619,10 @@ export default function Home() {
                 {(["tree1", "tree2", "tree3", "tree4"] as const).map((slot) => {
                   const tree = loadout.talentPage[slot];
                   const totalPoints = tree
-                    ? tree.allocatedNodes.reduce((sum, node) => sum + node.points, 0)
+                    ? tree.allocatedNodes.reduce(
+                        (sum, node) => sum + node.points,
+                        0,
+                      )
                     : 0;
 
                   return (
@@ -661,7 +668,8 @@ export default function Home() {
                     handleTreeChange(activeTreeSlot, e.target.value)
                   }
                   disabled={
-                    (loadout.talentPage[activeTreeSlot]?.allocatedNodes.length ?? 0) > 0
+                    (loadout.talentPage[activeTreeSlot]?.allocatedNodes
+                      .length ?? 0) > 0
                   }
                   className="flex-1 px-4 py-2 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
@@ -687,7 +695,8 @@ export default function Home() {
                 <button
                   onClick={() => handleResetTree(activeTreeSlot)}
                   disabled={
-                    (loadout.talentPage[activeTreeSlot]?.allocatedNodes.length ?? 0) === 0
+                    (loadout.talentPage[activeTreeSlot]?.allocatedNodes
+                      .length ?? 0) === 0
                   }
                   className="px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors disabled:bg-zinc-400 disabled:cursor-not-allowed"
                 >
@@ -791,7 +800,9 @@ export default function Home() {
                     </option>
                     {AVAILABLE_SKILLS.filter(
                       (skill) =>
-                        !loadout.skillPage.skills.some((s) => s.skill === skill)
+                        !loadout.skillPage.skills.some(
+                          (s) => s.skill === skill,
+                        ),
                     ).map((skill) => (
                       <option key={skill} value={skill}>
                         {skill}

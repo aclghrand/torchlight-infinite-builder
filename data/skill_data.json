@@ -2,21 +2,12 @@
   {
     "type": "Active",
     "name": "Aegis of Fire",
-    "tags": [
-      "Spell",
-      "Persistent",
-      "Fire",
-      "Defensive"
-    ]
+    "tags": ["Spell", "Persistent", "Fire", "Defensive"]
   },
   {
     "type": "Active",
     "name": "Aim",
-    "tags": [
-      "Spell",
-      "Persistent",
-      "Empower"
-    ]
+    "tags": ["Spell", "Persistent", "Empower"]
   },
   {
     "type": "Active",
@@ -34,23 +25,12 @@
   {
     "type": "Active",
     "name": "Arcane Circle",
-    "tags": [
-      "Spell",
-      "Persistent",
-      "Area",
-      "Empower"
-    ]
+    "tags": ["Spell", "Persistent", "Area", "Empower"]
   },
   {
     "type": "Active",
     "name": "Archery Bond",
-    "tags": [
-      "Spell",
-      "Area",
-      "Persistent",
-      "Sentry",
-      "Empower"
-    ]
+    "tags": ["Spell", "Area", "Persistent", "Sentry", "Empower"]
   },
   {
     "type": "Active",
@@ -84,24 +64,12 @@
   {
     "type": "Active",
     "name": "Biting Cold",
-    "tags": [
-      "Spell",
-      "Area",
-      "Persistent",
-      "Cold",
-      "Curse"
-    ]
+    "tags": ["Spell", "Area", "Persistent", "Cold", "Curse"]
   },
   {
     "type": "Active",
     "name": "Black Hole",
-    "tags": [
-      "Spell",
-      "Area",
-      "Persistent",
-      "Erosion",
-      "Empower"
-    ]
+    "tags": ["Spell", "Area", "Persistent", "Erosion", "Empower"]
   },
   {
     "type": "Active",
@@ -120,14 +88,7 @@
   {
     "type": "Active",
     "name": "Blazing Dance",
-    "tags": [
-      "Base Skill",
-      "Spell",
-      "Fire",
-      "Area",
-      "Strength",
-      "Intelligence"
-    ]
+    "tags": ["Base Skill", "Spell", "Fire", "Area", "Strength", "Intelligence"]
   },
   {
     "type": "Active",
@@ -168,20 +129,12 @@
   {
     "type": "Active",
     "name": "Blind",
-    "tags": [
-      "Spell",
-      "Area",
-      "Persistent",
-      "Curse"
-    ]
+    "tags": ["Spell", "Area", "Persistent", "Curse"]
   },
   {
     "type": "Active",
     "name": "Blink",
-    "tags": [
-      "Mobility",
-      "Spell"
-    ]
+    "tags": ["Mobility", "Spell"]
   },
   {
     "type": "Active",
@@ -199,22 +152,12 @@
   {
     "type": "Active",
     "name": "Blizzard",
-    "tags": [
-      "Spell",
-      "Cold",
-      "Area",
-      "Barrage",
-      "Intelligence"
-    ]
+    "tags": ["Spell", "Cold", "Area", "Barrage", "Intelligence"]
   },
   {
     "type": "Active",
     "name": "Blurry Steps",
-    "tags": [
-      "Spell",
-      "Persistent",
-      "Empower"
-    ]
+    "tags": ["Spell", "Persistent", "Empower"]
   },
   {
     "type": "Active",
@@ -232,20 +175,12 @@
   {
     "type": "Active",
     "name": "Brisk Wind",
-    "tags": [
-      "Spell",
-      "Persistent",
-      "Defensive"
-    ]
+    "tags": ["Spell", "Persistent", "Defensive"]
   },
   {
     "type": "Active",
     "name": "Bull's Rage",
-    "tags": [
-      "Persistent",
-      "Spell",
-      "Empower"
-    ]
+    "tags": ["Persistent", "Spell", "Empower"]
   },
   {
     "type": "Active",
@@ -263,32 +198,17 @@
   {
     "type": "Active",
     "name": "Burst of Anger",
-    "tags": [
-      "Spell",
-      "Persistent",
-      "Empower"
-    ]
+    "tags": ["Spell", "Persistent", "Empower"]
   },
   {
     "type": "Active",
     "name": "Centralized Loading",
-    "tags": [
-      "Attack",
-      "Ranged",
-      "Mobility",
-      "Persistent"
-    ]
+    "tags": ["Attack", "Ranged", "Mobility", "Persistent"]
   },
   {
     "type": "Active",
     "name": "Chain Lightning",
-    "tags": [
-      "Spell",
-      "Lightning",
-      "Chain",
-      "Dexterity",
-      "Intelligence"
-    ]
+    "tags": ["Spell", "Lightning", "Chain", "Dexterity", "Intelligence"]
   },
   {
     "type": "Active",
@@ -307,11 +227,7 @@
   {
     "type": "Active",
     "name": "Charging Warcry",
-    "tags": [
-      "Warcry",
-      "Area",
-      "Persistent"
-    ]
+    "tags": ["Warcry", "Area", "Persistent"]
   },
   {
     "type": "Active",
@@ -333,9 +249,7 @@
   {
     "type": "Active",
     "name": "Compound Source",
-    "tags": [
-      "Restoration"
-    ]
+    "tags": ["Restoration"]
   },
   {
     "type": "Active",
@@ -367,13 +281,7 @@
   {
     "type": "Active",
     "name": "Corruption",
-    "tags": [
-      "Spell",
-      "Area",
-      "Persistent",
-      "Erosion",
-      "Curse"
-    ]
+    "tags": ["Spell", "Area", "Persistent", "Erosion", "Curse"]
   },
   {
     "type": "Active",
@@ -391,51 +299,27 @@
   {
     "type": "Active",
     "name": "Dark Gate",
-    "tags": [
-      "Spell",
-      "Persistent",
-      "Summon",
-      "Empower"
-    ]
+    "tags": ["Spell", "Persistent", "Summon", "Empower"]
   },
   {
     "type": "Active",
     "name": "Dazzling Bloom",
-    "tags": [
-      "Spell",
-      "Persistent",
-      "Summon",
-      "Empower"
-    ]
+    "tags": ["Spell", "Persistent", "Summon", "Empower"]
   },
   {
     "type": "Active",
     "name": "Defensive Buffer",
-    "tags": [
-      "Spell",
-      "Persistent",
-      "Defensive"
-    ]
+    "tags": ["Spell", "Persistent", "Defensive"]
   },
   {
     "type": "Active",
     "name": "Delayed Pain",
-    "tags": [
-      "Spell",
-      "Persistent",
-      "Defensive"
-    ]
+    "tags": ["Spell", "Persistent", "Defensive"]
   },
   {
     "type": "Active",
     "name": "Destructive Light Cannon",
-    "tags": [
-      "Spell",
-      "Lightning",
-      "Area",
-      "Beam",
-      "Intelligence"
-    ]
+    "tags": ["Spell", "Lightning", "Area", "Beam", "Intelligence"]
   },
   {
     "type": "Active",
@@ -452,9 +336,7 @@
   {
     "type": "Active",
     "name": "Drinking Recovery",
-    "tags": [
-      "Restoration"
-    ]
+    "tags": ["Restoration"]
   },
   {
     "type": "Active",
@@ -471,75 +353,37 @@
   {
     "type": "Active",
     "name": "Electrocute",
-    "tags": [
-      "Spell",
-      "Area",
-      "Persistent",
-      "Lightning",
-      "Curse"
-    ]
+    "tags": ["Spell", "Area", "Persistent", "Lightning", "Curse"]
   },
   {
     "type": "Active",
     "name": "Elemental Shock",
-    "tags": [
-      "Spell",
-      "Persistent",
-      "Summon",
-      "Empower"
-    ]
+    "tags": ["Spell", "Persistent", "Summon", "Empower"]
   },
   {
     "type": "Active",
     "name": "Entangled Pain",
-    "tags": [
-      "Spell",
-      "Area",
-      "Persistent",
-      "Curse"
-    ]
+    "tags": ["Spell", "Area", "Persistent", "Curse"]
   },
   {
     "type": "Active",
     "name": "Fearless Warcry",
-    "tags": [
-      "Warcry",
-      "Area",
-      "Persistent"
-    ]
+    "tags": ["Warcry", "Area", "Persistent"]
   },
   {
     "type": "Active",
     "name": "Fire Burst",
-    "tags": [
-      "Spell",
-      "Area",
-      "Fire",
-      "Strength",
-      "Intelligence"
-    ]
+    "tags": ["Spell", "Area", "Fire", "Strength", "Intelligence"]
   },
   {
     "type": "Active",
     "name": "Fixate",
-    "tags": [
-      "Spell",
-      "Area",
-      "Persistent",
-      "Empower"
-    ]
+    "tags": ["Spell", "Area", "Persistent", "Empower"]
   },
   {
     "type": "Active",
     "name": "Flame Core",
-    "tags": [
-      "Spell",
-      "Area",
-      "Fire",
-      "Persistent",
-      "Sentry",
-      "Intelligence"
-    ]
+    "tags": ["Spell", "Area", "Fire", "Persistent", "Sentry", "Intelligence"]
   },
   {
     "type": "Active",
@@ -558,14 +402,7 @@
   {
     "type": "Active",
     "name": "Flame Slash",
-    "tags": [
-      "Attack",
-      "Melee",
-      "Area",
-      "Fire",
-      "Slash-Strike",
-      "Strength"
-    ]
+    "tags": ["Attack", "Melee", "Area", "Fire", "Slash-Strike", "Strength"]
   },
   {
     "type": "Active",
@@ -595,22 +432,12 @@
   {
     "type": "Active",
     "name": "Forced Start",
-    "tags": [
-      "Spell",
-      "Persistent",
-      "Defensive"
-    ]
+    "tags": ["Spell", "Persistent", "Defensive"]
   },
   {
     "type": "Active",
     "name": "Frigid Transmission",
-    "tags": [
-      "Spell",
-      "Cold",
-      "Area",
-      "Mobility",
-      "Intelligence"
-    ]
+    "tags": ["Spell", "Cold", "Area", "Mobility", "Intelligence"]
   },
   {
     "type": "Active",
@@ -641,24 +468,12 @@
   {
     "type": "Active",
     "name": "Frost Release",
-    "tags": [
-      "Empower",
-      "Spell",
-      "Cold",
-      "Area",
-      "Persistent",
-      "Intelligence"
-    ]
+    "tags": ["Empower", "Spell", "Cold", "Area", "Persistent", "Intelligence"]
   },
   {
     "type": "Active",
     "name": "Frost Shield",
-    "tags": [
-      "Spell",
-      "Persistent",
-      "Cold",
-      "Defensive"
-    ]
+    "tags": ["Spell", "Persistent", "Cold", "Defensive"]
   },
   {
     "type": "Active",
@@ -678,14 +493,7 @@
   {
     "type": "Active",
     "name": "Frost Terra",
-    "tags": [
-      "Spell",
-      "Cold",
-      "Area",
-      "Persistent",
-      "Terra",
-      "Intelligence"
-    ]
+    "tags": ["Spell", "Cold", "Area", "Persistent", "Terra", "Intelligence"]
   },
   {
     "type": "Active",
@@ -705,13 +513,7 @@
   {
     "type": "Active",
     "name": "Glacier Ripples",
-    "tags": [
-      "Base Skill",
-      "Spell",
-      "Cold",
-      "Area",
-      "Intelligence"
-    ]
+    "tags": ["Base Skill", "Spell", "Cold", "Area", "Intelligence"]
   },
   {
     "type": "Active",
@@ -729,14 +531,7 @@
   {
     "type": "Active",
     "name": "Groundshaker",
-    "tags": [
-      "Attack",
-      "Melee",
-      "Area",
-      "Physical",
-      "Demolisher",
-      "Strength"
-    ]
+    "tags": ["Attack", "Melee", "Area", "Physical", "Demolisher", "Strength"]
   },
   {
     "type": "Active",
@@ -755,36 +550,17 @@
   {
     "type": "Active",
     "name": "Harmonious Field",
-    "tags": [
-      "Spell",
-      "Channeled",
-      "Area",
-      "Persistent",
-      "Empower"
-    ]
+    "tags": ["Spell", "Channeled", "Area", "Persistent", "Empower"]
   },
   {
     "type": "Active",
     "name": "Haunting Abomination",
-    "tags": [
-      "Spell",
-      "Erosion",
-      "Area",
-      "Persistent",
-      "Terra",
-      "Intelligence"
-    ]
+    "tags": ["Spell", "Erosion", "Area", "Persistent", "Terra", "Intelligence"]
   },
   {
     "type": "Active",
     "name": "High Energy Beam",
-    "tags": [
-      "Spell",
-      "Lightning",
-      "Area",
-      "Beam",
-      "Intelligence"
-    ]
+    "tags": ["Spell", "Lightning", "Area", "Beam", "Intelligence"]
   },
   {
     "type": "Active",
@@ -801,37 +577,17 @@
   {
     "type": "Active",
     "name": "Ice Bond",
-    "tags": [
-      "Spell",
-      "Persistent",
-      "Cold",
-      "Empower",
-      "Sentry",
-      "Area",
-      "Beam"
-    ]
+    "tags": ["Spell", "Persistent", "Cold", "Empower", "Sentry", "Area", "Beam"]
   },
   {
     "type": "Active",
     "name": "Ice Earthshaker",
-    "tags": [
-      "Ultimate",
-      "Spell",
-      "Cold",
-      "Area",
-      "Intelligence"
-    ]
+    "tags": ["Ultimate", "Spell", "Cold", "Area", "Intelligence"]
   },
   {
     "type": "Active",
     "name": "Ice Lances",
-    "tags": [
-      "Spell",
-      "Projectile",
-      "Cold",
-      "Horizontal",
-      "Intelligence"
-    ]
+    "tags": ["Spell", "Projectile", "Cold", "Horizontal", "Intelligence"]
   },
   {
     "type": "Active",
@@ -904,21 +660,12 @@
   {
     "type": "Active",
     "name": "Life Source",
-    "tags": [
-      "Restoration"
-    ]
+    "tags": ["Restoration"]
   },
   {
     "type": "Active",
     "name": "Lightning Beam",
-    "tags": [
-      "Spell",
-      "Lightning",
-      "Area",
-      "Persistent",
-      "Beam",
-      "Intelligence"
-    ]
+    "tags": ["Spell", "Lightning", "Area", "Persistent", "Beam", "Intelligence"]
   },
   {
     "type": "Active",
@@ -950,13 +697,7 @@
   {
     "type": "Active",
     "name": "Lightning Storm",
-    "tags": [
-      "Spell",
-      "Lightning",
-      "Area",
-      "Persistent",
-      "Intelligence"
-    ]
+    "tags": ["Spell", "Lightning", "Area", "Persistent", "Intelligence"]
   },
   {
     "type": "Active",
@@ -976,27 +717,17 @@
   {
     "type": "Active",
     "name": "Machine Army",
-    "tags": [
-      "Spell",
-      "Persistent",
-      "Summon",
-      "Empower"
-    ]
+    "tags": ["Spell", "Persistent", "Summon", "Empower"]
   },
   {
     "type": "Active",
     "name": "Mana Boil",
-    "tags": [
-      "Spell",
-      "Empower"
-    ]
+    "tags": ["Spell", "Empower"]
   },
   {
     "type": "Active",
     "name": "Mana Source",
-    "tags": [
-      "Restoration"
-    ]
+    "tags": ["Restoration"]
   },
   {
     "type": "Active",
@@ -1016,25 +747,12 @@
   {
     "type": "Active",
     "name": "Mind Control",
-    "tags": [
-      "Spell",
-      "Erosion",
-      "Channeled",
-      "Persistent",
-      "Intelligence"
-    ]
+    "tags": ["Spell", "Erosion", "Channeled", "Persistent", "Intelligence"]
   },
   {
     "type": "Active",
     "name": "Molten Rising",
-    "tags": [
-      "Ultimate",
-      "Spell",
-      "Fire",
-      "Area",
-      "Strength",
-      "Intelligence"
-    ]
+    "tags": ["Ultimate", "Spell", "Fire", "Area", "Strength", "Intelligence"]
   },
   {
     "type": "Active",
@@ -1052,88 +770,42 @@
   {
     "type": "Active",
     "name": "Nourishment of Life",
-    "tags": [
-      "Spell",
-      "Persistent",
-      "Area",
-      "Summon",
-      "Empower"
-    ]
+    "tags": ["Spell", "Persistent", "Area", "Summon", "Empower"]
   },
   {
     "type": "Active",
     "name": "Obscure",
-    "tags": [
-      "Persistent",
-      "Defensive",
-      "Spell"
-    ]
+    "tags": ["Persistent", "Defensive", "Spell"]
   },
   {
     "type": "Active",
     "name": "Onslaught Punch",
-    "tags": [
-      "Attack",
-      "Physical",
-      "Area",
-      "Melee",
-      "Strength",
-      "Intelligence"
-    ]
+    "tags": ["Attack", "Physical", "Area", "Melee", "Strength", "Intelligence"]
   },
   {
     "type": "Active",
     "name": "Overpower",
-    "tags": [
-      "Attack",
-      "Physical",
-      "Area",
-      "Melee",
-      "Strength",
-      "Intelligence"
-    ]
+    "tags": ["Attack", "Physical", "Area", "Melee", "Strength", "Intelligence"]
   },
   {
     "type": "Active",
     "name": "Path of Flames",
-    "tags": [
-      "Spell",
-      "Fire",
-      "Channeled",
-      "Persistent",
-      "Area",
-      "Intelligence"
-    ]
+    "tags": ["Spell", "Fire", "Channeled", "Persistent", "Area", "Intelligence"]
   },
   {
     "type": "Active",
     "name": "Permafrost Cast",
-    "tags": [
-      "Enhanced\n        Skill",
-      "Spell",
-      "Cold",
-      "Area",
-      "Intelligence"
-    ]
+    "tags": ["Enhanced\n        Skill", "Spell", "Cold", "Area", "Intelligence"]
   },
   {
     "type": "Active",
     "name": "Prayer",
-    "tags": [
-      "Spell",
-      "Persistent",
-      "Summon",
-      "Defensive"
-    ]
+    "tags": ["Spell", "Persistent", "Summon", "Defensive"]
   },
   {
     "type": "Active",
     "name": "Raging Warcry",
-    "tags": [
-      "Warcry",
-      "Area",
-      "Persistent"
-    ]
+    "tags": ["Warcry", "Area", "Persistent"]
   },
   {
     "type": "Active",
@@ -1151,21 +823,12 @@
   {
     "type": "Active",
     "name": "Reform",
-    "tags": [
-      "Spell",
-      "Persistent",
-      "Defensive"
-    ]
+    "tags": ["Spell", "Persistent", "Defensive"]
   },
   {
     "type": "Active",
     "name": "Resurrection Warcry",
-    "tags": [
-      "Warcry",
-      "Area",
-      "Persistent",
-      "Restoration"
-    ]
+    "tags": ["Warcry", "Area", "Persistent", "Restoration"]
   },
   {
     "type": "Active",
@@ -1184,22 +847,12 @@
   {
     "type": "Active",
     "name": "Ring of Ice",
-    "tags": [
-      "Spell",
-      "Cold",
-      "Area",
-      "Intelligence"
-    ]
+    "tags": ["Spell", "Cold", "Area", "Intelligence"]
   },
   {
     "type": "Active",
     "name": "Rising Edge",
-    "tags": [
-      "Spell",
-      "Persistent",
-      "Summon",
-      "Empower"
-    ]
+    "tags": ["Spell", "Persistent", "Summon", "Empower"]
   },
   {
     "type": "Active",
@@ -1217,25 +870,12 @@
   {
     "type": "Active",
     "name": "Rocket Jump",
-    "tags": [
-      "Mobility",
-      "Ranged",
-      "Attack",
-      "Area",
-      "Fire",
-      "Strength"
-    ]
+    "tags": ["Mobility", "Ranged", "Attack", "Area", "Fire", "Strength"]
   },
   {
     "type": "Active",
     "name": "Safeguard Ring",
-    "tags": [
-      "Spell",
-      "Area",
-      "Persistent",
-      "Sentry",
-      "Defensive"
-    ]
+    "tags": ["Spell", "Area", "Persistent", "Sentry", "Defensive"]
   },
   {
     "type": "Active",
@@ -1254,55 +894,27 @@
   {
     "type": "Active",
     "name": "Scattered Mud",
-    "tags": [
-      "Base Skill",
-      "Spell",
-      "Erosion",
-      "Area",
-      "Intelligence"
-    ]
+    "tags": ["Base Skill", "Spell", "Erosion", "Area", "Intelligence"]
   },
   {
     "type": "Active",
     "name": "Scorch",
-    "tags": [
-      "Spell",
-      "Area",
-      "Persistent",
-      "Fire",
-      "Curse"
-    ]
+    "tags": ["Spell", "Area", "Persistent", "Fire", "Curse"]
   },
   {
     "type": "Active",
     "name": "Scorching Beam",
-    "tags": [
-      "Spell",
-      "Fire",
-      "Channeled",
-      "Area",
-      "Beam",
-      "Intelligence"
-    ]
+    "tags": ["Spell", "Fire", "Channeled", "Area", "Beam", "Intelligence"]
   },
   {
     "type": "Active",
     "name": "Scorching Pulse",
-    "tags": [
-      "Spell",
-      "Area",
-      "Fire",
-      "Intelligence"
-    ]
+    "tags": ["Spell", "Area", "Fire", "Intelligence"]
   },
   {
     "type": "Active",
     "name": "Secret Origin Unleash",
-    "tags": [
-      "Spell",
-      "Persistent",
-      "Empower"
-    ]
+    "tags": ["Spell", "Persistent", "Empower"]
   },
   {
     "type": "Active",
@@ -1320,24 +932,12 @@
   {
     "type": "Active",
     "name": "Shackles of Malice",
-    "tags": [
-      "Spell",
-      "Erosion",
-      "Chain",
-      "Area",
-      "Dexterity",
-      "Intelligence"
-    ]
+    "tags": ["Spell", "Erosion", "Chain", "Area", "Dexterity", "Intelligence"]
   },
   {
     "type": "Active",
     "name": "Shadow Dash",
-    "tags": [
-      "Spell",
-      "Mobility",
-      "Persistent",
-      "Erosion"
-    ]
+    "tags": ["Spell", "Mobility", "Persistent", "Erosion"]
   },
   {
     "type": "Active",
@@ -1354,14 +954,7 @@
   {
     "type": "Active",
     "name": "Shadow Swamp",
-    "tags": [
-      "Spell",
-      "Erosion",
-      "Area",
-      "Persistent",
-      "Terra",
-      "Intelligence"
-    ]
+    "tags": ["Spell", "Erosion", "Area", "Persistent", "Terra", "Intelligence"]
   },
   {
     "type": "Active",
@@ -1391,26 +984,12 @@
   {
     "type": "Active",
     "name": "Speed Phantom",
-    "tags": [
-      "Spell",
-      "Physical",
-      "Area",
-      "Persistent",
-      "Empower",
-      "Mobility"
-    ]
+    "tags": ["Spell", "Physical", "Area", "Persistent", "Empower", "Mobility"]
   },
   {
     "type": "Active",
     "name": "Spiral Strike",
-    "tags": [
-      "Attack",
-      "Erosion",
-      "Area",
-      "Melee",
-      "Mobility",
-      "Dexterity"
-    ]
+    "tags": ["Attack", "Erosion", "Area", "Melee", "Mobility", "Dexterity"]
   },
   {
     "type": "Active",
@@ -1439,22 +1018,12 @@
   {
     "type": "Active",
     "name": "Star Stalker",
-    "tags": [
-      "Spell",
-      "Projectile",
-      "Area",
-      "Persistent",
-      "Empower"
-    ]
+    "tags": ["Spell", "Projectile", "Area", "Persistent", "Empower"]
   },
   {
     "type": "Active",
     "name": "Stoneskin",
-    "tags": [
-      "Persistent",
-      "Defensive",
-      "Spell"
-    ]
+    "tags": ["Persistent", "Defensive", "Spell"]
   },
   {
     "type": "Active",
@@ -1497,13 +1066,7 @@
   {
     "type": "Active",
     "name": "Swift Shadow Raid",
-    "tags": [
-      "Attack",
-      "Area",
-      "Physical",
-      "Mobility",
-      "Dexterity"
-    ]
+    "tags": ["Attack", "Area", "Physical", "Mobility", "Dexterity"]
   },
   {
     "type": "Active",
@@ -1598,24 +1161,12 @@
   {
     "type": "Active",
     "name": "Thunderlight Bond",
-    "tags": [
-      "Spell",
-      "Persistent",
-      "Lightning",
-      "Empower",
-      "Area",
-      "Sentry"
-    ]
+    "tags": ["Spell", "Persistent", "Lightning", "Empower", "Area", "Sentry"]
   },
   {
     "type": "Active",
     "name": "Timid",
-    "tags": [
-      "Spell",
-      "Area",
-      "Persistent",
-      "Curse"
-    ]
+    "tags": ["Spell", "Area", "Persistent", "Curse"]
   },
   {
     "type": "Active",
@@ -1633,13 +1184,7 @@
   {
     "type": "Active",
     "name": "Vulnerability",
-    "tags": [
-      "Spell",
-      "Area",
-      "Persistent",
-      "Physical",
-      "Curse"
-    ]
+    "tags": ["Spell", "Area", "Persistent", "Physical", "Curse"]
   },
   {
     "type": "Active",
@@ -1709,33 +1254,17 @@
   {
     "type": "Active",
     "name": "World of Thorns",
-    "tags": [
-      "Ultimate",
-      "Spell",
-      "Erosion",
-      "Area",
-      "Intelligence"
-    ]
+    "tags": ["Ultimate", "Spell", "Erosion", "Area", "Intelligence"]
   },
   {
     "type": "Passive",
     "name": "Acuteness Focus",
-    "tags": [
-      "Area",
-      "Focus",
-      "Physical",
-      "Attack",
-      "Strength"
-    ]
+    "tags": ["Area", "Focus", "Physical", "Attack", "Strength"]
   },
   {
     "type": "Passive",
     "name": "Charged Flames",
-    "tags": [
-      "Aura",
-      "Area",
-      "Fire"
-    ]
+    "tags": ["Aura", "Area", "Fire"]
   },
   {
     "type": "Passive",
@@ -1753,150 +1282,82 @@
   {
     "type": "Passive",
     "name": "Cruelty",
-    "tags": [
-      "Aura",
-      "Area",
-      "Attack"
-    ]
+    "tags": ["Aura", "Area", "Attack"]
   },
   {
     "type": "Passive",
     "name": "Deep Pain",
-    "tags": [
-      "Aura",
-      "Area"
-    ]
+    "tags": ["Aura", "Area"]
   },
   {
     "type": "Passive",
     "name": "Domain Expansion",
-    "tags": [
-      "Aura",
-      "Area"
-    ]
+    "tags": ["Aura", "Area"]
   },
   {
     "type": "Passive",
     "name": "Electric Conversion",
-    "tags": [
-      "Aura",
-      "Area",
-      "Lightning"
-    ]
+    "tags": ["Aura", "Area", "Lightning"]
   },
   {
     "type": "Passive",
     "name": "Elemental Resistance",
-    "tags": [
-      "Aura",
-      "Area",
-      "Fire",
-      "Cold",
-      "Lightning"
-    ]
+    "tags": ["Aura", "Area", "Fire", "Cold", "Lightning"]
   },
   {
     "type": "Passive",
     "name": "Energy Fortress",
-    "tags": [
-      "Aura",
-      "Area"
-    ]
+    "tags": ["Aura", "Area"]
   },
   {
     "type": "Passive",
     "name": "Erosion Amplification",
-    "tags": [
-      "Aura",
-      "Area",
-      "Erosion"
-    ]
+    "tags": ["Aura", "Area", "Erosion"]
   },
   {
     "type": "Passive",
     "name": "Fearless",
-    "tags": [
-      "Aura",
-      "Area",
-      "Melee"
-    ]
+    "tags": ["Aura", "Area", "Melee"]
   },
   {
     "type": "Passive",
     "name": "Flame Focus",
-    "tags": [
-      "Area",
-      "Focus",
-      "Fire",
-      "Spell",
-      "Strength",
-      "Intelligence"
-    ]
+    "tags": ["Area", "Focus", "Fire", "Spell", "Strength", "Intelligence"]
   },
   {
     "type": "Passive",
     "name": "Frigid Domain",
-    "tags": [
-      "Aura",
-      "Area",
-      "Cold"
-    ]
+    "tags": ["Aura", "Area", "Cold"]
   },
   {
     "type": "Passive",
     "name": "Ice Focus",
-    "tags": [
-      "Area",
-      "Spell",
-      "Focus",
-      "Cold",
-      "Intelligence"
-    ]
+    "tags": ["Area", "Spell", "Focus", "Cold", "Intelligence"]
   },
   {
     "type": "Passive",
     "name": "Magical Source",
-    "tags": [
-      "Aura",
-      "Area"
-    ]
+    "tags": ["Aura", "Area"]
   },
   {
     "type": "Passive",
     "name": "Nimbleness",
-    "tags": [
-      "Aura",
-      "Area"
-    ]
+    "tags": ["Aura", "Area"]
   },
   {
     "type": "Passive",
     "name": "Precise Projectiles",
-    "tags": [
-      "Aura",
-      "Area",
-      "Projectile"
-    ]
+    "tags": ["Aura", "Area", "Projectile"]
   },
   {
     "type": "Passive",
     "name": "Precise: Acuteness Focus",
-    "tags": [
-      "Area",
-      "Focus",
-      "Physical",
-      "Attack",
-      "Strength"
-    ]
+    "tags": ["Area", "Focus", "Physical", "Attack", "Strength"]
   },
   {
     "type": "Passive",
     "name": "Precise: Charged Flames",
-    "tags": [
-      "Aura",
-      "Area",
-      "Fire"
-    ]
+    "tags": ["Aura", "Area", "Fire"]
   },
   {
     "type": "Passive",
@@ -1914,226 +1375,127 @@
   {
     "type": "Passive",
     "name": "Precise: Cruelty",
-    "tags": [
-      "Aura",
-      "Area",
-      "Attack"
-    ]
+    "tags": ["Aura", "Area", "Attack"]
   },
   {
     "type": "Passive",
     "name": "Precise: Deep Pain",
-    "tags": [
-      "Aura",
-      "Area"
-    ]
+    "tags": ["Aura", "Area"]
   },
   {
     "type": "Passive",
     "name": "Precise: Domain Expansion",
-    "tags": [
-      "Aura",
-      "Area"
-    ]
+    "tags": ["Aura", "Area"]
   },
   {
     "type": "Passive",
     "name": "Precise: Electric Conversion",
-    "tags": [
-      "Aura",
-      "Area",
-      "Lightning"
-    ]
+    "tags": ["Aura", "Area", "Lightning"]
   },
   {
     "type": "Passive",
     "name": "Precise: Elemental Resistance",
-    "tags": [
-      "Aura",
-      "Area",
-      "Fire",
-      "Cold",
-      "Lightning"
-    ]
+    "tags": ["Aura", "Area", "Fire", "Cold", "Lightning"]
   },
   {
     "type": "Passive",
     "name": "Precise: Energy Fortress",
-    "tags": [
-      "Aura",
-      "Area"
-    ]
+    "tags": ["Aura", "Area"]
   },
   {
     "type": "Passive",
     "name": "Precise: Erosion Amplification",
-    "tags": [
-      "Aura",
-      "Area",
-      "Erosion"
-    ]
+    "tags": ["Aura", "Area", "Erosion"]
   },
   {
     "type": "Passive",
     "name": "Precise: Fearless",
-    "tags": [
-      "Aura",
-      "Area",
-      "Melee"
-    ]
+    "tags": ["Aura", "Area", "Melee"]
   },
   {
     "type": "Passive",
     "name": "Precise: Flame Focus",
-    "tags": [
-      "Area",
-      "Focus",
-      "Fire",
-      "Spell",
-      "Strength",
-      "Intelligence"
-    ]
+    "tags": ["Area", "Focus", "Fire", "Spell", "Strength", "Intelligence"]
   },
   {
     "type": "Passive",
     "name": "Precise: Frigid Domain",
-    "tags": [
-      "Aura",
-      "Area",
-      "Cold"
-    ]
+    "tags": ["Aura", "Area", "Cold"]
   },
   {
     "type": "Passive",
     "name": "Precise: Ice Focus",
-    "tags": [
-      "Area",
-      "Spell",
-      "Focus",
-      "Cold",
-      "Intelligence"
-    ]
+    "tags": ["Area", "Spell", "Focus", "Cold", "Intelligence"]
   },
   {
     "type": "Passive",
     "name": "Precise: Magical Source",
-    "tags": [
-      "Aura",
-      "Area"
-    ]
+    "tags": ["Aura", "Area"]
   },
   {
     "type": "Passive",
     "name": "Precise: Nimbleness",
-    "tags": [
-      "Aura",
-      "Area"
-    ]
+    "tags": ["Aura", "Area"]
   },
   {
     "type": "Passive",
     "name": "Precise: Precise Projectiles",
-    "tags": [
-      "Aura",
-      "Area",
-      "Projectile"
-    ]
+    "tags": ["Aura", "Area", "Projectile"]
   },
   {
     "type": "Passive",
     "name": "Precise: Radical Order",
-    "tags": [
-      "Aura",
-      "Area",
-      "Summon"
-    ]
+    "tags": ["Aura", "Area", "Summon"]
   },
   {
     "type": "Passive",
     "name": "Precise: Rejuvenation",
-    "tags": [
-      "Aura",
-      "Area"
-    ]
+    "tags": ["Aura", "Area"]
   },
   {
     "type": "Passive",
     "name": "Precise: Spell Amplification",
-    "tags": [
-      "Aura",
-      "Area",
-      "Spell"
-    ]
+    "tags": ["Aura", "Area", "Spell"]
   },
   {
     "type": "Passive",
     "name": "Precise: Steadfast",
-    "tags": [
-      "Aura",
-      "Area"
-    ]
+    "tags": ["Aura", "Area"]
   },
   {
     "type": "Passive",
     "name": "Precise: Swiftness",
-    "tags": [
-      "Aura",
-      "Area"
-    ]
+    "tags": ["Aura", "Area"]
   },
   {
     "type": "Passive",
     "name": "Precise: Thunder Focus",
-    "tags": [
-      "Area",
-      "Focus",
-      "Lightning",
-      "Attack",
-      "Dexterity"
-    ]
+    "tags": ["Area", "Focus", "Lightning", "Attack", "Dexterity"]
   },
   {
     "type": "Passive",
     "name": "Precise: Weapon Amplification",
-    "tags": [
-      "Aura",
-      "Area",
-      "Physical"
-    ]
+    "tags": ["Aura", "Area", "Physical"]
   },
   {
     "type": "Passive",
     "name": "Radical Order",
-    "tags": [
-      "Aura",
-      "Area",
-      "Summon"
-    ]
+    "tags": ["Aura", "Area", "Summon"]
   },
   {
     "type": "Passive",
     "name": "Rejuvenation",
-    "tags": [
-      "Aura",
-      "Area"
-    ]
+    "tags": ["Aura", "Area"]
   },
   {
     "type": "Passive",
     "name": "Spell Amplification",
-    "tags": [
-      "Aura",
-      "Area",
-      "Spell"
-    ]
+    "tags": ["Aura", "Area", "Spell"]
   },
   {
     "type": "Passive",
     "name": "Steadfast",
-    "tags": [
-      "Aura",
-      "Area"
-    ]
+    "tags": ["Aura", "Area"]
   },
   {
     "type": "Passive",
@@ -2161,13 +1523,7 @@
   {
     "type": "Passive",
     "name": "Summon Frost Magus",
-    "tags": [
-      "Spell",
-      "Summon",
-      "Cold",
-      "Spirit\n        Magus",
-      "Intelligence"
-    ]
+    "tags": ["Spell", "Summon", "Cold", "Spirit\n        Magus", "Intelligence"]
   },
   {
     "type": "Passive",
@@ -2196,72 +1552,47 @@
   {
     "type": "Passive",
     "name": "Swiftness",
-    "tags": [
-      "Aura",
-      "Area"
-    ]
+    "tags": ["Aura", "Area"]
   },
   {
     "type": "Passive",
     "name": "Thunder Focus",
-    "tags": [
-      "Area",
-      "Focus",
-      "Lightning",
-      "Attack",
-      "Dexterity"
-    ]
+    "tags": ["Area", "Focus", "Lightning", "Attack", "Dexterity"]
   },
   {
     "type": "Passive",
     "name": "Weapon Amplification",
-    "tags": [
-      "Aura",
-      "Area",
-      "Physical"
-    ]
+    "tags": ["Aura", "Area", "Physical"]
   },
   {
     "type": "Support",
     "name": "Added Cold Damage",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support",
     "name": "Added Erosion Damage",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support",
     "name": "Added Fire Damage",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support",
     "name": "Added Lightning Damage",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support",
     "name": "Added Physical Damage",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support",
     "name": "Additional Ignite",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support",
@@ -2271,38 +1602,27 @@
   {
     "type": "Support",
     "name": "All In",
-    "tags": [
-      "Defensive"
-    ]
+    "tags": ["Defensive"]
   },
   {
     "type": "Support",
     "name": "Assault Command",
-    "tags": [
-      "Summon",
-      "Synthetic Troop"
-    ]
+    "tags": ["Summon", "Synthetic Troop"]
   },
   {
     "type": "Support",
     "name": "Attack Focus",
-    "tags": [
-      "Attack"
-    ]
+    "tags": ["Attack"]
   },
   {
     "type": "Support",
     "name": "Aura Amplification",
-    "tags": [
-      "Aura"
-    ]
+    "tags": ["Aura"]
   },
   {
     "type": "Support",
     "name": "Auto-Charge",
-    "tags": [
-      "Restoration"
-    ]
+    "tags": ["Restoration"]
   },
   {
     "type": "Support",
@@ -2312,44 +1632,32 @@
   {
     "type": "Support",
     "name": "Carpet Bombardment",
-    "tags": [
-      "Barrage"
-    ]
+    "tags": ["Barrage"]
   },
   {
     "type": "Support",
     "name": "Cataclysm",
-    "tags": [
-      "Persistent"
-    ]
+    "tags": ["Persistent"]
   },
   {
     "type": "Support",
     "name": "Channel Preparation",
-    "tags": [
-      "Channeled"
-    ]
+    "tags": ["Channeled"]
   },
   {
     "type": "Support",
     "name": "Charge",
-    "tags": [
-      "Mobility"
-    ]
+    "tags": ["Mobility"]
   },
   {
     "type": "Support",
     "name": "Concentration Warcry",
-    "tags": [
-      "Warcry"
-    ]
+    "tags": ["Warcry"]
   },
   {
     "type": "Support",
     "name": "Control Spell",
-    "tags": [
-      "Spell"
-    ]
+    "tags": ["Spell"]
   },
   {
     "type": "Support",
@@ -2364,9 +1672,7 @@
   {
     "type": "Support",
     "name": "Critical Charge",
-    "tags": [
-      "Restoration"
-    ]
+    "tags": ["Restoration"]
   },
   {
     "type": "Support",
@@ -2381,76 +1687,52 @@
   {
     "type": "Support",
     "name": "Deep Wounds",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support",
     "name": "Defense Form",
-    "tags": [
-      "Summon",
-      "Synthetic Troop"
-    ]
+    "tags": ["Summon", "Synthetic Troop"]
   },
   {
     "type": "Support",
     "name": "Defense Layers",
-    "tags": [
-      "Defensive"
-    ]
+    "tags": ["Defensive"]
   },
   {
     "type": "Support",
     "name": "Electric Overload",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support",
     "name": "Electric Punishment",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support",
     "name": "Elemental Duo",
-    "tags": [
-      "Summon",
-      "Spirit Magus"
-    ]
+    "tags": ["Summon", "Spirit Magus"]
   },
   {
     "type": "Support",
     "name": "Elemental Fusion",
-    "tags": [
-      "Fire",
-      "Lightning",
-      "Cold"
-    ]
+    "tags": ["Fire", "Lightning", "Cold"]
   },
   {
     "type": "Support",
     "name": "Elemental Impact",
-    "tags": [
-      "Attack"
-    ]
+    "tags": ["Attack"]
   },
   {
     "type": "Support",
     "name": "Emergency Avoidance",
-    "tags": [
-      "Mobility"
-    ]
+    "tags": ["Mobility"]
   },
   {
     "type": "Support",
     "name": "Emergency restoration",
-    "tags": [
-      "Restoration"
-    ]
+    "tags": ["Restoration"]
   },
   {
     "type": "Support",
@@ -2460,276 +1742,187 @@
   {
     "type": "Support",
     "name": "Extended Duration",
-    "tags": [
-      "Persistent"
-    ]
+    "tags": ["Persistent"]
   },
   {
     "type": "Support",
     "name": "Fire Explosion",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support",
     "name": "Focus Acceleration",
-    "tags": [
-      "Focus"
-    ]
+    "tags": ["Focus"]
   },
   {
     "type": "Support",
     "name": "Focus Buff",
-    "tags": [
-      "Focus"
-    ]
+    "tags": ["Focus"]
   },
   {
     "type": "Support",
     "name": "Focused Beam",
-    "tags": [
-      "Spell",
-      "Beam"
-    ]
+    "tags": ["Spell", "Beam"]
   },
   {
     "type": "Support",
     "name": "Fragile Resurrection",
-    "tags": [
-      "Restoration"
-    ]
+    "tags": ["Restoration"]
   },
   {
     "type": "Support",
     "name": "Freeze Chance",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support",
     "name": "Friend of Spirit Magi",
-    "tags": [
-      "Summon",
-      "Spirit Magus"
-    ]
+    "tags": ["Summon", "Spirit Magus"]
   },
   {
     "type": "Support",
     "name": "Gladiator's Roar",
-    "tags": [
-      "Warcry"
-    ]
+    "tags": ["Warcry"]
   },
   {
     "type": "Support",
     "name": "Ground Divide",
-    "tags": [
-      "Terra"
-    ]
+    "tags": ["Terra"]
   },
   {
     "type": "Support",
     "name": "Grudge",
-    "tags": [
-      "Spell"
-    ]
+    "tags": ["Spell"]
   },
   {
     "type": "Support",
     "name": "Guard",
-    "tags": [
-      "Channeled"
-    ]
+    "tags": ["Channeled"]
   },
   {
     "type": "Support",
     "name": "Harvest Time",
-    "tags": [
-      "Summon",
-      "Spirit Magus"
-    ]
+    "tags": ["Summon", "Spirit Magus"]
   },
   {
     "type": "Support",
     "name": "Haunt",
-    "tags": [
-      "Attack",
-      "Melee",
-      "Shadow\n        Strike"
-    ]
+    "tags": ["Attack", "Melee", "Shadow\n        Strike"]
   },
   {
     "type": "Support",
     "name": "High Voltage",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support",
     "name": "Hunting Tempo",
-    "tags": [
-      "Attack",
-      "Projectile"
-    ]
+    "tags": ["Attack", "Projectile"]
   },
   {
     "type": "Support",
     "name": "Improved Corrosion",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support",
     "name": "Increased Area",
-    "tags": [
-      "Area"
-    ]
+    "tags": ["Area"]
   },
   {
     "type": "Support",
     "name": "Instant restoration",
-    "tags": [
-      "Restoration"
-    ]
+    "tags": ["Restoration"]
   },
   {
     "type": "Support",
     "name": "Iron Fortification",
-    "tags": [
-      "Defensive"
-    ]
+    "tags": ["Defensive"]
   },
   {
     "type": "Support",
     "name": "Jump",
-    "tags": [
-      "Projectile",
-      "Chain",
-      "Horizontal"
-    ]
+    "tags": ["Projectile", "Chain", "Horizontal"]
   },
   {
     "type": "Support",
     "name": "Lightning to Cold",
-    "tags": [
-      "Lightning",
-      "Cold"
-    ]
+    "tags": ["Lightning", "Cold"]
   },
   {
     "type": "Support",
     "name": "Lion's Roars",
-    "tags": [
-      "Warcry"
-    ]
+    "tags": ["Warcry"]
   },
   {
     "type": "Support",
     "name": "Magic Dash",
-    "tags": [
-      "Mobility"
-    ]
+    "tags": ["Mobility"]
   },
   {
     "type": "Support",
     "name": "Maniacal Army",
-    "tags": [
-      "Summon",
-      "Synthetic Troop"
-    ]
+    "tags": ["Summon", "Synthetic Troop"]
   },
   {
     "type": "Support",
     "name": "Mass Effect",
-    "tags": [
-      "Empower"
-    ]
+    "tags": ["Empower"]
   },
   {
     "type": "Support",
     "name": "Mechanical Modification",
-    "tags": [
-      "Summon",
-      "Synthetic Troop"
-    ]
+    "tags": ["Summon", "Synthetic Troop"]
   },
   {
     "type": "Support",
     "name": "Melee Knockback",
-    "tags": [
-      "Attack",
-      "Melee"
-    ]
+    "tags": ["Attack", "Melee"]
   },
   {
     "type": "Support",
     "name": "Multifaceted Guard",
-    "tags": [
-      "Spell",
-      "Sentry"
-    ]
+    "tags": ["Spell", "Sentry"]
   },
   {
     "type": "Support",
     "name": "Multiple Projectiles",
-    "tags": [
-      "Projectile"
-    ]
+    "tags": ["Projectile"]
   },
   {
     "type": "Support",
     "name": "Multistrike",
-    "tags": [
-      "Attack"
-    ]
+    "tags": ["Attack"]
   },
   {
     "type": "Support",
     "name": "Nova Shot",
-    "tags": [
-      "Projectile",
-      "Vertical"
-    ]
+    "tags": ["Projectile", "Vertical"]
   },
   {
     "type": "Support",
     "name": "Overload",
-    "tags": [
-      "Spell"
-    ]
+    "tags": ["Spell"]
   },
   {
     "type": "Support",
     "name": "Pain Amplification",
-    "tags": [
-      "Persistent"
-    ]
+    "tags": ["Persistent"]
   },
   {
     "type": "Support",
     "name": "Passivation",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support",
     "name": "Periodic Burst",
-    "tags": [
-      "Mobility"
-    ]
+    "tags": ["Mobility"]
   },
   {
     "type": "Support",
     "name": "Physical to Fire",
-    "tags": [
-      "Physical",
-      "Fire"
-    ]
+    "tags": ["Physical", "Fire"]
   },
   {
     "type": "Support",
@@ -2739,67 +1932,47 @@
   {
     "type": "Support",
     "name": "Precise: Concentrated",
-    "tags": [
-      "Aura"
-    ]
+    "tags": ["Aura"]
   },
   {
     "type": "Support",
     "name": "Precise: Disciplined",
-    "tags": [
-      "Aura"
-    ]
+    "tags": ["Aura"]
   },
   {
     "type": "Support",
     "name": "Precise: Focus Buff",
-    "tags": [
-      "Focus"
-    ]
+    "tags": ["Focus"]
   },
   {
     "type": "Support",
     "name": "Precise: Friend of Spirit Magi",
-    "tags": [
-      "Summon",
-      "Spirit Magus"
-    ]
+    "tags": ["Summon", "Spirit Magus"]
   },
   {
     "type": "Support",
     "name": "Precise: Harmony",
-    "tags": [
-      "Restoration"
-    ]
+    "tags": ["Restoration"]
   },
   {
     "type": "Support",
     "name": "Precise: Malleable",
-    "tags": [
-      "Aura"
-    ]
+    "tags": ["Aura"]
   },
   {
     "type": "Support",
     "name": "Precise: Protection Field",
-    "tags": [
-      "Summon",
-      "Spirit Magus"
-    ]
+    "tags": ["Summon", "Spirit Magus"]
   },
   {
     "type": "Support",
     "name": "Precise: Purify",
-    "tags": [
-      "Restoration"
-    ]
+    "tags": ["Restoration"]
   },
   {
     "type": "Support",
     "name": "Precise: Safety in Numbers",
-    "tags": [
-      "Aura"
-    ]
+    "tags": ["Aura"]
   },
   {
     "type": "Support",
@@ -2809,40 +1982,27 @@
   {
     "type": "Support",
     "name": "Precise: Selfishness",
-    "tags": [
-      "Aura"
-    ]
+    "tags": ["Aura"]
   },
   {
     "type": "Support",
     "name": "Precise: Selfless",
-    "tags": [
-      "Aura"
-    ]
+    "tags": ["Aura"]
   },
   {
     "type": "Support",
     "name": "Precise: Stand as One",
-    "tags": [
-      "Aura"
-    ]
+    "tags": ["Aura"]
   },
   {
     "type": "Support",
     "name": "Precise: Superpower",
-    "tags": [
-      "Summon",
-      "Spirit Magus"
-    ]
+    "tags": ["Summon", "Spirit Magus"]
   },
   {
     "type": "Support",
     "name": "Precision Strike",
-    "tags": [
-      "Area",
-      "Attack",
-      "Melee"
-    ]
+    "tags": ["Area", "Attack", "Melee"]
   },
   {
     "type": "Support",
@@ -2852,41 +2012,27 @@
   {
     "type": "Support",
     "name": "Projectile Penetration",
-    "tags": [
-      "Projectile",
-      "Horizontal"
-    ]
+    "tags": ["Projectile", "Horizontal"]
   },
   {
     "type": "Support",
     "name": "Projectile Split",
-    "tags": [
-      "Projectile",
-      "Parabolic"
-    ]
+    "tags": ["Projectile", "Parabolic"]
   },
   {
     "type": "Support",
     "name": "Protection Field",
-    "tags": [
-      "Summon",
-      "Spirit Magus"
-    ]
+    "tags": ["Summon", "Spirit Magus"]
   },
   {
     "type": "Support",
     "name": "Psychic Burst",
-    "tags": [
-      "Spell"
-    ]
+    "tags": ["Spell"]
   },
   {
     "type": "Support",
     "name": "Psychic Surge",
-    "tags": [
-      "Spell",
-      "Mobility"
-    ]
+    "tags": ["Spell", "Mobility"]
   },
   {
     "type": "Support",
@@ -2896,27 +2042,17 @@
   {
     "type": "Support",
     "name": "Quick Mobility",
-    "tags": [
-      "Mobility"
-    ]
+    "tags": ["Mobility"]
   },
   {
     "type": "Support",
     "name": "Quick Return",
-    "tags": [
-      "Attack",
-      "Melee",
-      "Demolisher"
-    ]
+    "tags": ["Attack", "Melee", "Demolisher"]
   },
   {
     "type": "Support",
     "name": "Raging Slash",
-    "tags": [
-      "Attack",
-      "Melee",
-      "Slash-Strike"
-    ]
+    "tags": ["Attack", "Melee", "Slash-Strike"]
   },
   {
     "type": "Support",
@@ -2926,45 +2062,32 @@
   {
     "type": "Support",
     "name": "Recklessness",
-    "tags": [
-      "Attack"
-    ]
+    "tags": ["Attack"]
   },
   {
     "type": "Support",
     "name": "Reclusion",
-    "tags": [
-      "Defensive"
-    ]
+    "tags": ["Defensive"]
   },
   {
     "type": "Support",
     "name": "Recuperation",
-    "tags": [
-      "Combo"
-    ]
+    "tags": ["Combo"]
   },
   {
     "type": "Support",
     "name": "Refracted Prism",
-    "tags": [
-      "Spell",
-      "Beam"
-    ]
+    "tags": ["Spell", "Beam"]
   },
   {
     "type": "Support",
     "name": "Residues",
-    "tags": [
-      "Restoration"
-    ]
+    "tags": ["Restoration"]
   },
   {
     "type": "Support",
     "name": "Restoration Charge",
-    "tags": [
-      "Restoration"
-    ]
+    "tags": ["Restoration"]
   },
   {
     "type": "Support",
@@ -2974,18 +2097,12 @@
   {
     "type": "Support",
     "name": "Savage Growth",
-    "tags": [
-      "Summon",
-      "Spirit Magus"
-    ]
+    "tags": ["Summon", "Spirit Magus"]
   },
   {
     "type": "Support",
     "name": "Scattershot Beam",
-    "tags": [
-      "Spell",
-      "Beam"
-    ]
+    "tags": ["Spell", "Beam"]
   },
   {
     "type": "Support",
@@ -2995,76 +2112,52 @@
   {
     "type": "Support",
     "name": "Sentry Modification",
-    "tags": [
-      "Spell",
-      "Sentry"
-    ]
+    "tags": ["Spell", "Sentry"]
   },
   {
     "type": "Support",
     "name": "Servant Damage",
-    "tags": [
-      "Summon"
-    ]
+    "tags": ["Summon"]
   },
   {
     "type": "Support",
     "name": "Servant Life",
-    "tags": [
-      "Summon"
-    ]
+    "tags": ["Summon"]
   },
   {
     "type": "Support",
     "name": "Shortened Duration",
-    "tags": [
-      "Persistent"
-    ]
+    "tags": ["Persistent"]
   },
   {
     "type": "Support",
     "name": "Slow Projectile",
-    "tags": [
-      "Projectile"
-    ]
+    "tags": ["Projectile"]
   },
   {
     "type": "Support",
     "name": "Spell Concentration",
-    "tags": [
-      "Spell",
-      "Area"
-    ]
+    "tags": ["Spell", "Area"]
   },
   {
     "type": "Support",
     "name": "Steamroll",
-    "tags": [
-      "Attack",
-      "Melee",
-      "Area"
-    ]
+    "tags": ["Attack", "Melee", "Area"]
   },
   {
     "type": "Support",
     "name": "Tendonslicer",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support",
     "name": "Terrain of Malice",
-    "tags": [
-      "Curse"
-    ]
+    "tags": ["Curse"]
   },
   {
     "type": "Support",
     "name": "Well-Fought Battle",
-    "tags": [
-      "Empower"
-    ]
+    "tags": ["Empower"]
   },
   {
     "type": "Support",
@@ -3074,779 +2167,557 @@
   {
     "type": "Support",
     "name": "Wind Projectiles",
-    "tags": [
-      "Projectile"
-    ]
+    "tags": ["Projectile"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Acuteness Focus: Piercing Agony (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Acuteness Focus: Sharpening (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Arrow Einherjar: Arrowstorm (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Berserking Blade: Desperation (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Berserking Blade: Sweep (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Blazing Bullet: Fiery Blast (Magnificent)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Blizzard: Freezing Point (Magnificent)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Blizzard: Hail (Magnificent)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Bombard: Cannon (Magnificent)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Bombard: Guided (Magnificent)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Burning Shot: Combustion (Magnificent)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Burning Shot: Fiery Blast (Magnificent)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Chain Lightning: Augmentation (Magnificent)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Chain Lightning: Web of Lightning (Magnificent)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Charged Pummel: Connected (Magnificent)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Charged Pummel: Drastic Shift (Magnificent)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Corrosion Focus: Clustering (Magnificent)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Corrosion Focus: Infection (Magnificent)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Corrosive Shot: Swift Action (Magnificent)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Corrosive Throw: Augmentation (Magnificent)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Crescent Slash: Raid (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Crescent Slash: Vile (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Double Thrusts: Restless (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Electrifying Shot: Close-Range (Magnificent)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Fire Burst: Heart of Flame (Magnificent)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Fire Burst: Violent Blast (Magnificent)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Flame Core: Lone Vanguard (Magnificent)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Flame Focus: Flint (Magnificent)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Flame Focus: Kindling (Magnificent)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Flame Jet: Burst (Magnificent)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Flame Jet: Scorched Earth (Magnificent)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Flame Slash: Immediate Threat (Magnificent)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Focused Shot: Aspire (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Focused Shot: Long Shot (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Focused Slash: Duel (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Focused Slash: Tranquility (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Frost Core: Chase (Magnificent)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Frost Impact: Frozen Trajectory (Magnificent)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Frost Impact: Ice Cluster (Magnificent)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Frost Spike: Offshoot (Magnificent)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Frost Terra: Rime (Magnificent)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Frost Terra: Snow Shell (Magnificent)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Ghost Blade Einherjar: Prestige (Magnificent)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Ghost Blade Einherjar: Unbroken (Magnificent)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Groundshaker: Epicenter (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Groundshaker: Frequent Quake (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Hammer of Ash: Rekindle (Magnificent)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Hammer of Ash: Upheaval (Magnificent)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Haunting Abomination: Feud (Magnificent)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Haunting Abomination: Misdeeds (Magnificent)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Howling Gale: Headwind (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Howling Gale: Rapid Sweep (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Ice Focus: Permafrost (Magnificent)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Ice Focus: Shattered Ice (Magnificent)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Ice Lances: Ice Corrosion (Magnificent)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Ice Lances: Rebound (Magnificent)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Ice Shot: Ice Blast (Magnificent)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Icebound Beam: Frostbitten (Magnificent)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Icebound Beam: Numbing Cold (Magnificent)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Icy Blade: Frozen Edge (Magnificent)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Icy Blade: Quick Freeze (Magnificent)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Inexhaustible Barrage: Bombard (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Lightning Beam: Aftershock (Magnificent)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Lightning Beam: Relentless (Magnificent)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Lightning Shot: Offshoot (Magnificent)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Lightning Storm: Surging Thunder (Magnificent)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Marked Rain of Arrows: Chain Reaction\n        (Magnificent)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Marked Rain of Arrows: Heartpiercer (Magnificent)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Mind Control: Befuddle (Magnificent)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Mind Control: Concentrate (Magnificent)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Moon Strike: Lunar Ring (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Moon Strike: Rainbow (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Path of Flames: Spontaneous Combustion\n        (Magnificent)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Rain of Arrows: Swift Flight (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Ring of Blades: Blade Formation (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Ring of Ice: Ice Seal (Magnificent)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Savage Charge: Bulldoze (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Savage Charge: Infuriate (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Scorching Beam: Shockwave (Magnificent)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Scorching Beam: Supercharge (Magnificent)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Serpent Beam: Barrage (Magnificent)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Serpent Beam: Inferno (Magnificent)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Shackles of Malice: Defile (Magnificent)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Shackles of Malice: Vendetta (Magnificent)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Shadow Shot: Eradicate (Magnificent)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Shadow Swamp: Gushing Spring (Magnificent)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Shadow Swamp: Splatter (Magnificent)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Sparkle: Magnetic Field (Magnificent)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Split Firebolt: Split (Magnificent)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Split Shot: Diversion (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Split Shot: Volley (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Summon Erosion Magus: Frequent Quake (Magnificent)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Summon Erosion Magus: Plague Source (Magnificent)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Summon Erosion Magus: Wicked (Magnificent)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Summon Fire Magus: Aflame (Magnificent)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Summon Fire Magus: Fire Ward (Magnificent)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Summon Fire Magus: Flowing Flames (Magnificent)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Summon Frost Magus: Cold Ward (Magnificent)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Summon Frost Magus: Ice Crusher (Magnificent)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Summon Frost Magus: Piercing Cold (Magnificent)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Summon Grim Phantom: Glare (Magnificent)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Summon Grim Phantom: Spur (Magnificent)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Summon Machine Guard: Iron Fist (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Summon Machine Guard: Pummel (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Summon Rock Magus: Clustering Sand (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Summon Rock Magus: Forging (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Summon Rock Magus: Unyielding (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Summon Spider Tank: Steamroll (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Summon Thunder Magus: Continuation (Magnificent)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Summon Thunder Magus: Lightning Ward (Magnificent)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Magnificent)",
@@ -3856,1094 +2727,782 @@
   {
     "type": "Support (Magnificent)",
     "name": "Thunder Core: Electric Field (Magnificent)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Thunder Core: Lone Vanguard (Magnificent)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Thunder Focus: Haste (Magnificent)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Thunder Focus: Quickstep (Magnificent)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Thunder Slash: Blade Cluster (Magnificent)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Thunder Slash: Keen Edge (Magnificent)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Thunder Spike: Numb (Magnificent)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Thunderbolt Overload: Leap (Magnificent)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Thunderbolt Overload: Retribution (Magnificent)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Thundercloud: Alarmed Awakening (Magnificent)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Thundercloud: Billowing Cloud (Magnificent)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Whirlwind Blade: Swift Slash (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Whirlwind Blade: Unsheath (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Whirlwind: Endless Wind (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Whirlwind: Wind Barrier (Magnificent)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Wilt Spike: Languish (Magnificent)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Wilt Spike: Wither (Magnificent)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Wilting Beam: Dispirit (Magnificent)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Magnificent)",
     "name": "Wilting Beam: Reflection (Magnificent)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Noble)",
     "name": "Acuteness Focus: Dull Pain (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Acuteness Focus: Remaining Strength (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Arrow Einherjar: Advancement (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Arrow Einherjar: Fellowship (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Berserking Blade: Decimate (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Berserking Blade: Rampage (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Blazing Bullet: Dual Resonance (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Blazing Bullet: Ignition Point (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Blizzard: Avalanche (Noble)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Noble)",
     "name": "Blizzard: Numbing Cold (Noble)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Noble)",
     "name": "Bombard: Fission (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Bombard: Grenade (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Bombard: Smokescreen (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Burning Shot: Ignition (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Burning Shot: Through Fire (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Chain Lightning: Lucky (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Chain Lightning: Merge (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Charged Pummel: Charge Reduction (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Charged Pummel: Electric Charge (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Corrosion Focus: Splash (Noble)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Noble)",
     "name": "Corrosive Shot: Burst of Agony (Noble)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Noble)",
     "name": "Corrosive Shot: Degeneration (Noble)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Noble)",
     "name": "Corrosive Throw: Blitz Strike (Noble)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Noble)",
     "name": "Corrosive Throw: Swift Strike (Noble)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Noble)",
     "name": "Crescent Slash: Flash (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Crescent Slash: Rising (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Double Thrusts: Cutthroat (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Double Thrusts: Recourse (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Electrifying Shot: Multishot (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Fire Burst: Converge (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Fire Burst: Prairie Fire (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Flame Core: Engage (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Flame Focus: Blast (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Flame Jet: Furnace (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Flame Jet: Offshoot (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Flame Slash: Inverted Blaze (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Focused Shot: Building Momentum (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Focused Shot: Power Bow (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Focused Shot: Snipe (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Focused Slash: Behead (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Focused Slash: Fervor (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Frost Core: Puncture (Noble)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Noble)",
     "name": "Frost Impact: Chilling Buildup (Noble)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Noble)",
     "name": "Frost Impact: Chilling Surge (Noble)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Noble)",
     "name": "Frost Spike: Glaciate (Noble)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Noble)",
     "name": "Frost Spike: Ice Fission (Noble)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Noble)",
     "name": "Frost Terra: Cohesion (Noble)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Noble)",
     "name": "Frost Terra: Winter's Bite (Noble)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Noble)",
     "name": "Ghost Blade Einherjar: Eruption (Noble)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Noble)",
     "name": "Ghost Blade Einherjar: Heroes (Noble)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Noble)",
     "name": "Groundshaker: Collapse (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Groundshaker: Cripple (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Groundshaker: Wrathful Vault (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Hammer of Ash: Blast Quake (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Hammer of Ash: Quickfire (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Haunting Abomination: Depravity (Noble)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Noble)",
     "name": "Haunting Abomination: Hail Mary (Noble)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Noble)",
     "name": "Howling Gale: Eye of the Gale (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Howling Gale: Furious Sweep (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Ice Focus: Frigid Wind (Noble)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Noble)",
     "name": "Ice Focus: Solemn Chill (Noble)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Noble)",
     "name": "Ice Lances: Bounce (Noble)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Noble)",
     "name": "Ice Lances: Permafrost (Noble)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Noble)",
     "name": "Ice Shot: Batter (Noble)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Noble)",
     "name": "Icebound Beam: Chilling Spike (Noble)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Noble)",
     "name": "Icebound Beam: Ring Blade (Noble)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Noble)",
     "name": "Icy Blade: Hidden Edge (Noble)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Noble)",
     "name": "Icy Blade: Ice Blast (Noble)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Noble)",
     "name": "Inexhaustible Barrage: Fatal Pursuit (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Inexhaustible Barrage: Landslide (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Lightning Beam: Reverberation (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Lightning Beam: Salvo (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Lightning Shot: Crossed Lightning (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Lightning Storm: Boundless (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Lightning Storm: Raging Storm (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Marked Rain of Arrows: Hyper Blast (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Marked Rain of Arrows: Rainfall (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Marked Rain of Arrows: Threads of Arrows (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Mind Control: Enthrall (Noble)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Noble)",
     "name": "Mind Control: Entice (Noble)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Noble)",
     "name": "Moon Strike: Lunar Eclipse (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Moon Strike: Wax and Wane (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Path of Flames: Heat Wave (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Path of Flames: Raging Boil (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Rain of Arrows: Payback (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Rain of Arrows: Tracking (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Ring of Blades: Razor Edge (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Ring of Blades: Strength in Numbers (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Ring of Ice: Cascade (Noble)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Noble)",
     "name": "Savage Charge: Raid (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Scorching Beam: Disintegrate (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Scorching Beam: Immolate (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Serpent Beam: Torrent (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Serpent Beam: Twin Blaze (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Shackles of Malice: Mutual Destruction (Noble)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Noble)",
     "name": "Shackles of Malice: Spite (Noble)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Noble)",
     "name": "Shadow Swamp: Overlapping Waves (Noble)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Noble)",
     "name": "Shadow Swamp: Still Water (Noble)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Noble)",
     "name": "Sparkle: Static Electricity (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Sparkle: Strobe (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Split Firebolt: Focal Point (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Split Shot: Collaboration (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Split Shot: Rapid Advance (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Summon Erosion Magus: Malady (Noble)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Noble)",
     "name": "Summon Erosion Magus: Malignant (Noble)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Noble)",
     "name": "Summon Fire Magus: Engulfing Flames (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Summon Fire Magus: Wicked Spirit (Noble)",
-    "tags": [
-      "Fire"
-    ]
+    "tags": ["Fire"]
   },
   {
     "type": "Support (Noble)",
     "name": "Summon Frost Magus: Vengeance (Noble)",
-    "tags": [
-      "Cold"
-    ]
+    "tags": ["Cold"]
   },
   {
     "type": "Support (Noble)",
     "name": "Summon Grim Phantom: Flicker (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Summon Grim Phantom: Shriek (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Summon Grim Phantom: Undercurrent (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Summon Machine Guard: Crushing Blow (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Summon Machine Guard: Dead Silence (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Summon Machine Guard: Discipline (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Summon Rock Magus: Stone Refinement (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Summon Spider Tank: Focus Fire (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Summon Spider Tank: Spider Egg (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Summon Thunder Magus: Agility (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Summon Thunder Magus: Heavy Arrow (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Thunder Core: Augmentation (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Thunder Core: Lightning Lasso (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Thunder Focus: Overflow (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Thunder Focus: Tremor (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Thunder Slash: Big Stride (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Thunder Slash: Flurry (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Thunder Spike: Rumbling Thunder (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Thunder Spike: Tremble (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Thunderbolt Overload: Augmentation (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Thundercloud: Heavy Cloud (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Thundercloud: Thunderous Blow (Noble)",
-    "tags": [
-      "Lightning"
-    ]
+    "tags": ["Lightning"]
   },
   {
     "type": "Support (Noble)",
     "name": "Whirlwind Blade: Circling (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Whirlwind Blade: Sharpen (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Whirlwind: Whirling Blade (Noble)",
-    "tags": [
-      "Physical"
-    ]
+    "tags": ["Physical"]
   },
   {
     "type": "Support (Noble)",
     "name": "Wilt Spike: Evanescence (Noble)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Noble)",
     "name": "Wilt Spike: Mirage (Noble)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Noble)",
     "name": "Wilting Beam: Rapid Completion (Noble)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Support (Noble)",
     "name": "Wilting Beam: Set Course (Noble)",
-    "tags": [
-      "Erosion"
-    ]
+    "tags": ["Erosion"]
   },
   {
     "type": "Activation Medium",
