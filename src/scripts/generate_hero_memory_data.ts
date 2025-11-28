@@ -10,8 +10,14 @@ interface HeroMemory {
 }
 
 const cleanEffectText = (html: string): string => {
-  let text = html.replace(/<br\s*\/?>/gi, "\n");
+  // Replace <br> tags with spaces (not newlines) for single-line output
+  let text = html.replace(/<br\s*\/?>/gi, " ");
+  // Remove all other HTML tags
   text = text.replace(/<[^>]+>/g, "");
+  // Fix mojibake dash: UTF-8 en-dash bytes misinterpreted as Windows-1252
+  // &acirc;&euro;&ldquo; decodes to â (U+00E2) + € (U+20AC) + " (U+201C)
+  text = text.replace(/\u00e2\u20ac\u201c/g, "-");
+  // Decode common HTML entities
   text = text
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
@@ -19,14 +25,8 @@ const cleanEffectText = (html: string): string => {
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
     .replace(/&nbsp;/g, " ");
-  text = text
-    .split("\n")
-    .map((line) => line.replace(/\s+/g, " ").trim())
-    .join("\n");
-  text = text
-    .split("\n")
-    .filter((line) => line.length > 0)
-    .join("\n");
+  // Normalize all whitespace (including newlines) to single spaces
+  text = text.replace(/\s+/g, " ");
   return text.trim();
 };
 
