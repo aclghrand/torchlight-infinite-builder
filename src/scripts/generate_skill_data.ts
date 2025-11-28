@@ -1,8 +1,9 @@
+import * as cheerio from "cheerio";
 import { readFile, writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import { execSync } from "child_process";
 
-interface RawSkill {
+interface Skill {
   type: string;
   name: string;
   tags: string[];
@@ -49,6 +50,40 @@ const SKILL_TYPE_CONFIG = {
 } as const;
 
 type SkillTypeKey = keyof typeof SKILL_TYPE_CONFIG;
+
+const extractSkillData = (html: string): Skill[] => {
+  const $ = cheerio.load(html);
+  const skills: Skill[] = [];
+
+  const rows = $('#skill tbody tr[class*="thing"]');
+  console.log(`Found ${rows.length} skill rows`);
+
+  rows.each((_, row) => {
+    const tds = $(row).find("td");
+
+    if (tds.length !== 4) {
+      console.warn(`Skipping row with ${tds.length} columns (expected 4)`);
+      return;
+    }
+
+    const tags: string[] = [];
+    $(tds[2])
+      .find("span.multiVal")
+      .each((_, elem) => {
+        tags.push($(elem).text().replace(/\s+/g, " ").trim());
+      });
+
+    const skill: Skill = {
+      type: $(tds[0]).text().trim(),
+      name: $(tds[1]).text().trim(),
+      tags,
+    };
+
+    skills.push(skill);
+  });
+
+  return skills;
+};
 
 const generateTypesFile = (
   skillTypes: string[],
@@ -118,11 +153,13 @@ export type Skill =
 };
 
 const main = async (): Promise<void> => {
-  console.log("Reading skill_data.json...");
-  const jsonPath = join(process.cwd(), "data", "skill_data.json");
-  const rawData: RawSkill[] = JSON.parse(await readFile(jsonPath, "utf-8"));
+  console.log("Reading HTML file...");
+  const htmlPath = join(process.cwd(), ".garbage", "codex.html");
+  const html = await readFile(htmlPath, "utf-8");
 
-  console.log(`Processing ${rawData.length} skills...`);
+  console.log("Extracting skill data...");
+  const rawData = extractSkillData(html);
+  console.log(`Extracted ${rawData.length} skills`);
 
   // Group by skill type and collect unique tags
   const grouped = new Map<SkillTypeKey, BaseSkill[]>();
@@ -167,7 +204,7 @@ const main = async (): Promise<void> => {
     Array.from(skillTagsSet),
   );
   await writeFile(typesPath, typesContent, "utf-8");
-  console.log(`✓ Generated types.ts`);
+  console.log(`Generated types.ts`);
 
   // Generate individual skill type files
   for (const [skillType, skills] of grouped) {
@@ -181,21 +218,20 @@ const main = async (): Promise<void> => {
     );
 
     await writeFile(filePath, content, "utf-8");
-    console.log(`✓ Generated ${fileName} (${skills.length} skills)`);
+    console.log(`Generated ${fileName} (${skills.length} skills)`);
   }
 
   // Generate index.ts
   const indexPath = join(outDir, "index.ts");
   const indexContent = generateIndexFile();
   await writeFile(indexPath, indexContent, "utf-8");
-  console.log(`✓ Generated index.ts`);
+  console.log(`Generated index.ts`);
 
-  console.log("\n✓ Code generation complete!");
+  console.log("\nCode generation complete!");
   console.log(
     `Generated ${grouped.size} skill type files with ${rawData.length} total skills`,
   );
 
-  console.log("\n🎨 Running formatter...");
   execSync("pnpm format", { stdio: "inherit" });
 };
 

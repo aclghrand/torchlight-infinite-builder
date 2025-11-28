@@ -1,14 +1,65 @@
+import * as cheerio from "cheerio";
 import { readFile, writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import { execSync } from "child_process";
 
-interface RawTalentCodex {
+interface TalentCodex {
   god: string;
   tree: string;
   type: string;
   name: string;
   effect: string;
 }
+
+const cleanEffectText = (html: string): string => {
+  let text = html.replace(/<br\s*\/?>/gi, "\n");
+  text = text.replace(/<[^>]+>/g, "");
+  text = text
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&nbsp;/g, " ");
+  text = text
+    .split("\n")
+    .map((line) => line.replace(/\s+/g, " ").trim())
+    .join("\n");
+  text = text
+    .split("\n")
+    .filter((line) => line.length > 0)
+    .join("\n");
+  return text.trim();
+};
+
+const extractTalentCodexData = (html: string): TalentCodex[] => {
+  const $ = cheerio.load(html);
+  const items: TalentCodex[] = [];
+
+  const rows = $('#talent tbody tr[class*="thing"]');
+  console.log(`Found ${rows.length} talent rows`);
+
+  rows.each((_, row) => {
+    const tds = $(row).find("td");
+
+    if (tds.length !== 5) {
+      console.warn(`Skipping row with ${tds.length} columns (expected 5)`);
+      return;
+    }
+
+    const item: TalentCodex = {
+      god: $(tds[0]).text().trim(),
+      tree: $(tds[1]).text().trim(),
+      type: $(tds[2]).text().trim(),
+      name: $(tds[3]).text().trim(),
+      effect: cleanEffectText($(tds[4]).html() || ""),
+    };
+
+    items.push(item);
+  });
+
+  return items;
+};
 
 const generateTypesFile = (): string => {
   return `export interface TalentCodex {
@@ -21,7 +72,7 @@ const generateTypesFile = (): string => {
 `;
 };
 
-const generateDataFile = (items: RawTalentCodex[]): string => {
+const generateDataFile = (items: TalentCodex[]): string => {
   return `import type { TalentCodex } from "./types";
 
 export const TalentCodexEntries = ${JSON.stringify(items, null, 2)} as const satisfies readonly TalentCodex[];
@@ -37,13 +88,13 @@ export * from "./talent_codex_entries";
 };
 
 const main = async (): Promise<void> => {
-  console.log("Reading talent_codex.json...");
-  const jsonPath = join(process.cwd(), "src", "data", "talent_codex.json");
-  const rawData: RawTalentCodex[] = JSON.parse(
-    await readFile(jsonPath, "utf-8"),
-  );
+  console.log("Reading HTML file...");
+  const htmlPath = join(process.cwd(), ".garbage", "codex.html");
+  const html = await readFile(htmlPath, "utf-8");
 
-  console.log(`Processing ${rawData.length} talents...`);
+  console.log("Extracting talent codex data...");
+  const items = extractTalentCodexData(html);
+  console.log(`Extracted ${items.length} talents`);
 
   const outDir = join(process.cwd(), "src", "data", "talent_codex");
   await mkdir(outDir, { recursive: true });
@@ -53,14 +104,15 @@ const main = async (): Promise<void> => {
   console.log(`Generated types.ts`);
 
   const dataPath = join(outDir, "talent_codex_entries.ts");
-  await writeFile(dataPath, generateDataFile(rawData), "utf-8");
-  console.log(`Generated talent_codex_entries.ts (${rawData.length} items)`);
+  await writeFile(dataPath, generateDataFile(items), "utf-8");
+  console.log(`Generated talent_codex_entries.ts (${items.length} items)`);
 
   const indexPath = join(outDir, "index.ts");
   await writeFile(indexPath, generateIndexFile(), "utf-8");
   console.log(`Generated index.ts`);
 
   console.log("\nCode generation complete!");
+  execSync("pnpm format", { stdio: "inherit" });
 };
 
 if (require.main === module) {
