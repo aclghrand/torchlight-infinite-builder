@@ -1,7 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { encodeBuildCode, decodeBuildCode } from "./build-code";
 import { RawLoadout, RawSkillPage, RawHeroPage } from "@/src/tli/core";
-import { createEmptyLoadout, createEmptyHeroPage } from "./storage";
+import {
+  createEmptyLoadout,
+  createEmptyHeroPage,
+  createEmptyPactspiritPage,
+} from "./storage";
 
 const createEmptySkillPage = (): RawSkillPage => ({
   activeSkill1: { enabled: true, supportSkills: {} },
@@ -41,6 +45,7 @@ describe("build-code", () => {
       talentPage: {},
       skillPage: createEmptySkillPage(),
       heroPage: createEmptyHeroPage(),
+      pactspiritPage: createEmptyPactspiritPage(),
       itemsList: [],
       heroMemoryList: [],
     };
@@ -69,6 +74,7 @@ describe("build-code", () => {
       },
       skillPage: createEmptySkillPage(),
       heroPage: createEmptyHeroPage(),
+      pactspiritPage: createEmptyPactspiritPage(),
       itemsList: [],
       heroMemoryList: [],
     };
@@ -104,6 +110,7 @@ describe("build-code", () => {
       talentPage: {},
       skillPage,
       heroPage: createEmptyHeroPage(),
+      pactspiritPage: createEmptyPactspiritPage(),
       itemsList: [],
       heroMemoryList: [],
     };
@@ -147,6 +154,7 @@ describe("build-code", () => {
       },
       skillPage,
       heroPage: createEmptyHeroPage(),
+      pactspiritPage: createEmptyPactspiritPage(),
       itemsList: [
         {
           id: "inv-1",

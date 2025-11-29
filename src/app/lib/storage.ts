@@ -1,4 +1,11 @@
-import { RawLoadout, RawSkillWithSupports, RawHeroPage } from "@/src/tli/core";
+import {
+  RawLoadout,
+  RawSkillWithSupports,
+  RawHeroPage,
+  RawPactspiritPage,
+  RawPactspiritSlot,
+  RawRingSlotState,
+} from "@/src/tli/core";
 import { DEBUG_MODE_STORAGE_KEY } from "./constants";
 
 const createEmptySkillSlot = (): RawSkillWithSupports => ({
@@ -19,6 +26,30 @@ export const createEmptyHeroPage = (): RawHeroPage => ({
     slot60: undefined,
     slot75: undefined,
   },
+});
+
+const createEmptyRingSlotState = (): RawRingSlotState => ({});
+
+export const createEmptyPactspiritSlot = (): RawPactspiritSlot => ({
+  pactspiritName: undefined,
+  level: 1,
+  rings: {
+    innerRing1: createEmptyRingSlotState(),
+    innerRing2: createEmptyRingSlotState(),
+    innerRing3: createEmptyRingSlotState(),
+    innerRing4: createEmptyRingSlotState(),
+    innerRing5: createEmptyRingSlotState(),
+    innerRing6: createEmptyRingSlotState(),
+    midRing1: createEmptyRingSlotState(),
+    midRing2: createEmptyRingSlotState(),
+    midRing3: createEmptyRingSlotState(),
+  },
+});
+
+export const createEmptyPactspiritPage = (): RawPactspiritPage => ({
+  slot1: createEmptyPactspiritSlot(),
+  slot2: createEmptyPactspiritSlot(),
+  slot3: createEmptyPactspiritSlot(),
 });
 
 export const generateItemId = (): string => crypto.randomUUID();
@@ -57,6 +88,7 @@ export const createEmptyLoadout = (): RawLoadout => ({
     passiveSkill4: createEmptySkillSlot(),
   },
   heroPage: createEmptyHeroPage(),
+  pactspiritPage: createEmptyPactspiritPage(),
   itemsList: [],
   heroMemoryList: [],
 });

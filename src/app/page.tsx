@@ -9,6 +9,7 @@ import {
   RawSupportSkills,
   RawHeroMemory,
   HeroMemorySlot,
+  RawPactspiritPage,
 } from "@/src/tli/core";
 import { ActiveSkills, PassiveSkills } from "@/src/data/skill";
 import {
@@ -23,7 +24,14 @@ import { EquipmentType } from "@/src/tli/gear_data_types";
 import { craft } from "@/src/tli/crafting/craft";
 
 // Lib imports
-import { GearSlot, AffixSlotState, TreeSlot, ActivePage } from "./lib/types";
+import {
+  GearSlot,
+  AffixSlotState,
+  TreeSlot,
+  ActivePage,
+  RingSlotKey,
+  PactspiritSlotIndex,
+} from "./lib/types";
 import { GEAR_SLOTS } from "./lib/constants";
 import {
   loadDebugModeFromStorage,
@@ -31,6 +39,7 @@ import {
   createEmptyLoadout,
   generateItemId,
   createEmptyHeroPage,
+  createEmptyPactspiritSlot,
 } from "./lib/storage";
 import { decodeBuildCode, encodeBuildCode } from "./lib/build-code";
 import {
@@ -52,6 +61,7 @@ import { SkillSlot } from "./components/skills/SkillSlot";
 import { ExportModal } from "./components/ExportModal";
 import { ImportModal } from "./components/ImportModal";
 import { HeroTab } from "./components/hero/HeroTab";
+import { PactspiritTab } from "./components/pactspirit/PactspiritTab";
 
 export default function Home() {
   const [loadout, setLoadout] = useState<RawLoadout>(createEmptyLoadout);
@@ -606,6 +616,88 @@ export default function Home() {
     });
   };
 
+  // Pactspirit page handlers
+  const handlePactspiritSelect = (
+    slotIndex: PactspiritSlotIndex,
+    pactspiritName: string | undefined,
+  ) => {
+    const slotKey = `slot${slotIndex}` as keyof RawPactspiritPage;
+    setLoadout((prev) => ({
+      ...prev,
+      pactspiritPage: {
+        ...prev.pactspiritPage,
+        [slotKey]: {
+          ...createEmptyPactspiritSlot(),
+          pactspiritName,
+        },
+      },
+    }));
+  };
+
+  const handlePactspiritLevelChange = (
+    slotIndex: PactspiritSlotIndex,
+    level: number,
+  ) => {
+    const slotKey = `slot${slotIndex}` as keyof RawPactspiritPage;
+    setLoadout((prev) => ({
+      ...prev,
+      pactspiritPage: {
+        ...prev.pactspiritPage,
+        [slotKey]: {
+          ...prev.pactspiritPage[slotKey],
+          level,
+        },
+      },
+    }));
+  };
+
+  const handleInstallDestiny = (
+    slotIndex: PactspiritSlotIndex,
+    ringSlot: RingSlotKey,
+    destiny: {
+      destinyName: string;
+      destinyType: string;
+      resolvedPercentage: number;
+    },
+  ) => {
+    const slotKey = `slot${slotIndex}` as keyof RawPactspiritPage;
+    setLoadout((prev) => ({
+      ...prev,
+      pactspiritPage: {
+        ...prev.pactspiritPage,
+        [slotKey]: {
+          ...prev.pactspiritPage[slotKey],
+          rings: {
+            ...prev.pactspiritPage[slotKey].rings,
+            [ringSlot]: {
+              installedDestiny: destiny,
+            },
+          },
+        },
+      },
+    }));
+  };
+
+  const handleRevertRing = (
+    slotIndex: PactspiritSlotIndex,
+    ringSlot: RingSlotKey,
+  ) => {
+    const slotKey = `slot${slotIndex}` as keyof RawPactspiritPage;
+    setLoadout((prev) => ({
+      ...prev,
+      pactspiritPage: {
+        ...prev.pactspiritPage,
+        [slotKey]: {
+          ...prev.pactspiritPage[slotKey],
+          rings: {
+            ...prev.pactspiritPage[slotKey].rings,
+            [ringSlot]: {},
+          },
+        },
+      },
+    }));
+  };
+
   const handleDebugToggle = () => {
     setDebugMode((prev) => {
       const newValue = !prev;
@@ -998,6 +1090,17 @@ export default function Home() {
             onMemorySave={handleHeroMemorySave}
             onMemoryCopy={handleHeroMemoryCopy}
             onMemoryDelete={handleHeroMemoryDelete}
+          />
+        )}
+
+        {/* Pactspirit Page */}
+        {activePage === "pactspirit" && (
+          <PactspiritTab
+            pactspiritPage={loadout.pactspiritPage}
+            onPactspiritSelect={handlePactspiritSelect}
+            onLevelChange={handlePactspiritLevelChange}
+            onInstallDestiny={handleInstallDestiny}
+            onRevertRing={handleRevertRing}
           />
         )}
 

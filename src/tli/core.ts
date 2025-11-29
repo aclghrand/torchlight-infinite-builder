@@ -192,11 +192,43 @@ export interface RawHeroPage {
   };
 }
 
+// Pactspirit types
+export interface RawRingSlotState {
+  installedDestiny?: {
+    destinyName: string;
+    destinyType: string;
+    resolvedPercentage: number;
+  };
+}
+
+export interface RawPactspiritSlot {
+  pactspiritName?: string;
+  level: number;
+  rings: {
+    innerRing1: RawRingSlotState;
+    innerRing2: RawRingSlotState;
+    innerRing3: RawRingSlotState;
+    innerRing4: RawRingSlotState;
+    innerRing5: RawRingSlotState;
+    innerRing6: RawRingSlotState;
+    midRing1: RawRingSlotState;
+    midRing2: RawRingSlotState;
+    midRing3: RawRingSlotState;
+  };
+}
+
+export interface RawPactspiritPage {
+  slot1: RawPactspiritSlot;
+  slot2: RawPactspiritSlot;
+  slot3: RawPactspiritSlot;
+}
+
 export interface RawLoadout {
   equipmentPage: RawGearPage;
   talentPage: RawTalentPage;
   skillPage: RawSkillPage;
   heroPage: RawHeroPage;
+  pactspiritPage: RawPactspiritPage;
   itemsList: RawGear[];
   heroMemoryList: RawHeroMemory[];
 }

@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { parse_loadout } from "./loadout_parser";
-import { RawLoadout, RawSkillPage, RawHeroPage } from "./core";
+import {
+  RawLoadout,
+  RawSkillPage,
+  RawHeroPage,
+  RawPactspiritPage,
+} from "./core";
 
 const createEmptyHeroPage = (): RawHeroPage => ({
   selectedHero: undefined,
@@ -28,6 +33,28 @@ const createEmptySkillPage = (): RawSkillPage => ({
   passiveSkill4: { enabled: true, supportSkills: {} },
 });
 
+const createEmptyPactspiritSlot = () => ({
+  pactspiritName: undefined,
+  level: 1,
+  rings: {
+    innerRing1: {},
+    innerRing2: {},
+    innerRing3: {},
+    innerRing4: {},
+    innerRing5: {},
+    innerRing6: {},
+    midRing1: {},
+    midRing2: {},
+    midRing3: {},
+  },
+});
+
+const createEmptyPactspiritPage = (): RawPactspiritPage => ({
+  slot1: createEmptyPactspiritSlot(),
+  slot2: createEmptyPactspiritSlot(),
+  slot3: createEmptyPactspiritSlot(),
+});
+
 describe("parse_loadout", () => {
   it("should parse a simple loadout with single-line affixes", () => {
     const rawLoadout: RawLoadout = {
@@ -46,6 +73,7 @@ describe("parse_loadout", () => {
       },
       skillPage: createEmptySkillPage(),
       heroPage: createEmptyHeroPage(),
+      pactspiritPage: createEmptyPactspiritPage(),
       itemsList: [],
       heroMemoryList: [],
     };
@@ -98,6 +126,7 @@ describe("parse_loadout", () => {
       },
       skillPage: createEmptySkillPage(),
       heroPage: createEmptyHeroPage(),
+      pactspiritPage: createEmptyPactspiritPage(),
       itemsList: [],
       heroMemoryList: [],
     };
@@ -149,6 +178,7 @@ describe("parse_loadout", () => {
       },
       skillPage: createEmptySkillPage(),
       heroPage: createEmptyHeroPage(),
+      pactspiritPage: createEmptyPactspiritPage(),
       itemsList: [],
       heroMemoryList: [],
     };
@@ -194,6 +224,7 @@ describe("parse_loadout", () => {
       },
       skillPage: createEmptySkillPage(),
       heroPage: createEmptyHeroPage(),
+      pactspiritPage: createEmptyPactspiritPage(),
       itemsList: [],
       heroMemoryList: [],
     };
@@ -231,6 +262,7 @@ describe("parse_loadout", () => {
       },
       skillPage: createEmptySkillPage(),
       heroPage: createEmptyHeroPage(),
+      pactspiritPage: createEmptyPactspiritPage(),
       itemsList: [],
       heroMemoryList: [],
     };
@@ -260,6 +292,7 @@ describe("parse_loadout", () => {
       },
       skillPage: createEmptySkillPage(),
       heroPage: createEmptyHeroPage(),
+      pactspiritPage: createEmptyPactspiritPage(),
       itemsList: [],
       heroMemoryList: [],
     };
@@ -288,6 +321,7 @@ describe("parse_loadout", () => {
       },
       skillPage: createEmptySkillPage(),
       heroPage: createEmptyHeroPage(),
+      pactspiritPage: createEmptyPactspiritPage(),
       itemsList: [],
       heroMemoryList: [],
     };
@@ -317,6 +351,7 @@ describe("talent tree parsing", () => {
       },
       skillPage: createEmptySkillPage(),
       heroPage: createEmptyHeroPage(),
+      pactspiritPage: createEmptyPactspiritPage(),
       itemsList: [],
       heroMemoryList: [],
     };
@@ -349,6 +384,7 @@ describe("talent tree parsing", () => {
       },
       skillPage: createEmptySkillPage(),
       heroPage: createEmptyHeroPage(),
+      pactspiritPage: createEmptyPactspiritPage(),
       itemsList: [],
       heroMemoryList: [],
     };
@@ -379,6 +415,7 @@ describe("talent tree parsing", () => {
       },
       skillPage: createEmptySkillPage(),
       heroPage: createEmptyHeroPage(),
+      pactspiritPage: createEmptyPactspiritPage(),
       itemsList: [],
       heroMemoryList: [],
     };
@@ -421,6 +458,7 @@ describe("talent tree parsing", () => {
       },
       skillPage: createEmptySkillPage(),
       heroPage: createEmptyHeroPage(),
+      pactspiritPage: createEmptyPactspiritPage(),
       itemsList: [],
       heroMemoryList: [],
     };
@@ -450,6 +488,7 @@ describe("talent tree parsing", () => {
       },
       skillPage: createEmptySkillPage(),
       heroPage: createEmptyHeroPage(),
+      pactspiritPage: createEmptyPactspiritPage(),
       itemsList: [],
       heroMemoryList: [],
     };
@@ -473,6 +512,7 @@ describe("talent tree parsing", () => {
       },
       skillPage: createEmptySkillPage(),
       heroPage: createEmptyHeroPage(),
+      pactspiritPage: createEmptyPactspiritPage(),
       itemsList: [],
       heroMemoryList: [],
     };
@@ -498,6 +538,7 @@ describe("talent tree parsing", () => {
       },
       skillPage: createEmptySkillPage(),
       heroPage: createEmptyHeroPage(),
+      pactspiritPage: createEmptyPactspiritPage(),
       itemsList: [],
       heroMemoryList: [],
     };
