@@ -62,6 +62,7 @@ import { ExportModal } from "./components/ExportModal";
 import { ImportModal } from "./components/ImportModal";
 import { HeroTab } from "./components/hero/HeroTab";
 import { PactspiritTab } from "./components/pactspirit/PactspiritTab";
+import { LegendaryGearModule } from "./components/equipment/LegendaryGearModule";
 
 export default function Home() {
   const [loadout, setLoadout] = useState<RawLoadout>(createEmptyLoadout);
@@ -174,6 +175,13 @@ export default function Home() {
         .fill(null)
         .map(() => ({ affixIndex: null, percentage: 50 })),
     );
+  };
+
+  const handleAddItemToInventory = (item: RawGear) => {
+    setLoadout((prev) => ({
+      ...prev,
+      itemsList: [...prev.itemsList, item],
+    }));
   };
 
   const handleCopyItem = (item: RawGear) => {
@@ -878,6 +886,11 @@ export default function Home() {
                   </div>
                 )}
               </div>
+
+              {/* Legendary Gear Module */}
+              <LegendaryGearModule
+                onSaveToInventory={handleAddItemToInventory}
+              />
             </div>
           </div>
         )}

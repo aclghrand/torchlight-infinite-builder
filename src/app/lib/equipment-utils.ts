@@ -1,5 +1,5 @@
 import { RawGear } from "@/src/tli/core";
-import { EquipmentType } from "@/src/tli/gear_data_types";
+import { EquipmentSlot, EquipmentType } from "@/src/tli/gear_data_types";
 import { ALL_GEAR_AFFIXES } from "@/src/tli/all_affixes";
 import {
   SLOT_TO_EQUIPMENT_SLOT,
@@ -43,4 +43,28 @@ export const getGearTypeFromEquipmentType = (
     return "ring";
   if (equipmentType.includes("Shield")) return "shield";
   return "sword"; // All weapons
+};
+
+export const getGearTypeFromEquipmentSlot = (
+  equipmentSlot: EquipmentSlot,
+): RawGear["gearType"] => {
+  switch (equipmentSlot) {
+    case "Helmet":
+      return "helmet";
+    case "Chest Armor":
+      return "chest";
+    case "Gloves":
+      return "gloves";
+    case "Boots":
+      return "boots";
+    case "Trinket":
+      return "neck"; // Belt, Necklace, Ring are all "Trinket" slot
+    case "Shield":
+      return "shield";
+    case "One-Handed":
+    case "Two-Handed":
+      return "sword";
+    default:
+      return "sword";
+  }
 };

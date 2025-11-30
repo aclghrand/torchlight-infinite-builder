@@ -114,6 +114,9 @@ export interface RawGear {
     | "shield";
   affixes: string[];
   equipmentType?: EquipmentType;
+  rarity?: "rare" | "legendary";
+  baseStats?: string;
+  legendaryName?: string;
 }
 
 export interface RawGearPage {
