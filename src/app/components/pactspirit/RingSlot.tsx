@@ -28,7 +28,6 @@ export const RingSlot: React.FC<RingSlotProps> = ({
   const hasDestiny = !!ringState.installedDestiny;
   const isInner = isInnerRing(ringSlot);
 
-  // Determine display name and affix
   let displayName: string;
   let displayAffix: string;
   let destinyType: string | undefined;

@@ -44,7 +44,6 @@ interface MemoryAffixSlotState {
 
 const TRAIT_LEVELS = [1, 45, 60, 75] as const;
 
-// Trait item with hover tooltip for effect
 const TraitItem: React.FC<{
   trait: HeroTrait;
   isSelected: boolean;
@@ -129,7 +128,6 @@ export const HeroTab: React.FC<HeroTabProps> = ({
   onMemoryCopy,
   onMemoryDelete,
 }) => {
-  // Memory crafting state
   const [selectedMemoryType, setSelectedMemoryType] = useState<
     HeroMemoryType | undefined
   >(undefined);
@@ -257,7 +255,6 @@ export const HeroTab: React.FC<HeroTabProps> = ({
 
     onMemorySave(newMemory);
 
-    // Reset crafting UI
     handleMemoryTypeChange(undefined);
   };
 
@@ -279,7 +276,6 @@ export const HeroTab: React.FC<HeroTabProps> = ({
     const selectedTrait = heroPage.traits[traitLevelKey];
     const isLevel1 = level === 1;
 
-    // Memory slot info for levels 45, 60, 75
     const slot =
       level === 45
         ? "slot45"
@@ -297,7 +293,6 @@ export const HeroTab: React.FC<HeroTabProps> = ({
     return (
       <div key={level} className="bg-zinc-800 rounded-lg p-4">
         <div className="flex items-start gap-4">
-          {/* Memory slot on the left for levels > 1 */}
           {!isLevel1 && slot && (
             <div className="w-48 flex-shrink-0">
               <div className="text-xs text-zinc-500 mb-2">{memoryType}</div>
@@ -314,7 +309,6 @@ export const HeroTab: React.FC<HeroTabProps> = ({
             </div>
           )}
 
-          {/* Trait selection/display */}
           <div className="flex-1">
             <div className="text-sm font-semibold text-amber-400 mb-2">
               Level {level} {isLevel1 && "(Auto-selected)"}
@@ -327,7 +321,6 @@ export const HeroTab: React.FC<HeroTabProps> = ({
                   : "Select a hero to view traits"}
               </p>
             ) : isLevel1 ? (
-              // Level 1: Display only, auto-selected
               <TraitItem
                 trait={traits[0]}
                 isSelected={true}
@@ -335,7 +328,6 @@ export const HeroTab: React.FC<HeroTabProps> = ({
                 level={level}
               />
             ) : (
-              // Levels 45, 60, 75: Selectable
               <div className="space-y-2">
                 {traits.map((trait) => (
                   <TraitItem

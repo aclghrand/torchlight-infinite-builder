@@ -49,7 +49,6 @@ export const decodeBuildCode = (code: string): RawLoadout | null => {
       );
     }
 
-    // Basic validation
     if (!parsed.d || typeof parsed.d !== "object") return null;
     if (!parsed.d.equipmentPage || !parsed.d.talentPage || !parsed.d.skillPage)
       return null;

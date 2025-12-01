@@ -93,7 +93,6 @@ export const LegendaryGearModule: React.FC<LegendaryGearModuleProps> = ({
 
     onSaveToInventory(newItem);
 
-    // Reset state
     setSelectedLegendaryIndex(undefined);
     setAffixStates([]);
   };

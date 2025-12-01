@@ -157,7 +157,6 @@ export interface RawSkillPage {
   passiveSkill4: RawSkillWithSupports;
 }
 
-// Hero Memory types
 export const HERO_MEMORY_TYPES = [
   "Memory of Origin",
   "Memory of Discipline",
@@ -195,7 +194,6 @@ export interface RawHeroPage {
   };
 }
 
-// Pactspirit types
 export interface RawRingSlotState {
   installedDestiny?: {
     destinyName: string;

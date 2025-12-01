@@ -64,3 +64,4 @@ For large datasets (5k+ entries), use build-time code generation:
 See [.claude/docs/](.claude/docs/) for implementation details only when needed.
 
 - prefer using undefined instead of null for typescript code
+- only make code comments that explain particularly complex pieces of code or why code is written a certain way

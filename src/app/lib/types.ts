@@ -16,7 +16,6 @@ export interface AffixSlotState {
   percentage: number;
 }
 
-// Pactspirit ring slot types
 export type InnerRingSlot =
   | "innerRing1"
   | "innerRing2"

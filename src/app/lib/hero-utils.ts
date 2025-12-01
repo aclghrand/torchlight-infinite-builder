@@ -7,16 +7,10 @@ import type {
   HeroMemorySlot,
 } from "@/src/tli/core";
 
-/**
- * Normalize hero name by removing newlines and extra whitespace
- */
 export const normalizeHeroName = (hero: string): string => {
   return hero.replace(/\n\s*/g, " ").trim();
 };
 
-/**
- * Get unique list of heroes from the trait data
- */
 export const getUniqueHeroes = (): string[] => {
   const heroSet = new Set<string>();
   HeroTraits.forEach((trait) => {
@@ -25,9 +19,6 @@ export const getUniqueHeroes = (): string[] => {
   return Array.from(heroSet).sort();
 };
 
-/**
- * Get all traits for a specific hero
- */
 export const getTraitsForHero = (hero: string): HeroTrait[] => {
   const normalizedHero = normalizeHeroName(hero);
   return HeroTraits.filter(
@@ -35,9 +26,6 @@ export const getTraitsForHero = (hero: string): HeroTrait[] => {
   );
 };
 
-/**
- * Get traits for a hero at a specific level
- */
 export const getTraitsForHeroAtLevel = (
   hero: string,
   level: number,
@@ -45,35 +33,23 @@ export const getTraitsForHeroAtLevel = (
   return getTraitsForHero(hero).filter((trait) => trait.level === level);
 };
 
-/**
- * Get the base trait (level 1) for a hero - auto-selected
- */
 export const getBaseTraitForHero = (hero: string): HeroTrait | undefined => {
   const traits = getTraitsForHeroAtLevel(hero, 1);
   return traits[0];
 };
 
-/**
- * Memory type restrictions for each slot level
- */
 export const MEMORY_SLOT_TYPE_MAP: Record<HeroMemorySlot, HeroMemoryType> = {
   slot45: "Memory of Origin",
   slot60: "Memory of Discipline",
   slot75: "Memory of Progress",
 };
 
-/**
- * Level to slot mapping
- */
 export const LEVEL_TO_SLOT_MAP: Record<45 | 60 | 75, HeroMemorySlot> = {
   45: "slot45",
   60: "slot60",
   75: "slot75",
 };
 
-/**
- * Get base stats available for a memory type
- */
 export const getBaseStatsForMemoryType = (
   memoryType: HeroMemoryType,
 ): string[] => {
@@ -82,9 +58,6 @@ export const getBaseStatsForMemoryType = (
   ).map((m) => m.affix);
 };
 
-/**
- * Get fixed affixes available for a memory type
- */
 export const getFixedAffixesForMemoryType = (
   memoryType: HeroMemoryType,
 ): string[] => {
@@ -93,9 +66,6 @@ export const getFixedAffixesForMemoryType = (
   ).map((m) => m.affix);
 };
 
-/**
- * Get random affixes available for a memory type
- */
 export const getRandomAffixesForMemoryType = (
   memoryType: HeroMemoryType,
 ): string[] => {
@@ -104,10 +74,6 @@ export const getRandomAffixesForMemoryType = (
   ).map((m) => m.affix);
 };
 
-/**
- * Craft a hero memory affix by interpolating ranges at given quality
- * The effect text may contain ranges like (10-12) or (10–12) (en-dash)
- */
 export const craftHeroMemoryAffix = (
   effectText: string,
   quality: number,
@@ -123,21 +89,15 @@ export const craftHeroMemoryAffix = (
   });
 };
 
-/**
- * Format a complete hero memory with all crafted affixes
- */
 export const formatCraftedMemoryAffixes = (memory: RawHeroMemory): string[] => {
   const lines: string[] = [];
 
-  // Base stat (no range, static)
   lines.push(memory.baseStat);
 
-  // Fixed affixes
   memory.fixedAffixes.forEach((affix) => {
     lines.push(craftHeroMemoryAffix(affix.effect, affix.quality));
   });
 
-  // Random affixes
   memory.randomAffixes.forEach((affix) => {
     lines.push(craftHeroMemoryAffix(affix.effect, affix.quality));
   });
@@ -145,9 +105,6 @@ export const formatCraftedMemoryAffixes = (memory: RawHeroMemory): string[] => {
   return lines;
 };
 
-/**
- * Check if a memory can be equipped in a specific slot
- */
 export const canEquipMemoryInSlot = (
   memory: RawHeroMemory,
   slot: HeroMemorySlot,
@@ -155,9 +112,6 @@ export const canEquipMemoryInSlot = (
   return memory.memoryType === MEMORY_SLOT_TYPE_MAP[slot];
 };
 
-/**
- * Get compatible memories from inventory for a specific slot
- */
 export const getCompatibleMemoriesForSlot = (
   memories: RawHeroMemory[],
   slot: HeroMemorySlot,

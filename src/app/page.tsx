@@ -23,7 +23,6 @@ import {
 import { EquipmentType } from "@/src/tli/gear_data_types";
 import { craft } from "@/src/tli/crafting/craft";
 
-// Lib imports
 import {
   GearSlot,
   AffixSlotState,
@@ -50,7 +49,6 @@ import {
 import { getFilteredAffixes } from "./lib/affix-utils";
 import { getBaseTraitForHero } from "./lib/hero-utils";
 
-// Component imports
 import { PageTabs } from "./components/PageTabs";
 import { DebugPanel } from "./components/DebugPanel";
 import { AffixSlotComponent } from "./components/equipment/AffixSlotComponent";
@@ -142,7 +140,6 @@ export default function Home() {
     [selectedEquipmentType],
   );
 
-  // Inventory handlers
   const handleSaveToInventory = () => {
     if (!selectedEquipmentType) return;
 
@@ -168,7 +165,6 @@ export default function Home() {
       itemsList: [...prev.itemsList, newItem],
     }));
 
-    // Reset crafting UI
     setSelectedEquipmentType(null);
     setAffixSelections(
       Array(6)
@@ -319,12 +315,10 @@ export default function Home() {
     }
   };
 
-  // Talent page handlers
   const handleTreeChange = (slot: TreeSlot, newTreeName: string) => {
     const currentTree = loadout.talentPage[slot];
     if (currentTree && currentTree.allocatedNodes.length > 0) return;
 
-    // Allow clearing the tree
     if (newTreeName === "") {
       setLoadout((prev) => {
         const newTalentPage = { ...prev.talentPage };
@@ -419,7 +413,6 @@ export default function Home() {
     });
   };
 
-  // Skill page handlers
   type ActiveSkillSlot =
     | "activeSkill1"
     | "activeSkill2"
@@ -470,7 +463,6 @@ export default function Home() {
         [slotKey]: {
           ...prev.skillPage[slotKey],
           skillName,
-          // Reset support skills when main skill changes
           supportSkills: {},
         },
       },
@@ -510,7 +502,6 @@ export default function Home() {
     }));
   };
 
-  // Hero page handlers
   const handleHeroChange = (hero: string | undefined) => {
     setLoadout((prev) => {
       if (!hero) {
@@ -601,7 +592,6 @@ export default function Home() {
       const newMemoryList = prev.heroMemoryList.filter(
         (m) => m.id !== memoryId,
       );
-      // Also unequip if equipped
       const newMemorySlots = { ...prev.heroPage.memorySlots };
       if (newMemorySlots.slot45?.id === memoryId) {
         newMemorySlots.slot45 = undefined;
@@ -624,7 +614,6 @@ export default function Home() {
     });
   };
 
-  // Pactspirit page handlers
   const handlePactspiritSelect = (
     slotIndex: PactspiritSlotIndex,
     pactspiritName: string | undefined,
@@ -744,10 +733,8 @@ export default function Home() {
 
         <PageTabs activePage={activePage} setActivePage={setActivePage} />
 
-        {/* Equipment Page */}
         {activePage === "equipment" && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Left Column: Equipment Slots */}
             <div className="bg-zinc-900 rounded-lg p-6 border border-zinc-700">
               <h2 className="text-xl font-semibold mb-4 text-zinc-50">
                 Equipment Slots
@@ -766,15 +753,12 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right Column: Crafting + Inventory */}
             <div className="space-y-6">
-              {/* Crafting UI */}
               <div className="bg-zinc-900 rounded-lg p-6 border border-zinc-700">
                 <h2 className="text-xl font-semibold mb-4 text-zinc-50">
                   Craft New Item
                 </h2>
 
-                {/* Equipment Type Selector */}
                 <div className="mb-6">
                   <label className="block text-sm font-medium mb-2 text-zinc-50">
                     Equipment Type
@@ -806,7 +790,6 @@ export default function Home() {
 
                 {selectedEquipmentType ? (
                   <>
-                    {/* Prefix Section */}
                     <div className="mb-6">
                       <h3 className="text-lg font-semibold mb-3 text-zinc-50">
                         Prefixes (3 max)
@@ -827,7 +810,6 @@ export default function Home() {
                       </div>
                     </div>
 
-                    {/* Suffix Section */}
                     <div className="mb-6">
                       <h3 className="text-lg font-semibold mb-3 text-zinc-50">
                         Suffixes (3 max)
@@ -848,7 +830,6 @@ export default function Home() {
                       </div>
                     </div>
 
-                    {/* Save to Inventory Button */}
                     <button
                       onClick={handleSaveToInventory}
                       className="w-full px-4 py-3 bg-amber-500 text-zinc-950 rounded-lg font-semibold hover:bg-amber-600 transition-colors"
@@ -863,7 +844,6 @@ export default function Home() {
                 )}
               </div>
 
-              {/* Inventory */}
               <div className="bg-zinc-900 rounded-lg p-6 border border-zinc-700">
                 <h2 className="text-xl font-semibold mb-4 text-zinc-50">
                   Inventory ({loadout.itemsList.length} items)
@@ -887,7 +867,6 @@ export default function Home() {
                 )}
               </div>
 
-              {/* Legendary Gear Module */}
               <LegendaryGearModule
                 onSaveToInventory={handleAddItemToInventory}
               />
@@ -895,10 +874,8 @@ export default function Home() {
           </div>
         )}
 
-        {/* Talents Page */}
         {activePage === "talents" && (
           <div>
-            {/* Tree Slot Selector */}
             <div className="mb-6">
               <h2 className="text-xl font-semibold mb-4 text-zinc-50">
                 Tree Slots
@@ -941,7 +918,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Tree Selection Dropdown with Reset Button */}
             <div className="mb-6 bg-zinc-900 rounded-lg p-4 border border-zinc-700">
               <label className="block text-sm font-medium mb-2 text-zinc-400">
                 Select Tree for{" "}
@@ -993,7 +969,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Talent Grid */}
             {!loadout.talentPage[activeTreeSlot] ? (
               <div className="text-center py-12 text-zinc-500">
                 Select a tree to view
@@ -1004,7 +979,6 @@ export default function Home() {
                   {treeData[activeTreeSlot]!.name.replace(/_/g, " ")} Tree
                 </h2>
 
-                {/* Column Headers */}
                 <div className="grid grid-cols-7 gap-2 mb-2">
                   {[0, 3, 6, 9, 12, 15, 18].map((points, idx) => (
                     <div
@@ -1035,10 +1009,8 @@ export default function Home() {
           </div>
         )}
 
-        {/* Skills Page */}
         {activePage === "skills" && (
           <div className="space-y-8">
-            {/* Active Skills Section */}
             <div>
               <h2 className="text-xl font-bold mb-4 text-zinc-50">
                 Active Skills
@@ -1064,7 +1036,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Passive Skills Section */}
             <div>
               <h2 className="text-xl font-bold mb-4 text-zinc-50">
                 Passive Skills
@@ -1092,7 +1063,6 @@ export default function Home() {
           </div>
         )}
 
-        {/* Hero Page */}
         {activePage === "hero" && (
           <HeroTab
             heroPage={loadout.heroPage}
@@ -1106,7 +1076,6 @@ export default function Home() {
           />
         )}
 
-        {/* Pactspirit Page */}
         {activePage === "pactspirit" && (
           <PactspiritTab
             pactspiritPage={loadout.pactspiritPage}
@@ -1117,7 +1086,6 @@ export default function Home() {
           />
         )}
 
-        {/* Action Buttons */}
         <div className="mt-8 flex gap-4">
           <button
             onClick={handleExport}
@@ -1139,21 +1107,18 @@ export default function Home() {
           </button>
         </div>
 
-        {/* Export Modal */}
         <ExportModal
           isOpen={exportModalOpen}
           onClose={() => setExportModalOpen(false)}
           buildCode={buildCode}
         />
 
-        {/* Import Modal */}
         <ImportModal
           isOpen={importModalOpen}
           onClose={() => setImportModalOpen(false)}
           onImport={handleImport}
         />
 
-        {/* Debug Panel */}
         {debugMode && (
           <DebugPanel
             loadout={loadout}
