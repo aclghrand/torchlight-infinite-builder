@@ -5,7 +5,12 @@ import {
   Loadout,
   ParsedTalentPage,
 } from "./core";
-import { Gear, SaveData, TalentPage, TalentTree } from "@/src/app/lib/save-data";
+import {
+  Gear,
+  SaveData,
+  TalentPage,
+  TalentTree,
+} from "@/src/app/lib/save-data";
 import { Mod } from "./mod";
 import { parseMod } from "./mod_parser";
 import { readFileSync } from "fs";

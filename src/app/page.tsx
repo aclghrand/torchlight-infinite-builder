@@ -60,10 +60,25 @@ import { TalentGrid } from "./components/talents/TalentGrid";
 import { SkillSlot } from "./components/skills/SkillSlot";
 import { ExportModal } from "./components/ExportModal";
 import { ImportModal } from "./components/ImportModal";
+import { SaveAsModal } from "./components/SaveAsModal";
+import { SavesTab } from "./components/SavesTab";
 import { HeroTab } from "./components/hero/HeroTab";
 import { PactspiritTab } from "./components/pactspirit/PactspiritTab";
 import { LegendaryGearModule } from "./components/equipment/LegendaryGearModule";
 import { DivinityTab } from "./components/divinity/DivinityTab";
+import {
+  SaveMetadata,
+  SavesIndex,
+  loadSavesIndex,
+  saveSavesIndex,
+  loadSaveData,
+  saveSaveData,
+  deleteSaveData,
+  createDefaultSave,
+  getMostRecentSave,
+  findSaveById,
+  generateSaveId,
+} from "./lib/saves";
 
 export default function Home() {
   const [loadout, setLoadout] = useState<SaveData>(createEmptyLoadout);
@@ -91,9 +106,61 @@ export default function Home() {
   const [importModalOpen, setImportModalOpen] = useState(false);
   const [buildCode, setBuildCode] = useState("");
 
+  // Save management state
+  const [savesIndex, setSavesIndex] = useState<SavesIndex>({
+    currentSaveId: undefined,
+    saves: [],
+  });
+  const [currentSaveName, setCurrentSaveName] = useState<string | undefined>(
+    undefined,
+  );
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [saveAsModalOpen, setSaveAsModalOpen] = useState(false);
+  const [pendingLoadSaveId, setPendingLoadSaveId] = useState<
+    string | undefined
+  >(undefined);
+  const [showUnsavedWarning, setShowUnsavedWarning] = useState(false);
+
   useEffect(() => {
     setMounted(true);
     setDebugMode(loadDebugModeFromStorage());
+
+    // Load saves on mount
+    const index = loadSavesIndex();
+    if (index.saves.length === 0) {
+      // First visit - create default save
+      const { metadata, data } = createDefaultSave();
+      saveSaveData(metadata.id, data);
+      const newIndex: SavesIndex = {
+        currentSaveId: metadata.id,
+        saves: [metadata],
+      };
+      saveSavesIndex(newIndex);
+      setSavesIndex(newIndex);
+      setCurrentSaveName(metadata.name);
+      setLoadout(data);
+    } else {
+      // Load existing saves
+      setSavesIndex(index);
+      // Load the most recent save, or currentSaveId if set
+      const saveToLoad = index.currentSaveId
+        ? findSaveById(index.saves, index.currentSaveId)
+        : getMostRecentSave(index.saves);
+      if (saveToLoad) {
+        const data = loadSaveData(saveToLoad.id);
+        if (data) {
+          setLoadout(data);
+          setCurrentSaveName(saveToLoad.name);
+          // Update currentSaveId in index if needed
+          if (index.currentSaveId !== saveToLoad.id) {
+            const updatedIndex = { ...index, currentSaveId: saveToLoad.id };
+            saveSavesIndex(updatedIndex);
+            setSavesIndex(updatedIndex);
+          }
+        }
+      }
+    }
+    setHasUnsavedChanges(false);
   }, []);
 
   // Load talent trees when names change
@@ -143,6 +210,171 @@ export default function Home() {
     [selectedEquipmentType],
   );
 
+  // Wrapper to track dirty state when loadout changes
+  const updateLoadout = (
+    updater: SaveData | ((prev: SaveData) => SaveData),
+  ) => {
+    setLoadout(updater);
+    setHasUnsavedChanges(true);
+  };
+
+  // Save handlers
+  const handleSave = () => {
+    if (!savesIndex.currentSaveId) return;
+
+    const success = saveSaveData(savesIndex.currentSaveId, loadout);
+    if (success) {
+      const now = Date.now();
+      const updatedSaves = savesIndex.saves.map((s) =>
+        s.id === savesIndex.currentSaveId ? { ...s, updatedAt: now } : s,
+      );
+      const newIndex = { ...savesIndex, saves: updatedSaves };
+      saveSavesIndex(newIndex);
+      setSavesIndex(newIndex);
+      setHasUnsavedChanges(false);
+    }
+  };
+
+  const handleSaveAs = (name: string) => {
+    const now = Date.now();
+    const newSaveId = generateSaveId();
+    const newMetadata: SaveMetadata = {
+      id: newSaveId,
+      name,
+      createdAt: now,
+      updatedAt: now,
+    };
+
+    const success = saveSaveData(newSaveId, loadout);
+    if (success) {
+      const newIndex: SavesIndex = {
+        currentSaveId: newSaveId,
+        saves: [...savesIndex.saves, newMetadata],
+      };
+      saveSavesIndex(newIndex);
+      setSavesIndex(newIndex);
+      setCurrentSaveName(name);
+      setHasUnsavedChanges(false);
+    }
+  };
+
+  const handleLoadSave = (saveId: string) => {
+    if (hasUnsavedChanges) {
+      setPendingLoadSaveId(saveId);
+      setShowUnsavedWarning(true);
+      return;
+    }
+    performLoadSave(saveId);
+  };
+
+  const performLoadSave = (saveId: string) => {
+    const save = findSaveById(savesIndex.saves, saveId);
+    if (!save) return;
+
+    const data = loadSaveData(saveId);
+    if (data) {
+      setLoadout(data);
+      setCurrentSaveName(save.name);
+      const newIndex = { ...savesIndex, currentSaveId: saveId };
+      saveSavesIndex(newIndex);
+      setSavesIndex(newIndex);
+      setHasUnsavedChanges(false);
+    }
+  };
+
+  const handleConfirmLoadWithUnsaved = () => {
+    if (pendingLoadSaveId) {
+      performLoadSave(pendingLoadSaveId);
+    }
+    setPendingLoadSaveId(undefined);
+    setShowUnsavedWarning(false);
+  };
+
+  const handleCancelLoadWithUnsaved = () => {
+    setPendingLoadSaveId(undefined);
+    setShowUnsavedWarning(false);
+  };
+
+  const handleDeleteSave = (saveId: string) => {
+    deleteSaveData(saveId);
+    const remainingSaves = savesIndex.saves.filter((s) => s.id !== saveId);
+
+    if (remainingSaves.length === 0) {
+      // Create new default save
+      const { metadata, data } = createDefaultSave();
+      saveSaveData(metadata.id, data);
+      const newIndex: SavesIndex = {
+        currentSaveId: metadata.id,
+        saves: [metadata],
+      };
+      saveSavesIndex(newIndex);
+      setSavesIndex(newIndex);
+      setLoadout(data);
+      setCurrentSaveName(metadata.name);
+      setHasUnsavedChanges(false);
+    } else if (saveId === savesIndex.currentSaveId) {
+      // Deleted current save, load most recent
+      const mostRecent = getMostRecentSave(remainingSaves);
+      if (mostRecent) {
+        const data = loadSaveData(mostRecent.id);
+        if (data) {
+          setLoadout(data);
+          setCurrentSaveName(mostRecent.name);
+          const newIndex: SavesIndex = {
+            currentSaveId: mostRecent.id,
+            saves: remainingSaves,
+          };
+          saveSavesIndex(newIndex);
+          setSavesIndex(newIndex);
+          setHasUnsavedChanges(false);
+        }
+      }
+    } else {
+      const newIndex = { ...savesIndex, saves: remainingSaves };
+      saveSavesIndex(newIndex);
+      setSavesIndex(newIndex);
+    }
+  };
+
+  const handleRenameSave = (saveId: string, newName: string) => {
+    const updatedSaves = savesIndex.saves.map((s) =>
+      s.id === saveId ? { ...s, name: newName } : s,
+    );
+    const newIndex = { ...savesIndex, saves: updatedSaves };
+    saveSavesIndex(newIndex);
+    setSavesIndex(newIndex);
+    if (saveId === savesIndex.currentSaveId) {
+      setCurrentSaveName(newName);
+    }
+  };
+
+  const handleCopySave = (saveId: string) => {
+    const original = findSaveById(savesIndex.saves, saveId);
+    if (!original) return;
+
+    const data = loadSaveData(saveId);
+    if (!data) return;
+
+    const now = Date.now();
+    const newSaveId = generateSaveId();
+    const newMetadata: SaveMetadata = {
+      id: newSaveId,
+      name: `${original.name} (Copy)`,
+      createdAt: now,
+      updatedAt: now,
+    };
+
+    const success = saveSaveData(newSaveId, data);
+    if (success) {
+      const newIndex = {
+        ...savesIndex,
+        saves: [...savesIndex.saves, newMetadata],
+      };
+      saveSavesIndex(newIndex);
+      setSavesIndex(newIndex);
+    }
+  };
+
   const handleSaveToInventory = () => {
     if (!selectedEquipmentType) return;
 
@@ -163,7 +395,7 @@ export default function Home() {
       equipmentType: selectedEquipmentType,
     };
 
-    setLoadout((prev) => ({
+    updateLoadout((prev) => ({
       ...prev,
       itemsList: [...prev.itemsList, newItem],
     }));
@@ -177,7 +409,7 @@ export default function Home() {
   };
 
   const handleAddItemToInventory = (item: Gear) => {
-    setLoadout((prev) => ({
+    updateLoadout((prev) => ({
       ...prev,
       itemsList: [...prev.itemsList, item],
     }));
@@ -185,14 +417,14 @@ export default function Home() {
 
   const handleCopyItem = (item: Gear) => {
     const newItem: Gear = { ...item, id: generateItemId() };
-    setLoadout((prev) => ({
+    updateLoadout((prev) => ({
       ...prev,
       itemsList: [...prev.itemsList, newItem],
     }));
   };
 
   const handleDeleteItem = (itemId: string) => {
-    setLoadout((prev) => {
+    updateLoadout((prev) => {
       const newItemsList = prev.itemsList.filter((item) => item.id !== itemId);
       const newEquipmentPage = { ...prev.equipmentPage };
       const slots: GearSlot[] = [
@@ -221,7 +453,7 @@ export default function Home() {
   };
 
   const handleSelectItemForSlot = (slot: GearSlot, itemId: string | null) => {
-    setLoadout((prev) => {
+    updateLoadout((prev) => {
       if (!itemId) {
         const newEquipmentPage = { ...prev.equipmentPage };
         delete newEquipmentPage[slot];
@@ -303,6 +535,7 @@ export default function Home() {
     const decoded = decodeBuildCode(code);
     if (decoded) {
       setLoadout(decoded);
+      setHasUnsavedChanges(true);
       return true;
     }
     return false;
@@ -315,6 +548,7 @@ export default function Home() {
       )
     ) {
       setLoadout(createEmptyLoadout());
+      setHasUnsavedChanges(true);
     }
   };
 
@@ -323,7 +557,7 @@ export default function Home() {
     if (currentTree && currentTree.allocatedNodes.length > 0) return;
 
     if (newTreeName === "") {
-      setLoadout((prev) => {
+      updateLoadout((prev) => {
         const newTalentPage = { ...prev.talentPage };
         delete newTalentPage[slot];
         return { ...prev, talentPage: newTalentPage };
@@ -333,7 +567,7 @@ export default function Home() {
 
     if (slot !== "tree1" && isGodGoddessTree(newTreeName)) return;
 
-    setLoadout((prev) => ({
+    updateLoadout((prev) => ({
       ...prev,
       talentPage: {
         ...prev.talentPage,
@@ -346,7 +580,7 @@ export default function Home() {
     const currentTree = loadout.talentPage[slot];
     if (!currentTree || currentTree.allocatedNodes.length === 0) return;
     if (confirm("Reset all points in this tree? This cannot be undone.")) {
-      setLoadout((prev) => ({
+      updateLoadout((prev) => ({
         ...prev,
         talentPage: {
           ...prev.talentPage,
@@ -357,7 +591,7 @@ export default function Home() {
   };
 
   const handleAllocate = (slot: TreeSlot, x: number, y: number) => {
-    setLoadout((prev) => {
+    updateLoadout((prev) => {
       const tree = prev.talentPage[slot];
       if (!tree) return prev;
       const existing = tree.allocatedNodes.find((n) => n.x === x && n.y === y);
@@ -388,7 +622,7 @@ export default function Home() {
   };
 
   const handleDeallocate = (slot: TreeSlot, x: number, y: number) => {
-    setLoadout((prev) => {
+    updateLoadout((prev) => {
       const tree = prev.talentPage[slot];
       if (!tree) return prev;
       const existing = tree.allocatedNodes.find((n) => n.x === x && n.y === y);
@@ -459,7 +693,7 @@ export default function Home() {
     slotKey: SkillSlotKey,
     skillName: string | undefined,
   ): void => {
-    setLoadout((prev) => ({
+    updateLoadout((prev) => ({
       ...prev,
       skillPage: {
         ...prev.skillPage,
@@ -473,7 +707,7 @@ export default function Home() {
   };
 
   const handleToggleSkill = (slotKey: SkillSlotKey): void => {
-    setLoadout((prev) => ({
+    updateLoadout((prev) => ({
       ...prev,
       skillPage: {
         ...prev.skillPage,
@@ -490,7 +724,7 @@ export default function Home() {
     supportKey: SupportSkillKey,
     supportName: string | undefined,
   ): void => {
-    setLoadout((prev) => ({
+    updateLoadout((prev) => ({
       ...prev,
       skillPage: {
         ...prev.skillPage,
@@ -506,7 +740,7 @@ export default function Home() {
   };
 
   const handleHeroChange = (hero: string | undefined) => {
-    setLoadout((prev) => {
+    updateLoadout((prev) => {
       if (!hero) {
         return {
           ...prev,
@@ -541,7 +775,7 @@ export default function Home() {
     traitName: string | undefined,
   ) => {
     const traitKey = `level${level}` as "level45" | "level60" | "level75";
-    setLoadout((prev) => ({
+    updateLoadout((prev) => ({
       ...prev,
       heroPage: {
         ...prev.heroPage,
@@ -557,7 +791,7 @@ export default function Home() {
     slot: HeroMemorySlot,
     memoryId: string | undefined,
   ) => {
-    setLoadout((prev) => {
+    updateLoadout((prev) => {
       const memory = memoryId
         ? prev.heroMemoryList.find((m) => m.id === memoryId)
         : undefined;
@@ -576,7 +810,7 @@ export default function Home() {
   };
 
   const handleHeroMemorySave = (memory: HeroMemory) => {
-    setLoadout((prev) => ({
+    updateLoadout((prev) => ({
       ...prev,
       heroMemoryList: [...prev.heroMemoryList, memory],
     }));
@@ -584,14 +818,14 @@ export default function Home() {
 
   const handleHeroMemoryCopy = (memory: HeroMemory) => {
     const newMemory: HeroMemory = { ...memory, id: generateItemId() };
-    setLoadout((prev) => ({
+    updateLoadout((prev) => ({
       ...prev,
       heroMemoryList: [...prev.heroMemoryList, newMemory],
     }));
   };
 
   const handleHeroMemoryDelete = (memoryId: string) => {
-    setLoadout((prev) => {
+    updateLoadout((prev) => {
       const newMemoryList = prev.heroMemoryList.filter(
         (m) => m.id !== memoryId,
       );
@@ -622,7 +856,7 @@ export default function Home() {
     pactspiritName: string | undefined,
   ) => {
     const slotKey = `slot${slotIndex}` as keyof PactspiritPage;
-    setLoadout((prev) => ({
+    updateLoadout((prev) => ({
       ...prev,
       pactspiritPage: {
         ...prev.pactspiritPage,
@@ -639,7 +873,7 @@ export default function Home() {
     level: number,
   ) => {
     const slotKey = `slot${slotIndex}` as keyof PactspiritPage;
-    setLoadout((prev) => ({
+    updateLoadout((prev) => ({
       ...prev,
       pactspiritPage: {
         ...prev.pactspiritPage,
@@ -661,7 +895,7 @@ export default function Home() {
     },
   ) => {
     const slotKey = `slot${slotIndex}` as keyof PactspiritPage;
-    setLoadout((prev) => ({
+    updateLoadout((prev) => ({
       ...prev,
       pactspiritPage: {
         ...prev.pactspiritPage,
@@ -683,7 +917,7 @@ export default function Home() {
     ringSlot: RingSlotKey,
   ) => {
     const slotKey = `slot${slotIndex}` as keyof PactspiritPage;
-    setLoadout((prev) => ({
+    updateLoadout((prev) => ({
       ...prev,
       pactspiritPage: {
         ...prev.pactspiritPage,
@@ -699,14 +933,14 @@ export default function Home() {
   };
 
   const handleSaveDivinitySlate = (slate: DivinitySlate) => {
-    setLoadout((prev) => ({
+    updateLoadout((prev) => ({
       ...prev,
       divinitySlateList: [...prev.divinitySlateList, slate],
     }));
   };
 
   const handleUpdateDivinitySlate = (slate: DivinitySlate) => {
-    setLoadout((prev) => ({
+    updateLoadout((prev) => ({
       ...prev,
       divinitySlateList: prev.divinitySlateList.map((s) =>
         s.id === slate.id ? slate : s,
@@ -716,14 +950,14 @@ export default function Home() {
 
   const handleCopyDivinitySlate = (slate: DivinitySlate) => {
     const newSlate = { ...slate, id: generateItemId() };
-    setLoadout((prev) => ({
+    updateLoadout((prev) => ({
       ...prev,
       divinitySlateList: [...prev.divinitySlateList, newSlate],
     }));
   };
 
   const handleDeleteDivinitySlate = (slateId: string) => {
-    setLoadout((prev) => ({
+    updateLoadout((prev) => ({
       ...prev,
       divinitySlateList: prev.divinitySlateList.filter((s) => s.id !== slateId),
       divinityPage: {
@@ -736,7 +970,7 @@ export default function Home() {
   };
 
   const handlePlaceDivinitySlate = (placement: PlacedSlate) => {
-    setLoadout((prev) => ({
+    updateLoadout((prev) => ({
       ...prev,
       divinityPage: {
         ...prev.divinityPage,
@@ -746,7 +980,7 @@ export default function Home() {
   };
 
   const handleRemovePlacedDivinitySlate = (slateId: string) => {
-    setLoadout((prev) => ({
+    updateLoadout((prev) => ({
       ...prev,
       divinityPage: {
         ...prev.divinityPage,
@@ -761,7 +995,7 @@ export default function Home() {
     slateId: string,
     position: { row: number; col: number },
   ) => {
-    setLoadout((prev) => ({
+    updateLoadout((prev) => ({
       ...prev,
       divinityPage: {
         ...prev.divinityPage,
@@ -788,9 +1022,19 @@ export default function Home() {
     <div className="min-h-screen bg-zinc-950 p-6">
       <div className="max-w-6xl mx-auto">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-zinc-50">
-            TLI Character Build Planner
-          </h1>
+          <div className="flex items-center gap-4">
+            <h1 className="text-3xl font-bold text-zinc-50">
+              TLI Character Build Planner
+            </h1>
+            {currentSaveName && (
+              <span className="px-3 py-1 bg-zinc-800 border border-zinc-700 rounded-full text-sm text-zinc-300">
+                {currentSaveName}
+                {hasUnsavedChanges && (
+                  <span className="text-amber-500 ml-1">*</span>
+                )}
+              </span>
+            )}
+          </div>
 
           <button
             onClick={handleDebugToggle}
@@ -1177,7 +1421,32 @@ export default function Home() {
           />
         )}
 
+        {activePage === "saves" && (
+          <SavesTab
+            saves={savesIndex.saves}
+            currentSaveId={savesIndex.currentSaveId}
+            onLoad={handleLoadSave}
+            onRename={handleRenameSave}
+            onCopy={handleCopySave}
+            onDelete={handleDeleteSave}
+          />
+        )}
+
         <div className="mt-8 flex gap-4">
+          <button
+            onClick={() => setSaveAsModalOpen(true)}
+            className="px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold text-lg hover:bg-blue-600 transition-colors"
+          >
+            Save As...
+          </button>
+          <button
+            onClick={handleSave}
+            disabled={!savesIndex.currentSaveId}
+            className="px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold text-lg hover:bg-blue-600 transition-colors disabled:bg-zinc-700 disabled:text-zinc-500 disabled:cursor-not-allowed"
+          >
+            Save
+          </button>
+          <div className="w-px bg-zinc-700" />
           <button
             onClick={handleExport}
             className="flex-1 px-6 py-3 bg-green-500 text-white rounded-lg font-semibold text-lg hover:bg-green-600 transition-colors"
@@ -1209,6 +1478,48 @@ export default function Home() {
           onClose={() => setImportModalOpen(false)}
           onImport={handleImport}
         />
+
+        <SaveAsModal
+          isOpen={saveAsModalOpen}
+          onClose={() => setSaveAsModalOpen(false)}
+          onSave={handleSaveAs}
+          defaultName={currentSaveName}
+        />
+
+        {showUnsavedWarning && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center"
+            onClick={handleCancelLoadWithUnsaved}
+          >
+            <div className="absolute inset-0 bg-black/60" />
+            <div
+              className="relative bg-zinc-900 rounded-lg shadow-xl p-6 max-w-md w-full mx-4 border border-zinc-700"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h2 className="text-xl font-semibold mb-4 text-zinc-50">
+                Unsaved Changes
+              </h2>
+              <p className="text-zinc-400 mb-6">
+                You have unsaved changes. Loading a different save will discard
+                them. Continue?
+              </p>
+              <div className="flex gap-3">
+                <button
+                  onClick={handleConfirmLoadWithUnsaved}
+                  className="flex-1 px-4 py-2 bg-amber-500 hover:bg-amber-600 text-zinc-950 rounded-lg font-medium transition-colors"
+                >
+                  Load Anyway
+                </button>
+                <button
+                  onClick={handleCancelLoadWithUnsaved}
+                  className="px-4 py-2 bg-zinc-800 border border-zinc-700 hover:bg-zinc-700 text-zinc-50 rounded-lg font-medium transition-colors"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {debugMode && (
           <DebugPanel

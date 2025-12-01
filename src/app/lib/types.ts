@@ -10,7 +10,8 @@ export type ActivePage =
   | "skills"
   | "hero"
   | "pactspirit"
-  | "divinity";
+  | "divinity"
+  | "saves";
 
 export interface AffixSlotState {
   affixIndex: number | null;

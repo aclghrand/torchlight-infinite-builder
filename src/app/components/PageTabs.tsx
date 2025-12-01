@@ -71,6 +71,16 @@ export const PageTabs: React.FC<PageTabsProps> = ({
       >
         Divinity
       </button>
+      <button
+        onClick={() => setActivePage("saves")}
+        className={`px-6 py-3 font-medium transition-colors ${
+          activePage === "saves"
+            ? "border-b-2 border-amber-500 text-amber-500"
+            : "text-zinc-400 hover:text-zinc-50"
+        }`}
+      >
+        Saves
+      </button>
     </div>
   );
 };

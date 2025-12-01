@@ -1,9 +1,4 @@
-import {
-  DivinitySlate,
-  PlacedSlate,
-  SlateShape,
-  Rotation,
-} from "./save-data";
+import { DivinitySlate, PlacedSlate, SlateShape, Rotation } from "./save-data";
 import { getOccupiedCells, getTransformedCells } from "./divinity-shapes";
 
 export const GRID_MASK: number[][] = [

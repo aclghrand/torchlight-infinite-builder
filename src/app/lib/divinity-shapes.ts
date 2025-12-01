@@ -1,9 +1,4 @@
-import {
-  SlateShape,
-  Rotation,
-  DivinitySlate,
-  PlacedSlate,
-} from "./save-data";
+import { SlateShape, Rotation, DivinitySlate, PlacedSlate } from "./save-data";
 
 export const SHAPE_CELLS: Record<SlateShape, [number, number][]> = {
   O: [

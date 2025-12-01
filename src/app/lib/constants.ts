@@ -77,3 +77,5 @@ export const SLOT_TO_VALID_EQUIPMENT_TYPES: Record<GearSlot, EquipmentType[]> =
   };
 
 export const DEBUG_MODE_STORAGE_KEY = "tli-planner-debug-mode";
+export const SAVES_INDEX_STORAGE_KEY = "tli-planner-saves-index";
+export const SAVE_DATA_STORAGE_KEY_PREFIX = "tli-planner-save-";
