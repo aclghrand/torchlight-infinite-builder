@@ -1,6 +1,6 @@
-import type { TalentCodex } from "./types";
+import type { Talent } from "./types";
 
-export const TalentCodexEntries = [
+export const Talents = [
   {
     god: "Deception",
     tree: "Goddess of Deception",
@@ -7397,6 +7397,6 @@ export const TalentCodexEntries = [
     name: "",
     effect: "+9% damage for Triggered Skills",
   },
-] as const satisfies readonly TalentCodex[];
+] as const satisfies readonly Talent[];
 
-export type TalentCodexEntry = (typeof TalentCodexEntries)[number];
+export type TalentEntry = (typeof Talents)[number];

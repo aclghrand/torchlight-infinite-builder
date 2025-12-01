@@ -1,4 +1,4 @@
-export interface TalentCodex {
+export interface Talent {
   god: string;
   tree: string;
   type: string;
