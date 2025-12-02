@@ -12,6 +12,7 @@ import {
   PactspiritPage,
   DivinitySlate,
   PlacedSlate,
+  CraftedPrism,
 } from "../lib/save-data";
 import { ActiveSkills, PassiveSkills } from "@/src/data/skill";
 import {
@@ -65,6 +66,7 @@ import { HeroTab } from "../components/hero/HeroTab";
 import { PactspiritTab } from "../components/pactspirit/PactspiritTab";
 import { LegendaryGearModule } from "../components/equipment/LegendaryGearModule";
 import { DivinityTab } from "../components/divinity/DivinityTab";
+import { PrismSection } from "../components/talents/PrismSection";
 import { Toast } from "../components/Toast";
 import {
   SavesIndex,
@@ -890,6 +892,35 @@ export default function BuilderPage() {
     }));
   };
 
+  const handleSavePrism = (prism: CraftedPrism) => {
+    updateLoadout((prev) => ({
+      ...prev,
+      prismList: [...prev.prismList, prism],
+    }));
+  };
+
+  const handleUpdatePrism = (prism: CraftedPrism) => {
+    updateLoadout((prev) => ({
+      ...prev,
+      prismList: prev.prismList.map((p) => (p.id === prism.id ? prism : p)),
+    }));
+  };
+
+  const handleCopyPrism = (prism: CraftedPrism) => {
+    const newPrism = { ...prism, id: generateItemId() };
+    updateLoadout((prev) => ({
+      ...prev,
+      prismList: [...prev.prismList, newPrism],
+    }));
+  };
+
+  const handleDeletePrism = (prismId: string) => {
+    updateLoadout((prev) => ({
+      ...prev,
+      prismList: prev.prismList.filter((p) => p.id !== prismId),
+    }));
+  };
+
   const handleDebugToggle = () => {
     setDebugMode((prev) => {
       const newValue = !prev;
@@ -1109,26 +1140,28 @@ export default function BuilderPage() {
         )}
 
         {activePage === "talents" && (
-          <div>
-            <div className="mb-6">
-              <h2 className="text-xl font-semibold mb-4 text-zinc-50">
-                Tree Slots
-              </h2>
-              <div className="grid grid-cols-4 gap-2">
-                {(["tree1", "tree2", "tree3", "tree4"] as const).map((slot) => {
-                  const tree = loadout.talentPage[slot];
-                  const totalPoints = tree
-                    ? tree.allocatedNodes.reduce(
-                        (sum, node) => sum + node.points,
-                        0,
-                      )
-                    : 0;
+          <>
+            <div>
+              <div className="mb-6">
+                <h2 className="text-xl font-semibold mb-4 text-zinc-50">
+                  Tree Slots
+                </h2>
+                <div className="grid grid-cols-4 gap-2">
+                  {(["tree1", "tree2", "tree3", "tree4"] as const).map(
+                    (slot) => {
+                      const tree = loadout.talentPage[slot];
+                      const totalPoints = tree
+                        ? tree.allocatedNodes.reduce(
+                            (sum, node) => sum + node.points,
+                            0,
+                          )
+                        : 0;
 
-                  return (
-                    <button
-                      key={slot}
-                      onClick={() => setActiveTreeSlot(slot)}
-                      className={`
+                      return (
+                        <button
+                          key={slot}
+                          onClick={() => setActiveTreeSlot(slot)}
+                          className={`
                         px-4 py-3 rounded-lg font-medium transition-colors border
                         ${
                           activeTreeSlot === slot
@@ -1136,128 +1169,141 @@ export default function BuilderPage() {
                             : "bg-zinc-900 text-zinc-400 border-zinc-700 hover:bg-zinc-800"
                         }
                       `}
-                    >
-                      <div className="font-semibold">
-                        {slot === "tree1"
-                          ? "Slot 1 (God/Goddess)"
-                          : `Slot ${slot.slice(-1)}`}
-                      </div>
-                      <div className="text-sm mt-1 truncate">
-                        {tree ? tree.name.replace(/_/g, " ") : "None"}
-                      </div>
-                      <div className="text-xs mt-1">{totalPoints} points</div>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="mb-6 bg-zinc-900 rounded-lg p-4 border border-zinc-700">
-              <label className="block text-sm font-medium mb-2 text-zinc-400">
-                Select Tree for{" "}
-                {activeTreeSlot === "tree1"
-                  ? "Slot 1"
-                  : `Slot ${activeTreeSlot.slice(-1)}`}
-              </label>
-              <div className="flex gap-2">
-                <select
-                  value={loadout.talentPage[activeTreeSlot]?.name ?? ""}
-                  onChange={(e) =>
-                    handleTreeChange(activeTreeSlot, e.target.value)
-                  }
-                  disabled={
-                    (loadout.talentPage[activeTreeSlot]?.allocatedNodes
-                      .length ?? 0) > 0
-                  }
-                  className="flex-1 px-4 py-2 border border-zinc-700 rounded-lg bg-zinc-800 text-zinc-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  <option value="">None</option>
-                  {activeTreeSlot === "tree1" ? (
-                    <optgroup label="God/Goddess Trees">
-                      {GOD_GODDESS_TREES.map((tree) => (
-                        <option key={tree} value={tree}>
-                          {tree.replace(/_/g, " ")}
-                        </option>
-                      ))}
-                    </optgroup>
-                  ) : (
-                    <optgroup label="Profession Trees">
-                      {PROFESSION_TREES.map((tree) => (
-                        <option key={tree} value={tree}>
-                          {tree.replace(/_/g, " ")}
-                        </option>
-                      ))}
-                    </optgroup>
+                        >
+                          <div className="font-semibold">
+                            {slot === "tree1"
+                              ? "Slot 1 (God/Goddess)"
+                              : `Slot ${slot.slice(-1)}`}
+                          </div>
+                          <div className="text-sm mt-1 truncate">
+                            {tree ? tree.name.replace(/_/g, " ") : "None"}
+                          </div>
+                          <div className="text-xs mt-1">
+                            {totalPoints} points
+                          </div>
+                        </button>
+                      );
+                    },
                   )}
-                </select>
-
-                <button
-                  onClick={() => handleResetTree(activeTreeSlot)}
-                  disabled={
-                    (loadout.talentPage[activeTreeSlot]?.allocatedNodes
-                      .length ?? 0) === 0
-                  }
-                  className="px-4 py-2 bg-red-500 text-white rounded-lg font-medium hover:bg-red-600 transition-colors disabled:bg-zinc-700 disabled:text-zinc-500 disabled:cursor-not-allowed"
-                >
-                  Reset
-                </button>
-              </div>
-            </div>
-
-            {loadout.talentPage[activeTreeSlot] && (
-              <CoreTalentSelector
-                treeName={loadout.talentPage[activeTreeSlot]!.name}
-                treeSlot={activeTreeSlot}
-                pointsSpent={loadout.talentPage[
-                  activeTreeSlot
-                ]!.allocatedNodes.reduce((sum, node) => sum + node.points, 0)}
-                selectedCoreTalents={
-                  loadout.talentPage[activeTreeSlot]!.selectedCoreTalents ?? []
-                }
-                onSelectCoreTalent={(slotIndex, name) =>
-                  handleSelectCoreTalent(activeTreeSlot, slotIndex, name)
-                }
-              />
-            )}
-
-            {!loadout.talentPage[activeTreeSlot] ? (
-              <div className="text-center py-12 text-zinc-500">
-                Select a tree to view
-              </div>
-            ) : treeData[activeTreeSlot] ? (
-              <div className="bg-zinc-900 rounded-lg p-6 border border-zinc-700">
-                <h2 className="text-xl font-semibold mb-4 text-zinc-50">
-                  {treeData[activeTreeSlot]!.name.replace(/_/g, " ")} Tree
-                </h2>
-
-                <div className="grid grid-cols-7 gap-2 mb-2">
-                  {[0, 3, 6, 9, 12, 15, 18].map((points, idx) => (
-                    <div
-                      key={idx}
-                      className="text-center text-sm font-medium text-zinc-500"
-                    >
-                      {points} pts
-                    </div>
-                  ))}
                 </div>
+              </div>
 
-                <TalentGrid
-                  treeData={treeData[activeTreeSlot]!}
-                  allocatedNodes={
-                    loadout.talentPage[activeTreeSlot]!.allocatedNodes
+              <div className="mb-6 bg-zinc-900 rounded-lg p-4 border border-zinc-700">
+                <label className="block text-sm font-medium mb-2 text-zinc-400">
+                  Select Tree for{" "}
+                  {activeTreeSlot === "tree1"
+                    ? "Slot 1"
+                    : `Slot ${activeTreeSlot.slice(-1)}`}
+                </label>
+                <div className="flex gap-2">
+                  <select
+                    value={loadout.talentPage[activeTreeSlot]?.name ?? ""}
+                    onChange={(e) =>
+                      handleTreeChange(activeTreeSlot, e.target.value)
+                    }
+                    disabled={
+                      (loadout.talentPage[activeTreeSlot]?.allocatedNodes
+                        .length ?? 0) > 0
+                    }
+                    className="flex-1 px-4 py-2 border border-zinc-700 rounded-lg bg-zinc-800 text-zinc-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <option value="">None</option>
+                    {activeTreeSlot === "tree1" ? (
+                      <optgroup label="God/Goddess Trees">
+                        {GOD_GODDESS_TREES.map((tree) => (
+                          <option key={tree} value={tree}>
+                            {tree.replace(/_/g, " ")}
+                          </option>
+                        ))}
+                      </optgroup>
+                    ) : (
+                      <optgroup label="Profession Trees">
+                        {PROFESSION_TREES.map((tree) => (
+                          <option key={tree} value={tree}>
+                            {tree.replace(/_/g, " ")}
+                          </option>
+                        ))}
+                      </optgroup>
+                    )}
+                  </select>
+
+                  <button
+                    onClick={() => handleResetTree(activeTreeSlot)}
+                    disabled={
+                      (loadout.talentPage[activeTreeSlot]?.allocatedNodes
+                        .length ?? 0) === 0
+                    }
+                    className="px-4 py-2 bg-red-500 text-white rounded-lg font-medium hover:bg-red-600 transition-colors disabled:bg-zinc-700 disabled:text-zinc-500 disabled:cursor-not-allowed"
+                  >
+                    Reset
+                  </button>
+                </div>
+              </div>
+
+              {loadout.talentPage[activeTreeSlot] && (
+                <CoreTalentSelector
+                  treeName={loadout.talentPage[activeTreeSlot]!.name}
+                  treeSlot={activeTreeSlot}
+                  pointsSpent={loadout.talentPage[
+                    activeTreeSlot
+                  ]!.allocatedNodes.reduce((sum, node) => sum + node.points, 0)}
+                  selectedCoreTalents={
+                    loadout.talentPage[activeTreeSlot]!.selectedCoreTalents ??
+                    []
                   }
-                  onAllocate={(x, y) => handleAllocate(activeTreeSlot, x, y)}
-                  onDeallocate={(x, y) =>
-                    handleDeallocate(activeTreeSlot, x, y)
+                  onSelectCoreTalent={(slotIndex, name) =>
+                    handleSelectCoreTalent(activeTreeSlot, slotIndex, name)
                   }
                 />
-              </div>
-            ) : (
-              <div className="text-center py-12 text-zinc-500">
-                Loading tree...
-              </div>
-            )}
-          </div>
+              )}
+
+              {!loadout.talentPage[activeTreeSlot] ? (
+                <div className="text-center py-12 text-zinc-500">
+                  Select a tree to view
+                </div>
+              ) : treeData[activeTreeSlot] ? (
+                <div className="bg-zinc-900 rounded-lg p-6 border border-zinc-700">
+                  <h2 className="text-xl font-semibold mb-4 text-zinc-50">
+                    {treeData[activeTreeSlot]!.name.replace(/_/g, " ")} Tree
+                  </h2>
+
+                  <div className="grid grid-cols-7 gap-2 mb-2">
+                    {[0, 3, 6, 9, 12, 15, 18].map((points, idx) => (
+                      <div
+                        key={idx}
+                        className="text-center text-sm font-medium text-zinc-500"
+                      >
+                        {points} pts
+                      </div>
+                    ))}
+                  </div>
+
+                  <TalentGrid
+                    treeData={treeData[activeTreeSlot]!}
+                    allocatedNodes={
+                      loadout.talentPage[activeTreeSlot]!.allocatedNodes
+                    }
+                    onAllocate={(x, y) => handleAllocate(activeTreeSlot, x, y)}
+                    onDeallocate={(x, y) =>
+                      handleDeallocate(activeTreeSlot, x, y)
+                    }
+                  />
+                </div>
+              ) : (
+                <div className="text-center py-12 text-zinc-500">
+                  Loading tree...
+                </div>
+              )}
+            </div>
+
+            <PrismSection
+              prisms={loadout.prismList}
+              onSave={handleSavePrism}
+              onUpdate={handleUpdatePrism}
+              onCopy={handleCopyPrism}
+              onDelete={handleDeletePrism}
+            />
+          </>
         )}
 
         {activePage === "skills" && (

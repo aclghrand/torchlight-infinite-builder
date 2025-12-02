@@ -98,4 +98,5 @@ export const createEmptyLoadout = (): SaveData => ({
   itemsList: [],
   heroMemoryList: [],
   divinitySlateList: [],
+  prismList: [],
 });

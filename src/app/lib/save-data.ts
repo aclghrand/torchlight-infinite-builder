@@ -29,6 +29,16 @@ export interface DivinitySlate {
   affixTypes: DivinityAffixType[];
 }
 
+export const PRISM_RARITIES = ["rare", "legendary"] as const;
+export type PrismRarity = (typeof PRISM_RARITIES)[number];
+
+export interface CraftedPrism {
+  id: string;
+  rarity: PrismRarity;
+  baseAffix: string;
+  gaugeAffixes: string[];
+}
+
 export interface PlacedSlate {
   slateId: string;
   position: { row: number; col: number };
@@ -191,4 +201,5 @@ export interface SaveData {
   itemsList: Gear[];
   heroMemoryList: HeroMemory[];
   divinitySlateList: DivinitySlate[];
+  prismList: CraftedPrism[];
 }

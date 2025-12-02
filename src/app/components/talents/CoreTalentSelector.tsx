@@ -146,7 +146,9 @@ const CoreTalentSlot: React.FC<CoreTalentSlotProps> = ({
           {available.map((ct) => (
             <button
               key={ct.name}
-              onClick={() => onSelect(selected === ct.name ? undefined : ct.name)}
+              onClick={() =>
+                onSelect(selected === ct.name ? undefined : ct.name)
+              }
               onMouseEnter={(e) => handleMouseMove(e, ct)}
               onMouseMove={(e) => handleMouseMove(e, ct)}
               onMouseLeave={() => setHoveredTalent(undefined)}
@@ -159,20 +161,28 @@ const CoreTalentSlot: React.FC<CoreTalentSlotProps> = ({
               {ct.name}
             </button>
           ))}
-          {selected && !available.find((ct) => ct.name === selected) && (() => {
-            const orphanedTalent = allTalentsForTree.find((ct) => ct.name === selected);
-            return (
-              <button
-                onClick={() => onSelect(undefined)}
-                onMouseEnter={(e) => orphanedTalent && handleMouseMove(e, orphanedTalent)}
-                onMouseMove={(e) => orphanedTalent && handleMouseMove(e, orphanedTalent)}
-                onMouseLeave={() => setHoveredTalent(undefined)}
-                className="w-full px-3 py-2 border border-amber-500 bg-amber-500/20 text-amber-400 rounded-lg text-sm text-left"
-              >
-                {selected}
-              </button>
-            );
-          })()}
+          {selected &&
+            !available.find((ct) => ct.name === selected) &&
+            (() => {
+              const orphanedTalent = allTalentsForTree.find(
+                (ct) => ct.name === selected,
+              );
+              return (
+                <button
+                  onClick={() => onSelect(undefined)}
+                  onMouseEnter={(e) =>
+                    orphanedTalent && handleMouseMove(e, orphanedTalent)
+                  }
+                  onMouseMove={(e) =>
+                    orphanedTalent && handleMouseMove(e, orphanedTalent)
+                  }
+                  onMouseLeave={() => setHoveredTalent(undefined)}
+                  className="w-full px-3 py-2 border border-amber-500 bg-amber-500/20 text-amber-400 rounded-lg text-sm text-left"
+                >
+                  {selected}
+                </button>
+              );
+            })()}
         </div>
       ) : (
         <div className="text-sm text-zinc-500 italic">Locked</div>

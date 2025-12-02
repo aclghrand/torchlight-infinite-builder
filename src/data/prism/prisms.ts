@@ -446,8 +446,7 @@ export const Prisms: readonly Prism[] = [
   {
     type: "Prism Gauge",
     rarity: "Rare",
-    affix:
-      "All Medium Talent within the area also gain: +4% Affliction Effect",
+    affix: "All Medium Talent within the area also gain: +4% Affliction Effect",
   },
   {
     type: "Prism Gauge",

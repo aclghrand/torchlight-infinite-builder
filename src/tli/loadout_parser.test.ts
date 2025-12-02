@@ -83,6 +83,7 @@ describe("parse_loadout", () => {
       itemsList: [],
       heroMemoryList: [],
       divinitySlateList: [],
+      prismList: [],
     };
 
     const result = parse_loadout(rawLoadout);
@@ -138,6 +139,7 @@ describe("parse_loadout", () => {
       itemsList: [],
       heroMemoryList: [],
       divinitySlateList: [],
+      prismList: [],
     };
 
     const result = parse_loadout(rawLoadout);
@@ -192,6 +194,7 @@ describe("parse_loadout", () => {
       itemsList: [],
       heroMemoryList: [],
       divinitySlateList: [],
+      prismList: [],
     };
 
     const result = parse_loadout(rawLoadout);
@@ -240,6 +243,7 @@ describe("parse_loadout", () => {
       itemsList: [],
       heroMemoryList: [],
       divinitySlateList: [],
+      prismList: [],
     };
 
     const result = parse_loadout(rawLoadout);
@@ -280,6 +284,7 @@ describe("parse_loadout", () => {
       itemsList: [],
       heroMemoryList: [],
       divinitySlateList: [],
+      prismList: [],
     };
 
     const result = parse_loadout(rawLoadout);
@@ -312,6 +317,7 @@ describe("parse_loadout", () => {
       itemsList: [],
       heroMemoryList: [],
       divinitySlateList: [],
+      prismList: [],
     };
 
     const result = parse_loadout(rawLoadout);
@@ -343,6 +349,7 @@ describe("parse_loadout", () => {
       itemsList: [],
       heroMemoryList: [],
       divinitySlateList: [],
+      prismList: [],
     };
 
     const result = parse_loadout(rawLoadout);
@@ -375,6 +382,7 @@ describe("talent tree parsing", () => {
       itemsList: [],
       heroMemoryList: [],
       divinitySlateList: [],
+      prismList: [],
     };
 
     const result = parse_loadout(rawLoadout);
@@ -410,6 +418,7 @@ describe("talent tree parsing", () => {
       itemsList: [],
       heroMemoryList: [],
       divinitySlateList: [],
+      prismList: [],
     };
 
     const result = parse_loadout(rawLoadout);
@@ -443,6 +452,7 @@ describe("talent tree parsing", () => {
       itemsList: [],
       heroMemoryList: [],
       divinitySlateList: [],
+      prismList: [],
     };
 
     const result = parse_loadout(rawLoadout);
@@ -488,6 +498,7 @@ describe("talent tree parsing", () => {
       itemsList: [],
       heroMemoryList: [],
       divinitySlateList: [],
+      prismList: [],
     };
 
     const result = parse_loadout(rawLoadout);
@@ -520,6 +531,7 @@ describe("talent tree parsing", () => {
       itemsList: [],
       heroMemoryList: [],
       divinitySlateList: [],
+      prismList: [],
     };
 
     expect(() => parse_loadout(rawLoadout)).toThrow(
@@ -546,6 +558,7 @@ describe("talent tree parsing", () => {
       itemsList: [],
       heroMemoryList: [],
       divinitySlateList: [],
+      prismList: [],
     };
 
     expect(() => parse_loadout(rawLoadout)).toThrow(
@@ -574,6 +587,7 @@ describe("talent tree parsing", () => {
       itemsList: [],
       heroMemoryList: [],
       divinitySlateList: [],
+      prismList: [],
     };
 
     const result = parse_loadout(rawLoadout);

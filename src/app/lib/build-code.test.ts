@@ -51,6 +51,7 @@ describe("build-code", () => {
       itemsList: [],
       heroMemoryList: [],
       divinitySlateList: [],
+      prismList: [],
     };
 
     const code = encodeBuildCode(loadout);
@@ -82,6 +83,7 @@ describe("build-code", () => {
       itemsList: [],
       heroMemoryList: [],
       divinitySlateList: [],
+      prismList: [],
     };
 
     const code = encodeBuildCode(loadout);
@@ -120,6 +122,7 @@ describe("build-code", () => {
       itemsList: [],
       heroMemoryList: [],
       divinitySlateList: [],
+      prismList: [],
     };
 
     const code = encodeBuildCode(loadout);
@@ -172,6 +175,7 @@ describe("build-code", () => {
       ],
       heroMemoryList: [],
       divinitySlateList: [],
+      prismList: [],
     };
 
     const code = encodeBuildCode(loadout);
