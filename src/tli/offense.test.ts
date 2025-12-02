@@ -19,7 +19,7 @@ const defaultConfiguration: Configuration = {
 };
 
 test("calculate offense very basic", () => {
-  let loadout = initLoadout({
+  const loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -31,8 +31,8 @@ test("calculate offense very basic", () => {
     ],
   });
 
-  let mods = collectMods(loadout);
-  let res = calculateOffense(
+  const mods = collectMods(loadout);
+  const res = calculateOffense(
     loadout,
     mods,
     "[Test] Simple Attack",
@@ -45,7 +45,7 @@ test("calculate offense very basic", () => {
 });
 
 test("calculate offense multiple inc dmg", () => {
-  let loadout = initLoadout({
+  const loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -62,8 +62,8 @@ test("calculate offense multiple inc dmg", () => {
     ],
   });
 
-  let mods = collectMods(loadout);
-  let res = calculateOffense(
+  const mods = collectMods(loadout);
+  const res = calculateOffense(
     loadout,
     mods,
     "[Test] Simple Attack",
@@ -77,7 +77,7 @@ test("calculate offense multiple inc dmg", () => {
 });
 
 test("calculate offense multiple addn dmg", () => {
-  let loadout = initLoadout({
+  const loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -90,8 +90,8 @@ test("calculate offense multiple addn dmg", () => {
     ],
   });
 
-  let mods = collectMods(loadout);
-  let res = calculateOffense(
+  const mods = collectMods(loadout);
+  const res = calculateOffense(
     loadout,
     mods,
     "[Test] Simple Attack",
@@ -106,7 +106,7 @@ test("calculate offense multiple addn dmg", () => {
 });
 
 test("calculate offense multiple mix inc and addn dmg", () => {
-  let loadout = initLoadout({
+  const loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -124,8 +124,8 @@ test("calculate offense multiple mix inc and addn dmg", () => {
     ],
   });
 
-  let mods = collectMods(loadout);
-  let res = calculateOffense(
+  const mods = collectMods(loadout);
+  const res = calculateOffense(
     loadout,
     mods,
     "[Test] Simple Attack",
@@ -140,7 +140,7 @@ test("calculate offense multiple mix inc and addn dmg", () => {
 });
 
 test("calculate offense atk dmg mod", () => {
-  let loadout = initLoadout({
+  const loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -154,8 +154,8 @@ test("calculate offense atk dmg mod", () => {
     ],
   });
 
-  let mods = collectMods(loadout);
-  let res = calculateOffense(
+  const mods = collectMods(loadout);
+  const res = calculateOffense(
     loadout,
     mods,
     "[Test] Simple Attack",
@@ -169,7 +169,7 @@ test("calculate offense atk dmg mod", () => {
 });
 
 test("calculate offense spell dmg mod doesn't affect attack skill", () => {
-  let loadout = initLoadout({
+  const loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -181,8 +181,8 @@ test("calculate offense spell dmg mod doesn't affect attack skill", () => {
     ],
   });
 
-  let mods = collectMods(loadout);
-  let res = calculateOffense(
+  const mods = collectMods(loadout);
+  const res = calculateOffense(
     loadout,
     mods,
     "[Test] Simple Attack",
@@ -197,7 +197,7 @@ test("calculate offense spell dmg mod doesn't affect attack skill", () => {
 });
 
 test("calculate offense elemental damage", () => {
-  let loadout = initLoadout({
+  const loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -225,8 +225,8 @@ test("calculate offense elemental damage", () => {
     ],
   });
 
-  let mods = collectMods(loadout);
-  let res = calculateOffense(
+  const mods = collectMods(loadout);
+  const res = calculateOffense(
     loadout,
     mods,
     "[Test] Simple Attack",
@@ -243,7 +243,7 @@ test("calculate offense elemental damage", () => {
 });
 
 test("calculate offense cold damage", () => {
-  let loadout = initLoadout({
+  const loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -266,8 +266,8 @@ test("calculate offense cold damage", () => {
     ],
   });
 
-  let mods = collectMods(loadout);
-  let res = calculateOffense(
+  const mods = collectMods(loadout);
+  const res = calculateOffense(
     loadout,
     mods,
     "[Test] Simple Attack",
@@ -283,7 +283,7 @@ test("calculate offense cold damage", () => {
 });
 
 test("calculate offense affixes from equipment, talents, and divinities combine", () => {
-  let loadout = initLoadout({
+  const loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -321,8 +321,8 @@ test("calculate offense affixes from equipment, talents, and divinities combine"
     },
   });
 
-  let mods = collectMods(loadout);
-  let res = calculateOffense(
+  const mods = collectMods(loadout);
+  const res = calculateOffense(
     loadout,
     mods,
     "[Test] Simple Attack",
@@ -338,7 +338,7 @@ test("calculate offense affixes from equipment, talents, and divinities combine"
 });
 
 test("calculate offense with fervor enabled default points", () => {
-  let loadout = initLoadout({
+  const loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -347,15 +347,15 @@ test("calculate offense with fervor enabled default points", () => {
     },
   });
 
-  let configuration: Configuration = {
+  const configuration: Configuration = {
     fervor: {
       enabled: true,
       points: 100,
     },
   };
 
-  let mods = collectMods(loadout);
-  let res = calculateOffense(
+  const mods = collectMods(loadout);
+  const res = calculateOffense(
     loadout,
     mods,
     "[Test] Simple Attack",
@@ -373,7 +373,7 @@ test("calculate offense with fervor enabled default points", () => {
 });
 
 test("calculate offense with fervor enabled custom points", () => {
-  let loadout = initLoadout({
+  const loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -382,15 +382,15 @@ test("calculate offense with fervor enabled custom points", () => {
     },
   });
 
-  let configuration: Configuration = {
+  const configuration: Configuration = {
     fervor: {
       enabled: true,
       points: 50,
     },
   };
 
-  let mods = collectMods(loadout);
-  let res = calculateOffense(
+  const mods = collectMods(loadout);
+  const res = calculateOffense(
     loadout,
     mods,
     "[Test] Simple Attack",
@@ -408,7 +408,7 @@ test("calculate offense with fervor enabled custom points", () => {
 });
 
 test("calculate offense with fervor disabled", () => {
-  let loadout = initLoadout({
+  const loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -417,15 +417,15 @@ test("calculate offense with fervor disabled", () => {
     },
   });
 
-  let configuration: Configuration = {
+  const configuration: Configuration = {
     fervor: {
       enabled: false,
       points: 100,
     },
   };
 
-  let mods = collectMods(loadout);
-  let res = calculateOffense(
+  const mods = collectMods(loadout);
+  const res = calculateOffense(
     loadout,
     mods,
     "[Test] Simple Attack",
@@ -442,7 +442,7 @@ test("calculate offense with fervor disabled", () => {
 });
 
 test("calculate offense with fervor and other crit rating affixes", () => {
-  let loadout = initLoadout({
+  const loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -454,15 +454,15 @@ test("calculate offense with fervor and other crit rating affixes", () => {
     },
   });
 
-  let configuration: Configuration = {
+  const configuration: Configuration = {
     fervor: {
       enabled: true,
       points: 25,
     },
   };
 
-  let mods = collectMods(loadout);
-  let res = calculateOffense(
+  const mods = collectMods(loadout);
+  const res = calculateOffense(
     loadout,
     mods,
     "[Test] Simple Attack",
@@ -482,7 +482,7 @@ test("calculate offense with fervor and other crit rating affixes", () => {
 });
 
 test("calculate offense with fervor and single FervorEff modifier", () => {
-  let loadout = initLoadout({
+  const loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -494,15 +494,15 @@ test("calculate offense with fervor and single FervorEff modifier", () => {
     },
   });
 
-  let configuration: Configuration = {
+  const configuration: Configuration = {
     fervor: {
       enabled: true,
       points: 100,
     },
   };
 
-  let mods = collectMods(loadout);
-  let res = calculateOffense(
+  const mods = collectMods(loadout);
+  const res = calculateOffense(
     loadout,
     mods,
     "[Test] Simple Attack",
@@ -520,7 +520,7 @@ test("calculate offense with fervor and single FervorEff modifier", () => {
 });
 
 test("calculate offense with fervor and multiple FervorEff modifiers stacking", () => {
-  let loadout = initLoadout({
+  const loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -537,15 +537,15 @@ test("calculate offense with fervor and multiple FervorEff modifiers stacking", 
     },
   });
 
-  let configuration: Configuration = {
+  const configuration: Configuration = {
     fervor: {
       enabled: true,
       points: 100,
     },
   };
 
-  let mods = collectMods(loadout);
-  let res = calculateOffense(
+  const mods = collectMods(loadout);
+  const res = calculateOffense(
     loadout,
     mods,
     "[Test] Simple Attack",
@@ -564,7 +564,7 @@ test("calculate offense with fervor and multiple FervorEff modifiers stacking", 
 });
 
 test("calculate offense with fervor and FervorEff with custom fervor points", () => {
-  let loadout = initLoadout({
+  const loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -576,15 +576,15 @@ test("calculate offense with fervor and FervorEff with custom fervor points", ()
     },
   });
 
-  let configuration: Configuration = {
+  const configuration: Configuration = {
     fervor: {
       enabled: true,
       points: 50,
     },
   };
 
-  let mods = collectMods(loadout);
-  let res = calculateOffense(
+  const mods = collectMods(loadout);
+  const res = calculateOffense(
     loadout,
     mods,
     "[Test] Simple Attack",
@@ -602,7 +602,7 @@ test("calculate offense with fervor and FervorEff with custom fervor points", ()
 });
 
 test("calculate offense with FervorEff but fervor disabled", () => {
-  let loadout = initLoadout({
+  const loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -614,15 +614,15 @@ test("calculate offense with FervorEff but fervor disabled", () => {
     },
   });
 
-  let configuration: Configuration = {
+  const configuration: Configuration = {
     fervor: {
       enabled: false,
       points: 100,
     },
   };
 
-  let mods = collectMods(loadout);
-  let res = calculateOffense(
+  const mods = collectMods(loadout);
+  const res = calculateOffense(
     loadout,
     mods,
     "[Test] Simple Attack",
@@ -639,7 +639,7 @@ test("calculate offense with FervorEff but fervor disabled", () => {
 });
 
 test("calculate offense with CritDmgPerFervor single affix", () => {
-  let loadout = initLoadout({
+  const loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -651,15 +651,15 @@ test("calculate offense with CritDmgPerFervor single affix", () => {
     },
   });
 
-  let configuration: Configuration = {
+  const configuration: Configuration = {
     fervor: {
       enabled: true,
       points: 100,
     },
   };
 
-  let mods = collectMods(loadout);
-  let res = calculateOffense(
+  const mods = collectMods(loadout);
+  const res = calculateOffense(
     loadout,
     mods,
     "[Test] Simple Attack",
@@ -679,7 +679,7 @@ test("calculate offense with CritDmgPerFervor single affix", () => {
 });
 
 test("calculate offense with multiple CritDmgPerFervor affixes stacking", () => {
-  let loadout = initLoadout({
+  const loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -696,15 +696,15 @@ test("calculate offense with multiple CritDmgPerFervor affixes stacking", () => 
     },
   });
 
-  let configuration: Configuration = {
+  const configuration: Configuration = {
     fervor: {
       enabled: true,
       points: 100,
     },
   };
 
-  let mods = collectMods(loadout);
-  let res = calculateOffense(
+  const mods = collectMods(loadout);
+  const res = calculateOffense(
     loadout,
     mods,
     "[Test] Simple Attack",
@@ -724,7 +724,7 @@ test("calculate offense with multiple CritDmgPerFervor affixes stacking", () => 
 });
 
 test("calculate offense with CritDmgPerFervor with custom fervor points", () => {
-  let loadout = initLoadout({
+  const loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -736,15 +736,15 @@ test("calculate offense with CritDmgPerFervor with custom fervor points", () => 
     },
   });
 
-  let configuration: Configuration = {
+  const configuration: Configuration = {
     fervor: {
       enabled: true,
       points: 50,
     },
   };
 
-  let mods = collectMods(loadout);
-  let res = calculateOffense(
+  const mods = collectMods(loadout);
+  const res = calculateOffense(
     loadout,
     mods,
     "[Test] Simple Attack",
@@ -764,7 +764,7 @@ test("calculate offense with CritDmgPerFervor with custom fervor points", () => 
 });
 
 test("calculate offense with CritDmgPerFervor but fervor disabled", () => {
-  let loadout = initLoadout({
+  const loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -776,15 +776,15 @@ test("calculate offense with CritDmgPerFervor but fervor disabled", () => {
     },
   });
 
-  let configuration: Configuration = {
+  const configuration: Configuration = {
     fervor: {
       enabled: false,
       points: 100,
     },
   };
 
-  let mods = collectMods(loadout);
-  let res = calculateOffense(
+  const mods = collectMods(loadout);
+  const res = calculateOffense(
     loadout,
     mods,
     "[Test] Simple Attack",
@@ -802,7 +802,7 @@ test("calculate offense with CritDmgPerFervor but fervor disabled", () => {
 });
 
 test("calculate offense with CritDmgPerFervor and other crit damage modifiers", () => {
-  let loadout = initLoadout({
+  const loadout = initLoadout({
     equipmentPage: {
       mainHand: {
         gearType: "sword",
@@ -824,15 +824,15 @@ test("calculate offense with CritDmgPerFervor and other crit damage modifiers", 
     },
   });
 
-  let configuration: Configuration = {
+  const configuration: Configuration = {
     fervor: {
       enabled: true,
       points: 100,
     },
   };
 
-  let mods = collectMods(loadout);
-  let res = calculateOffense(
+  const mods = collectMods(loadout);
+  const res = calculateOffense(
     loadout,
     mods,
     "[Test] Simple Attack",

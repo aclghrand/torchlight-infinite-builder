@@ -14,8 +14,8 @@ import {
   DmgRange,
 } from "./core";
 
-let dummy40Armor = 0.11;
-let dummy85Armor = 0.44;
+const dummy40Armor = 0.11;
+const dummy85Armor = 0.44;
 
 type Stat = "dex" | "int" | "str";
 
@@ -166,12 +166,12 @@ const filterAffix = <T extends Mod.Mod["type"]>(
 
 // currently only calculating mainhand
 const calculateGearDmg = (loadout: Loadout, allMods: Mod.Mod[]): GearDmg => {
-  let mainhand = loadout.equipmentPage.mainHand;
+  const mainhand = loadout.equipmentPage.mainHand;
   if (mainhand === undefined) {
     return emptyGearDmg();
   }
-  let mainhandMods = mainhand.affixes.map((a) => a.mods).flat();
-  let basePhysDmg = findAffix(mainhandMods, "GearBasePhysFlatDmg");
+  const mainhandMods = mainhand.affixes.map((a) => a.mods).flat();
+  const basePhysDmg = findAffix(mainhandMods, "GearBasePhysFlatDmg");
   if (basePhysDmg === undefined) {
     return emptyGearDmg();
   }
@@ -186,7 +186,7 @@ const calculateGearDmg = (loadout: Loadout, allMods: Mod.Mod[]): GearDmg => {
   phys.max += basePhysDmg.value;
   let physBonusPct = 0;
 
-  let gearPhysDmgPct = findAffix(mainhandMods, "GearPhysDmgPct");
+  const gearPhysDmgPct = findAffix(mainhandMods, "GearPhysDmgPct");
   if (gearPhysDmgPct !== undefined) {
     physBonusPct += gearPhysDmgPct.value;
   }
@@ -239,11 +239,11 @@ const calculateGearDmg = (loadout: Loadout, allMods: Mod.Mod[]): GearDmg => {
 };
 
 const calculateGearAspd = (allMods: Mod.Mod[]): number => {
-  let baseAspd = findAffix(allMods, "GearBaseAspd");
+  const baseAspd = findAffix(allMods, "GearBaseAspd");
   if (baseAspd === undefined) {
     return 0;
   }
-  let gearAspdPctBonus = calculateInc(
+  const gearAspdPctBonus = calculateInc(
     filterAffix(allMods, "GearAspdPct").map((b) => b.value),
   );
   return baseAspd.value * (1 + gearAspdPctBonus);
@@ -253,8 +253,8 @@ const calculateCritRating = (
   allMods: Mod.Mod[],
   configuration: Configuration,
 ): number => {
-  let critRatingPctMods = filterAffix(allMods, "CritRatingPct");
-  let mods = critRatingPctMods.map((a) => {
+  const critRatingPctMods = filterAffix(allMods, "CritRatingPct");
+  const mods = critRatingPctMods.map((a) => {
     return {
       type: "CritRatingPct",
       value: a.value,
@@ -266,13 +266,13 @@ const calculateCritRating = (
   // Add fervor bonus if enabled
   if (configuration.fervor.enabled) {
     // Collect FervorEff modifiers and calculate total effectiveness
-    let fervorEffMods = filterAffix(allMods, "FervorEff");
-    let fervorEffTotal = calculateInc(fervorEffMods.map((a) => a.value));
+    const fervorEffMods = filterAffix(allMods, "FervorEff");
+    const fervorEffTotal = calculateInc(fervorEffMods.map((a) => a.value));
 
     // Base fervor: 2% per point, modified by FervorEff
     // Example: 100 points * 0.02 * (1 + 0.5) = 3.0 (with 50% FervorEff)
-    let fervorPerPoint = 0.02 * (1 + fervorEffTotal);
-    let fervorBonus = configuration.fervor.points * fervorPerPoint;
+    const fervorPerPoint = 0.02 * (1 + fervorEffTotal);
+    const fervorBonus = configuration.fervor.points * fervorPerPoint;
 
     mods.push({
       type: "CritRatingPct",
@@ -282,7 +282,7 @@ const calculateCritRating = (
     });
   }
 
-  let inc = calculateInc(mods.map((v) => v.value));
+  const inc = calculateInc(mods.map((v) => v.value));
   return 0.05 * (1 + inc);
 };
 
@@ -290,8 +290,8 @@ const calculateCritDmg = (
   allMods: Mod.Mod[],
   configuration: Configuration,
 ): number => {
-  let critDmgPctMods = filterAffix(allMods, "CritDmgPct");
-  let mods = critDmgPctMods.map((a) => {
+  const critDmgPctMods = filterAffix(allMods, "CritDmgPct");
+  const mods = critDmgPctMods.map((a) => {
     return {
       type: "CritDmgPct",
       value: a.value,
@@ -303,11 +303,11 @@ const calculateCritDmg = (
 
   // Handle CritDmgPerFervor mods
   if (configuration.fervor.enabled) {
-    let critDmgPerFervorMods = filterAffix(allMods, "CritDmgPerFervor");
+    const critDmgPerFervorMods = filterAffix(allMods, "CritDmgPerFervor");
     critDmgPerFervorMods.forEach((a) => {
       // Calculate bonus: value * fervor points
       // Example: 0.005 (0.5%) * 100 points = 0.5 (50% increased crit damage)
-      let bonus = a.value * configuration.fervor.points;
+      const bonus = a.value * configuration.fervor.points;
       mods.push({
         type: "CritDmgPct",
         value: bonus,
@@ -318,19 +318,19 @@ const calculateCritDmg = (
     });
   }
 
-  let inc = calculateInc(mods.filter((m) => !m.addn).map((v) => v.value));
-  let addn = calculateAddn(mods.filter((m) => m.addn).map((v) => v.value));
+  const inc = calculateInc(mods.filter((m) => !m.addn).map((v) => v.value));
+  const addn = calculateAddn(mods.filter((m) => m.addn).map((v) => v.value));
 
   return 1.5 * (1 + inc) * addn;
 };
 
 const calculateAspd = (allMods: Mod.Mod[]): number => {
-  let gearAspd = calculateGearAspd(allMods);
-  let aspdPctMods = filterAffix(allMods, "AspdPct");
-  let inc = calculateInc(
+  const gearAspd = calculateGearAspd(allMods);
+  const aspdPctMods = filterAffix(allMods, "AspdPct");
+  const inc = calculateInc(
     aspdPctMods.filter((m) => !m.addn).map((v) => v.value),
   );
-  let addn = calculateAddn(
+  const addn = calculateAddn(
     aspdPctMods.filter((m) => m.addn).map((v) => v.value),
   );
 
@@ -345,9 +345,9 @@ const dmgModTypePerSkillTag: Partial<Record<SkillTag, DmgModType>> = {
 };
 
 const dmgModTypesForSkill = (conf: SkillConfiguration) => {
-  let dmgModTypes: DmgModType[] = ["global"];
+  const dmgModTypes: DmgModType[] = ["global"];
   conf.tags.forEach((t) => {
-    let dmgModType = dmgModTypePerSkillTag[t];
+    const dmgModType = dmgModTypePerSkillTag[t];
     if (dmgModType !== undefined) {
       dmgModTypes.push(dmgModType);
     }
@@ -387,25 +387,25 @@ const getTotalDmgModsPerType = (
   allDmgPctMods: Extract<Mod.Mod, { type: "DmgPct" }>[],
   skillConf: SkillConfiguration,
 ): TotalDmgModsPerType => {
-  let dmgModTypes = dmgModTypesForSkill(skillConf);
-  let dmgModTypesForPhys: DmgModType[] = [...dmgModTypes, "physical"];
-  let dmgModTypesForCold: DmgModType[] = [...dmgModTypes, "cold", "elemental"];
-  let dmgModTypesForLightning: DmgModType[] = [
+  const dmgModTypes = dmgModTypesForSkill(skillConf);
+  const dmgModTypesForPhys: DmgModType[] = [...dmgModTypes, "physical"];
+  const dmgModTypesForCold: DmgModType[] = [...dmgModTypes, "cold", "elemental"];
+  const dmgModTypesForLightning: DmgModType[] = [
     ...dmgModTypes,
     "lightning",
     "elemental",
   ];
-  let dmgModTypesForFire: DmgModType[] = [...dmgModTypes, "fire", "elemental"];
-  let dmgModTypesForErosion: DmgModType[] = [...dmgModTypes, "erosion"];
+  const dmgModTypesForFire: DmgModType[] = [...dmgModTypes, "fire", "elemental"];
+  const dmgModTypesForErosion: DmgModType[] = [...dmgModTypes, "erosion"];
 
-  let dmgPctModsForPhys = filterDmgPctMods(allDmgPctMods, dmgModTypesForPhys);
-  let dmgPctModsForCold = filterDmgPctMods(allDmgPctMods, dmgModTypesForCold);
-  let dmgPctModsForLightning = filterDmgPctMods(
+  const dmgPctModsForPhys = filterDmgPctMods(allDmgPctMods, dmgModTypesForPhys);
+  const dmgPctModsForCold = filterDmgPctMods(allDmgPctMods, dmgModTypesForCold);
+  const dmgPctModsForLightning = filterDmgPctMods(
     allDmgPctMods,
     dmgModTypesForLightning,
   );
-  let dmgPctModsForFire = filterDmgPctMods(allDmgPctMods, dmgModTypesForFire);
-  let dmgPctModsForErosion = filterDmgPctMods(
+  const dmgPctModsForFire = filterDmgPctMods(allDmgPctMods, dmgModTypesForFire);
+  const dmgPctModsForErosion = filterDmgPctMods(
     allDmgPctMods,
     dmgModTypesForErosion,
   );
@@ -438,7 +438,7 @@ const calculateDmgRange = (
   dmgRange: DmgRange,
   dmgModsAggr: DmgModsAggr,
 ): DmgRange => {
-  let mult = (1 + dmgModsAggr.inc) * dmgModsAggr.addn;
+  const mult = (1 + dmgModsAggr.inc) * dmgModsAggr.addn;
   return multDR(dmgRange, mult);
 };
 
@@ -460,25 +460,25 @@ const calculateSkillHit = (
   allDmgPcts: Extract<Mod.Mod, { type: "DmgPct" }>[],
   skillConf: SkillConfiguration,
 ): SkillHitOverview => {
-  let totalDmgModsPerType = getTotalDmgModsPerType(allDmgPcts, skillConf);
-  let phys = calculateDmgRange(gearDmg.mainHand.phys, totalDmgModsPerType.phys);
-  let cold = calculateDmgRange(gearDmg.mainHand.cold, totalDmgModsPerType.cold);
-  let lightning = calculateDmgRange(
+  const totalDmgModsPerType = getTotalDmgModsPerType(allDmgPcts, skillConf);
+  const phys = calculateDmgRange(gearDmg.mainHand.phys, totalDmgModsPerType.phys);
+  const cold = calculateDmgRange(gearDmg.mainHand.cold, totalDmgModsPerType.cold);
+  const lightning = calculateDmgRange(
     gearDmg.mainHand.lightning,
     totalDmgModsPerType.lightning,
   );
-  let fire = calculateDmgRange(gearDmg.mainHand.fire, totalDmgModsPerType.fire);
-  let erosion = calculateDmgRange(
+  const fire = calculateDmgRange(gearDmg.mainHand.fire, totalDmgModsPerType.fire);
+  const erosion = calculateDmgRange(
     gearDmg.mainHand.erosion,
     totalDmgModsPerType.erosion,
   );
-  let total = {
+  const total = {
     min: phys.min + cold.min + lightning.min + fire.min + erosion.min,
     max: phys.max + cold.max + lightning.max + fire.max + erosion.max,
   };
-  let totalAvg = (total.min + total.max) / 2;
+  const totalAvg = (total.min + total.max) / 2;
 
-  let finalAvg = match(skillConf.skill)
+  const finalAvg = match(skillConf.skill)
     .with("Berserking Blade", () => {
       return totalAvg * 2.1;
     })
@@ -511,20 +511,20 @@ export const calculateOffense = (
   skill: Skill,
   configuration: Configuration,
 ): OffenseSummary | undefined => {
-  let skillConf = offensiveSkillConfs.find((c) => c.skill === skill);
+  const skillConf = offensiveSkillConfs.find((c) => c.skill === skill);
   if (skillConf === undefined) {
     return undefined;
   }
-  let gearDmg = calculateGearDmg(loadout, mods);
-  let aspd = calculateAspd(mods);
-  let dmgPcts = filterAffix(mods, "DmgPct");
-  let critChance = calculateCritRating(mods, configuration);
-  let critDmgMult = calculateCritDmg(mods, configuration);
+  const gearDmg = calculateGearDmg(loadout, mods);
+  const aspd = calculateAspd(mods);
+  const dmgPcts = filterAffix(mods, "DmgPct");
+  const critChance = calculateCritRating(mods, configuration);
+  const critDmgMult = calculateCritDmg(mods, configuration);
 
-  let skillHit = calculateSkillHit(gearDmg, dmgPcts, skillConf);
-  let avgHitWithCrit =
+  const skillHit = calculateSkillHit(gearDmg, dmgPcts, skillConf);
+  const avgHitWithCrit =
     skillHit.avg * critChance * critDmgMult + skillHit.avg * (1 - critChance);
-  let avgDps = avgHitWithCrit * aspd;
+  const avgDps = avgHitWithCrit * aspd;
 
   return {
     critChance: critChance,
