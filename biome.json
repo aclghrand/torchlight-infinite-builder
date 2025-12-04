@@ -7,7 +7,13 @@
     "indentStyle": "space",
     "indentWidth": 2
   },
-  "linter": { "enabled": true, "rules": { "recommended": true } },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "a11y": "info"
+    }
+  },
   "javascript": {
     "formatter": {}
   },
