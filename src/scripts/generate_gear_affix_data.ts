@@ -116,9 +116,7 @@ const normalizeAffixType = (type: string): string => {
 };
 
 const normalizeFileKey = (equipmentType: string, affixType: string): string => {
-  return (
-    `${normalizeEquipmentType(equipmentType)}_${normalizeAffixType(affixType)}`
-  );
+  return `${normalizeEquipmentType(equipmentType)}_${normalizeAffixType(affixType)}`;
 };
 
 const generateEquipmentAffixFile = (

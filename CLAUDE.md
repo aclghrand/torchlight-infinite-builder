@@ -12,8 +12,8 @@ pnpm build        # Production build
 pnpm test         # Run all tests
 pnpm test <file>  # Run single test file
 pnpm typecheck    # TypeScript type checking
-pnpm lint         # ESLint
-pnpm format       # Prettier formatting
+pnpm lint         # Biome linting
+pnpm format       # Biome formatting
 ```
 
 ## Architecture

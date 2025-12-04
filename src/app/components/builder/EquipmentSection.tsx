@@ -50,6 +50,12 @@ export const EquipmentSection = () => {
   const setBlendAffixIndex = useEquipmentUIStore(
     (state) => state.setBlendAffixIndex,
   );
+  const baseStatsAffixIndex = useEquipmentUIStore(
+    (state) => state.baseStatsAffixIndex,
+  );
+  const setBaseStatsAffixIndex = useEquipmentUIStore(
+    (state) => state.setBaseStatsAffixIndex,
+  );
   const resetCrafting = useEquipmentUIStore((state) => state.resetCrafting);
 
   const prefixAffixes = useMemo(
@@ -70,6 +76,14 @@ export const EquipmentSection = () => {
 
   const blendAffixes = useMemo(
     () => (selectedEquipmentType === "Belt" ? getBlendAffixes() : []),
+    [selectedEquipmentType],
+  );
+
+  const baseStatsAffixes = useMemo(
+    () =>
+      selectedEquipmentType
+        ? getFilteredAffixes(selectedEquipmentType, "Base Stats")
+        : [],
     [selectedEquipmentType],
   );
 
@@ -132,12 +146,30 @@ export const EquipmentSection = () => {
     setBlendAffixIndex(undefined);
   }, [setBlendAffixIndex]);
 
+  const handleBaseStatsSelect = useCallback(
+    (_slotIndex: number, value: string) => {
+      const index = value === "" ? undefined : parseInt(value, 10);
+      setBaseStatsAffixIndex(index);
+    },
+    [setBaseStatsAffixIndex],
+  );
+
+  const handleClearBaseStats = useCallback(() => {
+    setBaseStatsAffixIndex(undefined);
+  }, [setBaseStatsAffixIndex]);
+
   const handleSaveToInventory = useCallback(() => {
     if (!selectedEquipmentType) return;
 
     const affixes: string[] = [];
 
-    // Add blend affix first if selected (belt only)
+    // Add base stats affix first if selected
+    if (baseStatsAffixIndex !== undefined) {
+      const selectedBaseStats = baseStatsAffixes[baseStatsAffixIndex];
+      affixes.push(selectedBaseStats.craftableAffix);
+    }
+
+    // Add blend affix if selected (belt only)
     if (isBelt && blendAffixIndex !== undefined) {
       const selectedBlend = blendAffixes[blendAffixIndex];
       affixes.push(formatBlendAffix(selectedBlend));
@@ -172,6 +204,8 @@ export const EquipmentSection = () => {
     isBelt,
     blendAffixIndex,
     blendAffixes,
+    baseStatsAffixIndex,
+    baseStatsAffixes,
   ]);
 
   const handleSelectItemForSlot = useCallback(
@@ -238,6 +272,27 @@ export const EquipmentSection = () => {
 
           {selectedEquipmentType ? (
             <>
+              {/* Base Stats Section */}
+              {baseStatsAffixes.length > 0 && (
+                <div className="mb-6">
+                  <h3 className="mb-3 text-lg font-semibold text-zinc-50">
+                    Base Stats (1 max)
+                  </h3>
+                  <AffixSlotComponent
+                    slotIndex={-2}
+                    affixType="Base Stats"
+                    affixes={baseStatsAffixes}
+                    selection={{
+                      affixIndex: baseStatsAffixIndex,
+                      percentage: 100,
+                    }}
+                    onAffixSelect={handleBaseStatsSelect}
+                    onSliderChange={() => {}}
+                    onClear={handleClearBaseStats}
+                    hideQualitySlider
+                  />
+                </div>
+              )}
               {/* Blending Affix Section (Belts Only) */}
               {isBelt && (
                 <div className="mb-6">

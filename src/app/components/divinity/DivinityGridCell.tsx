@@ -56,11 +56,7 @@ export const DivinityGridCell: React.FC<DivinityGridCellProps> = ({
   // Empty out-of-bounds cell (no slate and no preview)
   if (isOutOfBounds && !slate && !isPreview) {
     return (
-      <div
-        className="h-12 w-12"
-        onDragOver={onDragOver}
-        onDrop={onDrop}
-      />
+      <div className="h-12 w-12" onDragOver={onDragOver} onDrop={onDrop} />
     );
   }
 
@@ -82,11 +78,7 @@ export const DivinityGridCell: React.FC<DivinityGridCellProps> = ({
   if (isOutOfBounds && slate) {
     if (isDragging) {
       return (
-        <div
-          className="h-12 w-12"
-          onDragOver={onDragOver}
-          onDrop={onDrop}
-        />
+        <div className="h-12 w-12" onDragOver={onDragOver} onDrop={onDrop} />
       );
     }
     return (

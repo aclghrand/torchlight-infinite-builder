@@ -3,7 +3,7 @@ import type { BaseGearAffix, EquipmentType } from "@/src/tli/gear_data_types";
 
 export const getFilteredAffixes = (
   equipmentType: EquipmentType,
-  affixType: "Prefix" | "Suffix",
+  affixType: "Prefix" | "Suffix" | "Base Stats",
 ): BaseGearAffix[] => {
   return ALL_GEAR_AFFIXES.filter(
     (affix) =>

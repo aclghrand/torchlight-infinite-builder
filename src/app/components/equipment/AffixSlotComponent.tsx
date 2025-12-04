@@ -6,7 +6,7 @@ import type { AffixSlotState } from "../../lib/types";
 
 interface AffixSlotProps {
   slotIndex: number;
-  affixType: "Prefix" | "Suffix" | "Blend";
+  affixType: "Prefix" | "Suffix" | "Blend" | "Base Stats";
   affixes: BaseGearAffix[];
   selection: AffixSlotState;
   onAffixSelect: (slotIndex: number, value: string) => void;
