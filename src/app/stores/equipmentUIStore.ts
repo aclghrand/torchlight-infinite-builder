@@ -72,7 +72,9 @@ export const useEquipmentUIStore = create<EquipmentUIState>((set) => ({
   clearAffixSlot: (index) =>
     set((state) => ({
       affixSlots: state.affixSlots.map((slot, i) =>
-        i === index ? { affixIndex: undefined, percentage: DEFAULT_QUALITY } : slot,
+        i === index
+          ? { affixIndex: undefined, percentage: DEFAULT_QUALITY }
+          : slot,
       ),
     })),
 

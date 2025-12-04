@@ -30,7 +30,9 @@ export const AffixSlotComponent: React.FC<AffixSlotProps> = ({
   formatCraftedText,
 }) => {
   const selectedAffix =
-    selection.affixIndex !== undefined ? affixes[selection.affixIndex] : undefined;
+    selection.affixIndex !== undefined
+      ? affixes[selection.affixIndex]
+      : undefined;
   const craftedText = selectedAffix
     ? formatCraftedText
       ? formatCraftedText(selectedAffix)
