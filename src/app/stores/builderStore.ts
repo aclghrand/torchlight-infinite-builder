@@ -8,7 +8,9 @@ import {
   HeroMemory,
   DivinitySlate,
   CraftedPrism,
+  CraftedInverseImage,
   AllocatedTalentNode,
+  ReflectedAllocatedNode,
   PlacedSlate,
   HeroMemorySlot,
   PactspiritSlot,
@@ -66,6 +68,22 @@ interface BuilderState {
     position: { x: number; y: number },
   ) => void;
   removePlacedPrism: () => void;
+  addInverseImageToInventory: (inverseImage: CraftedInverseImage) => void;
+  deleteInverseImage: (inverseImageId: string) => void;
+  placeInverseImage: (
+    inverseImage: CraftedInverseImage,
+    treeSlot: "tree2" | "tree3" | "tree4",
+    position: { x: number; y: number },
+  ) => void;
+  removePlacedInverseImage: () => void;
+  allocateReflectedNode: (
+    x: number,
+    y: number,
+    sourceX: number,
+    sourceY: number,
+  ) => void;
+  deallocateReflectedNode: (x: number, y: number) => void;
+  setReflectedAllocatedNodes: (nodes: ReflectedAllocatedNode[]) => void;
 
   // Actions - Hero
   setHero: (hero: string | undefined) => void;
@@ -375,6 +393,169 @@ export const useBuilderStore = create<BuilderState>()(
           delete newTalentPage.placedPrism;
           return {
             loadout: { ...state.loadout, talentPage: newTalentPage },
+            hasUnsavedChanges: true,
+          };
+        }),
+
+      addInverseImageToInventory: (inverseImage) =>
+        set((state) => ({
+          loadout: {
+            ...state.loadout,
+            inverseImageList: [...state.loadout.inverseImageList, inverseImage],
+          },
+          hasUnsavedChanges: true,
+        })),
+
+      deleteInverseImage: (inverseImageId) =>
+        set((state) => {
+          const newInverseImageList = state.loadout.inverseImageList.filter(
+            (ii) => ii.id !== inverseImageId,
+          );
+          const placedInverseImage = state.loadout.talentPage.placedInverseImage;
+          const newTalentPage = { ...state.loadout.talentPage };
+          if (placedInverseImage?.inverseImage.id === inverseImageId) {
+            delete newTalentPage.placedInverseImage;
+          }
+          return {
+            loadout: {
+              ...state.loadout,
+              inverseImageList: newInverseImageList,
+              talentPage: newTalentPage,
+            },
+            hasUnsavedChanges: true,
+          };
+        }),
+
+      placeInverseImage: (inverseImage, treeSlot, position) =>
+        set((state) => ({
+          loadout: {
+            ...state.loadout,
+            inverseImageList: state.loadout.inverseImageList.filter(
+              (ii) => ii.id !== inverseImage.id,
+            ),
+            talentPage: {
+              ...state.loadout.talentPage,
+              placedInverseImage: {
+                inverseImage,
+                treeSlot,
+                position,
+                reflectedAllocatedNodes: [],
+              },
+            },
+          },
+          hasUnsavedChanges: true,
+        })),
+
+      removePlacedInverseImage: () =>
+        set((state) => {
+          const placedInverseImage = state.loadout.talentPage.placedInverseImage;
+          if (!placedInverseImage) return state;
+
+          const newTalentPage = { ...state.loadout.talentPage };
+          delete newTalentPage.placedInverseImage;
+
+          return {
+            loadout: {
+              ...state.loadout,
+              inverseImageList: [
+                ...state.loadout.inverseImageList,
+                placedInverseImage.inverseImage,
+              ],
+              talentPage: newTalentPage,
+            },
+            hasUnsavedChanges: true,
+          };
+        }),
+
+      allocateReflectedNode: (x, y, sourceX, sourceY) =>
+        set((state) => {
+          const placedInverseImage = state.loadout.talentPage.placedInverseImage;
+          if (!placedInverseImage) return state;
+
+          const existingIdx = placedInverseImage.reflectedAllocatedNodes.findIndex(
+            (n) => n.x === x && n.y === y,
+          );
+
+          let updatedNodes: ReflectedAllocatedNode[];
+          if (existingIdx >= 0) {
+            updatedNodes = placedInverseImage.reflectedAllocatedNodes.map(
+              (n, idx) =>
+                idx === existingIdx ? { ...n, points: n.points + 1 } : n,
+            );
+          } else {
+            updatedNodes = [
+              ...placedInverseImage.reflectedAllocatedNodes,
+              { x, y, sourceX, sourceY, points: 1 },
+            ];
+          }
+
+          return {
+            loadout: {
+              ...state.loadout,
+              talentPage: {
+                ...state.loadout.talentPage,
+                placedInverseImage: {
+                  ...placedInverseImage,
+                  reflectedAllocatedNodes: updatedNodes,
+                },
+              },
+            },
+            hasUnsavedChanges: true,
+          };
+        }),
+
+      deallocateReflectedNode: (x, y) =>
+        set((state) => {
+          const placedInverseImage = state.loadout.talentPage.placedInverseImage;
+          if (!placedInverseImage) return state;
+
+          const existing = placedInverseImage.reflectedAllocatedNodes.find(
+            (n) => n.x === x && n.y === y,
+          );
+          if (!existing) return state;
+
+          let updatedNodes: ReflectedAllocatedNode[];
+          if (existing.points > 1) {
+            updatedNodes = placedInverseImage.reflectedAllocatedNodes.map((n) =>
+              n.x === x && n.y === y ? { ...n, points: n.points - 1 } : n,
+            );
+          } else {
+            updatedNodes = placedInverseImage.reflectedAllocatedNodes.filter(
+              (n) => !(n.x === x && n.y === y),
+            );
+          }
+
+          return {
+            loadout: {
+              ...state.loadout,
+              talentPage: {
+                ...state.loadout.talentPage,
+                placedInverseImage: {
+                  ...placedInverseImage,
+                  reflectedAllocatedNodes: updatedNodes,
+                },
+              },
+            },
+            hasUnsavedChanges: true,
+          };
+        }),
+
+      setReflectedAllocatedNodes: (nodes) =>
+        set((state) => {
+          const placedInverseImage = state.loadout.talentPage.placedInverseImage;
+          if (!placedInverseImage) return state;
+
+          return {
+            loadout: {
+              ...state.loadout,
+              talentPage: {
+                ...state.loadout.talentPage,
+                placedInverseImage: {
+                  ...placedInverseImage,
+                  reflectedAllocatedNodes: nodes,
+                },
+              },
+            },
             hasUnsavedChanges: true,
           };
         }),

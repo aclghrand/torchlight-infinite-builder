@@ -45,6 +45,28 @@ export interface PlacedPrism {
   position: { x: number; y: number };
 }
 
+export interface CraftedInverseImage {
+  id: string;
+  microTalentEffect: number; // -100 to 200
+  mediumTalentEffect: number; // -100 to 100
+  legendaryTalentEffect: number; // -100 to 50
+}
+
+export interface ReflectedAllocatedNode {
+  x: number; // Position in target area
+  y: number;
+  sourceX: number; // Position of source node being reflected
+  sourceY: number;
+  points: number;
+}
+
+export interface PlacedInverseImage {
+  inverseImage: CraftedInverseImage;
+  treeSlot: "tree2" | "tree3" | "tree4"; // Only profession trees
+  position: { x: number; y: number };
+  reflectedAllocatedNodes: ReflectedAllocatedNode[];
+}
+
 export interface PlacedSlate {
   slateId: string;
   position: { row: number; col: number };
@@ -72,6 +94,7 @@ export interface TalentPage {
   tree3?: TalentTree;
   tree4?: TalentTree;
   placedPrism?: PlacedPrism;
+  placedInverseImage?: PlacedInverseImage;
 }
 
 export interface Gear {
@@ -209,4 +232,5 @@ export interface SaveData {
   heroMemoryList: HeroMemory[];
   divinitySlateList: DivinitySlate[];
   prismList: CraftedPrism[];
+  inverseImageList: CraftedInverseImage[];
 }

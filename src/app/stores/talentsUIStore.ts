@@ -18,6 +18,9 @@ interface TalentsUIState {
   craftingBaseAffix: string | undefined;
   craftingGaugeAffixes: Array<{ affix: string; isLegendary: boolean }>;
 
+  // Inverse image selection state
+  selectedInverseImageId: string | undefined;
+
   // Actions
   setTreeData: (slot: TreeSlot, data: TalentTreeData | undefined) => void;
   setActiveTreeSlot: (slot: TreeSlot) => void;
@@ -29,6 +32,9 @@ interface TalentsUIState {
   addCraftingGaugeAffix: (affix: string, isLegendary: boolean) => void;
   removeCraftingGaugeAffix: (index: number) => void;
   resetPrismCrafting: () => void;
+
+  // Inverse image actions
+  setSelectedInverseImageId: (id: string | undefined) => void;
 }
 
 export const useTalentsUIStore = create<TalentsUIState>((set) => ({
@@ -44,6 +50,7 @@ export const useTalentsUIStore = create<TalentsUIState>((set) => ({
   craftingPrismRarity: "rare",
   craftingBaseAffix: undefined,
   craftingGaugeAffixes: [],
+  selectedInverseImageId: undefined,
 
   // Actions
   setTreeData: (slot, data) =>
@@ -88,4 +95,6 @@ export const useTalentsUIStore = create<TalentsUIState>((set) => ({
       craftingBaseAffix: undefined,
       craftingGaugeAffixes: [],
     }),
+
+  setSelectedInverseImageId: (id) => set({ selectedInverseImageId: id }),
 }));
