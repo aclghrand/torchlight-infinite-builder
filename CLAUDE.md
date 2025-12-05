@@ -65,4 +65,4 @@ See [.claude/docs/](.claude/docs/) for implementation details only when needed.
 
 - prefer using undefined instead of null for typescript code
 - only make code comments that explain particularly complex pieces of code or why code is written a certain way
-- run `pnpm lint` and `pnpm format` whenever completing a task
+- run `pnpm test`, `pnpm lint`, and `pnpm format` after making changes
