@@ -10,6 +10,7 @@ const initLoadout = (pl: Partial<Loadout> = {}): Loadout => {
       inventory: { prismList: [], inverseImageList: [] },
     },
     divinityPage: pl.divinityPage || { slates: [] },
+    skillPage: pl.skillPage || {},
     customConfiguration: pl.customConfiguration || [],
   };
 };

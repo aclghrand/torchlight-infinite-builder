@@ -1,3 +1,4 @@
+import * as R from "remeda";
 import type {
   SaveData,
   Gear as SaveDataGear,
@@ -330,7 +331,8 @@ const convertTalentPage = (
   };
 };
 
-export const loadSave = (saveData: SaveData): Loadout => {
+export const loadSave = (unloadedSaveData: SaveData): Loadout => {
+  const saveData = R.clone(unloadedSaveData);
   return {
     gearPage: convertGearPage(saveData.equipmentPage, saveData.itemsList),
     talentPage: convertTalentPage(
@@ -339,6 +341,7 @@ export const loadSave = (saveData: SaveData): Loadout => {
       saveData.inverseImageList,
     ),
     divinityPage: { slates: [] },
+    skillPage: saveData.skillPage,
     customConfiguration: [],
   };
 };

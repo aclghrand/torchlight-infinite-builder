@@ -1,6 +1,5 @@
 import type { EquipmentType } from "./gear_data_types";
 import type { Mod } from "./mod";
-import type { CraftedPrism as SaveDataCraftedPrism } from "@/src/app/lib/save-data";
 
 export const PRISM_RARITIES = ["rare", "legendary"] as const;
 export type PrismRarity = (typeof PRISM_RARITIES)[number];
@@ -195,9 +194,35 @@ export interface GearPage {
   inventory: Gear[];
 }
 
+export interface SupportSkills {
+  supportSkill1?: string;
+  supportSkill2?: string;
+  supportSkill3?: string;
+  supportSkill4?: string;
+  supportSkill5?: string;
+}
+
+export interface SkillWithSupports {
+  skillName: string;
+  enabled: boolean;
+  supportSkills: SupportSkills;
+}
+
+export interface SkillPage {
+  activeSkill1?: SkillWithSupports;
+  activeSkill2?: SkillWithSupports;
+  activeSkill3?: SkillWithSupports;
+  activeSkill4?: SkillWithSupports;
+  passiveSkill1?: SkillWithSupports;
+  passiveSkill2?: SkillWithSupports;
+  passiveSkill3?: SkillWithSupports;
+  passiveSkill4?: SkillWithSupports;
+}
+
 export interface Loadout {
   gearPage: GearPage;
   talentPage: TalentPage;
   divinityPage: DivinityPage;
+  skillPage: SkillPage;
   customConfiguration: Affix[];
 }

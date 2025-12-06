@@ -1,5 +1,11 @@
+import type { SkillPage } from "@/src/tli/core";
 import type { EquipmentType } from "@/src/tli/gear_data_types";
 
+export type {
+  SkillPage,
+  SkillWithSupports,
+  SupportSkills,
+} from "@/src/tli/core";
 export const SLATE_SHAPES = ["O", "L", "Z"] as const;
 export type SlateShape = (typeof SLATE_SHAPES)[number];
 
@@ -127,31 +133,6 @@ export interface GearPage {
   rightRing?: Gear;
   mainHand?: Gear;
   offHand?: Gear;
-}
-
-export interface SupportSkills {
-  supportSkill1?: string;
-  supportSkill2?: string;
-  supportSkill3?: string;
-  supportSkill4?: string;
-  supportSkill5?: string;
-}
-
-export interface SkillWithSupports {
-  skillName: string;
-  enabled: boolean;
-  supportSkills: SupportSkills;
-}
-
-export interface SkillPage {
-  activeSkill1?: SkillWithSupports;
-  activeSkill2?: SkillWithSupports;
-  activeSkill3?: SkillWithSupports;
-  activeSkill4?: SkillWithSupports;
-  passiveSkill1?: SkillWithSupports;
-  passiveSkill2?: SkillWithSupports;
-  passiveSkill3?: SkillWithSupports;
-  passiveSkill4?: SkillWithSupports;
 }
 
 export const HERO_MEMORY_TYPES = [
