@@ -24,7 +24,7 @@ import {
   saveSaveData,
   saveSavesIndex,
 } from "../lib/saves";
-import { createEmptyLoadout, generateItemId } from "../lib/storage";
+import { createEmptySaveData, generateItemId } from "../lib/storage";
 import type {
   GearSlot,
   PactspiritSlotIndex,
@@ -141,7 +141,7 @@ export const useBuilderStore = create<BuilderState>()(
   persist(
     (set, get) => ({
       // Initial state
-      saveData: createEmptyLoadout(),
+      saveData: createEmptySaveData(),
       hasUnsavedChanges: false,
       currentSaveId: undefined,
       currentSaveName: undefined,

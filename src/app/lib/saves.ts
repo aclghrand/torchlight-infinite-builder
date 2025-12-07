@@ -4,7 +4,7 @@ import {
   SAVES_INDEX_STORAGE_KEY,
 } from "./constants";
 import type { SaveData } from "./save-data";
-import { createEmptyLoadout } from "./storage";
+import { createEmptySaveData } from "./storage";
 
 export interface SaveMetadata {
   id: string;
@@ -88,7 +88,7 @@ export const createDefaultSave = (): {
       createdAt: now,
       updatedAt: now,
     },
-    data: createEmptyLoadout(),
+    data: createEmptySaveData(),
   };
 };
 

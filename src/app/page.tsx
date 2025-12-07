@@ -12,7 +12,7 @@ import {
   saveSaveData,
   saveSavesIndex,
 } from "./lib/saves";
-import { createEmptyLoadout } from "./lib/storage";
+import { createEmptySaveData } from "./lib/storage";
 
 const formatDate = (timestamp: number): string => {
   return new Date(timestamp).toLocaleDateString("en-US", {
@@ -188,7 +188,7 @@ export default function SavesPage() {
       updatedAt: now,
     };
 
-    const success = saveSaveData(newSaveId, createEmptyLoadout());
+    const success = saveSaveData(newSaveId, createEmptySaveData());
     if (success) {
       const newIndex: SavesIndex = {
         currentSaveId: newSaveId,

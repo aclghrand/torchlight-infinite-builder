@@ -73,7 +73,7 @@ export const saveDebugModeToStorage = (enabled: boolean): void => {
   }
 };
 
-export const createEmptyLoadout = (): SaveData => ({
+export const createEmptySaveData = (): SaveData => ({
   equipmentPage: {},
   talentPage: {},
   skillPage: {},

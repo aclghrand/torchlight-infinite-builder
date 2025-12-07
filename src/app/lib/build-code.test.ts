@@ -4,15 +4,15 @@ import type { SaveData, SkillPage } from "./save-data";
 import {
   createEmptyDivinityPage,
   createEmptyHeroPage,
-  createEmptyLoadout,
   createEmptyPactspiritPage,
+  createEmptySaveData,
 } from "./storage";
 
 const createEmptySkillPage = (): SkillPage => ({});
 
 describe("build-code", () => {
   it("should encode and decode an empty loadout", () => {
-    const loadout = createEmptyLoadout();
+    const loadout = createEmptySaveData();
     const code = encodeBuildCode(loadout);
     const decoded = decodeBuildCode(code);
 
@@ -194,7 +194,7 @@ describe("build-code", () => {
   });
 
   it("should produce URL-safe codes", () => {
-    const loadout = createEmptyLoadout();
+    const loadout = createEmptySaveData();
     const code = encodeBuildCode(loadout);
 
     // fflate + base64url produces URL-safe output
@@ -203,7 +203,7 @@ describe("build-code", () => {
   });
 
   it("should produce reasonably sized codes", () => {
-    const loadout = createEmptyLoadout();
+    const loadout = createEmptySaveData();
     const code = encodeBuildCode(loadout);
 
     // Empty loadout should be fairly small (increased for 8 skill slots with support)
