@@ -1010,4 +1010,176 @@ describe("convertDmg", () => {
     expect(erosionSum.min).toBeCloseTo(30);
     expect(erosionSum.max).toBeCloseTo(30);
   });
+
+  // AddsDmgAs (Gain as Extra) Tests
+  // "Gain as Extra" adds damage without removing from source
+  // Calculated BEFORE conversion within each damage type's processing
+
+  test("basic gain as extra - physical to cold", () => {
+    // 100 phys with 20% gain as cold
+    // Result: 100 phys + 20 cold (source remains intact)
+    const dmgRanges: DmgRanges = {
+      ...emptyDmgRanges(),
+      phys: { min: 100, max: 100 },
+    };
+
+    const mods: Mod[] = [
+      { type: "AddsDmgAs", from: "physical", to: "cold", value: 0.2 },
+    ];
+
+    const result = convertDmg(dmgRanges, mods);
+
+    expect(sumPoolRanges(result, "physical")).toEqual({ min: 100, max: 100 });
+    expect(sumPoolRanges(result, "cold")).toEqual({ min: 20, max: 20 });
+    // Cold gained from physical should track physical in history
+    const gainedCold = findConvertedEntry(result, "cold");
+    expect(gainedCold?.history).toContain("physical");
+  });
+
+  test("gain as extra with conversion - calculated before conversion", () => {
+    // 100 phys with 100% phys→fire conversion + 20% phys as cold
+    // Gain as extra calculated on original 100 phys BEFORE conversion
+    // Result: 0 phys, 100 fire, 20 cold
+    const dmgRanges: DmgRanges = {
+      ...emptyDmgRanges(),
+      phys: { min: 100, max: 100 },
+    };
+
+    const mods: Mod[] = [
+      { type: "AddsDmgAs", from: "physical", to: "cold", value: 0.2 },
+      { type: "ConvertDmgPct", from: "physical", to: "fire", value: 1.0 },
+    ];
+
+    const result = convertDmg(dmgRanges, mods);
+
+    expect(sumPoolRanges(result, "physical")).toEqual({ min: 0, max: 0 });
+    expect(sumPoolRanges(result, "fire")).toEqual({ min: 100, max: 100 });
+    expect(sumPoolRanges(result, "cold")).toEqual({ min: 20, max: 20 });
+  });
+
+  test("gain as extra with partial conversion", () => {
+    // 100 phys with 50% phys→fire conversion + 20% phys as cold
+    // Result: 50 phys, 50 fire, 20 cold (total 120)
+    const dmgRanges: DmgRanges = {
+      ...emptyDmgRanges(),
+      phys: { min: 100, max: 100 },
+    };
+
+    const mods: Mod[] = [
+      { type: "AddsDmgAs", from: "physical", to: "cold", value: 0.2 },
+      { type: "ConvertDmgPct", from: "physical", to: "fire", value: 0.5 },
+    ];
+
+    const result = convertDmg(dmgRanges, mods);
+
+    expect(sumPoolRanges(result, "physical")).toEqual({ min: 50, max: 50 });
+    expect(sumPoolRanges(result, "fire")).toEqual({ min: 50, max: 50 });
+    expect(sumPoolRanges(result, "cold")).toEqual({ min: 20, max: 20 });
+  });
+
+  test("multiple gain as extra mods stack additively", () => {
+    // 100 phys with 20% gain as cold + 30% gain as fire
+    // Result: 100 phys + 20 cold + 30 fire (total 150)
+    const dmgRanges: DmgRanges = {
+      ...emptyDmgRanges(),
+      phys: { min: 100, max: 100 },
+    };
+
+    const mods: Mod[] = [
+      { type: "AddsDmgAs", from: "physical", to: "cold", value: 0.2 },
+      { type: "AddsDmgAs", from: "physical", to: "fire", value: 0.3 },
+    ];
+
+    const result = convertDmg(dmgRanges, mods);
+
+    expect(sumPoolRanges(result, "physical")).toEqual({ min: 100, max: 100 });
+    expect(sumPoolRanges(result, "cold")).toEqual({ min: 20, max: 20 });
+    expect(sumPoolRanges(result, "fire")).toEqual({ min: 30, max: 30 });
+  });
+
+  test("gain as extra from converted damage", () => {
+    // 100 phys → 100% to lightning → 20% lightning as fire
+    // Result: 0 phys, 100 lightning, 20 fire
+    // Fire should track both physical and lightning in history
+    const dmgRanges: DmgRanges = {
+      ...emptyDmgRanges(),
+      phys: { min: 100, max: 100 },
+    };
+
+    const mods: Mod[] = [
+      { type: "ConvertDmgPct", from: "physical", to: "lightning", value: 1.0 },
+      { type: "AddsDmgAs", from: "lightning", to: "fire", value: 0.2 },
+    ];
+
+    const result = convertDmg(dmgRanges, mods);
+
+    expect(sumPoolRanges(result, "physical")).toEqual({ min: 0, max: 0 });
+    expect(sumPoolRanges(result, "lightning")).toEqual({ min: 100, max: 100 });
+    expect(sumPoolRanges(result, "fire")).toEqual({ min: 20, max: 20 });
+    // Fire gained from converted lightning should track full history
+    const gainedFire = findConvertedEntry(result, "fire");
+    expect(gainedFire?.history).toContain("physical");
+    expect(gainedFire?.history).toContain("lightning");
+  });
+
+  test("gain as extra does not affect original elemental damage", () => {
+    // 100 phys + 50 cold, with 20% phys as cold
+    // Result: 100 phys, 70 cold (50 original + 20 gained)
+    const dmgRanges: DmgRanges = {
+      ...emptyDmgRanges(),
+      phys: { min: 100, max: 100 },
+      cold: { min: 50, max: 50 },
+    };
+
+    const mods: Mod[] = [
+      { type: "AddsDmgAs", from: "physical", to: "cold", value: 0.2 },
+    ];
+
+    const result = convertDmg(dmgRanges, mods);
+
+    expect(sumPoolRanges(result, "physical")).toEqual({ min: 100, max: 100 });
+    expect(sumPoolRanges(result, "cold")).toEqual({ min: 70, max: 70 });
+    // Should have 2 cold entries: original (no history) and gained (physical history)
+    expect(result.cold.length).toBe(2);
+    const originalCold = result.cold.find((c) => c.history.length === 0);
+    const gainedCold = result.cold.find((c) => c.history.includes("physical"));
+    expect(originalCold?.range).toEqual({ min: 50, max: 50 });
+    expect(gainedCold?.range).toEqual({ min: 20, max: 20 });
+  });
+
+  test("gain as extra from fire (last in conversion order)", () => {
+    // 100 fire with 20% gain as erosion
+    // Result: 100 fire + 20 erosion
+    const dmgRanges: DmgRanges = {
+      ...emptyDmgRanges(),
+      fire: { min: 100, max: 100 },
+    };
+
+    const mods: Mod[] = [
+      { type: "AddsDmgAs", from: "fire", to: "erosion", value: 0.2 },
+    ];
+
+    const result = convertDmg(dmgRanges, mods);
+
+    expect(sumPoolRanges(result, "fire")).toEqual({ min: 100, max: 100 });
+    expect(sumPoolRanges(result, "erosion")).toEqual({ min: 20, max: 20 });
+  });
+
+  test("gain as extra from erosion does nothing (not in conversion order)", () => {
+    // 100 erosion with 20% gain as fire - should NOT add any fire
+    // Erosion is not in CONVERSION_ORDER, so AddsDmgAs from erosion is not processed
+    const dmgRanges: DmgRanges = {
+      ...emptyDmgRanges(),
+      erosion: { min: 100, max: 100 },
+    };
+
+    const mods: Mod[] = [
+      { type: "AddsDmgAs", from: "erosion", to: "fire", value: 0.2 },
+    ];
+
+    const result = convertDmg(dmgRanges, mods);
+
+    expect(sumPoolRanges(result, "erosion")).toEqual({ min: 100, max: 100 });
+    expect(sumPoolRanges(result, "fire")).toEqual({ min: 0, max: 0 });
+  });
 });

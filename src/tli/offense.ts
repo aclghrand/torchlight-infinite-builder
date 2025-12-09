@@ -225,6 +225,21 @@ export const convertDmg = (
 
   // Process each source type in conversion order
   for (const sourceType of CONVERSION_ORDER) {
+    // Step 1: Process "Gain as Extra" mods (calculated BEFORE conversion)
+    // This adds extra damage to target pools but does NOT remove from source
+    const addsDmgAsMods = filterAffix(allMods, "AddsDmgAs").filter(
+      (m) => m.from === sourceType,
+    );
+    for (const chunk of pools[sourceType]) {
+      for (const mod of addsDmgAsMods) {
+        pools[mod.to].push({
+          range: multDR(chunk.range, mod.value),
+          history: [...chunk.history, sourceType],
+        });
+      }
+    }
+
+    // Step 2: Process conversion mods (removes from source, adds to target)
     const convMods = filterAffix(allMods, "ConvertDmgPct").filter(
       (m) => m.from === sourceType,
     );

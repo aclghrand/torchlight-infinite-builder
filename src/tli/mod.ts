@@ -207,6 +207,13 @@ export type Mod =
       src?: string;
     }
   | {
+      type: "AddsDmgAs";
+      from: DmgType;
+      to: DmgType;
+      value: number;
+      src?: string;
+    }
+  | {
       type: "CoreTalent";
       name:
         | "Last Stand"
