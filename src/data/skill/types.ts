@@ -60,4 +60,13 @@ export interface BaseSkill {
   type: SkillType;
   name: string;
   tags: readonly SkillTag[];
+  description: string[];
+}
+
+// Multiple skill tags means the target must have all specified tags
+export type SupportTarget = SkillTag[] | "deal_damage" | "hit_enemies";
+
+export interface SupportSkill extends BaseSkill {
+  // support can target skill if any of the support targets match
+  supportTargets: SupportTarget[];
 }

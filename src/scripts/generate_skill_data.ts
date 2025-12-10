@@ -8,6 +8,7 @@ interface RawSkill {
   type: string;
   name: string;
   tags: string[];
+  description: string[];
 }
 
 // Maps JSON type → file key and type names
@@ -53,10 +54,33 @@ const extractSkillData = (html: string): RawSkill[] => {
         tags.push($(elem).text().replace(/\s+/g, " ").trim());
       });
 
+    // Extract description from Effect column, split by <hr> tags
+    const effectHtml = $(tds[3]).html() ?? "";
+    const description = effectHtml
+      .split(/<hr\s*\/?>/i)
+      .map((block) => {
+        // Replace <br> tags with newlines
+        const withNewlines = block.replace(/<br\s*\/?>/gi, "\n");
+        // Strip remaining HTML tags and get text
+        const text = cheerio.load(withNewlines).text();
+        // Normalize the text:
+        // - Replace mid-sentence newlines with spaces (line-wrap artifacts)
+        // - Keep newlines after sentence-ending punctuation
+        // - Collapse multiple spaces and trim around newlines
+        return text
+          .replace(/([^.!?\n])\n+/g, "$1 ") // Mid-sentence newline → space
+          .replace(/ *\n */g, "\n") // Trim spaces around newlines
+          .replace(/\n{2,}/g, "\n") // Collapse multiple newlines to single
+          .replace(/[ \t]+/g, " ") // Collapse horizontal whitespace
+          .trim();
+      })
+      .filter((block) => block.length > 0);
+
     const skill: RawSkill = {
       type: $(tds[0]).text().trim(),
       name: $(tds[1]).text().trim(),
       tags,
+      description,
     };
 
     skills.push(skill);
@@ -99,6 +123,7 @@ const main = async (): Promise<void> => {
       type: raw.type as BaseSkill["type"],
       name: raw.name,
       tags: raw.tags as unknown as BaseSkill["tags"],
+      description: raw.description,
     };
 
     if (!grouped.has(skillType)) {
