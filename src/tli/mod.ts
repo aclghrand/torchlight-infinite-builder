@@ -9,6 +9,8 @@ export type DmgType = "physical" | "cold" | "lightning" | "fire" | "erosion";
 
 export type Stackable = "willpower" | "main_stat";
 
+export type StatType = "str" | "dex" | "int";
+
 export type Mod =
   | {
       type: "DmgPct";
@@ -89,38 +91,16 @@ export type Mod =
       src?: string;
     }
   | {
-      type: "Str";
+      type: "Stat";
       value: number;
+      statType: StatType;
       per?: Stackable;
       src?: string;
     }
   | {
-      type: "StrPct";
+      type: "StatPct";
       value: number;
-      per?: Stackable;
-      src?: string;
-    }
-  | {
-      type: "Dex";
-      value: number;
-      per?: Stackable;
-      src?: string;
-    }
-  | {
-      type: "DexPct";
-      value: number;
-      per?: Stackable;
-      src?: string;
-    }
-  | {
-      type: "Int";
-      value: number;
-      per?: Stackable;
-      src?: string;
-    }
-  | {
-      type: "IntPct";
-      value: number;
+      statType: StatType;
       per?: Stackable;
       src?: string;
     }

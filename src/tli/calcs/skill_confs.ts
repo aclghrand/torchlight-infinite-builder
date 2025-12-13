@@ -3,14 +3,13 @@ import {
   type ActiveSkillName as DataSkillName,
   type SkillTag,
 } from "../../data/skill";
-import type { Mod } from "../mod";
-import type { Stat } from "./offense";
+import type { Mod, StatType } from "../mod";
 
 export type SkillName = DataSkillName | "[Test] Simple Attack";
 
 export interface SkillConfiguration {
   skillName: SkillName;
-  stats: Stat[];
+  stats: StatType[];
   addedDmgEffPct: number;
   extraMods: Mod[];
 }

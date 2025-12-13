@@ -18,8 +18,6 @@ import {
   type SkillConfiguration,
 } from "./skill_confs";
 
-export type Stat = "dex" | "int" | "str";
-
 const addDR = (dr1: DmgRange, dr2: DmgRange): DmgRange => {
   return {
     min: dr1.min + dr2.min,
@@ -683,10 +681,20 @@ const multModValue = <T extends Extract<Mod.Mod, { value: number | DmgRange }>>(
 const calculateStats = (
   mods: Mod.Mod[],
 ): { str: number; dex: number; int: number } => {
+  const statMods = filterAffix(mods, "Stat");
   return {
-    str: R.sumBy(filterAffix(mods, "Str"), (m) => m.value),
-    dex: R.sumBy(filterAffix(mods, "Dex"), (m) => m.value),
-    int: R.sumBy(filterAffix(mods, "Int"), (m) => m.value),
+    str: R.sumBy(
+      statMods.filter((m) => m.statType === "str"),
+      (m) => m.value,
+    ),
+    dex: R.sumBy(
+      statMods.filter((m) => m.statType === "dex"),
+      (m) => m.value,
+    ),
+    int: R.sumBy(
+      statMods.filter((m) => m.statType === "int"),
+      (m) => m.value,
+    ),
   };
 };
 

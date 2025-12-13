@@ -1311,8 +1311,8 @@ describe("automatic additional damage from main stats", () => {
     // Base: 100, with 100% more = 100 * 2 = 200
     const input = createInput({
       mods: [
-        affix([{ type: "Dex", value: 100 }]),
-        affix([{ type: "Str", value: 100 }]),
+        affix([{ type: "Stat", statType: "dex", value: 100 }]),
+        affix([{ type: "Stat", statType: "str", value: 100 }]),
       ],
     });
     const actual = calculateOffense(input);
@@ -1325,7 +1325,7 @@ describe("automatic additional damage from main stats", () => {
     // Additional damage: 100 * 0.5% = 50% additional
     // Base: 100, with 50% more = 100 * 1.5 = 150
     const input = createInput({
-      mods: [affix([{ type: "Dex", value: 100 }])],
+      mods: [affix([{ type: "Stat", statType: "dex", value: 100 }])],
     });
     const actual = calculateOffense(input);
     validate(actual, { avgHit: 150 });
@@ -1346,7 +1346,7 @@ describe("automatic additional damage from main stats", () => {
     // Additional damage: 0 * 0.5% = 0%
     // Base: 100, with 0% more = 100
     const input = createInput({
-      mods: [affix([{ type: "Int", value: 100 }])],
+      mods: [affix([{ type: "Stat", statType: "int", value: 100 }])],
     });
     const actual = calculateOffense(input);
     validate(actual, { avgHit: 100 });
@@ -1361,8 +1361,8 @@ describe("automatic additional damage from main stats", () => {
     const input = createInput({
       skill: "Frost Spike",
       mods: [
-        affix([{ type: "Dex", value: 100 }]),
-        affix([{ type: "Int", value: 100 }]),
+        affix([{ type: "Stat", statType: "dex", value: 100 }]),
+        affix([{ type: "Stat", statType: "int", value: 100 }]),
       ],
     });
     const actual = calculateOffense(input);
@@ -1375,7 +1375,7 @@ describe("automatic additional damage from main stats", () => {
     // Base: 100, with 50% inc = 150, with 50% more = 150 * 1.5 = 225
     const input = createInput({
       mods: [
-        affix([{ type: "Dex", value: 100 }]),
+        affix([{ type: "Stat", statType: "dex", value: 100 }]),
         affix([{ type: "DmgPct", value: 0.5, modType: "global", addn: false }]),
       ],
     });
