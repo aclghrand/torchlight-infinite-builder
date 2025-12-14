@@ -2,78 +2,87 @@
 
 import { useCallback, useMemo } from "react";
 import { ActiveSkills, PassiveSkills } from "@/src/data/skill";
-import type { SupportSkills } from "../../lib/save-data";
+import type { SkillSlots, SupportSkills } from "../../lib/save-data";
+import { createEmptySkillSlot } from "../../lib/storage";
 import { useBuilderActions, useLoadout } from "../../stores/builderStore";
 import { SkillSlot } from "../skills/SkillSlot";
 
-type ActiveSkillSlot =
-  | "activeSkill1"
-  | "activeSkill2"
-  | "activeSkill3"
-  | "activeSkill4";
-type PassiveSkillSlot =
-  | "passiveSkill1"
-  | "passiveSkill2"
-  | "passiveSkill3"
-  | "passiveSkill4";
-type SkillSlotKey = ActiveSkillSlot | PassiveSkillSlot;
-type SupportSkillKey = keyof SupportSkills;
+type SkillSlotKey = 1 | 2 | 3 | 4;
+type SupportSlotKey = 1 | 2 | 3 | 4 | 5;
 
-const ACTIVE_SKILL_SLOTS: ActiveSkillSlot[] = [
-  "activeSkill1",
-  "activeSkill2",
-  "activeSkill3",
-  "activeSkill4",
-];
+const SKILL_SLOT_KEYS: SkillSlotKey[] = [1, 2, 3, 4];
 
-const PASSIVE_SKILL_SLOTS: PassiveSkillSlot[] = [
-  "passiveSkill1",
-  "passiveSkill2",
-  "passiveSkill3",
-  "passiveSkill4",
-];
+const getSelectedSkillNames = (skills: SkillSlots): string[] => {
+  return SKILL_SLOT_KEYS.map((key) => skills[key]?.skillName).filter(
+    (name): name is string => name !== undefined,
+  );
+};
 
 export const SkillsSection = () => {
   const loadout = useLoadout();
   const { updateSaveData } = useBuilderActions();
 
-  const getSelectedActiveSkillNames = useMemo((): string[] => {
-    return ACTIVE_SKILL_SLOTS.map(
-      (slot) => loadout.skillPage[slot]?.skillName,
-    ).filter((name): name is string => name !== undefined);
-  }, [loadout.skillPage]);
+  const getSelectedActiveSkillNames = useMemo(
+    (): string[] => getSelectedSkillNames(loadout.skillPage.activeSkills),
+    [loadout.skillPage.activeSkills],
+  );
 
-  const getSelectedPassiveSkillNames = useMemo((): string[] => {
-    return PASSIVE_SKILL_SLOTS.map(
-      (slot) => loadout.skillPage[slot]?.skillName,
-    ).filter((name): name is string => name !== undefined);
-  }, [loadout.skillPage]);
+  const getSelectedPassiveSkillNames = useMemo(
+    (): string[] => getSelectedSkillNames(loadout.skillPage.passiveSkills),
+    [loadout.skillPage.passiveSkills],
+  );
 
-  const handleSkillChange = useCallback(
+  const handleActiveSkillChange = useCallback(
     (slotKey: SkillSlotKey, skillName: string | undefined): void => {
       updateSaveData((prev) => ({
         ...prev,
         skillPage: {
           ...prev.skillPage,
-          [slotKey]: skillName
-            ? { skillName, enabled: true, supportSkills: {} }
-            : undefined,
+          activeSkills: {
+            ...prev.skillPage.activeSkills,
+            [slotKey]:
+              skillName !== undefined
+                ? { ...createEmptySkillSlot(), skillName, enabled: true }
+                : undefined,
+          },
         },
       }));
     },
     [updateSaveData],
   );
 
-  const handleToggleSkill = useCallback(
+  const handlePassiveSkillChange = useCallback(
+    (slotKey: SkillSlotKey, skillName: string | undefined): void => {
+      updateSaveData((prev) => ({
+        ...prev,
+        skillPage: {
+          ...prev.skillPage,
+          passiveSkills: {
+            ...prev.skillPage.passiveSkills,
+            [slotKey]:
+              skillName !== undefined
+                ? { ...createEmptySkillSlot(), skillName, enabled: true }
+                : undefined,
+          },
+        },
+      }));
+    },
+    [updateSaveData],
+  );
+
+  const handleToggleActiveSkill = useCallback(
     (slotKey: SkillSlotKey): void => {
       updateSaveData((prev) => {
-        const currentSlot = prev.skillPage[slotKey];
-        if (!currentSlot) return prev;
+        const currentSlot = prev.skillPage.activeSkills[slotKey];
+        if (currentSlot === undefined) return prev;
         return {
           ...prev,
           skillPage: {
             ...prev.skillPage,
-            [slotKey]: { ...currentSlot, enabled: !currentSlot.enabled },
+            activeSkills: {
+              ...prev.skillPage.activeSkills,
+              [slotKey]: { ...currentSlot, enabled: !currentSlot.enabled },
+            },
           },
         };
       });
@@ -81,25 +90,76 @@ export const SkillsSection = () => {
     [updateSaveData],
   );
 
-  const handleUpdateSkillSupport = useCallback(
-    (
-      slotKey: SkillSlotKey,
-      supportKey: SupportSkillKey,
-      supportName: string | undefined,
-    ): void => {
+  const handleTogglePassiveSkill = useCallback(
+    (slotKey: SkillSlotKey): void => {
       updateSaveData((prev) => {
-        const currentSlot = prev.skillPage[slotKey];
-        if (!currentSlot) return prev;
+        const currentSlot = prev.skillPage.passiveSkills[slotKey];
+        if (currentSlot === undefined) return prev;
         return {
           ...prev,
           skillPage: {
             ...prev.skillPage,
-            [slotKey]: {
-              ...currentSlot,
-              supportSkills: {
-                ...currentSlot.supportSkills,
-                [supportKey]: supportName,
-              },
+            passiveSkills: {
+              ...prev.skillPage.passiveSkills,
+              [slotKey]: { ...currentSlot, enabled: !currentSlot.enabled },
+            },
+          },
+        };
+      });
+    },
+    [updateSaveData],
+  );
+
+  const handleUpdateActiveSkillSupport = useCallback(
+    (
+      slotKey: SkillSlotKey,
+      supportKey: SupportSlotKey,
+      supportName: string | undefined,
+    ): void => {
+      updateSaveData((prev) => {
+        const currentSlot = prev.skillPage.activeSkills[slotKey];
+        if (currentSlot === undefined) return prev;
+        const newSupportSkills: SupportSkills = {
+          ...currentSlot.supportSkills,
+          [supportKey]:
+            supportName !== undefined ? { name: supportName } : undefined,
+        };
+        return {
+          ...prev,
+          skillPage: {
+            ...prev.skillPage,
+            activeSkills: {
+              ...prev.skillPage.activeSkills,
+              [slotKey]: { ...currentSlot, supportSkills: newSupportSkills },
+            },
+          },
+        };
+      });
+    },
+    [updateSaveData],
+  );
+
+  const handleUpdatePassiveSkillSupport = useCallback(
+    (
+      slotKey: SkillSlotKey,
+      supportKey: SupportSlotKey,
+      supportName: string | undefined,
+    ): void => {
+      updateSaveData((prev) => {
+        const currentSlot = prev.skillPage.passiveSkills[slotKey];
+        if (currentSlot === undefined) return prev;
+        const newSupportSkills: SupportSkills = {
+          ...currentSlot.supportSkills,
+          [supportKey]:
+            supportName !== undefined ? { name: supportName } : undefined,
+        };
+        return {
+          ...prev,
+          skillPage: {
+            ...prev.skillPage,
+            passiveSkills: {
+              ...prev.skillPage.passiveSkills,
+              [slotKey]: { ...currentSlot, supportSkills: newSupportSkills },
             },
           },
         };
@@ -114,19 +174,19 @@ export const SkillsSection = () => {
         <h2 className="mb-4 text-xl font-bold text-zinc-50">Active Skills</h2>
 
         <div className="space-y-3">
-          {ACTIVE_SKILL_SLOTS.map((slotKey, index) => (
+          {SKILL_SLOT_KEYS.map((slotKey) => (
             <SkillSlot
-              key={slotKey}
-              slotLabel={`Active ${index + 1}`}
-              skill={loadout.skillPage[slotKey]}
+              key={`active-${slotKey}`}
+              slotLabel={`Active ${slotKey}`}
+              skill={loadout.skillPage.activeSkills[slotKey]}
               availableSkills={ActiveSkills}
               excludedSkillNames={getSelectedActiveSkillNames}
               onSkillChange={(skillName) =>
-                handleSkillChange(slotKey, skillName)
+                handleActiveSkillChange(slotKey, skillName)
               }
-              onToggle={() => handleToggleSkill(slotKey)}
+              onToggle={() => handleToggleActiveSkill(slotKey)}
               onUpdateSupport={(supportKey, supportName) =>
-                handleUpdateSkillSupport(slotKey, supportKey, supportName)
+                handleUpdateActiveSkillSupport(slotKey, supportKey, supportName)
               }
             />
           ))}
@@ -137,19 +197,23 @@ export const SkillsSection = () => {
         <h2 className="mb-4 text-xl font-bold text-zinc-50">Passive Skills</h2>
 
         <div className="space-y-3">
-          {PASSIVE_SKILL_SLOTS.map((slotKey, index) => (
+          {SKILL_SLOT_KEYS.map((slotKey) => (
             <SkillSlot
-              key={slotKey}
-              slotLabel={`Passive ${index + 1}`}
-              skill={loadout.skillPage[slotKey]}
+              key={`passive-${slotKey}`}
+              slotLabel={`Passive ${slotKey}`}
+              skill={loadout.skillPage.passiveSkills[slotKey]}
               availableSkills={PassiveSkills}
               excludedSkillNames={getSelectedPassiveSkillNames}
               onSkillChange={(skillName) =>
-                handleSkillChange(slotKey, skillName)
+                handlePassiveSkillChange(slotKey, skillName)
               }
-              onToggle={() => handleToggleSkill(slotKey)}
+              onToggle={() => handleTogglePassiveSkill(slotKey)}
               onUpdateSupport={(supportKey, supportName) =>
-                handleUpdateSkillSupport(slotKey, supportKey, supportName)
+                handleUpdatePassiveSkillSupport(
+                  slotKey,
+                  supportKey,
+                  supportName,
+                )
               }
             />
           ))}

@@ -5,29 +5,23 @@ import {
   SearchableSelect,
   type SearchableSelectOption,
 } from "@/src/app/components/ui/SearchableSelect";
-import type { SkillWithSupports, SupportSkills } from "@/src/app/lib/save-data";
+import type { SkillSlot as SkillSlotType } from "@/src/app/lib/save-data";
 import type { BaseActiveSkill, BaseSkill } from "@/src/data/skill/types";
 import { SupportSkillSelector } from "./SupportSkillSelector";
 
-type SupportSkillKey = keyof SupportSkills;
+type SupportSlotKey = 1 | 2 | 3 | 4 | 5;
 
-const SUPPORT_SKILL_KEYS: SupportSkillKey[] = [
-  "supportSkill1",
-  "supportSkill2",
-  "supportSkill3",
-  "supportSkill4",
-  "supportSkill5",
-];
+const SUPPORT_SLOT_KEYS: SupportSlotKey[] = [1, 2, 3, 4, 5];
 
 interface SkillSlotProps {
   slotLabel: string;
-  skill: SkillWithSupports | undefined;
+  skill: SkillSlotType | undefined;
   availableSkills: readonly (BaseActiveSkill | BaseSkill)[];
   excludedSkillNames: string[];
   onSkillChange: (skillName: string | undefined) => void;
   onToggle: () => void;
   onUpdateSupport: (
-    supportKey: SupportSkillKey,
+    supportKey: SupportSlotKey,
     supportName: string | undefined,
   ) => void;
 }
@@ -49,13 +43,13 @@ export const SkillSlot: React.FC<SkillSlotProps> = ({
   );
 
   const selectedSupports = skill
-    ? SUPPORT_SKILL_KEYS.map((key) => skill.supportSkills[key]).filter(
-        (s): s is string => s !== undefined,
+    ? SUPPORT_SLOT_KEYS.map((key) => skill.supportSkills[key]?.name).filter(
+        (name): name is string => name !== undefined,
       )
     : [];
 
   const supportCount = selectedSupports.length;
-  const hasSkill = skill !== undefined;
+  const hasSkill = skill?.skillName !== undefined;
 
   // Filter available skills to exclude already-selected ones (but keep current selection)
   const filteredSkills = availableSkills.filter(
@@ -100,20 +94,25 @@ export const SkillSlot: React.FC<SkillSlotProps> = ({
         </div>
       </div>
 
-      {expanded && skill && (
+      {expanded && hasSkill && skill !== undefined && (
         <div className="px-4 pb-4 border-t border-zinc-800 pt-3">
           <div className="space-y-2">
-            {SUPPORT_SKILL_KEYS.map((key, index) => (
-              <div key={key} className="flex items-center gap-2">
-                <span className="text-xs text-zinc-500 w-6">{index + 1}.</span>
+            {SUPPORT_SLOT_KEYS.map((supportKey) => (
+              <div
+                key={`support-${supportKey}`}
+                className="flex items-center gap-2"
+              >
+                <span className="text-xs text-zinc-500 w-6">{supportKey}.</span>
                 <SupportSkillSelector
                   mainSkill={mainSkill}
-                  selectedSkill={skill.supportSkills[key]}
+                  selectedSkill={skill.supportSkills[supportKey]?.name}
                   excludedSkills={selectedSupports.filter(
-                    (s) => s !== skill.supportSkills[key],
+                    (s) => s !== skill.supportSkills[supportKey]?.name,
                   )}
-                  onChange={(supportName) => onUpdateSupport(key, supportName)}
-                  slotIndex={index + 1}
+                  onChange={(supportName) =>
+                    onUpdateSupport(supportKey, supportName)
+                  }
+                  slotIndex={supportKey}
                 />
               </div>
             ))}

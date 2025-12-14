@@ -4,6 +4,11 @@ import type { SaveData } from "@/src/app/lib/save-data";
 import { getAffixMods, getAffixText, getAllAffixes } from "../core";
 import { loadSave } from "./load-save";
 
+const createEmptySkillPage = () => ({
+  activeSkills: {},
+  passiveSkills: {},
+});
+
 const createMinimalSaveData = (
   overrides: Partial<SaveData> = {},
 ): SaveData => ({
@@ -14,7 +19,7 @@ const createMinimalSaveData = (
     tree3: undefined,
     tree4: undefined,
   },
-  skillPage: {},
+  skillPage: createEmptySkillPage(),
   heroPage: {
     selectedHero: undefined,
     traits: {

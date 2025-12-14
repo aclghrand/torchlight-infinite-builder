@@ -1,6 +1,6 @@
 "use client";
 
-import type { Gear, HeroMemorySlot, SupportSkills } from "../../lib/save-data";
+import type { Gear, HeroMemorySlot } from "../../lib/save-data";
 import {
   loadSaveData,
   loadSavesIndex,
@@ -478,10 +478,8 @@ export const createActions = (): BuilderActions => ({
   // Skills actions
   setActiveSkill: (slot, skillName) => {
     internalStore.setState((state) => {
-      const skillKey =
-        `activeSkill${slot}` as keyof typeof state.saveData.skillPage;
-      const skill = state.saveData.skillPage[skillKey];
-      if (skill && skillName !== undefined) {
+      const skill = state.saveData.skillPage.activeSkills[slot];
+      if (skill !== undefined && skillName !== undefined) {
         skill.skillName = skillName;
       }
       state.hasUnsavedChanges = true;
@@ -490,10 +488,8 @@ export const createActions = (): BuilderActions => ({
 
   setPassiveSkill: (slot, skillName) => {
     internalStore.setState((state) => {
-      const skillKey =
-        `passiveSkill${slot}` as keyof typeof state.saveData.skillPage;
-      const skill = state.saveData.skillPage[skillKey];
-      if (skill && skillName !== undefined) {
+      const skill = state.saveData.skillPage.passiveSkills[slot];
+      if (skill !== undefined && skillName !== undefined) {
         skill.skillName = skillName;
       }
       state.hasUnsavedChanges = true;
@@ -502,22 +498,25 @@ export const createActions = (): BuilderActions => ({
 
   setSupportSkill: (skillType, skillSlot, supportSlot, supportName) => {
     internalStore.setState((state) => {
-      const skillKey =
-        `${skillType}Skill${skillSlot}` as keyof typeof state.saveData.skillPage;
-      const supportKey = `supportSkill${supportSlot}` as keyof SupportSkills;
-      const skill = state.saveData.skillPage[skillKey];
-      if (!skill) return;
-      skill.supportSkills[supportKey] = supportName;
+      const skillSlots =
+        skillType === "active"
+          ? state.saveData.skillPage.activeSkills
+          : state.saveData.skillPage.passiveSkills;
+      const skill = skillSlots[skillSlot];
+      if (skill === undefined) return;
+      skill.supportSkills[supportSlot] = { name: supportName };
       state.hasUnsavedChanges = true;
     });
   },
 
   toggleSkillEnabled: (skillType, slot) => {
     internalStore.setState((state) => {
-      const skillKey =
-        `${skillType}Skill${slot}` as keyof typeof state.saveData.skillPage;
-      const skill = state.saveData.skillPage[skillKey];
-      if (!skill) return;
+      const skillSlots =
+        skillType === "active"
+          ? state.saveData.skillPage.activeSkills
+          : state.saveData.skillPage.passiveSkills;
+      const skill = skillSlots[slot];
+      if (skill === undefined) return;
       skill.enabled = !skill.enabled;
       state.hasUnsavedChanges = true;
     });

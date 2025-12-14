@@ -143,6 +143,9 @@ export type {
   ReflectedAllocatedNode,
   RingSlotState,
   SaveData,
+  SkillSlot,
+  SkillSlots,
+  SupportSkill,
   SupportSkills,
 } from "../../lib/save-data";
 export type { SavesIndex } from "../../lib/saves";

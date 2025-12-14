@@ -28,6 +28,11 @@ const baseWeapon = {
   },
 };
 
+const emptySkillPage = () => ({
+  activeSkills: {},
+  passiveSkills: {},
+});
+
 const emptyPactspiritSlot = () => ({
   level: 0,
   rings: {
@@ -51,7 +56,7 @@ const initLoadout = (pl: Partial<Loadout> = {}): Loadout => {
       inventory: { prismList: [], inverseImageList: [] },
     },
     divinityPage: pl.divinityPage || { placedSlates: [], inventory: [] },
-    skillPage: pl.skillPage || {},
+    skillPage: pl.skillPage || emptySkillPage(),
     heroPage: pl.heroPage || {
       selectedHero: undefined,
       traits: {},

@@ -10,7 +10,9 @@ import type { EquipmentType } from "@/src/tli/gear_data_types";
 
 export type {
   SkillPage,
-  SkillWithSupports,
+  SkillSlot,
+  SkillSlots,
+  SupportSkill,
   SupportSkills,
 } from "@/src/tli/core";
 

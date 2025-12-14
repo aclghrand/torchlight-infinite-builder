@@ -1,14 +1,14 @@
 import { describe, expect, it, vi } from "vitest";
 import { decodeBuildCode, encodeBuildCode } from "./build-code";
-import type { SaveData, SkillPage } from "./save-data";
+import type { SaveData } from "./save-data";
 import {
   createEmptyDivinityPage,
   createEmptyHeroPage,
   createEmptyPactspiritPage,
   createEmptySaveData,
+  createEmptySkillPage,
+  createEmptySkillSlot,
 } from "./storage";
-
-const createEmptySkillPage = (): SkillPage => ({});
 
 describe("build-code", () => {
   it("should encode and decode an empty loadout", () => {
@@ -87,22 +87,21 @@ describe("build-code", () => {
 
   it("should encode and decode a loadout with skills", () => {
     const skillPage = createEmptySkillPage();
-    skillPage.activeSkill1 = {
+    skillPage.activeSkills[1] = {
+      ...createEmptySkillSlot(),
       skillName: "Berserking Blade",
       enabled: true,
-      supportSkills: {
-        supportSkill1: "Added Fire Damage",
-      },
+      supportSkills: { 1: { name: "Added Fire Damage" } },
     };
-    skillPage.activeSkill2 = {
+    skillPage.activeSkills[2] = {
+      ...createEmptySkillSlot(),
       skillName: "Blazing Dance",
       enabled: false,
-      supportSkills: {},
     };
-    skillPage.passiveSkill1 = {
+    skillPage.passiveSkills[1] = {
+      ...createEmptySkillSlot(),
       skillName: "Charged Flames",
       enabled: true,
-      supportSkills: {},
     };
 
     const loadout: SaveData = {
@@ -127,10 +126,10 @@ describe("build-code", () => {
 
   it("should encode and decode a full loadout", () => {
     const skillPage = createEmptySkillPage();
-    skillPage.activeSkill1 = {
+    skillPage.activeSkills[1] = {
+      ...createEmptySkillSlot(),
       skillName: "Berserking Blade",
       enabled: true,
-      supportSkills: {},
     };
 
     const loadout: SaveData = {
@@ -206,7 +205,7 @@ describe("build-code", () => {
     const loadout = createEmptySaveData();
     const code = encodeBuildCode(loadout);
 
-    // Empty loadout should be fairly small (increased for 8 skill slots with support)
-    expect(code.length).toBeLessThan(700);
+    // Empty loadout should be fairly small
+    expect(code.length).toBeLessThan(500);
   });
 });

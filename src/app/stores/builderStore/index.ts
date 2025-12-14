@@ -30,6 +30,9 @@ export type {
   SaveData,
   SaveDataUpdater,
   SavesIndex,
+  SkillSlot,
+  SkillSlots,
+  SupportSkill,
   SupportSkills,
   TreeSlot,
 } from "./types";

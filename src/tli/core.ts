@@ -245,29 +245,34 @@ export interface GearPage {
   inventory: Gear[];
 }
 
-export interface SupportSkills {
-  supportSkill1?: string;
-  supportSkill2?: string;
-  supportSkill3?: string;
-  supportSkill4?: string;
-  supportSkill5?: string;
+export interface SupportSkill {
+  name?: string;
 }
 
-export interface SkillWithSupports {
-  skillName: string;
+export interface SupportSkills {
+  1?: SupportSkill;
+  2?: SupportSkill;
+  3?: SupportSkill;
+  4?: SupportSkill;
+  5?: SupportSkill;
+}
+
+export interface SkillSlot {
+  skillName?: string;
   enabled: boolean;
   supportSkills: SupportSkills;
 }
 
+export interface SkillSlots {
+  1?: SkillSlot;
+  2?: SkillSlot;
+  3?: SkillSlot;
+  4?: SkillSlot;
+}
+
 export interface SkillPage {
-  activeSkill1?: SkillWithSupports;
-  activeSkill2?: SkillWithSupports;
-  activeSkill3?: SkillWithSupports;
-  activeSkill4?: SkillWithSupports;
-  passiveSkill1?: SkillWithSupports;
-  passiveSkill2?: SkillWithSupports;
-  passiveSkill3?: SkillWithSupports;
-  passiveSkill4?: SkillWithSupports;
+  activeSkills: SkillSlots;
+  passiveSkills: SkillSlots;
 }
 
 export const HERO_MEMORY_TYPES = [

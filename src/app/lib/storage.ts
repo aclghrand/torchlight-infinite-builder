@@ -6,6 +6,9 @@ import type {
   PactspiritSlot,
   RingSlotState,
   SaveData,
+  SkillPage,
+  SkillSlot,
+  SupportSkills,
 } from "./save-data";
 
 export const createEmptyHeroPage = (): HeroPage => ({
@@ -51,6 +54,19 @@ export const createEmptyDivinityPage = (): DivinityPage => ({
   placedSlates: [],
 });
 
+export const createEmptySupportSkills = (): SupportSkills => ({});
+
+export const createEmptySkillSlot = (): SkillSlot => ({
+  skillName: undefined,
+  enabled: false,
+  supportSkills: createEmptySupportSkills(),
+});
+
+export const createEmptySkillPage = (): SkillPage => ({
+  activeSkills: {},
+  passiveSkills: {},
+});
+
 export const generateItemId = (): string => crypto.randomUUID();
 
 export const loadDebugModeFromStorage = (): boolean => {
@@ -76,7 +92,7 @@ export const saveDebugModeToStorage = (enabled: boolean): void => {
 export const createEmptySaveData = (): SaveData => ({
   equipmentPage: {},
   talentPage: {},
-  skillPage: {},
+  skillPage: createEmptySkillPage(),
   heroPage: createEmptyHeroPage(),
   pactspiritPage: createEmptyPactspiritPage(),
   divinityPage: createEmptyDivinityPage(),
