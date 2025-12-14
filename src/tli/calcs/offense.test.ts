@@ -12,7 +12,7 @@ import type { ImplementedOffenseSkill } from "./skill_confs";
 
 // Helper to create Affix objects from mods for tests
 const affix = (mods: Mod[]): Affix => ({
-  affixLines: mods.map((mod) => ({ text: "", mod })),
+  affixLines: mods.map((mod) => ({ text: "", mods: [mod] })),
 });
 
 // Base weapon used by most tests: 100 physical damage sword

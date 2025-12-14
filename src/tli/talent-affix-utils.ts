@@ -30,10 +30,10 @@ export const convertAffixTextToAffix = (
 ): Affix => {
   const lines = affixText.split(/\n/);
   const affixLines: AffixLine[] = lines.map((lineText) => {
-    const mod = parseMod(lineText);
+    const mods = parseMod(lineText);
     return {
       text: lineText,
-      mod: mod ? { ...mod, src } : undefined,
+      mods: mods?.map((mod) => ({ ...mod, src })),
     };
   });
 

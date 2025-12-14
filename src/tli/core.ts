@@ -7,7 +7,7 @@ export type PrismRarity = (typeof PRISM_RARITIES)[number];
 
 export interface AffixLine {
   text: string;
-  mod?: Mod;
+  mods?: Mod[];
 }
 
 export interface Affix {
@@ -30,7 +30,7 @@ export const getAffixText = (affix: Affix): string =>
   affix.affixLines.map((l) => l.text).join("\n");
 
 export const getAffixMods = (affix: Affix): Mod[] =>
-  affix.affixLines.flatMap((l) => (l.mod ? [l.mod] : []));
+  affix.affixLines.flatMap((l) => l.mods ?? []);
 
 export interface DmgRange {
   // inclusive on both ends

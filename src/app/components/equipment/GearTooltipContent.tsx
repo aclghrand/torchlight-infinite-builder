@@ -39,7 +39,7 @@ export const GearTooltipContent: React.FC<{ item: Gear }> = ({ item }) => {
                 className="text-xs text-zinc-400 flex items-center"
               >
                 <span>{line.text}</span>
-                {!line.mod && <ModNotImplementedIcon />}
+                {!line.mods && <ModNotImplementedIcon />}
               </li>
             )),
           )}

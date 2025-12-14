@@ -93,6 +93,28 @@ export const steamrollParser: SupportLevelParser = (input) => {
   return [aspdPctLevels, meleeDmgPctLevels, ailmentDmgPctLevels];
 };
 
+export const quickDecisionParser: SupportLevelParser = (input) => {
+  const { skillName, progressionTable } = input;
+
+  // Extract Attack and Cast Speed from progression table values
+  const speedPctLevels: Record<number, number> = {};
+  for (const [levelStr, values] of Object.entries(progressionTable.values)) {
+    const level = Number(levelStr);
+    const speedValue = values[0];
+    if (speedValue === undefined) {
+      throw new Error(`${skillName} level ${level}: missing speed value`);
+    }
+
+    speedPctLevels[level] = parseNumericValue(speedValue, {
+      asPercentage: true,
+    });
+  }
+
+  validateAllLevels(speedPctLevels, skillName);
+
+  return [speedPctLevels];
+};
+
 export const willpowerParser: SupportLevelParser = (input) => {
   const { skillName, progressionTable } = input;
 

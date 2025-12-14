@@ -68,9 +68,7 @@ const calculateAddn = (bonuses: number[]) => {
 };
 
 const collectModsFromAffixes = (affixes: Affix[]): Mod.Mod[] => {
-  return affixes.flatMap((a) =>
-    a.affixLines.map((l) => l.mod).filter((m) => m !== undefined),
-  );
+  return affixes.flatMap((a) => a.affixLines.flatMap((l) => l.mods ?? []));
 };
 
 const getGearAffixes = (

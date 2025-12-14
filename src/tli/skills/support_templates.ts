@@ -33,4 +33,7 @@ export const skillModTemplates: Partial<
       { type: "DmgPct", modType: "ailment", addn: true },
     ],
   },
+  "Quick Decision": {
+    levelMods: [{ type: "AspdAndCspdPct", addn: true }],
+  },
 };

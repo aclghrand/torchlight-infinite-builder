@@ -374,7 +374,7 @@ export const TalentNodeDisplay: React.FC<TalentNodeDisplayProps> = ({
                 className="flex items-center"
               >
                 <span>{line.text}</span>
-                {!line.mod && <ModNotImplementedIcon />}
+                {!line.mods && <ModNotImplementedIcon />}
               </div>
             ))}
           </TooltipContent>
@@ -504,7 +504,7 @@ export const TalentNodeDisplay: React.FC<TalentNodeDisplayProps> = ({
               className="flex items-center"
             >
               <span>{line.text}</span>
-              {!line.mod && <ModNotImplementedIcon />}
+              {!line.mods && <ModNotImplementedIcon />}
             </div>
           ))}
         </TooltipContent>

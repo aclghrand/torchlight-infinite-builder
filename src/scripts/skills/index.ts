@@ -1,5 +1,6 @@
 import {
   hauntParser,
+  quickDecisionParser,
   steamrollParser,
   willpowerParser,
 } from "./support_parsers";
@@ -20,6 +21,11 @@ export const SKILL_PARSERS: SkillParserEntry[] = [
     skillName: "Steamroll",
     categories: ["support"],
     parser: steamrollParser,
+  },
+  {
+    skillName: "Quick Decision",
+    categories: ["support"],
+    parser: quickDecisionParser,
   },
 ];
 
