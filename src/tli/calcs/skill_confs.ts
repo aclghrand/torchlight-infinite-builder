@@ -11,7 +11,6 @@ export interface SkillConfiguration {
   skillName: SkillName;
   stats: StatType[];
   addedDmgEffPct: number;
-  extraMods: Mod[];
 }
 
 export const offensiveSkillConfs = [
@@ -19,27 +18,16 @@ export const offensiveSkillConfs = [
     skillName: "[Test] Simple Attack",
     stats: ["dex", "str"],
     addedDmgEffPct: 1,
-    extraMods: [],
   },
   {
     skillName: "Berserking Blade",
     stats: ["dex", "str"],
     addedDmgEffPct: 2.1,
-    extraMods: [],
   },
   {
     skillName: "Frost Spike",
     stats: ["dex", "int"],
     addedDmgEffPct: 2.01,
-    extraMods: [
-      {
-        type: "ConvertDmgPct",
-        from: "physical",
-        to: "cold",
-        value: 1,
-        src: "Skill: Frost Spike",
-      },
-    ],
   },
 ] as const satisfies readonly SkillConfiguration[];
 

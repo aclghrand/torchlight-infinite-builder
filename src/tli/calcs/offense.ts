@@ -1,6 +1,8 @@
 import * as R from "remeda";
 import { match, P } from "ts-pattern";
 import {
+  ActiveSkills,
+  type BaseActiveSkill,
   type BaseSupportSkill,
   type SkillTag,
   SupportSkills,
@@ -130,6 +132,7 @@ interface OffenseSummary {
   avgHit: number;
   avgHitWithCrit: number;
   avgDps: number;
+  resolvedMods: Mod[];
 }
 
 interface GearDmg {
@@ -716,7 +719,7 @@ const resolveBuffSkill = (
   return [];
 };
 
-const resolveSelectedSkillSupportMods = (
+const resolveSelectedSkill = (
   input: OffenseInput,
   skillConf: SkillConfiguration,
 ): Mod[] => {
@@ -727,6 +730,32 @@ const resolveSelectedSkillSupportMods = (
     return [];
   }
 
+  return [
+    ...resolveSelectedSkillMods(name, slot.level || 20),
+    ...resolveSelectedSkillSupportMods(slot),
+  ];
+};
+
+const resolveSelectedSkillMods = (name: string, level: number): Mod[] => {
+  const skill = ActiveSkills.find((s) => s.name === name) as
+    | BaseActiveSkill
+    | undefined;
+  if (skill === undefined || skill.levelMods === undefined) {
+    return [];
+  }
+  const mods: Mod[] = [];
+  for (const levelMod of skill.levelMods) {
+    const value = levelMod.levels[level];
+    mods.push({
+      ...levelMod.template,
+      value,
+      src: `Selected Active Skill: ${skill.name} L${level}`,
+    } as Mod);
+  }
+  return mods;
+};
+
+const resolveSelectedSkillSupportMods = (slot: SkillSlot): Mod[] => {
   const supportSlots = Object.values(slot.supportSkills) as (
     | SupportSkillSlot
     | undefined
@@ -763,8 +792,7 @@ const resolveMods = (
   // includes mods from loadout and from base effects, such as from stats
   const allOriginalMods: Mod[] = [
     ...collectMods(input.loadout),
-    ...resolveSelectedSkillSupportMods(input, skillConf),
-    ...skillConf.extraMods,
+    ...resolveSelectedSkill(input, skillConf),
     {
       type: "DmgPct",
       // .5% additional damage per main stat
@@ -835,5 +863,6 @@ export const calculateOffense = (
     avgHit: skillHit.avg,
     avgHitWithCrit: avgHitWithCrit,
     avgDps: avgDps,
+    resolvedMods: mods,
   };
 };

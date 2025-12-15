@@ -1627,17 +1627,132 @@ describe("calculateOffense with damage conversion", () => {
     validate(actual, { avgHit: 150 });
   });
 
-  test("Frost Spike skill converts phys to cold via extraMods", () => {
-    // Frost Spike has 100% phys→cold conversion in extraMods and 2.01× weapon mult
+  test("Frost Spike skill converts phys to cold via levelMods", () => {
+    // Frost Spike has 100% phys→cold conversion from levelMods and 2.01× weapon mult
+    // Requires Frost Spike to be in skill slot for levelMods to be resolved
     // 100 phys weapon * 2.01 = 201 phys → 201 cold via skill's conversion
     // Cold damage with 50% cold bonus: 201 * (1 + 0.5) = 301.5
-    const input = createInput({
-      skill: "Frost Spike",
-      mods: [
+    const loadout = initLoadout({
+      gearPage: {
+        equippedGear: { mainHand: baseWeapon },
+        inventory: [],
+      },
+      skillPage: {
+        activeSkills: {
+          1: {
+            skillName: "Frost Spike",
+            enabled: true,
+            level: 20,
+            supportSkills: {},
+          },
+        },
+        passiveSkills: {},
+      },
+      customConfiguration: [
         affix([{ type: "DmgPct", value: 0.5, modType: "cold", addn: false }]),
       ],
     });
-    const actual = calculateOffense(input);
+    const actual = calculateOffense({
+      loadout,
+      skillName: "Frost Spike",
+      configuration: defaultConfiguration,
+    });
     validate(actual, { avgHit: 301.5 });
+  });
+});
+
+// Active skill levelMods resolution tests
+describe("resolveSelectedSkillMods via calculateOffense", () => {
+  // Helper to create a loadout with Frost Spike in skill slot
+  const createFrostSpikeLoadout = (level: number = 20) =>
+    initLoadout({
+      gearPage: {
+        equippedGear: { mainHand: baseWeapon },
+        inventory: [],
+      },
+      skillPage: {
+        activeSkills: {
+          1: {
+            skillName: "Frost Spike",
+            enabled: true,
+            level,
+            supportSkills: {},
+          },
+        },
+        passiveSkills: {},
+      },
+    });
+
+  test("Frost Spike levelMods are resolved into resolvedMods at level 20", () => {
+    // Frost Spike has 5 levelMods:
+    // 1. ConvertDmgPct (100% phys → cold)
+    // 2. MaxProjectile (5, override: true)
+    // 3. Projectile per frostbite_rating (1 per 35 rating) - normalized, per removed
+    // 4. Projectile (base 2)
+    // 5. DmgPct (8% additional per projectile) - normalized, per removed
+    //
+    // Note: Mods with `per` property have values normalized (multiplied by stack count)
+    // and `per` is removed. Since willpower/frostbite/projectile stacks default to 0,
+    // those mods will have value 0 after normalization.
+    const actual = calculateOffense({
+      loadout: createFrostSpikeLoadout(20),
+      skillName: "Frost Spike",
+      configuration: defaultConfiguration,
+    });
+
+    expect(actual).toBeDefined();
+    const mods = actual!.resolvedMods;
+    const skillMods = mods.filter((m) => m.src?.includes("Frost Spike L20"));
+
+    // Should have exactly 5 mods from Frost Spike levelMods
+    expect(skillMods.length).toBe(5);
+
+    // Check ConvertDmgPct mod
+    const convertMod = skillMods.find(
+      (m) =>
+        m.type === "ConvertDmgPct" && m.from === "physical" && m.to === "cold",
+    );
+    expect(convertMod).toBeDefined();
+    expect(convertMod?.value).toBe(1);
+
+    // Check MaxProjectile mod
+    const maxProjMod = skillMods.find((m) => m.type === "MaxProjectile");
+    expect(maxProjMod).toBeDefined();
+    expect(maxProjMod?.value).toBe(5);
+    expect((maxProjMod as { override?: boolean }).override).toBe(true);
+
+    // Check Projectile mods (2 total: base projectiles and per-frostbite)
+    // After normalization, per-frostbite mod has value 0 (no stacks)
+    const projMods = skillMods.filter((m) => m.type === "Projectile");
+    expect(projMods.length).toBe(2);
+    // One should have value 2 (base projectiles)
+    expect(projMods.some((m) => m.value === 2)).toBe(true);
+    // One should have value 0 (per frostbite_rating with 0 stacks)
+    expect(projMods.some((m) => m.value === 0)).toBe(true);
+
+    // Check DmgPct per projectile mod (normalized to 0 with no projectile stacks)
+    const dmgPctMod = skillMods.find((m) => m.type === "DmgPct");
+    expect(dmgPctMod).toBeDefined();
+    expect(dmgPctMod?.value).toBe(0); // 0.08 * 0 stacks = 0
+    expect((dmgPctMod as { addn?: boolean }).addn).toBe(true);
+  });
+
+  test("Frost Spike conversion mod affects damage calculation", () => {
+    // This verifies the integration: levelMods are resolved AND used in calculation
+    // Frost Spike: 100 weapon * 2.01 = 201 phys → converted to 201 cold
+    // No bonuses, so avgHit = 201
+    const actual = calculateOffense({
+      loadout: createFrostSpikeLoadout(20),
+      skillName: "Frost Spike",
+      configuration: defaultConfiguration,
+    });
+
+    validate(actual, { avgHit: 201 });
+
+    // Verify the conversion mod is present in resolvedMods
+    const convertMod = actual!.resolvedMods.find(
+      (m) => m.type === "ConvertDmgPct" && m.from === "physical",
+    );
+    expect(convertMod).toBeDefined();
   });
 });
