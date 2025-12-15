@@ -1708,10 +1708,9 @@ describe("resolveSelectedSkillMods via calculateOffense", () => {
     expect(skillMods.length).toBe(5);
 
     // Check ConvertDmgPct mod
-    const convertMod = skillMods.find(
-      (m) =>
-        m.type === "ConvertDmgPct" && m.from === "physical" && m.to === "cold",
-    );
+    const convertMod = skillMods
+      .filter((m) => m.type === "ConvertDmgPct")
+      .find((m) => m.from === "physical" && m.to === "cold");
     expect(convertMod).toBeDefined();
     expect(convertMod?.value).toBe(1);
 
