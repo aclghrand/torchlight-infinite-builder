@@ -7,8 +7,6 @@ import type {
   RingSlotState,
   SaveData,
   SkillPage,
-  SkillSlot,
-  SupportSkills,
 } from "./save-data";
 
 export const createEmptyHeroPage = (): HeroPage => ({
@@ -52,14 +50,6 @@ export const createEmptyPactspiritPage = (): PactspiritPage => ({
 
 export const createEmptyDivinityPage = (): DivinityPage => ({
   placedSlates: [],
-});
-
-export const createEmptySupportSkills = (): SupportSkills => ({});
-
-export const createEmptySkillSlot = (): SkillSlot => ({
-  skillName: undefined,
-  enabled: false,
-  supportSkills: createEmptySupportSkills(),
 });
 
 export const createEmptySkillPage = (): SkillPage => ({

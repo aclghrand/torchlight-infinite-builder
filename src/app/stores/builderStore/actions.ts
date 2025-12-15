@@ -504,7 +504,8 @@ export const createActions = (): BuilderActions => ({
           : state.saveData.skillPage.passiveSkills;
       const skill = skillSlots[skillSlot];
       if (skill === undefined) return;
-      skill.supportSkills[supportSlot] = { name: supportName };
+      skill.supportSkills[supportSlot] =
+        supportName !== undefined ? { name: supportName } : undefined;
       state.hasUnsavedChanges = true;
     });
   },

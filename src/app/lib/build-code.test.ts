@@ -7,7 +7,6 @@ import {
   createEmptyPactspiritPage,
   createEmptySaveData,
   createEmptySkillPage,
-  createEmptySkillSlot,
 } from "./storage";
 
 describe("build-code", () => {
@@ -88,20 +87,19 @@ describe("build-code", () => {
   it("should encode and decode a loadout with skills", () => {
     const skillPage = createEmptySkillPage();
     skillPage.activeSkills[1] = {
-      ...createEmptySkillSlot(),
       skillName: "Berserking Blade",
       enabled: true,
       supportSkills: { 1: { name: "Added Fire Damage" } },
     };
     skillPage.activeSkills[2] = {
-      ...createEmptySkillSlot(),
       skillName: "Blazing Dance",
       enabled: false,
+      supportSkills: {},
     };
     skillPage.passiveSkills[1] = {
-      ...createEmptySkillSlot(),
       skillName: "Charged Flames",
       enabled: true,
+      supportSkills: {},
     };
 
     const loadout: SaveData = {
@@ -127,9 +125,9 @@ describe("build-code", () => {
   it("should encode and decode a full loadout", () => {
     const skillPage = createEmptySkillPage();
     skillPage.activeSkills[1] = {
-      ...createEmptySkillSlot(),
       skillName: "Berserking Blade",
       enabled: true,
+      supportSkills: {},
     };
 
     const loadout: SaveData = {

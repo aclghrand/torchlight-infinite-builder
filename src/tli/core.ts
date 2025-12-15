@@ -245,21 +245,23 @@ export interface GearPage {
   inventory: Gear[];
 }
 
-export interface SupportSkill {
-  name?: string;
+export interface SupportSkillSlot {
+  name: string;
+  level?: number; // default 20
 }
 
 export interface SupportSkills {
-  1?: SupportSkill;
-  2?: SupportSkill;
-  3?: SupportSkill;
-  4?: SupportSkill;
-  5?: SupportSkill;
+  1?: SupportSkillSlot;
+  2?: SupportSkillSlot;
+  3?: SupportSkillSlot;
+  4?: SupportSkillSlot;
+  5?: SupportSkillSlot;
 }
 
 export interface SkillSlot {
-  skillName?: string;
+  skillName: string;
   enabled: boolean;
+  level?: number; // default 20
   supportSkills: SupportSkills;
 }
 

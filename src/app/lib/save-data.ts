@@ -12,7 +12,7 @@ export type {
   SkillPage,
   SkillSlot,
   SkillSlots,
-  SupportSkill,
+  SupportSkillSlot as SupportSkill,
   SupportSkills,
 } from "@/src/tli/core";
 

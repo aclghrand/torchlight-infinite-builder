@@ -94,6 +94,7 @@ type ExpectedOutput = Partial<{
   avgHitWithCrit: number;
   critChance: number;
   critDmgMult: number;
+  aspd: number;
 }>;
 
 const createInput = (input: TestInput): OffenseInput => {
@@ -1386,6 +1387,139 @@ describe("automatic additional damage from main stats", () => {
     });
     const actual = calculateOffense(input);
     validate(actual, { avgHit: 225 });
+  });
+});
+
+// Support skill mods resolution tests
+describe("resolveSelectedSkillSupportMods via calculateOffense", () => {
+  // Test with haunt, willpower, steamroll, quick decision support skills
+  // This verifies that support skills attached to active skills have their mods correctly resolved
+
+  // Helper to create a SkillSlot with support skills
+  const createSkillSlotWithSupports = (
+    skillName: string,
+    supportNames: { name: string; level?: number }[],
+  ) => ({
+    skillName,
+    enabled: true,
+    supportSkills: Object.fromEntries(
+      supportNames.map((s, i) => [i + 1, { name: s.name, level: s.level }]),
+    ),
+  });
+
+  // Base weapon with attack speed for testing
+  const weaponWithAspd = {
+    equipmentType: "One-Handed Sword" as const,
+    baseStats: {
+      baseStatLines: [
+        {
+          text: "100 - 100 physical damage",
+          mod: { type: "FlatPhysDmg", value: 100 } as const,
+        },
+        {
+          text: "1.0 attack speed",
+          mod: { type: "AttackSpeed", value: 1.0 } as const,
+        },
+      ],
+    },
+  };
+
+  test("all four support skills (haunt, willpower, steamroll, quick decision) combine correctly", () => {
+    // All at level 20:
+    //   Haunt: DmgPct 0.008 (additional/more, global)
+    //   Willpower: MaxWillpowerStacks 6, DmgPct 0.06 per stack (increased, global)
+    //   Steamroll: AspdPct -0.15 (increased), melee/ailment bonuses don't apply
+    //   Quick Decision: AspdAndCspdPct 0.245 (additional/more)
+    //
+    // Damage calculation:
+    //   Base: 100
+    //   Willpower (6 * 0.06 = 36% increased): 100 * 1.36 = 136
+    //   Haunt (+0.8% more): 136 * 1.008 = 137.088
+    //
+    // Attack speed calculation:
+    //   Base: 1.0
+    //   Steamroll (-15% increased): 1.0 * 0.85 = 0.85
+    //   Quick Decision (+24.5% more): 0.85 * 1.245 = 1.05825
+
+    const loadout = initLoadout({
+      gearPage: {
+        equippedGear: { mainHand: weaponWithAspd },
+        inventory: [],
+      },
+      skillPage: {
+        activeSkills: {
+          1: createSkillSlotWithSupports("[Test] Simple Attack", [
+            { name: "Haunt", level: 20 },
+            { name: "Willpower", level: 20 },
+            { name: "Steamroll", level: 20 },
+            { name: "Quick Decision", level: 20 },
+          ]),
+        },
+        passiveSkills: {},
+      },
+    });
+
+    const actual = calculateOffense({
+      loadout,
+      skillName: "[Test] Simple Attack",
+      configuration: defaultConfiguration,
+    });
+
+    validate(actual, { avgHit: 137.088, aspd: 1.05825 });
+  });
+
+  test("support skills at different levels use correct values", () => {
+    // Testing level interpolation:
+    //   Quick Decision at level 1: AspdAndCspdPct 0.15 (additional)
+    //   Quick Decision at level 40: AspdAndCspdPct 0.345 (additional)
+    //
+    // Attack speed at level 1: 1.0 * 1.15 = 1.15
+    // Attack speed at level 40: 1.0 * 1.345 = 1.345
+
+    const loadoutL1 = initLoadout({
+      gearPage: {
+        equippedGear: { mainHand: weaponWithAspd },
+        inventory: [],
+      },
+      skillPage: {
+        activeSkills: {
+          1: createSkillSlotWithSupports("[Test] Simple Attack", [
+            { name: "Quick Decision", level: 1 },
+          ]),
+        },
+        passiveSkills: {},
+      },
+    });
+
+    const loadoutL40 = initLoadout({
+      gearPage: {
+        equippedGear: { mainHand: weaponWithAspd },
+        inventory: [],
+      },
+      skillPage: {
+        activeSkills: {
+          1: createSkillSlotWithSupports("[Test] Simple Attack", [
+            { name: "Quick Decision", level: 40 },
+          ]),
+        },
+        passiveSkills: {},
+      },
+    });
+
+    const actualL1 = calculateOffense({
+      loadout: loadoutL1,
+      skillName: "[Test] Simple Attack",
+      configuration: defaultConfiguration,
+    });
+
+    const actualL40 = calculateOffense({
+      loadout: loadoutL40,
+      skillName: "[Test] Simple Attack",
+      configuration: defaultConfiguration,
+    });
+
+    validate(actualL1, { aspd: 1.15 });
+    validate(actualL40, { aspd: 1.345 });
   });
 });
 

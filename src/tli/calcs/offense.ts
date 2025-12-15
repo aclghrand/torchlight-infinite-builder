@@ -1,6 +1,10 @@
 import * as R from "remeda";
 import { match, P } from "ts-pattern";
-import type { SkillTag } from "../../data/skill";
+import {
+  type BaseSupportSkill,
+  type SkillTag,
+  SupportSkills,
+} from "../../data/skill";
 import type { DmgModType } from "../constants";
 import {
   type Affix,
@@ -9,6 +13,8 @@ import {
   getAllAffixes,
   getTalentAffixes,
   type Loadout,
+  type SkillSlot,
+  type SupportSkillSlot,
 } from "../core";
 import type * as Mod from "../mod";
 import {
@@ -696,6 +702,47 @@ const calculateStats = (
   };
 };
 
+const resolveSelectedSkillSupportMods = (
+  input: OffenseInput,
+  skillConf: SkillConfiguration,
+): Mod.Mod[] => {
+  const name = skillConf.skillName;
+  // we're sure that SkillSlots properties only has SkillSlot as values
+  const slots = Object.values(input.loadout.skillPage.activeSkills) as (
+    | SkillSlot
+    | undefined
+  )[];
+  const slot = slots.find((s) => s?.skillName === name);
+  if (slot === undefined) {
+    return [];
+  }
+
+  const supportSlots = Object.values(slot.supportSkills) as (
+    | SupportSkillSlot
+    | undefined
+  )[];
+
+  const supportMods: Mod.Mod[] = [];
+  for (const ss of supportSlots) {
+    if (ss === undefined) continue;
+    const supportSkill = SupportSkills.find((s) => s.name === ss.name) as
+      | BaseSupportSkill
+      | undefined;
+    if (supportSkill === undefined) continue;
+
+    const level = ss.level || 20;
+    for (const levelMods of supportSkill.levelMods || []) {
+      const mod: Mod.Mod = {
+        ...levelMods.template,
+        value: levelMods.levels[level],
+        src: `Support: ${supportSkill.name} L${level}`,
+      } as Mod.Mod;
+      supportMods.push(mod);
+    }
+  }
+  return supportMods;
+};
+
 // retrieves all mods, and filters or normalizes them in the following ways:
 // * value multiplied by the per? property based on the referenced StackableBuff
 // * filtered based on various criteria
@@ -706,6 +753,7 @@ const resolveMods = (
   // includes mods from loadout and from base effects, such as from stats
   const allOriginalMods: Mod.Mod[] = [
     ...collectMods(input.loadout),
+    ...resolveSelectedSkillSupportMods(input, skillConf),
     ...skillConf.extraMods,
     {
       type: "DmgPct",
