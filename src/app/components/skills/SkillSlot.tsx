@@ -13,6 +13,11 @@ type SupportSlotKey = 1 | 2 | 3 | 4 | 5;
 
 const SUPPORT_SLOT_KEYS: SupportSlotKey[] = [1, 2, 3, 4, 5];
 
+const SKILL_LEVEL_OPTIONS = Array.from({ length: 20 }, (_, i) => ({
+  value: i + 1,
+  label: `Lv. ${i + 1}`,
+}));
+
 interface SkillSlotProps {
   slotLabel: string;
   skill: SkillSlotType | undefined;
@@ -20,10 +25,12 @@ interface SkillSlotProps {
   excludedSkillNames: string[];
   onSkillChange: (skillName: string | undefined) => void;
   onToggle: () => void;
+  onLevelChange: (level: number) => void;
   onUpdateSupport: (
     supportKey: SupportSlotKey,
     supportName: string | undefined,
   ) => void;
+  onUpdateSupportLevel: (supportKey: SupportSlotKey, level: number) => void;
 }
 
 export const SkillSlot: React.FC<SkillSlotProps> = ({
@@ -33,7 +40,9 @@ export const SkillSlot: React.FC<SkillSlotProps> = ({
   excludedSkillNames,
   onSkillChange,
   onToggle,
+  onLevelChange,
   onUpdateSupport,
+  onUpdateSupportLevel,
 }) => {
   const [expanded, setExpanded] = useState(false);
 
@@ -81,6 +90,16 @@ export const SkillSlot: React.FC<SkillSlotProps> = ({
             size="sm"
             className="flex-1"
           />
+          {hasSkill && (
+            <SearchableSelect
+              value={skill?.level ?? 20}
+              onChange={(val) => val !== undefined && onLevelChange(val)}
+              options={SKILL_LEVEL_OPTIONS}
+              placeholder="Lv."
+              size="sm"
+              className="w-20"
+            />
+          )}
         </div>
         <div className="flex items-center gap-2">
           {hasSkill && (
@@ -113,6 +132,10 @@ export const SkillSlot: React.FC<SkillSlotProps> = ({
                     onUpdateSupport(supportKey, supportName)
                   }
                   slotIndex={supportKey}
+                  level={skill.supportSkills[supportKey]?.level}
+                  onLevelChange={(level) =>
+                    onUpdateSupportLevel(supportKey, level)
+                  }
                 />
               </div>
             ))}

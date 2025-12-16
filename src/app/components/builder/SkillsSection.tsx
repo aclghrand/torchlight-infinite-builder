@@ -119,6 +119,46 @@ export const SkillsSection = () => {
     [updateSaveData],
   );
 
+  const handleActiveSkillLevelChange = useCallback(
+    (slotKey: SkillSlotKey, level: number): void => {
+      updateSaveData((prev) => {
+        const currentSlot = prev.skillPage.activeSkills[slotKey];
+        if (currentSlot === undefined) return prev;
+        return {
+          ...prev,
+          skillPage: {
+            ...prev.skillPage,
+            activeSkills: {
+              ...prev.skillPage.activeSkills,
+              [slotKey]: { ...currentSlot, level },
+            },
+          },
+        };
+      });
+    },
+    [updateSaveData],
+  );
+
+  const handlePassiveSkillLevelChange = useCallback(
+    (slotKey: SkillSlotKey, level: number): void => {
+      updateSaveData((prev) => {
+        const currentSlot = prev.skillPage.passiveSkills[slotKey];
+        if (currentSlot === undefined) return prev;
+        return {
+          ...prev,
+          skillPage: {
+            ...prev.skillPage,
+            passiveSkills: {
+              ...prev.skillPage.passiveSkills,
+              [slotKey]: { ...currentSlot, level },
+            },
+          },
+        };
+      });
+    },
+    [updateSaveData],
+  );
+
   const handleUpdateActiveSkillSupport = useCallback(
     (
       slotKey: SkillSlotKey,
@@ -177,6 +217,66 @@ export const SkillsSection = () => {
     [updateSaveData],
   );
 
+  const handleUpdateActiveSkillSupportLevel = useCallback(
+    (
+      slotKey: SkillSlotKey,
+      supportKey: SupportSlotKey,
+      level: number,
+    ): void => {
+      updateSaveData((prev) => {
+        const currentSlot = prev.skillPage.activeSkills[slotKey];
+        if (currentSlot === undefined) return prev;
+        const currentSupport = currentSlot.supportSkills[supportKey];
+        if (currentSupport === undefined) return prev;
+        const newSupportSkills: SupportSkills = {
+          ...currentSlot.supportSkills,
+          [supportKey]: { ...currentSupport, level },
+        };
+        return {
+          ...prev,
+          skillPage: {
+            ...prev.skillPage,
+            activeSkills: {
+              ...prev.skillPage.activeSkills,
+              [slotKey]: { ...currentSlot, supportSkills: newSupportSkills },
+            },
+          },
+        };
+      });
+    },
+    [updateSaveData],
+  );
+
+  const handleUpdatePassiveSkillSupportLevel = useCallback(
+    (
+      slotKey: SkillSlotKey,
+      supportKey: SupportSlotKey,
+      level: number,
+    ): void => {
+      updateSaveData((prev) => {
+        const currentSlot = prev.skillPage.passiveSkills[slotKey];
+        if (currentSlot === undefined) return prev;
+        const currentSupport = currentSlot.supportSkills[supportKey];
+        if (currentSupport === undefined) return prev;
+        const newSupportSkills: SupportSkills = {
+          ...currentSlot.supportSkills,
+          [supportKey]: { ...currentSupport, level },
+        };
+        return {
+          ...prev,
+          skillPage: {
+            ...prev.skillPage,
+            passiveSkills: {
+              ...prev.skillPage.passiveSkills,
+              [slotKey]: { ...currentSlot, supportSkills: newSupportSkills },
+            },
+          },
+        };
+      });
+    },
+    [updateSaveData],
+  );
+
   return (
     <div className="space-y-8">
       <div>
@@ -194,8 +294,14 @@ export const SkillsSection = () => {
                 handleActiveSkillChange(slotKey, skillName)
               }
               onToggle={() => handleToggleActiveSkill(slotKey)}
+              onLevelChange={(level) =>
+                handleActiveSkillLevelChange(slotKey, level)
+              }
               onUpdateSupport={(supportKey, supportName) =>
                 handleUpdateActiveSkillSupport(slotKey, supportKey, supportName)
+              }
+              onUpdateSupportLevel={(supportKey, level) =>
+                handleUpdateActiveSkillSupportLevel(slotKey, supportKey, level)
               }
             />
           ))}
@@ -217,12 +323,18 @@ export const SkillsSection = () => {
                 handlePassiveSkillChange(slotKey, skillName)
               }
               onToggle={() => handleTogglePassiveSkill(slotKey)}
+              onLevelChange={(level) =>
+                handlePassiveSkillLevelChange(slotKey, level)
+              }
               onUpdateSupport={(supportKey, supportName) =>
                 handleUpdatePassiveSkillSupport(
                   slotKey,
                   supportKey,
                   supportName,
                 )
+              }
+              onUpdateSupportLevel={(supportKey, level) =>
+                handleUpdatePassiveSkillSupportLevel(slotKey, supportKey, level)
               }
             />
           ))}

@@ -1765,4 +1765,17 @@ describe("resolveSelectedSkillMods via calculateOffense", () => {
     );
     expect(convertMod).toBeDefined();
   });
+
+  test("Frost Spike at level 1 uses level 1 offense values", () => {
+    // Frost Spike at level 1 has WeaponAtkDmgPct = 1.49 and AddedDmgEffPct = 1.49
+    // 100 weapon * 1.49 = 149 phys → converted to cold
+    const actual = calculateOffense({
+      loadout: createFrostSpikeLoadout(1),
+      skillName: "Frost Spike",
+      configuration: defaultConfiguration,
+    });
+
+    if (actual === undefined) throw new Error("Expected actual to be defined");
+    validate(actual, { avgHit: 149 });
+  });
 });

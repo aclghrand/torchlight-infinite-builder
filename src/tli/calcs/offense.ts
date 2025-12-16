@@ -619,7 +619,10 @@ const calculateSkillHit = (
       return multDRs(gearDmg.mainHand, 2.1);
     })
     .with("Frost Spike", () => {
-      return multDRs(gearDmg.mainHand, 2.01);
+      return multDRs(
+        gearDmg.mainHand,
+        getLeveOffenseValue(skill, "WeaponAtkDmgPct", level) as number,
+      );
     })
     .with("[Test] Simple Attack", () => {
       return gearDmg.mainHand;

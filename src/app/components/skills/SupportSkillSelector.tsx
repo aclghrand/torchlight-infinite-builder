@@ -19,7 +19,14 @@ interface SupportSkillSelectorProps {
   excludedSkills: string[];
   onChange: (skillName: string | undefined) => void;
   slotIndex: number; // 1-indexed
+  level?: number;
+  onLevelChange?: (level: number) => void;
 }
+
+const SKILL_LEVEL_OPTIONS = Array.from({ length: 20 }, (_, i) => ({
+  value: i + 1,
+  label: `Lv. ${i + 1}`,
+}));
 
 export const SupportSkillSelector: React.FC<SupportSkillSelectorProps> = ({
   mainSkill,
@@ -27,6 +34,8 @@ export const SupportSkillSelector: React.FC<SupportSkillSelectorProps> = ({
   excludedSkills,
   onChange,
   slotIndex,
+  level,
+  onLevelChange,
 }) => {
   const { options, groups } = useMemo(() => {
     // Combine all skill types for the flat options list
@@ -107,14 +116,33 @@ export const SupportSkillSelector: React.FC<SupportSkillSelectorProps> = ({
     return { options: opts, groups: grps };
   }, [mainSkill, slotIndex, selectedSkill, excludedSkills]);
 
+  // Check if selected skill is a regular Support type (not Activation Medium, Magnificent, or Noble)
+  const isRegularSupport = useMemo(
+    () => SupportSkills.some((s) => s.name === selectedSkill),
+    [selectedSkill],
+  );
+
   return (
-    <SearchableSelect
-      value={selectedSkill}
-      onChange={onChange}
-      options={options}
-      groups={groups}
-      placeholder="<Empty slot>"
-      size="sm"
-    />
+    <div className="flex items-center gap-2 flex-1">
+      <SearchableSelect
+        value={selectedSkill}
+        onChange={onChange}
+        options={options}
+        groups={groups}
+        placeholder="<Empty slot>"
+        size="sm"
+        className="flex-1"
+      />
+      {isRegularSupport && onLevelChange && (
+        <SearchableSelect
+          value={level ?? 20}
+          onChange={(val) => val !== undefined && onLevelChange(val)}
+          options={SKILL_LEVEL_OPTIONS}
+          placeholder="Lv."
+          size="sm"
+          className="w-20"
+        />
+      )}
+    </div>
   );
 };
