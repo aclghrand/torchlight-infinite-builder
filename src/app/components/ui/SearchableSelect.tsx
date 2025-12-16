@@ -76,7 +76,6 @@ export const SearchableSelect = <T extends string | number>({
   const [query, setQuery] = useState("");
   const [isHovered, setIsHovered] = useState(false);
   const [inputRect, setInputRect] = useState<DOMRect | undefined>(undefined);
-  const buttonRef = useRef<HTMLButtonElement>(null);
   const inputWrapperRef = useRef<HTMLDivElement>(null);
 
   const allOptions = useMemo(() => {
@@ -147,13 +146,9 @@ export const SearchableSelect = <T extends string | number>({
               opt?.label ?? ""
             }
             onChange={(e) => setQuery(e.target.value)}
-            onClick={() => buttonRef.current?.click()}
             placeholder={placeholder}
           />
-          <ComboboxButton
-            ref={buttonRef}
-            className="absolute inset-y-0 right-0 flex items-center pr-2"
-          >
+          <ComboboxButton className="absolute inset-y-0 right-0 flex items-center pr-2">
             <ChevronDownIcon className="h-4 w-4 text-zinc-400" />
           </ComboboxButton>
         </div>
