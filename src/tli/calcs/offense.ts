@@ -19,7 +19,7 @@ import {
   type SkillSlot,
   type SupportSkillSlot,
 } from "../core";
-import type { DmgType, Mod, Stackable } from "../mod";
+import type { DmgChunkType, Mod, Stackable } from "../mod";
 import type { OffenseSkillName } from "./skill_confs";
 
 const addDR = (dr1: DmgRange, dr2: DmgRange): DmgRange => {
@@ -180,7 +180,7 @@ const filterAffix = <T extends Mod["type"]>(
 export interface DmgChunk {
   range: DmgRange;
   // Types this damage has been converted from (not including current pool type)
-  history: DmgType[];
+  history: DmgChunkType[];
 }
 
 // All damage organized by current type
@@ -533,14 +533,14 @@ const calculateDmgAddn = (mods: Extract<Mod, { type: "DmgPct" }>[]) => {
 // Apply damage % bonuses to a single chunk, considering its conversion history
 const calculateChunkDmg = (
   chunk: DmgChunk,
-  currentType: DmgType,
+  currentType: DmgChunkType,
   allDmgPctMods: Extract<Mod, { type: "DmgPct" }>[],
   skill: BaseActiveSkill,
 ): DmgRange => {
   const baseDmgModTypes = dmgModTypesForSkill(skill);
 
   // Chunk benefits from bonuses for current type AND all types in its history
-  const allApplicableTypes: DmgType[] = [currentType, ...chunk.history];
+  const allApplicableTypes: DmgChunkType[] = [currentType, ...chunk.history];
   const dmgModTypes: DmgModType[] = [...baseDmgModTypes];
 
   for (const dmgType of allApplicableTypes) {
@@ -562,7 +562,7 @@ const calculateChunkDmg = (
 // Sum all chunks in a pool, applying bonuses to each based on its history
 const calculatePoolTotal = (
   pool: DmgChunk[],
-  poolType: DmgType,
+  poolType: DmgChunkType,
   allDmgPctMods: Extract<Mod, { type: "DmgPct" }>[],
   skill: BaseActiveSkill,
 ): DmgRange => {

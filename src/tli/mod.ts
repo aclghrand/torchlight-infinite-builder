@@ -5,7 +5,12 @@ import type {
 } from "./constants";
 import type { DmgRange } from "./core";
 
-export type DmgType = "physical" | "cold" | "lightning" | "fire" | "erosion";
+export type DmgChunkType =
+  | "physical"
+  | "cold"
+  | "lightning"
+  | "fire"
+  | "erosion";
 
 export type Stackable =
   | "willpower"
@@ -34,21 +39,21 @@ export type Mod =
   | {
       type: "FlatDmgToAtks";
       value: DmgRange;
-      dmgType: DmgType;
+      dmgType: DmgChunkType;
       per?: PerStackable;
       src?: string;
     }
   | {
       type: "FlatDmgToAtksAndSpells";
       value: DmgRange;
-      dmgType: DmgType;
+      dmgType: DmgChunkType;
       per?: PerStackable;
       src?: string;
     }
   | {
       type: "FlatDmgToSpells";
       value: DmgRange;
-      dmgType: DmgType;
+      dmgType: DmgChunkType;
       per?: PerStackable;
       src?: string;
     }
@@ -240,16 +245,16 @@ export type Mod =
     }
   | {
       type: "ConvertDmgPct";
-      from: DmgType;
-      to: DmgType;
+      from: DmgChunkType;
+      to: DmgChunkType;
       value: number;
       per?: PerStackable;
       src?: string;
     }
   | {
       type: "AddsDmgAs";
-      from: DmgType;
-      to: DmgType;
+      from: DmgChunkType;
+      to: DmgChunkType;
       value: number;
       per?: PerStackable;
       src?: string;
