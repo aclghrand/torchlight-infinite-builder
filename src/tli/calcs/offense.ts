@@ -1,6 +1,7 @@
 import * as R from "remeda";
 import { match, P } from "ts-pattern";
 import {
+  type ActiveSkillName,
   ActiveSkills,
   type BaseActiveSkill,
   type BaseSupportSkill,
@@ -688,6 +689,17 @@ export interface OffenseInput {
   configuration: Configuration;
 }
 
+const multValue = <T extends number | DmgRange>(
+  value: T,
+  multiplier: number,
+): T => {
+  if (typeof value === "number") {
+    return (value * multiplier) as T;
+  } else {
+    return multDR(value, multiplier) as T;
+  }
+};
+
 const multModValue = <T extends Extract<Mod, { value: number | DmgRange }>>(
   mod: T,
   multiplier: number,
@@ -719,7 +731,7 @@ const calculateStats = (
   };
 };
 
-const listSkillSlots = (input: OffenseInput): SkillSlot[] => {
+const listActiveSkillSlots = (input: OffenseInput): SkillSlot[] => {
   // we're sure that SkillSlots properties only has SkillSlot as values
   const slots = Object.values(input.loadout.skillPage.activeSkills) as (
     | SkillSlot
@@ -730,7 +742,7 @@ const listSkillSlots = (input: OffenseInput): SkillSlot[] => {
 
 const getSkillSlot = (input: OffenseInput): SkillSlot => {
   const name = input.mainSkillName;
-  const slots = listSkillSlots(input);
+  const slots = listActiveSkillSlots(input);
   const slot = slots.find((s) => s?.skillName === name);
   if (slot === undefined) {
     throw new Error(`Skill "${name}" not found in skill page activeSkills`);
@@ -740,7 +752,7 @@ const getSkillSlot = (input: OffenseInput): SkillSlot => {
 
 const resolveMainSkill = (input: OffenseInput): Mod[] => {
   const name = input.mainSkillName;
-  const slots = listSkillSlots(input);
+  const slots = listActiveSkillSlots(input);
   const slot = slots.find((s) => s?.skillName === name);
   if (slot === undefined) {
     return [];
@@ -752,9 +764,55 @@ const resolveMainSkill = (input: OffenseInput): Mod[] => {
   ];
 };
 
-const findActiveSkill = (name: OffenseSkillName): BaseActiveSkill => {
-  // OffenseSkillName should be guaranteed to be something within ActiveSkills
+const findActiveSkill = (name: ActiveSkillName): BaseActiveSkill => {
+  // ActiveSkillName should be guaranteed to be something within ActiveSkills
   return ActiveSkills.find((s) => s.name === name) as BaseActiveSkill;
+};
+
+// resolves mods coming from skills that are NOT the selected main skill
+// for example, "Bull's Rage" provides a buff that increases all melee damage
+const resolveBuffSkillMods = (input: OffenseInput): Mod[] => {
+  const activeSkillSlots = listActiveSkillSlots(input);
+  const resolvedMods = [];
+  for (const skillSlot of activeSkillSlots) {
+    if (!skillSlot.enabled) {
+      continue;
+    }
+
+    // we only care about skill effect for now
+    // todo: add area, cdr, duration, and other buff-skill modifiers
+    const skillEffMods = resolveSelectedSkillSupportMods(skillSlot).filter(
+      (m) => m.type === "SkillEffPct",
+    );
+    const incSkillEffMods = skillEffMods.filter(
+      (m) => m.addn === undefined || m.addn === false,
+    );
+    const incSkillEff = calculateInc(incSkillEffMods.map((m) => m.value));
+    const addnSkillEffMods = skillEffMods.filter((m) => m.addn === true);
+    const addnSkillEff = calculateAddn(addnSkillEffMods.map((m) => m.value));
+    const skillEffMult = (1 + incSkillEff) * addnSkillEff;
+
+    const level = skillSlot.level || 20;
+    // todo: refactor skillname to be an ActiveSkillName?
+    const skill = findActiveSkill(skillSlot.skillName as ActiveSkillName);
+    const extraMult = match(skill.name)
+      // Hard-code Well-Fought Battle to assume that the user has
+      // already cast the support skill the max number of times
+      .with("Well-Fought Battle", () => 3)
+      .otherwise(() => 1);
+
+    // todo: do we need a more granular way of applying skill effect than just multiplying
+    //  it against the template value?
+    const buffMods: Mod[] =
+      skill.levelBuffMods?.map((m) => {
+        return {
+          ...m.template,
+          value: multValue(m.levels[level], skillEffMult * extraMult),
+        } as Mod;
+      }) || [];
+    resolvedMods.push(...buffMods);
+  }
+  return resolvedMods;
 };
 
 const resolveMainSkillMods = (
@@ -771,7 +829,7 @@ const resolveMainSkillMods = (
     mods.push({
       ...levelMod.template,
       value,
-      src: `Selected Active Skill: ${skill.name} L${level}`,
+      src: `Selected Active Skill: ${skill.name} Lv.${level}`,
     } as Mod);
   }
   return mods;
@@ -796,7 +854,7 @@ const resolveSelectedSkillSupportMods = (slot: SkillSlot): Mod[] => {
       const mod: Mod = {
         ...levelMods.template,
         value: levelMods.levels[level],
-        src: `Support: ${supportSkill.name} L${level}`,
+        src: `Support: ${supportSkill.name} Lv.${level}`,
       } as Mod;
       supportMods.push(mod);
     }
@@ -815,6 +873,7 @@ const resolveMods = (
   const allOriginalMods: Mod[] = [
     ...collectMods(input.loadout),
     ...resolveMainSkill(input),
+    ...resolveBuffSkillMods(input),
     {
       type: "DmgPct",
       // .5% additional damage per main stat

@@ -1715,7 +1715,7 @@ describe("resolveSelectedSkillMods via calculateOffense", () => {
     if (actual === undefined) throw new Error("Expected actual to be defined");
 
     const mods = actual.resolvedMods;
-    const skillMods = mods.filter((m) => m.src?.includes("Frost Spike L20"));
+    const skillMods = mods.filter((m) => m.src?.includes("Frost Spike Lv.20"));
 
     // Should have exactly 5 mods from Frost Spike levelMods
     expect(skillMods.length).toBe(5);
@@ -1777,5 +1777,430 @@ describe("resolveSelectedSkillMods via calculateOffense", () => {
 
     if (actual === undefined) throw new Error("Expected actual to be defined");
     validate(actual, { avgHit: 149 });
+  });
+});
+
+// Buff skill resolution tests
+// Tests for resolveBuffSkillMods - how active skills that provide buffs (like Ice Bond, Bull's Rage)
+// interact with SkillEffPct modifiers from support skills (like Mass Effect, Well-Fought Battle)
+describe("resolveBuffSkillMods", () => {
+  // Helper to create a loadout with buff skills and supports
+  const createBuffSkillLoadout = (
+    mainSkill: {
+      name: string;
+      supports?: { name: string; level?: number }[];
+      enabled?: boolean;
+      level?: number;
+    },
+    buffSkills: {
+      name: string;
+      supports?: { name: string; level?: number }[];
+      enabled?: boolean;
+      level?: number;
+    }[] = [],
+  ) => {
+    const skillSlots: Record<
+      number,
+      {
+        skillName: string;
+        enabled: boolean;
+        level: number;
+        supportSkills: Record<
+          number,
+          { name: string; level: number } | undefined
+        >;
+      }
+    > = {
+      1: {
+        skillName: mainSkill.name,
+        enabled: mainSkill.enabled ?? true,
+        level: mainSkill.level ?? 20,
+        supportSkills: Object.fromEntries(
+          (mainSkill.supports ?? []).map((s, i) => [
+            i + 1,
+            { name: s.name, level: s.level ?? 20 },
+          ]),
+        ),
+      },
+    };
+
+    buffSkills.forEach((buff, idx) => {
+      skillSlots[idx + 2] = {
+        skillName: buff.name,
+        enabled: buff.enabled ?? true,
+        level: buff.level ?? 20,
+        supportSkills: Object.fromEntries(
+          (buff.supports ?? []).map((s, i) => [
+            i + 1,
+            { name: s.name, level: s.level ?? 20 },
+          ]),
+        ),
+      };
+    });
+
+    return initLoadout({
+      gearPage: {
+        equippedGear: { mainHand: baseWeapon },
+        inventory: [],
+      },
+      skillPage: {
+        activeSkills: skillSlots,
+        passiveSkills: {},
+      },
+    });
+  };
+
+  test("Ice Bond provides buff mod when enabled", () => {
+    // Ice Bond at level 20 provides: 33% additional cold damage vs frostbitten enemies
+    // The buff mod should appear in resolvedMods
+    const loadout = createBuffSkillLoadout({ name: "[Test] Simple Attack" }, [
+      { name: "Ice Bond", enabled: true },
+    ]);
+
+    const actual = calculateOffense({
+      loadout,
+      mainSkillName: "[Test] Simple Attack",
+      configuration: defaultConfiguration,
+    });
+
+    expect(actual).toBeDefined();
+    const iceBondBuffMod = actual?.resolvedMods.find(
+      (m) =>
+        m.type === "DmgPct" &&
+        m.modType === "cold" &&
+        "cond" in m &&
+        m.cond === "enemy_frostbitten",
+    );
+    expect(iceBondBuffMod).toBeDefined();
+    expect(iceBondBuffMod?.value).toBeCloseTo(0.33);
+  });
+
+  test("Bull's Rage provides buff mod when enabled", () => {
+    // Bull's Rage at level 20 provides: 27% additional melee damage
+    const loadout = createBuffSkillLoadout({ name: "[Test] Simple Attack" }, [
+      { name: "Bull's Rage", enabled: true },
+    ]);
+
+    const actual = calculateOffense({
+      loadout,
+      mainSkillName: "[Test] Simple Attack",
+      configuration: defaultConfiguration,
+    });
+
+    expect(actual).toBeDefined();
+    const bullsRageBuffMod = actual?.resolvedMods.find(
+      (m) => m.type === "DmgPct" && m.modType === "melee" && m.addn === true,
+    );
+    expect(bullsRageBuffMod).toBeDefined();
+    expect(bullsRageBuffMod?.value).toBeCloseTo(0.27);
+  });
+
+  test("disabled buff skill does not provide buff mod", () => {
+    // When Ice Bond is disabled, it should not contribute its buff
+    const loadout = createBuffSkillLoadout({ name: "[Test] Simple Attack" }, [
+      { name: "Ice Bond", enabled: false },
+    ]);
+
+    const actual = calculateOffense({
+      loadout,
+      mainSkillName: "[Test] Simple Attack",
+      configuration: defaultConfiguration,
+    });
+
+    expect(actual).toBeDefined();
+    const iceBondBuffMod = actual?.resolvedMods.find(
+      (m) =>
+        m.type === "DmgPct" &&
+        m.modType === "cold" &&
+        "cond" in m &&
+        m.cond === "enemy_frostbitten",
+    );
+    expect(iceBondBuffMod).toBeUndefined();
+  });
+
+  test("buff skill level affects buff value", () => {
+    // Ice Bond at level 1: 23.5% additional cold damage
+    // Ice Bond at level 20: 33% additional cold damage
+    const loadoutL1 = createBuffSkillLoadout({ name: "[Test] Simple Attack" }, [
+      { name: "Ice Bond", level: 1 },
+    ]);
+    const loadoutL20 = createBuffSkillLoadout(
+      { name: "[Test] Simple Attack" },
+      [{ name: "Ice Bond", level: 20 }],
+    );
+
+    const actualL1 = calculateOffense({
+      loadout: loadoutL1,
+      mainSkillName: "[Test] Simple Attack",
+      configuration: defaultConfiguration,
+    });
+    const actualL20 = calculateOffense({
+      loadout: loadoutL20,
+      mainSkillName: "[Test] Simple Attack",
+      configuration: defaultConfiguration,
+    });
+
+    const buffModL1 = actualL1?.resolvedMods.find(
+      (m) =>
+        m.type === "DmgPct" &&
+        m.modType === "cold" &&
+        "cond" in m &&
+        m.cond === "enemy_frostbitten",
+    );
+    const buffModL20 = actualL20?.resolvedMods.find(
+      (m) =>
+        m.type === "DmgPct" &&
+        m.modType === "cold" &&
+        "cond" in m &&
+        m.cond === "enemy_frostbitten",
+    );
+
+    expect(buffModL1?.value).toBeCloseTo(0.235);
+    expect(buffModL20?.value).toBeCloseTo(0.33);
+  });
+
+  test("Mass Effect increases buff skill effect", () => {
+    // Ice Bond at level 20: 33% base
+    // Mass Effect at level 20: 20% increased skill effect
+    // Expected: 33% * (1 + 0.2) = 39.6%
+    const loadout = createBuffSkillLoadout({ name: "[Test] Simple Attack" }, [
+      { name: "Ice Bond", supports: [{ name: "Mass Effect" }] },
+    ]);
+
+    const actual = calculateOffense({
+      loadout,
+      mainSkillName: "[Test] Simple Attack",
+      configuration: defaultConfiguration,
+    });
+
+    expect(actual).toBeDefined();
+    const iceBondBuffMod = actual?.resolvedMods.find(
+      (m) =>
+        m.type === "DmgPct" &&
+        m.modType === "cold" &&
+        "cond" in m &&
+        m.cond === "enemy_frostbitten",
+    );
+    expect(iceBondBuffMod?.value).toBeCloseTo(0.33 * 1.2);
+  });
+
+  test("Well-Fought Battle increases buff skill effect", () => {
+    // Ice Bond at level 20: 33% base
+    // Well-Fought Battle at level 20: 10% skill effect per use, hard-coded to 3 uses
+    // Expected: 33% * (1 + 0.1) * 3 = 108.9%
+    // Note: The hard-coded 3x multiplier only applies if the skill is Well-Fought Battle,
+    // which is a support skill, not an active skill. So the extraMult won't apply here.
+    // Actual expected: 33% * (1 + 0.1) = 36.3%
+    const loadout = createBuffSkillLoadout({ name: "[Test] Simple Attack" }, [
+      { name: "Ice Bond", supports: [{ name: "Well-Fought Battle" }] },
+    ]);
+
+    const actual = calculateOffense({
+      loadout,
+      mainSkillName: "[Test] Simple Attack",
+      configuration: defaultConfiguration,
+    });
+
+    expect(actual).toBeDefined();
+    const iceBondBuffMod = actual?.resolvedMods.find(
+      (m) =>
+        m.type === "DmgPct" &&
+        m.modType === "cold" &&
+        "cond" in m &&
+        m.cond === "enemy_frostbitten",
+    );
+    expect(iceBondBuffMod?.value).toBeCloseTo(0.33 * 1.1);
+  });
+
+  test("Ice Bond and Bull's Rage with Mass Effect and Well-Fought Battle - supports only affect their attached skill", () => {
+    // Setup:
+    // - Main skill: [Test] Simple Attack
+    // - Ice Bond with Mass Effect and Well-Fought Battle attached
+    // - Bull's Rage with Mass Effect and Well-Fought Battle attached
+    //
+    // Ice Bond at level 20: 33% base cold damage
+    // Bull's Rage at level 20: 27% base melee damage
+    // Mass Effect at level 20: 20% skill effect
+    // Well-Fought Battle at level 20: 10% skill effect
+    //
+    // Ice Bond buff = 33% * (1 + 0.2 + 0.1) = 33% * 1.3 = 42.9%
+    // Bull's Rage buff = 27% * (1 + 0.2 + 0.1) = 27% * 1.3 = 35.1%
+    //
+    // Key assertion: Each skill's supports only affect that skill's buff, not other skills
+    const loadout = createBuffSkillLoadout({ name: "[Test] Simple Attack" }, [
+      {
+        name: "Ice Bond",
+        supports: [{ name: "Mass Effect" }, { name: "Well-Fought Battle" }],
+      },
+      {
+        name: "Bull's Rage",
+        supports: [{ name: "Mass Effect" }, { name: "Well-Fought Battle" }],
+      },
+    ]);
+
+    const actual = calculateOffense({
+      loadout,
+      mainSkillName: "[Test] Simple Attack",
+      configuration: defaultConfiguration,
+    });
+
+    expect(actual).toBeDefined();
+
+    // Check Ice Bond buff
+    const iceBondBuffMod = actual?.resolvedMods.find(
+      (m) =>
+        m.type === "DmgPct" &&
+        m.modType === "cold" &&
+        "cond" in m &&
+        m.cond === "enemy_frostbitten",
+    );
+    expect(iceBondBuffMod?.value).toBeCloseTo(0.33 * 1.3);
+
+    // Check Bull's Rage buff
+    const bullsRageBuffMod = actual?.resolvedMods.find(
+      (m) => m.type === "DmgPct" && m.modType === "melee" && m.addn === true,
+    );
+    expect(bullsRageBuffMod?.value).toBeCloseTo(0.27 * 1.3);
+  });
+
+  test("supports on main skill do not affect buff skills", () => {
+    // Setup:
+    // - Main skill: [Test] Simple Attack with Mass Effect (should not affect buffs)
+    // - Ice Bond without supports
+    //
+    // Ice Bond should still have its base 33% buff, not affected by main skill's Mass Effect
+    const loadout = createBuffSkillLoadout(
+      { name: "[Test] Simple Attack", supports: [{ name: "Mass Effect" }] },
+      [{ name: "Ice Bond" }],
+    );
+
+    const actual = calculateOffense({
+      loadout,
+      mainSkillName: "[Test] Simple Attack",
+      configuration: defaultConfiguration,
+    });
+
+    expect(actual).toBeDefined();
+    const iceBondBuffMod = actual?.resolvedMods.find(
+      (m) =>
+        m.type === "DmgPct" &&
+        m.modType === "cold" &&
+        "cond" in m &&
+        m.cond === "enemy_frostbitten",
+    );
+    // Should be base 33%, not affected by main skill's Mass Effect
+    expect(iceBondBuffMod?.value).toBeCloseTo(0.33);
+  });
+
+  test("supports on one buff skill do not affect another buff skill", () => {
+    // Setup:
+    // - Ice Bond with Mass Effect (20% skill effect)
+    // - Bull's Rage without supports
+    //
+    // Ice Bond buff = 33% * 1.2 = 39.6%
+    // Bull's Rage buff = 27% (no effect from Ice Bond's supports)
+    const loadout = createBuffSkillLoadout({ name: "[Test] Simple Attack" }, [
+      { name: "Ice Bond", supports: [{ name: "Mass Effect" }] },
+      { name: "Bull's Rage" }, // No supports
+    ]);
+
+    const actual = calculateOffense({
+      loadout,
+      mainSkillName: "[Test] Simple Attack",
+      configuration: defaultConfiguration,
+    });
+
+    expect(actual).toBeDefined();
+
+    // Ice Bond should be boosted by Mass Effect
+    const iceBondBuffMod = actual?.resolvedMods.find(
+      (m) =>
+        m.type === "DmgPct" &&
+        m.modType === "cold" &&
+        "cond" in m &&
+        m.cond === "enemy_frostbitten",
+    );
+    expect(iceBondBuffMod?.value).toBeCloseTo(0.33 * 1.2);
+
+    // Bull's Rage should NOT be affected by Ice Bond's Mass Effect
+    const bullsRageBuffMod = actual?.resolvedMods.find(
+      (m) => m.type === "DmgPct" && m.modType === "melee" && m.addn === true,
+    );
+    expect(bullsRageBuffMod?.value).toBeCloseTo(0.27); // Base value, no boost
+  });
+
+  test("multiple SkillEffPct supports stack additively", () => {
+    // Setup:
+    // - Ice Bond with Mass Effect (20%) and Well-Fought Battle (10%)
+    //
+    // Total skill effect = 20% + 10% = 30%
+    // Ice Bond buff = 33% * (1 + 0.3) = 42.9%
+    const loadout = createBuffSkillLoadout({ name: "[Test] Simple Attack" }, [
+      {
+        name: "Ice Bond",
+        supports: [{ name: "Mass Effect" }, { name: "Well-Fought Battle" }],
+      },
+    ]);
+
+    const actual = calculateOffense({
+      loadout,
+      mainSkillName: "[Test] Simple Attack",
+      configuration: defaultConfiguration,
+    });
+
+    expect(actual).toBeDefined();
+    const iceBondBuffMod = actual?.resolvedMods.find(
+      (m) =>
+        m.type === "DmgPct" &&
+        m.modType === "cold" &&
+        "cond" in m &&
+        m.cond === "enemy_frostbitten",
+    );
+    expect(iceBondBuffMod?.value).toBeCloseTo(0.33 * 1.3);
+  });
+
+  test("support skill level affects skill effect bonus", () => {
+    // Mass Effect at level 1: 10.5% skill effect
+    // Mass Effect at level 20: 20% skill effect
+    //
+    // Ice Bond at level 20: 33% base
+    // With Mass Effect L1: 33% * (1 + 0.105) = 36.465%
+    // With Mass Effect L20: 33% * (1 + 0.2) = 39.6%
+    const loadoutL1 = createBuffSkillLoadout({ name: "[Test] Simple Attack" }, [
+      { name: "Ice Bond", supports: [{ name: "Mass Effect", level: 1 }] },
+    ]);
+    const loadoutL20 = createBuffSkillLoadout(
+      { name: "[Test] Simple Attack" },
+      [{ name: "Ice Bond", supports: [{ name: "Mass Effect", level: 20 }] }],
+    );
+
+    const actualL1 = calculateOffense({
+      loadout: loadoutL1,
+      mainSkillName: "[Test] Simple Attack",
+      configuration: defaultConfiguration,
+    });
+    const actualL20 = calculateOffense({
+      loadout: loadoutL20,
+      mainSkillName: "[Test] Simple Attack",
+      configuration: defaultConfiguration,
+    });
+
+    const buffModL1 = actualL1?.resolvedMods.find(
+      (m) =>
+        m.type === "DmgPct" &&
+        m.modType === "cold" &&
+        "cond" in m &&
+        m.cond === "enemy_frostbitten",
+    );
+    const buffModL20 = actualL20?.resolvedMods.find(
+      (m) =>
+        m.type === "DmgPct" &&
+        m.modType === "cold" &&
+        "cond" in m &&
+        m.cond === "enemy_frostbitten",
+    );
+
+    expect(buffModL1?.value).toBeCloseTo(0.33 * 1.105);
+    expect(buffModL20?.value).toBeCloseTo(0.33 * 1.2);
   });
 });

@@ -289,6 +289,8 @@ export type Mod =
   | {
       type: "SkillEffPct";
       value: number;
+      addn?: boolean;
+      per?: PerStackable;
       src?: string;
     }
   | {
