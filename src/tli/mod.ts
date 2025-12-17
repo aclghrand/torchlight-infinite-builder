@@ -1,3 +1,4 @@
+import { SkillTag } from "../data/skill";
 import type {
   CritDmgModType,
   CritRatingModType,
@@ -18,7 +19,8 @@ export type Stackable =
   | "frostbite_rating"
   | "projectile"
   | "skill_use"
-  | "skill_charges_on_use";
+  | "skill_charges_on_use"
+  | "cruelty_buff";
 
 export type StatType = "str" | "dex" | "int";
 
@@ -26,10 +28,15 @@ export type StatType = "str" | "dex" | "int";
 // e.g. per 35 frostbite with 105 frostbite means x3
 export interface PerStackable {
   stackable: Stackable;
+  // number of max stacks
+  limit?: number; // default infinity
+  // how much to divide the stackable number by
   amt?: number; // default 1
 }
 
 export type Condition = "enemy_frostbitten";
+
+export type Target = "own_skill_only";
 
 export type Mod =
   | {
@@ -288,6 +295,22 @@ export type Mod =
     }
   | {
       type: "SkillEffPct";
+      value: number;
+      addn?: boolean;
+      per?: PerStackable;
+      src?: string;
+    }
+  | {
+      type: "AuraEffPct";
+      value: number;
+      addn?: boolean;
+      per?: PerStackable;
+      src?: string;
+      target?: Target;
+      unscalable?: boolean;
+    }
+  | {
+      type: "SealedManaCompPct";
       value: number;
       addn?: boolean;
       per?: PerStackable;

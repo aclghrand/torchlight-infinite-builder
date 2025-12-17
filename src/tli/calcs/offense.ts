@@ -724,6 +724,7 @@ interface NormalizationContext {
   skillUse: number;
   skillChargesOnUse: number;
   mainStat: number;
+  crueltyBuffStacks: number;
 }
 
 const normalizeMod = <T extends Mod>(
@@ -752,6 +753,7 @@ const normalizeMod = <T extends Mod>(
     .with("skill_use", () => context.skillUse)
     .with("skill_charges_on_use", () => context.skillChargesOnUse)
     .with("main_stat", () => context.mainStat)
+    .with("cruelty_buff", () => context.crueltyBuffStacks)
     .exhaustive();
   return multModValue(mod, stacks / div) as T;
 };
@@ -823,8 +825,31 @@ const normalizeSkillEffMod = (
     skillUse: 3,
     skillChargesOnUse: 2,
     mainStat: 0,
+    crueltyBuffStacks: config.crueltyBuffStacks,
   };
   return normalizeMod(mod, context, config);
+};
+
+// Normalizes an AuraEffPct mod by multiplying its value by the appropriate stack count
+const normalizeAuraEffMod = (
+  mod: Extract<Mod, { type: "AuraEffPct" }>,
+  config: Configuration,
+): Extract<Mod, { type: "AuraEffPct" }> | undefined => {
+  const context: NormalizationContext = {
+    willpower: 0,
+    frostbiteRating: 0,
+    projectile: 0,
+    skillUse: 0,
+    skillChargesOnUse: 0,
+    mainStat: 0,
+    crueltyBuffStacks: config.crueltyBuffStacks,
+  };
+  return normalizeMod(mod, context, config);
+};
+
+// Checks if a mod has target: "own_skill_only" property
+const hasOwnSkillOnlyTarget = (mod: Mod): boolean => {
+  return "target" in mod && mod.target === "own_skill_only";
 };
 
 // resolves mods coming from skills that provide buffs (levelBuffMods)
@@ -836,16 +861,30 @@ const resolveBuffSkillMods = (
   const activeSkillSlots = listActiveSkillSlots(loadout);
   const passiveSkillSlots = listPassiveSkillSlots(loadout);
   const allSkillSlots = [...activeSkillSlots, ...passiveSkillSlots];
-  const resolvedMods = [];
+  const resolvedMods: Mod[] = [];
+
   for (const skillSlot of allSkillSlots) {
     if (!skillSlot.enabled) {
       continue;
     }
 
-    // we only care about skill effect for now
+    const level = skillSlot.level || 20;
+    const skill = findSkill(
+      skillSlot.skillName as ActiveSkillName | PassiveSkillName,
+    );
+    const isAuraSkill =
+      (skill.type === "Passive" && skill.tags?.includes("Aura")) ?? false;
+
+    // Get support skill mods (includes SkillEffPct, AuraEffPct, etc.)
+    const supportMods = resolveSelectedSkillSupportMods(skillSlot);
+
+    // === Calculate SkillEffPct multiplier (from support skills) ===
     // todo: add area, cdr, duration, and other buff-skill modifiers
-    const skillEffMods = resolveSelectedSkillSupportMods(skillSlot)
-      .filter((m) => m.type === "SkillEffPct")
+    const skillEffMods = supportMods
+      .filter(
+        (m): m is Extract<Mod, { type: "SkillEffPct" }> =>
+          m.type === "SkillEffPct",
+      )
       .map((m) => normalizeSkillEffMod(m, config))
       .filter((m) => m !== undefined);
     const incSkillEffMods = skillEffMods.filter(
@@ -856,21 +895,73 @@ const resolveBuffSkillMods = (
     const addnSkillEff = calculateAddn(addnSkillEffMods.map((m) => m.value));
     const skillEffMult = (1 + incSkillEff) * addnSkillEff;
 
-    const level = skillSlot.level || 20;
-    const skill = findSkill(
-      skillSlot.skillName as ActiveSkillName | PassiveSkillName,
-    );
-
-    // todo: do we need a more granular way of applying skill effect than just multiplying
-    //  it against the template value?
-    const buffMods: Mod[] =
+    // === Resolve raw buff mods from skill's levelBuffMods ===
+    const rawBuffMods: Mod[] =
       skill.levelBuffMods?.map((m) => {
         return {
           ...m.template,
-          value: multValue(m.levels[level], skillEffMult),
+          value: m.levels[level],
+          src: `${isAuraSkill ? "Aura" : "Buff"}: ${skill.name} Lv.${level}`,
         } as Mod;
       }) || [];
-    resolvedMods.push(...buffMods);
+
+    // === Calculate AuraEffPct multiplier (from support skills + own levelBuffMods) ===
+    // Only applies if this is an Aura skill
+    let auraEffMult = 1;
+    if (isAuraSkill) {
+      // Collect AuraEffPct from support skills
+      const supportAuraEffMods = supportMods.filter(
+        (m): m is Extract<Mod, { type: "AuraEffPct" }> =>
+          m.type === "AuraEffPct",
+      );
+
+      // Collect AuraEffPct from own levelBuffMods (own_skill_only ones)
+      const ownAuraEffMods = rawBuffMods.filter(
+        (m): m is Extract<Mod, { type: "AuraEffPct" }> =>
+          m.type === "AuraEffPct" && hasOwnSkillOnlyTarget(m),
+      );
+
+      // Combine and normalize all AuraEffPct mods
+      const allAuraEffMods = [...supportAuraEffMods, ...ownAuraEffMods]
+        .map((m) => normalizeAuraEffMod(m, config))
+        .filter((m) => m !== undefined);
+
+      const incAuraEffMods = allAuraEffMods.filter(
+        (m) => m.addn === undefined || m.addn === false,
+      );
+      const addnAuraEffMods = allAuraEffMods.filter((m) => m.addn === true);
+      auraEffMult =
+        (1 + calculateInc(incAuraEffMods.map((m) => m.value))) *
+        calculateAddn(addnAuraEffMods.map((m) => m.value));
+    }
+
+    // === Apply multipliers and filter own_skill_only mods ===
+    for (const mod of rawBuffMods) {
+      // Skip mods with target: "own_skill_only" from shared output
+      // (they were already used to calculate multipliers above)
+      if (hasOwnSkillOnlyTarget(mod)) {
+        continue;
+      }
+
+      // Skip mods without value property (like CoreTalent)
+      if (!("value" in mod)) {
+        resolvedMods.push(mod);
+        continue;
+      }
+
+      // Calculate final value
+      let finalValue = mod.value;
+      if (!("unscalable" in mod && mod.unscalable === true)) {
+        // Apply skill effect multiplier
+        finalValue = multValue(finalValue, skillEffMult);
+        // Apply aura effect multiplier (only for aura skills)
+        if (isAuraSkill) {
+          finalValue = multValue(finalValue, auraEffMult);
+        }
+      }
+
+      resolvedMods.push({ ...mod, value: finalValue } as Mod);
+    }
   }
   return resolvedMods;
 };
@@ -1020,6 +1111,7 @@ const normalizeModsForSkill = (
     skillUse: 0,
     skillChargesOnUse: 0,
     mainStat,
+    crueltyBuffStacks: config.crueltyBuffStacks,
   };
 
   return allMods

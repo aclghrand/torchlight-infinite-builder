@@ -9,6 +9,15 @@ export const passiveSkillTemplates: Partial<
   Record<PassiveSkillName, PassiveSkillTemplate>
 > = {
   "Precise: Cruelty": {
-    levelBuffMods: [{ type: "DmgPct", addn: true, modType: "attack" }],
+    levelBuffMods: [
+      { type: "DmgPct", addn: true, modType: "attack" },
+      {
+        type: "AuraEffPct",
+        addn: true,
+        per: { stackable: "cruelty_buff", limit: 40 },
+        target: "own_skill_only",
+        unscalable: true,
+      },
+    ],
   },
 };

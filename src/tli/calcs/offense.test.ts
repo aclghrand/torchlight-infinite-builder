@@ -2019,6 +2019,7 @@ describe("resolveBuffSkillMods", () => {
       configuration: {
         fervor: { enabled: false, points: 0 },
         enemyFrobitten: { enabled: false, points: 0 },
+        crueltyBuffStacks: 40,
       },
     });
     const actual = results["[Test] Simple Attack"];
@@ -2326,8 +2327,11 @@ describe("resolveBuffSkillMods", () => {
     expect(buffModL20?.value).toBeCloseTo(0.33 * 1.4);
   });
 
-  test("passive skill Precise: Cruelty provides additional attack damage", () => {
-    // Precise: Cruelty at level 20 provides: 22% additional attack damage
+  test("passive skill Precise: Cruelty provides additional attack damage scaled by AuraEffPct", () => {
+    // Precise: Cruelty at level 20 provides:
+    // - Base: 22% additional attack damage
+    // - AuraEffPct: 2.5% per cruelty_buff stack, default 40 stacks = 100% aura effect
+    // - Final: 22% * (1 + 1.0) = 44%
     const loadout = initLoadout({
       gearPage: { equippedGear: { mainHand: baseWeapon }, inventory: [] },
       skillPage: {
@@ -2361,6 +2365,114 @@ describe("resolveBuffSkillMods", () => {
       (m) => m.type === "DmgPct" && m.modType === "attack" && m.addn === true,
     ) as DmgPctMod | undefined;
     expect(preciseCrueltyBuffMod).toBeDefined();
-    expect(preciseCrueltyBuffMod?.value).toBeCloseTo(0.22);
+    // Base 22% scaled by 100% aura effect = 44%
+    expect(preciseCrueltyBuffMod?.value).toBeCloseTo(0.22 * 2);
+  });
+
+  test("Precise: Cruelty AuraEffPct scales with crueltyBuffStacks config", () => {
+    // Precise: Cruelty at level 20 with only 20 stacks:
+    // - Base: 22% additional attack damage
+    // - AuraEffPct: 2.5% * 20 = 50% aura effect
+    // - Final: 22% * (1 + 0.5) = 33%
+    const loadout = initLoadout({
+      gearPage: { equippedGear: { mainHand: baseWeapon }, inventory: [] },
+      skillPage: {
+        activeSkills: {
+          1: {
+            skillName: "[Test] Simple Attack",
+            enabled: true,
+            level: 20,
+            supportSkills: {},
+          },
+        },
+        passiveSkills: {
+          1: {
+            skillName: "Precise: Cruelty",
+            enabled: true,
+            level: 20,
+            supportSkills: {},
+          },
+        },
+      },
+    });
+
+    const configWith20Stacks: Configuration = {
+      ...createDefaultConfiguration(),
+      crueltyBuffStacks: 20,
+    };
+
+    const results = calculateOffense({
+      loadout,
+      configuration: configWith20Stacks,
+    });
+    const actual = results["[Test] Simple Attack"];
+
+    expect(actual).toBeDefined();
+    const preciseCrueltyBuffMod = actual?.resolvedMods.find(
+      (m) => m.type === "DmgPct" && m.modType === "attack" && m.addn === true,
+    ) as DmgPctMod | undefined;
+    expect(preciseCrueltyBuffMod).toBeDefined();
+    // Base 22% scaled by 50% aura effect = 33%
+    expect(preciseCrueltyBuffMod?.value).toBeCloseTo(0.22 * 1.5);
+  });
+
+  test("AuraEffPct with target own_skill_only does not appear in resolvedMods", () => {
+    // The AuraEffPct mod from Precise: Cruelty has target: "own_skill_only"
+    // It should not be included in the resolvedMods output
+    const loadout = initLoadout({
+      gearPage: { equippedGear: { mainHand: baseWeapon }, inventory: [] },
+      skillPage: {
+        activeSkills: {
+          1: {
+            skillName: "[Test] Simple Attack",
+            enabled: true,
+            level: 20,
+            supportSkills: {},
+          },
+        },
+        passiveSkills: {
+          1: {
+            skillName: "Precise: Cruelty",
+            enabled: true,
+            level: 20,
+            supportSkills: {},
+          },
+        },
+      },
+    });
+
+    const results = calculateOffense({
+      loadout,
+      configuration: defaultConfiguration,
+    });
+    const actual = results["[Test] Simple Attack"];
+
+    expect(actual).toBeDefined();
+    // AuraEffPct with own_skill_only target should not be in resolvedMods
+    const auraEffMod = actual?.resolvedMods.find(
+      (m) => m.type === "AuraEffPct",
+    );
+    expect(auraEffMod).toBeUndefined();
+  });
+
+  test("AuraEffPct only affects Aura-tagged skills", () => {
+    // Bull's Rage is NOT an Aura skill, so it should not be affected by AuraEffPct
+    // Even if we somehow had AuraEffPct in the loadout, Bull's Rage buff should remain at base value
+    const loadout = createBuffSkillLoadout({ name: "[Test] Simple Attack" }, [
+      { name: "Bull's Rage" },
+    ]);
+
+    const results = calculateOffense({
+      loadout,
+      configuration: defaultConfiguration,
+    });
+    const actual = results["[Test] Simple Attack"];
+
+    expect(actual).toBeDefined();
+    // Bull's Rage at level 20 provides 27% additional melee damage (no aura scaling)
+    const bullsRageBuffMod = actual?.resolvedMods.find(
+      (m) => m.type === "DmgPct" && m.modType === "melee" && m.addn === true,
+    ) as DmgPctMod | undefined;
+    expect(bullsRageBuffMod?.value).toBeCloseTo(0.27);
   });
 });

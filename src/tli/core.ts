@@ -47,11 +47,13 @@ export interface Configuration {
     enabled: boolean;
     points: number;
   };
+  crueltyBuffStacks: number;
 }
 
 export const createDefaultConfiguration = (): Configuration => ({
   fervor: { enabled: false, points: 0 },
   enemyFrobitten: { enabled: false, points: 0 },
+  crueltyBuffStacks: 40,
 });
 
 export interface Gear {
