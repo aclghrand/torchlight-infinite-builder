@@ -5,6 +5,8 @@ import {
   type DivinitySlate,
   getAffixText,
   type PlacedSlate,
+  type Rotation,
+  type SlateShape,
 } from "@/src/tli/core";
 import type { DivinitySlate as SaveDataDivinitySlate } from "../../lib/save-data";
 import { generateItemId } from "../../lib/storage";
@@ -89,6 +91,42 @@ export const DivinitySection = () => {
     [updateSaveData],
   );
 
+  const handleUpdateSlateRotation = useCallback(
+    (slateId: string, rotation: Rotation) => {
+      updateSaveData((prev) => ({
+        ...prev,
+        divinitySlateList: prev.divinitySlateList.map((s) =>
+          s.id === slateId ? { ...s, rotation } : s,
+        ),
+      }));
+    },
+    [updateSaveData],
+  );
+
+  const handleUpdateSlateFlip = useCallback(
+    (slateId: string, flippedH: boolean, flippedV: boolean) => {
+      updateSaveData((prev) => ({
+        ...prev,
+        divinitySlateList: prev.divinitySlateList.map((s) =>
+          s.id === slateId ? { ...s, flippedH, flippedV } : s,
+        ),
+      }));
+    },
+    [updateSaveData],
+  );
+
+  const handleUpdateSlateShape = useCallback(
+    (slateId: string, shape: SlateShape) => {
+      updateSaveData((prev) => ({
+        ...prev,
+        divinitySlateList: prev.divinitySlateList.map((s) =>
+          s.id === slateId ? { ...s, shape } : s,
+        ),
+      }));
+    },
+    [updateSaveData],
+  );
+
   return (
     <DivinityTab
       divinityPage={loadout.divinityPage}
@@ -97,6 +135,9 @@ export const DivinitySection = () => {
       onDeleteSlate={handleDeleteSlate}
       onPlaceSlate={handlePlaceSlate}
       onMoveSlate={handleMoveSlate}
+      onUpdateSlateRotation={handleUpdateSlateRotation}
+      onUpdateSlateFlip={handleUpdateSlateFlip}
+      onUpdateSlateShape={handleUpdateSlateShape}
     />
   );
 };

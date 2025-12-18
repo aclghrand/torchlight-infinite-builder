@@ -1,7 +1,13 @@
 "use client";
 
 import { findGridCenter } from "@/src/app/lib/divinity-grid";
-import type { DivinityPage, DivinitySlate, PlacedSlate } from "@/src/tli/core";
+import type {
+  DivinityPage,
+  DivinitySlate,
+  PlacedSlate,
+  Rotation,
+  SlateShape,
+} from "@/src/tli/core";
 import { DivinityGrid } from "./DivinityGrid";
 import { SlateCrafter } from "./SlateCrafter";
 import { SlateInventory } from "./SlateInventory";
@@ -16,6 +22,13 @@ interface DivinityTabProps {
     slateId: string,
     position: { row: number; col: number },
   ) => void;
+  onUpdateSlateRotation: (slateId: string, rotation: Rotation) => void;
+  onUpdateSlateFlip: (
+    slateId: string,
+    flippedH: boolean,
+    flippedV: boolean,
+  ) => void;
+  onUpdateSlateShape: (slateId: string, shape: SlateShape) => void;
 }
 
 export const DivinityTab: React.FC<DivinityTabProps> = ({
@@ -25,6 +38,9 @@ export const DivinityTab: React.FC<DivinityTabProps> = ({
   onDeleteSlate,
   onPlaceSlate,
   onMoveSlate,
+  onUpdateSlateRotation,
+  onUpdateSlateFlip,
+  onUpdateSlateShape,
 }) => {
   const placedSlateIds = divinityPage.placedSlates.map((p) => p.slateId);
 
@@ -41,7 +57,13 @@ export const DivinityTab: React.FC<DivinityTabProps> = ({
     <div className="flex gap-8">
       <div className="flex flex-col gap-4">
         <h3 className="text-lg font-medium text-zinc-200">Divinity Grid</h3>
-        <DivinityGrid divinityPage={divinityPage} onMoveSlate={onMoveSlate} />
+        <DivinityGrid
+          divinityPage={divinityPage}
+          onMoveSlate={onMoveSlate}
+          onUpdateSlateRotation={onUpdateSlateRotation}
+          onUpdateSlateFlip={onUpdateSlateFlip}
+          onUpdateSlateShape={onUpdateSlateShape}
+        />
       </div>
 
       <div className="flex flex-col gap-6">

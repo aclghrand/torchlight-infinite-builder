@@ -18,27 +18,46 @@ import {
   getTransformedCells,
 } from "@/src/app/lib/divinity-shapes";
 import { GOD_COLORS } from "@/src/app/lib/divinity-utils";
-import type { DivinityPage } from "@/src/tli/core";
+import {
+  type DivinityPage,
+  ROTATIONS,
+  type Rotation,
+  SLATE_SHAPES,
+  type SlateShape,
+} from "@/src/tli/core";
 import { DivinityGridCell } from "./DivinityGridCell";
+import { SlateEditToolbar } from "./SlateEditToolbar";
 
 const CELL_SIZE = 48; // h-12 w-12 = 48px
 
 interface DivinityGridProps {
   divinityPage: DivinityPage;
-  onClickPlacedSlate?: (slateId: string) => void;
   onMoveSlate: (
     slateId: string,
     position: { row: number; col: number },
   ) => void;
+  onUpdateSlateRotation: (slateId: string, rotation: Rotation) => void;
+  onUpdateSlateFlip: (
+    slateId: string,
+    flippedH: boolean,
+    flippedV: boolean,
+  ) => void;
+  onUpdateSlateShape: (slateId: string, shape: SlateShape) => void;
 }
 
 export const DivinityGrid: React.FC<DivinityGridProps> = ({
   divinityPage,
-  onClickPlacedSlate,
   onMoveSlate,
+  onUpdateSlateRotation,
+  onUpdateSlateFlip,
+  onUpdateSlateShape,
 }) => {
   const gridRef = useRef<HTMLDivElement>(null);
   const [draggedSlateId, setDraggedSlateId] = useState<string | undefined>();
+  const [selectedSlateId, setSelectedSlateId] = useState<string | undefined>();
+  const [toolbarPosition, setToolbarPosition] = useState<
+    { x: number; y: number } | undefined
+  >();
   const [dropTarget, setDropTarget] = useState<
     { row: number; col: number } | undefined
   >();
@@ -131,16 +150,86 @@ export const DivinityGrid: React.FC<DivinityGridProps> = ({
   };
 
   const handleCellClick = (row: number, col: number) => {
-    if (!onClickPlacedSlate) return;
     const placed = findSlateAtCell(
       row,
       col,
       divinityPage.inventory,
       divinityPage.placedSlates,
     );
-    if (placed) {
-      onClickPlacedSlate(placed.slateId);
+    if (placed && gridRef.current) {
+      const slate = divinityPage.inventory.find((s) => s.id === placed.slateId);
+      const placement = divinityPage.placedSlates.find(
+        (p) => p.slateId === placed.slateId,
+      );
+      if (slate && placement) {
+        const cells = getOccupiedCells(slate, placement);
+        const minRow = Math.min(...cells.map(([r]) => r));
+        const minCol = Math.min(...cells.map(([, c]) => c));
+        const maxCol = Math.max(...cells.map(([, c]) => c));
+
+        const gridRect = gridRef.current.getBoundingClientRect();
+        const topY =
+          gridRect.top + 8 + (minRow - DISPLAY_ROW_START) * CELL_SIZE;
+        const centerX =
+          gridRect.left +
+          8 +
+          ((minCol + maxCol + 1) / 2 - DISPLAY_COL_START) * CELL_SIZE;
+
+        setSelectedSlateId(placed.slateId);
+        setToolbarPosition({ x: centerX, y: topY });
+      }
+    } else {
+      setSelectedSlateId(undefined);
+      setToolbarPosition(undefined);
     }
+  };
+
+  const handleCloseToolbar = () => {
+    setSelectedSlateId(undefined);
+    setToolbarPosition(undefined);
+  };
+
+  const selectedSlate = selectedSlateId
+    ? divinityPage.inventory.find((s) => s.id === selectedSlateId)
+    : undefined;
+
+  const handleRotateLeft = () => {
+    if (!selectedSlate || !selectedSlateId) return;
+    const currentIndex = ROTATIONS.indexOf(selectedSlate.rotation);
+    const nextIndex = (currentIndex + 3) % ROTATIONS.length;
+    onUpdateSlateRotation(selectedSlateId, ROTATIONS[nextIndex]);
+  };
+
+  const handleRotateRight = () => {
+    if (!selectedSlate || !selectedSlateId) return;
+    const currentIndex = ROTATIONS.indexOf(selectedSlate.rotation);
+    const nextIndex = (currentIndex + 1) % ROTATIONS.length;
+    onUpdateSlateRotation(selectedSlateId, ROTATIONS[nextIndex]);
+  };
+
+  const handleFlipH = () => {
+    if (!selectedSlate || !selectedSlateId) return;
+    onUpdateSlateFlip(
+      selectedSlateId,
+      !selectedSlate.flippedH,
+      selectedSlate.flippedV,
+    );
+  };
+
+  const handleFlipV = () => {
+    if (!selectedSlate || !selectedSlateId) return;
+    onUpdateSlateFlip(
+      selectedSlateId,
+      selectedSlate.flippedH,
+      !selectedSlate.flippedV,
+    );
+  };
+
+  const handleChangeShape = () => {
+    if (!selectedSlate || !selectedSlateId) return;
+    const currentIndex = SLATE_SHAPES.indexOf(selectedSlate.shape);
+    const nextIndex = (currentIndex + 1) % SLATE_SHAPES.length;
+    onUpdateSlateShape(selectedSlateId, SLATE_SHAPES[nextIndex]);
   };
 
   const handleMouseMove = useCallback(
@@ -179,12 +268,37 @@ export const DivinityGrid: React.FC<DivinityGridProps> = ({
 
       onMoveSlate(draggedSlateId, { row, col });
 
+      // Update toolbar position if we were dragging the selected slate
+      if (draggedSlateId === selectedSlateId && selectedSlate) {
+        const cells = getTransformedCells(
+          selectedSlate.shape,
+          selectedSlate.rotation,
+          selectedSlate.flippedH,
+          selectedSlate.flippedV,
+        );
+        const minRowOffset = Math.min(...cells.map(([r]) => r));
+        const minColOffset = Math.min(...cells.map(([, c]) => c));
+        const maxColOffset = Math.max(...cells.map(([, c]) => c));
+
+        const minRow = row + minRowOffset;
+        const minCol = col + minColOffset;
+        const maxCol = col + maxColOffset;
+
+        const topY = rect.top + 8 + (minRow - DISPLAY_ROW_START) * CELL_SIZE;
+        const centerX =
+          rect.left +
+          8 +
+          ((minCol + maxCol + 1) / 2 - DISPLAY_COL_START) * CELL_SIZE;
+
+        setToolbarPosition({ x: centerX, y: topY });
+      }
+
       setDraggedSlateId(undefined);
       setDropTarget(undefined);
       setDragOffset(undefined);
       setDragPosition(undefined);
     },
-    [draggedSlateId, dragOffset, onMoveSlate],
+    [draggedSlateId, dragOffset, onMoveSlate, selectedSlateId, selectedSlate],
   );
 
   // Add/remove document-level event listeners when dragging
@@ -423,6 +537,52 @@ export const DivinityGrid: React.FC<DivinityGridProps> = ({
           </span>
         </div>
       )}
+      {selectedSlate &&
+        toolbarPosition &&
+        gridRef.current &&
+        (() => {
+          const isSelectedSlateDragging = draggedSlateId === selectedSlateId;
+          let currentToolbarPosition = toolbarPosition;
+
+          if (isSelectedSlateDragging && dropTarget) {
+            const cells = getTransformedCells(
+              selectedSlate.shape,
+              selectedSlate.rotation,
+              selectedSlate.flippedH,
+              selectedSlate.flippedV,
+            );
+            const minRowOffset = Math.min(...cells.map(([r]) => r));
+            const minColOffset = Math.min(...cells.map(([, c]) => c));
+            const maxColOffset = Math.max(...cells.map(([, c]) => c));
+
+            const minRow = dropTarget.row + minRowOffset;
+            const minCol = dropTarget.col + minColOffset;
+            const maxCol = dropTarget.col + maxColOffset;
+
+            const gridRect = gridRef.current.getBoundingClientRect();
+            const topY =
+              gridRect.top + 8 + (minRow - DISPLAY_ROW_START) * CELL_SIZE;
+            const centerX =
+              gridRect.left +
+              8 +
+              ((minCol + maxCol + 1) / 2 - DISPLAY_COL_START) * CELL_SIZE;
+
+            currentToolbarPosition = { x: centerX, y: topY };
+          }
+
+          return (
+            <SlateEditToolbar
+              slate={selectedSlate}
+              position={currentToolbarPosition}
+              onRotateLeft={handleRotateLeft}
+              onRotateRight={handleRotateRight}
+              onFlipH={handleFlipH}
+              onFlipV={handleFlipV}
+              onChangeShape={handleChangeShape}
+              onClose={handleCloseToolbar}
+            />
+          );
+        })()}
     </div>
   );
 };
