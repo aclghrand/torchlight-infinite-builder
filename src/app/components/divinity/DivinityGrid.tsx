@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   DISPLAY_COL_END,
   DISPLAY_COL_START,
@@ -20,6 +20,8 @@ import {
 import type { DivinityPage } from "@/src/tli/core";
 import { DivinityGridCell } from "./DivinityGridCell";
 
+const CELL_SIZE = 48; // h-12 w-12 = 48px
+
 interface DivinityGridProps {
   divinityPage: DivinityPage;
   onClickPlacedSlate: (slateId: string) => void;
@@ -34,6 +36,7 @@ export const DivinityGrid: React.FC<DivinityGridProps> = ({
   onClickPlacedSlate,
   onMoveSlate,
 }) => {
+  const gridRef = useRef<HTMLDivElement>(null);
   const [draggedSlateId, setDraggedSlateId] = useState<string | undefined>();
   const [dropTarget, setDropTarget] = useState<
     { row: number; col: number } | undefined
@@ -130,34 +133,77 @@ export const DivinityGrid: React.FC<DivinityGridProps> = ({
     }
   };
 
-  const handleDragStart = (slateId: string, e: React.DragEvent) => {
-    // Create invisible drag image so browser doesn't show single cell
-    const img = new Image();
-    img.src =
-      "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
-    e.dataTransfer.setDragImage(img, 0, 0);
-    e.dataTransfer.effectAllowed = "move";
-    setDraggedSlateId(slateId);
-  };
+  // Calculate grid cell from mouse position
+  const getCellFromMouseEvent = useCallback(
+    (e: MouseEvent): { row: number; col: number } | undefined => {
+      if (!gridRef.current) return undefined;
 
-  const handleDragEnd = () => {
-    setDraggedSlateId(undefined);
-    setDropTarget(undefined);
-  };
+      const rect = gridRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left - 8; // 8px = p-2 padding
+      const y = e.clientY - rect.top - 8;
 
-  const handleDragOver = (row: number, col: number, e: React.DragEvent) => {
+      const col = Math.floor(x / CELL_SIZE) + DISPLAY_COL_START;
+      const row = Math.floor(y / CELL_SIZE) + DISPLAY_ROW_START;
+
+      return { row, col };
+    },
+    [],
+  );
+
+  const handleMouseMove = useCallback(
+    (e: MouseEvent) => {
+      if (!draggedSlateId) return;
+
+      const cell = getCellFromMouseEvent(e);
+      if (cell) {
+        setDropTarget(cell);
+      }
+    },
+    [draggedSlateId, getCellFromMouseEvent],
+  );
+
+  const handleMouseUp = useCallback(
+    (e: MouseEvent) => {
+      if (!draggedSlateId) return;
+
+      const cell = getCellFromMouseEvent(e);
+      if (cell) {
+        onMoveSlate(draggedSlateId, cell);
+      }
+
+      setDraggedSlateId(undefined);
+      setDropTarget(undefined);
+    },
+    [draggedSlateId, getCellFromMouseEvent, onMoveSlate],
+  );
+
+  // Add/remove document-level event listeners when dragging
+  useEffect(() => {
+    if (draggedSlateId) {
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+
+      return () => {
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+      };
+    }
+  }, [draggedSlateId, handleMouseMove, handleMouseUp]);
+
+  const handleMouseDown = (slateId: string, e: React.MouseEvent) => {
     e.preventDefault();
-    if (draggedSlateId) {
-      setDropTarget({ row, col });
-    }
-  };
+    setDraggedSlateId(slateId);
 
-  const handleDrop = (row: number, col: number) => {
-    if (draggedSlateId) {
-      onMoveSlate(draggedSlateId, { row, col });
+    // Set initial drop target to current position
+    const placement = divinityPage.placedSlates.find(
+      (p) => p.slateId === slateId,
+    );
+    if (placement) {
+      setDropTarget({
+        row: placement.position.row,
+        col: placement.position.col,
+      });
     }
-    setDraggedSlateId(undefined);
-    setDropTarget(undefined);
   };
 
   const rows = [];
@@ -188,12 +234,9 @@ export const DivinityGrid: React.FC<DivinityGridProps> = ({
           isPreview={isPreview}
           previewSlate={isPreview ? draggedSlate : undefined}
           onClick={() => handleCellClick(row, col)}
-          onDragStart={
-            cellSlateId ? (e) => handleDragStart(cellSlateId, e) : undefined
+          onMouseDown={
+            cellSlateId ? (e) => handleMouseDown(cellSlateId, e) : undefined
           }
-          onDragEnd={handleDragEnd}
-          onDragOver={(e) => handleDragOver(row, col, e)}
-          onDrop={() => handleDrop(row, col)}
         />,
       );
     }
@@ -206,7 +249,12 @@ export const DivinityGrid: React.FC<DivinityGridProps> = ({
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="inline-block rounded-lg bg-zinc-900 p-2">{rows}</div>
+      <div
+        ref={gridRef}
+        className={`inline-block rounded-lg bg-zinc-900 p-2 ${draggedSlateId ? "cursor-grabbing" : ""}`}
+      >
+        {rows}
+      </div>
       {hasInvalidState && (
         <div className="flex items-center gap-2 rounded bg-red-900/50 px-3 py-2 text-sm text-red-200">
           <span className="text-red-400">⚠</span>

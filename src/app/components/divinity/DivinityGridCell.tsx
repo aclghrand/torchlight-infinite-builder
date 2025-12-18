@@ -21,10 +21,7 @@ interface DivinityGridCellProps {
   isPreview: boolean;
   previewSlate: DivinitySlate | undefined;
   onClick: () => void;
-  onDragStart: ((e: React.DragEvent) => void) | undefined;
-  onDragEnd: () => void;
-  onDragOver: (e: React.DragEvent) => void;
-  onDrop: () => void;
+  onMouseDown: ((e: React.MouseEvent) => void) | undefined;
 }
 
 // CSS for the X pattern overlay on invalid cells
@@ -48,16 +45,11 @@ export const DivinityGridCell: React.FC<DivinityGridCellProps> = ({
   isPreview,
   previewSlate,
   onClick,
-  onDragStart,
-  onDragEnd,
-  onDragOver,
-  onDrop,
+  onMouseDown,
 }) => {
   // Empty out-of-bounds cell (no slate and no preview)
   if (isOutOfBounds && !slate && !isPreview) {
-    return (
-      <div className="h-12 w-12" onDragOver={onDragOver} onDrop={onDrop} />
-    );
+    return <div className="h-12 w-12" />;
   }
 
   // Out-of-bounds cell with preview (no existing slate)
@@ -65,8 +57,6 @@ export const DivinityGridCell: React.FC<DivinityGridCellProps> = ({
     return (
       <div
         className={`relative h-12 w-12 ${GOD_COLORS[previewSlate.god]} opacity-60`}
-        onDragOver={onDragOver}
-        onDrop={onDrop}
       >
         <div style={invalidOverlayStyle} />
       </div>
@@ -77,23 +67,17 @@ export const DivinityGridCell: React.FC<DivinityGridCellProps> = ({
   // Hide completely if being dragged
   if (isOutOfBounds && slate) {
     if (isDragging) {
-      return (
-        <div className="h-12 w-12" onDragOver={onDragOver} onDrop={onDrop} />
-      );
+      return <div className="h-12 w-12" />;
     }
     return (
       <div
         role="button"
         tabIndex={0}
-        className={`relative h-12 w-12 ${GOD_COLORS[slate.god]} cursor-grab`}
+        className={`relative h-12 w-12 ${GOD_COLORS[slate.god]} cursor-grab select-none`}
         style={getOutlineStyleForSlate(slateEdges)}
-        draggable
         onClick={onClick}
         onKeyDown={(e) => e.key === "Enter" && onClick()}
-        onDragStart={onDragStart}
-        onDragEnd={onDragEnd}
-        onDragOver={onDragOver}
-        onDrop={onDrop}
+        onMouseDown={onMouseDown}
       >
         <div style={invalidOverlayStyle} />
       </div>
@@ -102,13 +86,7 @@ export const DivinityGridCell: React.FC<DivinityGridCellProps> = ({
 
   // Hide the cell completely if it's part of the dragged slate (but not if it's also a preview location)
   if (isDragging && slate && !isPreview) {
-    return (
-      <div
-        className="h-12 w-12 border border-zinc-700 bg-zinc-800"
-        onDragOver={onDragOver}
-        onDrop={onDrop}
-      />
-    );
+    return <div className="h-12 w-12 border border-zinc-700 bg-zinc-800" />;
   }
 
   // If dragging over the original location, show as preview
@@ -116,8 +94,6 @@ export const DivinityGridCell: React.FC<DivinityGridCellProps> = ({
     return (
       <div
         className={`relative h-12 w-12 ${GOD_COLORS[previewSlate.god]} opacity-60 border-2 border-white`}
-        onDragOver={onDragOver}
-        onDrop={onDrop}
       />
     );
   }
@@ -172,15 +148,11 @@ export const DivinityGridCell: React.FC<DivinityGridCellProps> = ({
     <div
       role={slate ? "button" : undefined}
       tabIndex={slate ? 0 : undefined}
-      className={`relative h-12 w-12 transition-colors ${getBackgroundClass()} ${getBorderClass()} ${getCursorClass()}`}
+      className={`relative h-12 w-12 transition-colors select-none ${getBackgroundClass()} ${getBorderClass()} ${getCursorClass()}`}
       style={getOutlineStyle()}
-      draggable={!!slate}
       onClick={onClick}
       onKeyDown={(e) => e.key === "Enter" && onClick()}
-      onDragStart={onDragStart}
-      onDragEnd={onDragEnd}
-      onDragOver={onDragOver}
-      onDrop={onDrop}
+      onMouseDown={onMouseDown}
     >
       {isInvalid && <div style={invalidOverlayStyle} />}
     </div>
