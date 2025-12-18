@@ -97,11 +97,29 @@ const getGearAffixes = (
   return gear ? getAllAffixes(gear) : [];
 };
 
+const getPactspiritAffixes = (
+  pactspiritPage: Loadout["pactspiritPage"],
+): Affix[] => {
+  const affixes: Affix[] = [];
+  const slots = [
+    pactspiritPage.slot1,
+    pactspiritPage.slot2,
+    pactspiritPage.slot3,
+  ];
+  for (const slot of slots) {
+    if (slot === undefined) continue;
+    for (const ring of Object.values(slot.rings)) {
+      affixes.push(ring.installedDestiny?.affix ?? ring.originalAffix);
+    }
+  }
+  return affixes;
+};
+
 export const collectMods = (loadout: Loadout): Mod[] => {
   return [
     // todo: handle divinity slates
-    // todo: handle pactspirits
     // todo: handle hero stuff
+    ...collectModsFromAffixes(getPactspiritAffixes(loadout.pactspiritPage)),
     ...collectModsFromAffixes(getTalentAffixes(loadout.talentPage)),
     ...collectModsFromAffixes(
       getGearAffixes(loadout.gearPage.equippedGear.helmet),

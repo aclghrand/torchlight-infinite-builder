@@ -42,19 +42,16 @@ const emptySkillPage = () => ({
   passiveSkills: {},
 });
 
-const emptyPactspiritSlot = () => ({
-  level: 0,
-  rings: {
-    innerRing1: {},
-    innerRing2: {},
-    innerRing3: {},
-    innerRing4: {},
-    innerRing5: {},
-    innerRing6: {},
-    midRing1: {},
-    midRing2: {},
-    midRing3: {},
-  },
+const emptyAffix = (): Affix => ({ affixLines: [] });
+
+const emptyRingSlotState = () => ({
+  originalRingName: "Test Ring",
+  originalAffix: emptyAffix(),
+});
+
+const ringSlotWithOriginalAffix = (originalAffix: Affix) => ({
+  originalRingName: "Test Ring",
+  originalAffix,
 });
 
 const initLoadout = (pl: Partial<Loadout> = {}): Loadout => {
@@ -72,11 +69,7 @@ const initLoadout = (pl: Partial<Loadout> = {}): Loadout => {
       memorySlots: {},
       memoryInventory: [],
     },
-    pactspiritPage: pl.pactspiritPage || {
-      slot1: emptyPactspiritSlot(),
-      slot2: emptyPactspiritSlot(),
-      slot3: emptyPactspiritSlot(),
-    },
+    pactspiritPage: pl.pactspiritPage || {},
     customConfiguration: pl.customConfiguration || [],
   };
 };
@@ -2524,5 +2517,253 @@ describe("resolveBuffSkillMods", () => {
       (m) => m.type === "DmgPct" && m.modType === "melee" && m.addn === true,
     ) as DmgPctMod | undefined;
     expect(bullsRageBuffMod?.value).toBeCloseTo(0.27);
+  });
+});
+
+describe("Pactspirit Ring Mods", () => {
+  test("pactspirit original ring affixes are included in damage calculations", () => {
+    // Use a pactspirit slot with an originalAffix (from pactspirit data)
+    // The affix provides +50% global damage
+    const loadout = initLoadout({
+      gearPage: {
+        equippedGear: { mainHand: baseWeapon },
+        inventory: [],
+      },
+      skillPage: {
+        activeSkills: {
+          1: {
+            skillName: "[Test] Simple Attack",
+            enabled: true,
+            level: 20,
+            supportSkills: {},
+          },
+        },
+        passiveSkills: {},
+      },
+      pactspiritPage: {
+        slot1: {
+          pactspiritName: "Test Pactspirit",
+          level: 1,
+          rings: {
+            innerRing1: ringSlotWithOriginalAffix(
+              affix([
+                { type: "DmgPct", value: 0.5, modType: "global", addn: false },
+              ]),
+            ),
+            innerRing2: emptyRingSlotState(),
+            innerRing3: emptyRingSlotState(),
+            innerRing4: emptyRingSlotState(),
+            innerRing5: emptyRingSlotState(),
+            innerRing6: emptyRingSlotState(),
+            midRing1: emptyRingSlotState(),
+            midRing2: emptyRingSlotState(),
+            midRing3: emptyRingSlotState(),
+          },
+        },
+      },
+    });
+
+    const results = calculateOffense({
+      loadout,
+      configuration: defaultConfiguration,
+    });
+    const actual = results["[Test] Simple Attack"];
+
+    expect(actual).toBeDefined();
+    // 100 base damage * (1 + 0.5) = 150
+    expect(actual?.avgHit).toBeCloseTo(150);
+  });
+
+  test("multiple pactspirit ring affixes stack additively", () => {
+    // Two rings with +30% damage each should add to +60% total
+    const loadout = initLoadout({
+      gearPage: {
+        equippedGear: { mainHand: baseWeapon },
+        inventory: [],
+      },
+      skillPage: {
+        activeSkills: {
+          1: {
+            skillName: "[Test] Simple Attack",
+            enabled: true,
+            level: 20,
+            supportSkills: {},
+          },
+        },
+        passiveSkills: {},
+      },
+      pactspiritPage: {
+        slot1: {
+          pactspiritName: "Test Pactspirit",
+          level: 1,
+          rings: {
+            innerRing1: ringSlotWithOriginalAffix(
+              affix([
+                { type: "DmgPct", value: 0.3, modType: "global", addn: false },
+              ]),
+            ),
+            innerRing2: ringSlotWithOriginalAffix(
+              affix([
+                { type: "DmgPct", value: 0.3, modType: "global", addn: false },
+              ]),
+            ),
+            innerRing3: emptyRingSlotState(),
+            innerRing4: emptyRingSlotState(),
+            innerRing5: emptyRingSlotState(),
+            innerRing6: emptyRingSlotState(),
+            midRing1: emptyRingSlotState(),
+            midRing2: emptyRingSlotState(),
+            midRing3: emptyRingSlotState(),
+          },
+        },
+      },
+    });
+
+    const results = calculateOffense({
+      loadout,
+      configuration: defaultConfiguration,
+    });
+    const actual = results["[Test] Simple Attack"];
+
+    expect(actual).toBeDefined();
+    // 100 base damage * (1 + 0.3 + 0.3) = 160
+    expect(actual?.avgHit).toBeCloseTo(160);
+  });
+
+  test("installed destiny affix overrides original affix", () => {
+    // A ring with an installed destiny should use the destiny's affix, not the original
+    // originalAffix is +25% but installedDestiny.affix is +75%, should use +75%
+    const loadout = initLoadout({
+      gearPage: {
+        equippedGear: { mainHand: baseWeapon },
+        inventory: [],
+      },
+      skillPage: {
+        activeSkills: {
+          1: {
+            skillName: "[Test] Simple Attack",
+            enabled: true,
+            level: 20,
+            supportSkills: {},
+          },
+        },
+        passiveSkills: {},
+      },
+      pactspiritPage: {
+        slot1: {
+          pactspiritName: "Test Pactspirit",
+          level: 1,
+          rings: {
+            innerRing1: {
+              installedDestiny: {
+                destinyName: "Test Destiny",
+                destinyType: "Micro Fate",
+                affix: affix([
+                  {
+                    type: "DmgPct",
+                    value: 0.75,
+                    modType: "global",
+                    addn: false,
+                  },
+                ]),
+              },
+              originalRingName: "Test Ring",
+              originalAffix: affix([
+                { type: "DmgPct", value: 0.25, modType: "global", addn: false },
+              ]),
+            },
+            innerRing2: emptyRingSlotState(),
+            innerRing3: emptyRingSlotState(),
+            innerRing4: emptyRingSlotState(),
+            innerRing5: emptyRingSlotState(),
+            innerRing6: emptyRingSlotState(),
+            midRing1: emptyRingSlotState(),
+            midRing2: emptyRingSlotState(),
+            midRing3: emptyRingSlotState(),
+          },
+        },
+      },
+    });
+
+    const results = calculateOffense({
+      loadout,
+      configuration: defaultConfiguration,
+    });
+    const actual = results["[Test] Simple Attack"];
+
+    expect(actual).toBeDefined();
+    // 100 base damage * (1 + 0.75 from destiny, NOT 0.25 from original) = 175
+    expect(actual?.avgHit).toBeCloseTo(175);
+  });
+
+  test("rings from multiple pactspirit slots contribute to damage", () => {
+    // Rings from slot1 and slot2 should both contribute
+    const loadout = initLoadout({
+      gearPage: {
+        equippedGear: { mainHand: baseWeapon },
+        inventory: [],
+      },
+      skillPage: {
+        activeSkills: {
+          1: {
+            skillName: "[Test] Simple Attack",
+            enabled: true,
+            level: 20,
+            supportSkills: {},
+          },
+        },
+        passiveSkills: {},
+      },
+      pactspiritPage: {
+        slot1: {
+          pactspiritName: "Test Pactspirit 1",
+          level: 1,
+          rings: {
+            innerRing1: ringSlotWithOriginalAffix(
+              affix([
+                { type: "DmgPct", value: 0.2, modType: "global", addn: false },
+              ]),
+            ),
+            innerRing2: emptyRingSlotState(),
+            innerRing3: emptyRingSlotState(),
+            innerRing4: emptyRingSlotState(),
+            innerRing5: emptyRingSlotState(),
+            innerRing6: emptyRingSlotState(),
+            midRing1: emptyRingSlotState(),
+            midRing2: emptyRingSlotState(),
+            midRing3: emptyRingSlotState(),
+          },
+        },
+        slot2: {
+          pactspiritName: "Test Pactspirit 2",
+          level: 1,
+          rings: {
+            innerRing1: ringSlotWithOriginalAffix(
+              affix([
+                { type: "DmgPct", value: 0.3, modType: "global", addn: false },
+              ]),
+            ),
+            innerRing2: emptyRingSlotState(),
+            innerRing3: emptyRingSlotState(),
+            innerRing4: emptyRingSlotState(),
+            innerRing5: emptyRingSlotState(),
+            innerRing6: emptyRingSlotState(),
+            midRing1: emptyRingSlotState(),
+            midRing2: emptyRingSlotState(),
+            midRing3: emptyRingSlotState(),
+          },
+        },
+      },
+    });
+
+    const results = calculateOffense({
+      loadout,
+      configuration: defaultConfiguration,
+    });
+    const actual = results["[Test] Simple Attack"];
+
+    expect(actual).toBeDefined();
+    // 100 base damage * (1 + 0.2 + 0.3) = 150
+    expect(actual?.avgHit).toBeCloseTo(150);
   });
 });

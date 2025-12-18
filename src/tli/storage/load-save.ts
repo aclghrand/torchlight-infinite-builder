@@ -21,6 +21,8 @@ import type {
   TalentPage as SaveDataTalentPage,
   TalentTree as SaveDataTalentTree,
 } from "@/src/app/lib/save-data";
+import { Pactspirits } from "@/src/data/pactspirit/pactspirits";
+import type { Pactspirit } from "@/src/data/pactspirit/types";
 import type { TalentNodeData, TreeName } from "@/src/data/talent_tree";
 import { parseBaseStatMod } from "../base_stat_mod";
 import type {
@@ -477,18 +479,30 @@ const RING_SLOT_KEYS = [
   "midRing3",
 ] as const;
 
+const getPactspiritByName = (name: string): Pactspirit | undefined =>
+  Pactspirits.find((p) => p.name === name);
+
 const convertPactspiritSlot = (
   saveDataSlot: SaveDataPactspiritSlot,
   slotIndex: number,
-): PactspiritSlot => {
+): PactspiritSlot | undefined => {
+  if (saveDataSlot.pactspiritName === undefined) {
+    return undefined;
+  }
+
+  const pactspirit = getPactspiritByName(saveDataSlot.pactspiritName);
+  if (pactspirit === undefined) {
+    return undefined;
+  }
+
   const rings = {} as PactspiritSlot["rings"];
 
   for (const ringKey of RING_SLOT_KEYS) {
     const saveDataRing = saveDataSlot.rings[ringKey];
+    const src = `Pactspirit#slot${slotIndex}#${ringKey}`;
     let installedDestiny: InstalledDestiny | undefined;
 
     if (saveDataRing.installedDestiny) {
-      const src = `Pactspirit#slot${slotIndex}#${ringKey}`;
       installedDestiny = {
         destinyName: saveDataRing.installedDestiny.destinyName,
         destinyType: saveDataRing.installedDestiny.destinyType,
@@ -496,7 +510,9 @@ const convertPactspiritSlot = (
       };
     }
 
-    rings[ringKey] = { installedDestiny };
+    const originalRingName = pactspirit[ringKey].name;
+    const originalAffix = convertAffix(pactspirit[ringKey].affix, src);
+    rings[ringKey] = { installedDestiny, originalRingName, originalAffix };
   }
 
   return {

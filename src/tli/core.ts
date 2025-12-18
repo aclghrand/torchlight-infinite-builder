@@ -344,10 +344,12 @@ export interface InstalledDestiny {
 
 export interface RingSlotState {
   installedDestiny?: InstalledDestiny;
+  originalRingName: string;
+  originalAffix: Affix;
 }
 
 export interface PactspiritSlot {
-  pactspiritName?: string;
+  pactspiritName: string;
   level: number;
   rings: {
     innerRing1: RingSlotState;
@@ -363,9 +365,9 @@ export interface PactspiritSlot {
 }
 
 export interface PactspiritPage {
-  slot1: PactspiritSlot;
-  slot2: PactspiritSlot;
-  slot3: PactspiritSlot;
+  slot1?: PactspiritSlot;
+  slot2?: PactspiritSlot;
+  slot3?: PactspiritSlot;
 }
 
 export interface Loadout {

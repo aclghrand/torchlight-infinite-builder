@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback } from "react";
-import type { PactspiritPage } from "@/src/tli/core";
+import type { PactspiritPage as SaveDataPactspiritPage } from "@/src/app/lib/save-data";
 import { createEmptyPactspiritSlot } from "../../lib/storage";
 import type {
   InstalledDestinyResult,
@@ -17,7 +17,7 @@ export const PactspiritSection = () => {
 
   const handlePactspiritSelect = useCallback(
     (slotIndex: PactspiritSlotIndex, pactspiritName: string | undefined) => {
-      const slotKey = `slot${slotIndex}` as keyof PactspiritPage;
+      const slotKey = `slot${slotIndex}` as keyof SaveDataPactspiritPage;
       updateSaveData((prev) => ({
         ...prev,
         pactspiritPage: {
@@ -34,7 +34,7 @@ export const PactspiritSection = () => {
 
   const handleLevelChange = useCallback(
     (slotIndex: PactspiritSlotIndex, level: number) => {
-      const slotKey = `slot${slotIndex}` as keyof PactspiritPage;
+      const slotKey = `slot${slotIndex}` as keyof SaveDataPactspiritPage;
       updateSaveData((prev) => ({
         ...prev,
         pactspiritPage: {
@@ -55,7 +55,7 @@ export const PactspiritSection = () => {
       ringSlot: RingSlotKey,
       destiny: InstalledDestinyResult,
     ) => {
-      const slotKey = `slot${slotIndex}` as keyof PactspiritPage;
+      const slotKey = `slot${slotIndex}` as keyof SaveDataPactspiritPage;
       updateSaveData((prev) => ({
         ...prev,
         pactspiritPage: {
@@ -77,7 +77,7 @@ export const PactspiritSection = () => {
 
   const handleRevertRing = useCallback(
     (slotIndex: PactspiritSlotIndex, ringSlot: RingSlotKey) => {
-      const slotKey = `slot${slotIndex}` as keyof PactspiritPage;
+      const slotKey = `slot${slotIndex}` as keyof SaveDataPactspiritPage;
       updateSaveData((prev) => ({
         ...prev,
         pactspiritPage: {

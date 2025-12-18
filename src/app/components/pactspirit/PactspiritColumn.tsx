@@ -7,7 +7,6 @@ import type { PactspiritSlot } from "@/src/tli/core";
 import {
   getPactspiritByName,
   getPactspiritLevelAffix,
-  getPactspiritRing,
 } from "../../lib/pactspirit-utils";
 import {
   type InstalledDestinyResult,
@@ -20,7 +19,7 @@ import { RingSlot } from "./RingSlot";
 
 interface PactspiritColumnProps {
   slotIndex: PactspiritSlotIndex;
-  slot: PactspiritSlot;
+  slot: PactspiritSlot | undefined;
   onPactspiritSelect: (pactspiritName: string | undefined) => void;
   onLevelChange: (level: number) => void;
   onInstallDestiny: (
@@ -43,13 +42,14 @@ export const PactspiritColumn: React.FC<PactspiritColumnProps> = ({
     undefined,
   );
 
-  const selectedPactspirit = slot.pactspiritName
+  const selectedPactspirit = slot
     ? getPactspiritByName(slot.pactspiritName)
     : undefined;
 
-  const levelAffix = selectedPactspirit
-    ? getPactspiritLevelAffix(selectedPactspirit, slot.level)
-    : "";
+  const levelAffix =
+    selectedPactspirit && slot
+      ? getPactspiritLevelAffix(selectedPactspirit, slot.level)
+      : "";
 
   const handleInstallClick = (ringSlot: RingSlotKey) => {
     setActiveRingSlot(ringSlot);
@@ -79,7 +79,7 @@ export const PactspiritColumn: React.FC<PactspiritColumnProps> = ({
       <div className="mb-4">
         <label className="block text-sm text-zinc-400 mb-1">Pactspirit</label>
         <SearchableSelect
-          value={slot.pactspiritName}
+          value={slot?.pactspiritName}
           onChange={onPactspiritSelect}
           options={Pactspirits.map((p) => ({
             value: p.name,
@@ -91,7 +91,7 @@ export const PactspiritColumn: React.FC<PactspiritColumnProps> = ({
       </div>
 
       {/* Level Selector */}
-      {selectedPactspirit && (
+      {slot && selectedPactspirit && (
         <div className="mb-4">
           <label className="block text-sm text-zinc-400 mb-1">Level</label>
           <SearchableSelect
@@ -107,7 +107,7 @@ export const PactspiritColumn: React.FC<PactspiritColumnProps> = ({
       )}
 
       {/* Level Affix Display */}
-      {selectedPactspirit && levelAffix && (
+      {slot && selectedPactspirit && levelAffix && (
         <div className="mb-4 bg-zinc-950 p-3 rounded-lg border border-zinc-800">
           <div className="text-sm font-medium text-amber-400 mb-1">
             Level {slot.level} Effect
@@ -119,25 +119,18 @@ export const PactspiritColumn: React.FC<PactspiritColumnProps> = ({
       )}
 
       {/* Ring Slots */}
-      {selectedPactspirit && (
+      {slot && selectedPactspirit && (
         <div className="space-y-2">
           <h4 className="text-sm font-medium text-zinc-400 mb-2">Ring Slots</h4>
-          {RING_DISPLAY_ORDER.map((ringSlot) => {
-            const originalRing = getPactspiritRing(
-              selectedPactspirit,
-              ringSlot,
-            );
-            return (
-              <RingSlot
-                key={ringSlot}
-                ringSlot={ringSlot}
-                originalRing={originalRing}
-                ringState={slot.rings[ringSlot]}
-                onInstallClick={() => handleInstallClick(ringSlot)}
-                onRevert={() => onRevertRing(ringSlot)}
-              />
-            );
-          })}
+          {RING_DISPLAY_ORDER.map((ringSlot) => (
+            <RingSlot
+              key={ringSlot}
+              ringSlot={ringSlot}
+              ringState={slot.rings[ringSlot]}
+              onInstallClick={() => handleInstallClick(ringSlot)}
+              onRevert={() => onRevertRing(ringSlot)}
+            />
+          ))}
         </div>
       )}
 

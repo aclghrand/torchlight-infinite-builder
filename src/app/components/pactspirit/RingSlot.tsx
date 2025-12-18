@@ -6,14 +6,12 @@ import {
   TooltipTitle,
 } from "@/src/app/components/ui/Tooltip";
 import { useTooltip } from "@/src/app/hooks/useTooltip";
-import type { PactspiritRingDetails } from "@/src/data/pactspirit/types";
-import type { RingSlotState } from "@/src/tli/core";
+import { getAffixText, type RingSlotState } from "@/src/tli/core";
 import { isInnerRing } from "../../lib/pactspirit-utils";
 import type { RingSlotKey } from "../../lib/types";
 
 interface RingSlotProps {
   ringSlot: RingSlotKey;
-  originalRing: PactspiritRingDetails;
   ringState: RingSlotState;
   onInstallClick: () => void;
   onRevert: () => void;
@@ -21,7 +19,6 @@ interface RingSlotProps {
 
 export const RingSlot: React.FC<RingSlotProps> = ({
   ringSlot,
-  originalRing,
   ringState,
   onInstallClick,
   onRevert,
@@ -43,10 +40,10 @@ export const RingSlot: React.FC<RingSlotProps> = ({
     } = ringState.installedDestiny;
     destinyType = dType;
     displayName = destinyName;
-    displayAffix = affix.affixLines.map((line) => line.text).join("\n");
+    displayAffix = getAffixText(affix);
   } else {
-    displayName = originalRing.name;
-    displayAffix = originalRing.affix;
+    displayName = ringState.originalRingName;
+    displayAffix = getAffixText(ringState.originalAffix);
   }
 
   return (
