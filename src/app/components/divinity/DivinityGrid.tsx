@@ -36,6 +36,7 @@ interface DivinityGridProps {
     slateId: string,
     position: { row: number; col: number },
   ) => void;
+  onUnplaceSlate: (slateId: string) => void;
   onUpdateSlateRotation: (slateId: string, rotation: Rotation) => void;
   onUpdateSlateFlip: (
     slateId: string,
@@ -48,6 +49,7 @@ interface DivinityGridProps {
 export const DivinityGrid: React.FC<DivinityGridProps> = ({
   divinityPage,
   onMoveSlate,
+  onUnplaceSlate,
   onUpdateSlateRotation,
   onUpdateSlateFlip,
   onUpdateSlateShape,
@@ -225,11 +227,17 @@ export const DivinityGrid: React.FC<DivinityGridProps> = ({
     );
   };
 
-  const handleChangeShape = () => {
+  const handleChangeShape = (): void => {
     if (!selectedSlate || !selectedSlateId) return;
     const currentIndex = SLATE_SHAPES.indexOf(selectedSlate.shape);
     const nextIndex = (currentIndex + 1) % SLATE_SHAPES.length;
     onUpdateSlateShape(selectedSlateId, SLATE_SHAPES[nextIndex]);
+  };
+
+  const handleRemove = (): void => {
+    if (!selectedSlateId) return;
+    onUnplaceSlate(selectedSlateId);
+    handleCloseToolbar();
   };
 
   const handleMouseMove = useCallback(
@@ -579,6 +587,7 @@ export const DivinityGrid: React.FC<DivinityGridProps> = ({
               onFlipH={handleFlipH}
               onFlipV={handleFlipV}
               onChangeShape={handleChangeShape}
+              onRemove={handleRemove}
               onClose={handleCloseToolbar}
             />
           );

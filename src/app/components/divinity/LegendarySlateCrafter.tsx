@@ -55,7 +55,9 @@ export const LegendarySlateCrafter: React.FC<LegendarySlateCrafterProps> = ({
   >(undefined);
   const [selectedDirection, setSelectedDirection] =
     useState<CopyDirection>("up");
-  const [selectedAffixes, setSelectedAffixes] = useState<LegendaryAffix[]>([]);
+  const [affixSlots, setAffixSlots] = useState<(LegendaryAffix | undefined)[]>(
+    [],
+  );
   const [rotation, setRotation] = useState<Rotation>(0);
   const [flippedH, setFlippedH] = useState(false);
   const [flippedV, setFlippedV] = useState(false);
@@ -67,34 +69,33 @@ export const LegendarySlateCrafter: React.FC<LegendarySlateCrafterProps> = ({
 
   const allAffixes = useMemo(() => getAllLegendaryAffixes(), []);
 
-  const currentSlotIndex = selectedAffixes.length;
-  const currentSlotConstraint =
-    template !== undefined && currentSlotIndex < template.affixSlots.length
-      ? template.affixSlots[currentSlotIndex]
-      : undefined;
+  const getOptionsForSlot = (
+    slotIndex: number,
+  ): SearchableSelectOption<string>[] => {
+    if (template === undefined) return [];
+    const constraint = template.affixSlots[slotIndex];
+    if (constraint === undefined) return [];
 
-  const affixOptions = useMemo((): SearchableSelectOption<string>[] => {
-    if (currentSlotConstraint === undefined) return [];
-
-    const filtered = filterAffixesByTypes(
-      allAffixes,
-      currentSlotConstraint.allowedTypes,
-    );
+    const filtered = filterAffixesByTypes(allAffixes, constraint.allowedTypes);
 
     return filtered
       .filter(
-        (affix) => !selectedAffixes.some((a) => a.effect === affix.effect),
+        (affix) =>
+          !affixSlots.some(
+            (a, i) => i !== slotIndex && a?.effect === affix.effect,
+          ),
       )
       .map((affix) => ({
         value: affix.effect,
         label: getAffixDisplayText(affix),
         sublabel: affix.type,
       }));
-  }, [allAffixes, currentSlotConstraint, selectedAffixes]);
+  };
 
   const handleTemplateChange = (templateKey: string): void => {
+    const tmpl = LEGENDARY_SLATE_TEMPLATES[templateKey];
     setSelectedTemplateKey(templateKey);
-    setSelectedAffixes([]);
+    setAffixSlots(Array(tmpl.affixSlots.length).fill(undefined));
     setRotation(0);
     setFlippedH(false);
     setFlippedV(false);
@@ -107,26 +108,32 @@ export const LegendarySlateCrafter: React.FC<LegendarySlateCrafterProps> = ({
     setRotation(ROTATIONS[nextIndex]);
   };
 
-  const handleAddAffix = (effectValue: string | undefined): void => {
-    if (effectValue === undefined || template === undefined) return;
-    if (selectedAffixes.length >= template.affixSlots.length) return;
-
-    const affix = allAffixes.find((a) => a.effect === effectValue);
-    if (affix === undefined) return;
-    if (selectedAffixes.some((a) => a.effect === affix.effect)) return;
-
-    setSelectedAffixes([...selectedAffixes, affix]);
+  const handleSlotChange = (
+    slotIndex: number,
+    effectValue: string | undefined,
+  ): void => {
+    const newSlots = [...affixSlots];
+    newSlots[slotIndex] =
+      effectValue !== undefined
+        ? allAffixes.find((a) => a.effect === effectValue)
+        : undefined;
+    setAffixSlots(newSlots);
   };
 
-  const handleRemoveAffix = (index: number): void => {
-    setSelectedAffixes(selectedAffixes.filter((_, i) => i !== index));
+  const handleClearSlot = (slotIndex: number): void => {
+    const newSlots = [...affixSlots];
+    newSlots[slotIndex] = undefined;
+    setAffixSlots(newSlots);
   };
+
+  const selectedAffixes = affixSlots.filter(
+    (a): a is LegendaryAffix => a !== undefined,
+  );
 
   const hasFixedAffixes =
     template?.fixedAffixes !== undefined && template.fixedAffixes.length > 0;
   const hasCopyDirection =
-    template?.fixedAffixes !== undefined &&
-    template.fixedAffixes.some((fa) => fa.direction !== undefined);
+    template?.fixedAffixes?.some((fa) => fa.direction !== undefined) ?? false;
 
   const getFixedAffixText = (): string => {
     if (template?.fixedAffixes === undefined) return "";
@@ -172,7 +179,7 @@ export const LegendarySlateCrafter: React.FC<LegendarySlateCrafterProps> = ({
 
     onSave(slate);
 
-    setSelectedAffixes([]);
+    setAffixSlots(Array(template.affixSlots.length).fill(undefined));
     setRotation(0);
     setFlippedH(false);
     setFlippedV(false);
@@ -340,59 +347,55 @@ export const LegendarySlateCrafter: React.FC<LegendarySlateCrafterProps> = ({
 
           {/* Affix Selection for non-fixed slates */}
           {!hasFixedAffixes && (
-            <>
-              {/* Selected Affixes */}
-              <div className="mb-4">
-                <label className="mb-2 block text-sm text-zinc-400">
-                  Affixes ({selectedAffixes.length}/{template.affixSlots.length}
-                  )
-                </label>
-                <div className="mb-2 flex flex-col gap-1">
-                  {selectedAffixes.map((affix, index) => (
-                    <div
-                      key={`${affix.effect}-${index}`}
-                      className="flex items-center gap-2 rounded bg-zinc-700 px-2 py-1"
-                    >
-                      <span className="text-xs text-zinc-500">
-                        Slot {index + 1}:
-                      </span>
-                      <span
-                        className={`h-3 w-3 rounded-sm ${getAffixTypeColor(affix.type)}`}
-                      />
-                      <span className="flex-1 text-sm text-zinc-200 truncate">
-                        {getAffixDisplayText(affix)}
-                      </span>
-                      <button
-                        type="button"
-                        onClick={() => handleRemoveAffix(index)}
-                        className="text-zinc-400 hover:text-red-400"
-                      >
-                        ×
-                      </button>
+            <div className="mb-4">
+              <label className="mb-2 block text-sm text-zinc-400">
+                Affixes ({selectedAffixes.length}/{template.affixSlots.length})
+              </label>
+              <div className="flex flex-col gap-2">
+                {affixSlots.map((affix, slotIndex) => {
+                  const constraint = template.affixSlots[slotIndex];
+                  return (
+                    // biome-ignore lint/suspicious/noArrayIndexKey: slots are fixed positions
+                    <div key={slotIndex} className="flex flex-col gap-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs text-zinc-500 w-24 truncate">
+                          {constraint.label}
+                        </span>
+                        <div className="flex-1">
+                          <SearchableSelect
+                            value={affix?.effect}
+                            onChange={(value) =>
+                              handleSlotChange(slotIndex, value)
+                            }
+                            options={getOptionsForSlot(slotIndex)}
+                            placeholder="Select affix..."
+                          />
+                        </div>
+                        {affix !== undefined && (
+                          <button
+                            type="button"
+                            onClick={() => handleClearSlot(slotIndex)}
+                            className="text-zinc-400 hover:text-red-400 px-1"
+                          >
+                            ×
+                          </button>
+                        )}
+                      </div>
+                      {affix !== undefined && (
+                        <div className="ml-26 flex items-center gap-2 text-xs text-zinc-400">
+                          <span
+                            className={`h-2 w-2 rounded-sm ${getAffixTypeColor(affix.type)}`}
+                          />
+                          <span className="truncate">
+                            {getAffixDisplayText(affix)}
+                          </span>
+                        </div>
+                      )}
                     </div>
-                  ))}
-                  {selectedAffixes.length === 0 && (
-                    <p className="text-sm text-zinc-500">No affixes selected</p>
-                  )}
-                </div>
+                  );
+                })}
               </div>
-
-              {/* Add Affix */}
-              {currentSlotConstraint !== undefined && (
-                <div className="mb-4">
-                  <label className="mb-2 block text-sm text-zinc-400">
-                    Add Affix (Slot {selectedAffixes.length + 1}:{" "}
-                    {currentSlotConstraint.label})
-                  </label>
-                  <SearchableSelect
-                    value={undefined}
-                    onChange={handleAddAffix}
-                    options={affixOptions}
-                    placeholder="Search affixes..."
-                  />
-                </div>
-              )}
-            </>
+            </div>
           )}
 
           <button

@@ -127,6 +127,21 @@ export const DivinitySection = () => {
     [updateSaveData],
   );
 
+  const handleUnplaceSlate = useCallback(
+    (slateId: string) => {
+      updateSaveData((prev) => ({
+        ...prev,
+        divinityPage: {
+          ...prev.divinityPage,
+          placedSlates: prev.divinityPage.placedSlates.filter(
+            (p) => p.slateId !== slateId,
+          ),
+        },
+      }));
+    },
+    [updateSaveData],
+  );
+
   return (
     <DivinityTab
       divinityPage={loadout.divinityPage}
@@ -135,6 +150,7 @@ export const DivinitySection = () => {
       onDeleteSlate={handleDeleteSlate}
       onPlaceSlate={handlePlaceSlate}
       onMoveSlate={handleMoveSlate}
+      onUnplaceSlate={handleUnplaceSlate}
       onUpdateSlateRotation={handleUpdateSlateRotation}
       onUpdateSlateFlip={handleUpdateSlateFlip}
       onUpdateSlateShape={handleUpdateSlateShape}

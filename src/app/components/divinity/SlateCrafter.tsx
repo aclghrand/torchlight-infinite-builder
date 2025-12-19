@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import {
   SearchableSelect,
   type SearchableSelectOption,
@@ -33,53 +33,71 @@ interface SlateCrafterProps {
   onSave: (slate: DivinitySlate) => void;
 }
 
+const createEmptySlots = (): (DivinityAffix | undefined)[] =>
+  Array(MAX_SLATE_AFFIXES).fill(undefined);
+
 export const SlateCrafter: React.FC<SlateCrafterProps> = ({ onSave }) => {
   const [god, setGod] = useState<DivinityGod>("Hunting");
   const [shape, setShape] = useState<SlateShape>("O");
   const [rotation, setRotation] = useState<Rotation>(0);
   const [flippedH, setFlippedH] = useState(false);
   const [flippedV, setFlippedV] = useState(false);
-  const [selectedAffixes, setSelectedAffixes] = useState<DivinityAffix[]>([]);
+  const [affixSlots, setAffixSlots] =
+    useState<(DivinityAffix | undefined)[]>(createEmptySlots);
 
   const availableAffixes = getDivinityAffixes(god);
 
-  const affixOptions = useMemo((): SearchableSelectOption<string>[] => {
+  const getOptionsForSlot = (
+    slotIndex: number,
+  ): SearchableSelectOption<string>[] => {
     return availableAffixes
       .filter(
-        (affix) => !selectedAffixes.some((a) => a.effect === affix.effect),
+        (affix) =>
+          !affixSlots.some(
+            (a, i) => i !== slotIndex && a?.effect === affix.effect,
+          ),
       )
       .map((affix) => ({
         value: affix.effect,
         label: affix.effect.split("\n")[0],
         sublabel: affix.type === "Legendary Medium" ? "Legendary" : "Medium",
       }));
-  }, [availableAffixes, selectedAffixes]);
-
-  const handleGodChange = (newGod: DivinityGod) => {
-    setGod(newGod);
-    setSelectedAffixes([]);
   };
 
-  const handleRotate = () => {
+  const handleGodChange = (newGod: DivinityGod): void => {
+    setGod(newGod);
+    setAffixSlots(createEmptySlots());
+  };
+
+  const handleRotate = (): void => {
     const currentIndex = ROTATIONS.indexOf(rotation);
     const nextIndex = (currentIndex + 1) % ROTATIONS.length;
     setRotation(ROTATIONS[nextIndex]);
   };
 
-  const handleAddAffix = (effectValue: string | undefined) => {
-    if (!effectValue) return;
-    if (selectedAffixes.length >= MAX_SLATE_AFFIXES) return;
-    const affix = availableAffixes.find((a) => a.effect === effectValue);
-    if (!affix) return;
-    if (selectedAffixes.some((a) => a.effect === affix.effect)) return;
-    setSelectedAffixes([...selectedAffixes, affix]);
+  const handleSlotChange = (
+    slotIndex: number,
+    effectValue: string | undefined,
+  ): void => {
+    const newSlots = [...affixSlots];
+    newSlots[slotIndex] =
+      effectValue !== undefined
+        ? availableAffixes.find((a) => a.effect === effectValue)
+        : undefined;
+    setAffixSlots(newSlots);
   };
 
-  const handleRemoveAffix = (index: number) => {
-    setSelectedAffixes(selectedAffixes.filter((_, i) => i !== index));
+  const handleClearSlot = (slotIndex: number): void => {
+    const newSlots = [...affixSlots];
+    newSlots[slotIndex] = undefined;
+    setAffixSlots(newSlots);
   };
 
-  const handleSave = () => {
+  const selectedAffixes = affixSlots.filter(
+    (a): a is DivinityAffix => a !== undefined,
+  );
+
+  const handleSave = (): void => {
     const slate: DivinitySlate = {
       id: generateItemId(),
       god,
@@ -91,7 +109,7 @@ export const SlateCrafter: React.FC<SlateCrafterProps> = ({ onSave }) => {
     };
     onSave(slate);
 
-    setSelectedAffixes([]);
+    setAffixSlots(createEmptySlots());
     setRotation(0);
     setFlippedH(false);
     setFlippedV(false);
@@ -194,52 +212,51 @@ export const SlateCrafter: React.FC<SlateCrafterProps> = ({ onSave }) => {
 
       <div className="mb-4">
         <label className="mb-2 block text-sm text-zinc-400">
-          Selected Affixes ({selectedAffixes.length}/{MAX_SLATE_AFFIXES})
+          Affixes ({selectedAffixes.length}/{MAX_SLATE_AFFIXES})
         </label>
-        <div className="mb-2 flex flex-col gap-1">
-          {selectedAffixes.map((affix, index) => (
-            <div
-              key={affix.effect}
-              className="flex items-center gap-2 rounded bg-zinc-700 px-2 py-1"
-            >
-              <span
-                className={`h-3 w-3 rounded-sm ${
-                  affix.type === "Legendary Medium"
-                    ? "bg-orange-500"
-                    : "bg-purple-500"
-                }`}
-              />
-              <span className="flex-1 text-sm text-zinc-200 truncate">
-                {affix.effect.split("\n")[0]}
-              </span>
-              <button
-                type="button"
-                onClick={() => handleRemoveAffix(index)}
-                className="text-zinc-400 hover:text-red-400"
-              >
-                ×
-              </button>
+        <div className="flex flex-col gap-2">
+          {affixSlots.map((affix, slotIndex) => (
+            // biome-ignore lint/suspicious/noArrayIndexKey: slots are fixed positions
+            <div key={slotIndex} className="flex flex-col gap-1">
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-zinc-500 w-12">
+                  Slot {slotIndex + 1}
+                </span>
+                <div className="flex-1">
+                  <SearchableSelect
+                    value={affix?.effect}
+                    onChange={(value) => handleSlotChange(slotIndex, value)}
+                    options={getOptionsForSlot(slotIndex)}
+                    placeholder="Select affix..."
+                  />
+                </div>
+                {affix !== undefined && (
+                  <button
+                    type="button"
+                    onClick={() => handleClearSlot(slotIndex)}
+                    className="text-zinc-400 hover:text-red-400 px-1"
+                  >
+                    ×
+                  </button>
+                )}
+              </div>
+              {affix !== undefined && (
+                <div className="ml-14 flex items-center gap-2 text-xs text-zinc-400">
+                  <span
+                    className={`h-2 w-2 rounded-sm ${
+                      affix.type === "Legendary Medium"
+                        ? "bg-orange-500"
+                        : "bg-purple-500"
+                    }`}
+                  />
+                  <span className="truncate">
+                    {affix.effect.split("\n")[0]}
+                  </span>
+                </div>
+              )}
             </div>
           ))}
-          {selectedAffixes.length === 0 && (
-            <p className="text-sm text-zinc-500">No affixes selected</p>
-          )}
         </div>
-      </div>
-
-      <div className="mb-4">
-        <label className="mb-2 block text-sm text-zinc-400">Add Affix</label>
-        <SearchableSelect
-          value={undefined}
-          onChange={handleAddAffix}
-          options={affixOptions}
-          placeholder={
-            selectedAffixes.length >= MAX_SLATE_AFFIXES
-              ? "Max affixes reached"
-              : "Search affixes..."
-          }
-          disabled={selectedAffixes.length >= MAX_SLATE_AFFIXES}
-        />
       </div>
 
       <button

@@ -13,6 +13,7 @@ interface SlateEditToolbarProps {
   onFlipH: () => void;
   onFlipV: () => void;
   onChangeShape: () => void;
+  onRemove: () => void;
   onClose: () => void;
 }
 
@@ -26,6 +27,7 @@ export const SlateEditToolbar: React.FC<SlateEditToolbarProps> = ({
   onFlipH,
   onFlipV,
   onChangeShape,
+  onRemove,
   onClose,
 }) => {
   const toolbarRef = useRef<HTMLDivElement>(null);
@@ -131,6 +133,14 @@ export const SlateEditToolbar: React.FC<SlateEditToolbarProps> = ({
             title="Change Shape"
           >
             {slate.shape}
+          </button>
+          <button
+            type="button"
+            onClick={onRemove}
+            className="rounded bg-red-700 px-2 py-1.5 text-sm text-zinc-200 hover:bg-red-600"
+            title="Remove from Grid"
+          >
+            ✕
           </button>
         </div>
       </div>

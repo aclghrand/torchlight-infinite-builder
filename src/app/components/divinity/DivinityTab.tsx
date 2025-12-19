@@ -23,6 +23,7 @@ interface DivinityTabProps {
     slateId: string,
     position: { row: number; col: number },
   ) => void;
+  onUnplaceSlate: (slateId: string) => void;
   onUpdateSlateRotation: (slateId: string, rotation: Rotation) => void;
   onUpdateSlateFlip: (
     slateId: string,
@@ -39,6 +40,7 @@ export const DivinityTab: React.FC<DivinityTabProps> = ({
   onDeleteSlate,
   onPlaceSlate,
   onMoveSlate,
+  onUnplaceSlate,
   onUpdateSlateRotation,
   onUpdateSlateFlip,
   onUpdateSlateShape,
@@ -61,6 +63,7 @@ export const DivinityTab: React.FC<DivinityTabProps> = ({
         <DivinityGrid
           divinityPage={divinityPage}
           onMoveSlate={onMoveSlate}
+          onUnplaceSlate={onUnplaceSlate}
           onUpdateSlateRotation={onUpdateSlateRotation}
           onUpdateSlateFlip={onUpdateSlateFlip}
           onUpdateSlateShape={onUpdateSlateShape}
