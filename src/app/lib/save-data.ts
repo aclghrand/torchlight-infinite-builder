@@ -36,6 +36,11 @@ export interface DivinitySlate {
   flippedH: boolean;
   flippedV: boolean;
   affixes: string[];
+  // reserved for affixes from "Sparks of Moth Fire" and "When Sparks Set the Prairie Ablaze"
+  // these are affixes that aren't factored into stat calculations, but may produce
+  // other affixes which do
+  // e.g. "Sparks of Moth Fire" could copy affix from another slate
+  metaAffixes: string[];
   isLegendary?: boolean;
   legendaryName?: string;
 }

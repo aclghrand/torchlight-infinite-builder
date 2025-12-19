@@ -155,8 +155,10 @@ export const LegendarySlateCrafter: React.FC<LegendarySlateCrafterProps> = ({
   const handleSave = (): void => {
     if (template === undefined) return;
 
+    // Copy slates store the fixed affix text as metaAffixes (not regular affixes)
+    // The actual copied affixes will be populated at load time based on adjacent slates
     const affixes: Affix[] = hasFixedAffixes
-      ? [createMinimalAffix(getFixedAffixText())]
+      ? []
       : selectedAffixes.map((a) =>
           createMinimalAffix(
             a.isCoreTalent && a.displayName !== undefined
@@ -164,6 +166,8 @@ export const LegendarySlateCrafter: React.FC<LegendarySlateCrafterProps> = ({
               : a.effect,
           ),
         );
+
+    const metaAffixes: string[] = hasFixedAffixes ? [getFixedAffixText()] : [];
 
     const slate: DivinitySlate = {
       id: generateItemId(),
@@ -173,6 +177,7 @@ export const LegendarySlateCrafter: React.FC<LegendarySlateCrafterProps> = ({
       flippedH: template.canFlip ? flippedH : false,
       flippedV: template.canFlip ? flippedV : false,
       affixes,
+      metaAffixes,
       isLegendary: true,
       legendaryName: template.displayName,
     };

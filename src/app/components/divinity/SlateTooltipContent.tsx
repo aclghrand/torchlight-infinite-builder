@@ -9,6 +9,8 @@ export const SlateTooltipContent: React.FC<{ slate: DivinitySlate }> = ({
   slate,
 }) => {
   const isLegendary = slate.isLegendary === true;
+  const hasMetaAffixes = slate.metaAffixes.length > 0;
+  const hasAffixes = slate.affixes.length > 0;
 
   const displayName = isLegendary
     ? (slate.legendaryName ?? "Legendary Slate")
@@ -19,7 +21,27 @@ export const SlateTooltipContent: React.FC<{ slate: DivinitySlate }> = ({
   return (
     <>
       <TooltipTitle>{displayName}</TooltipTitle>
-      {slate.affixes.length > 0 ? (
+
+      {/* Meta affixes (copy behavior descriptions) */}
+      {hasMetaAffixes && (
+        <ul className="space-y-1">
+          {slate.metaAffixes.map((metaAffix, idx) => (
+            <li
+              // biome-ignore lint/suspicious/noArrayIndexKey: index is stable
+              key={`meta-${idx}`}
+              className="text-xs text-zinc-500 italic"
+            >
+              {metaAffix}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {/* Separator between meta affixes and regular affixes */}
+      {hasMetaAffixes && hasAffixes && <hr className="border-zinc-600 my-2" />}
+
+      {/* Regular affixes */}
+      {hasAffixes ? (
         <ul className="space-y-1">
           {slate.affixes.map((affix, affixIdx) =>
             affix.affixLines.map((line, lineIdx) => (
@@ -35,7 +57,9 @@ export const SlateTooltipContent: React.FC<{ slate: DivinitySlate }> = ({
           )}
         </ul>
       ) : (
-        <p className="text-xs text-zinc-500 italic">No affixes</p>
+        !hasMetaAffixes && (
+          <p className="text-xs text-zinc-500 italic">No affixes</p>
+        )
       )}
     </>
   );

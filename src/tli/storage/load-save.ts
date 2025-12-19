@@ -1,4 +1,5 @@
 import * as R from "remeda";
+import { findSlateAtCell } from "@/src/app/lib/divinity-grid";
 import { craftHeroMemoryAffix } from "@/src/app/lib/hero-utils";
 import {
   getEffectModifierForType,
@@ -21,6 +22,7 @@ import type {
   TalentPage as SaveDataTalentPage,
   TalentTree as SaveDataTalentTree,
 } from "@/src/app/lib/save-data";
+import { CoreTalents } from "@/src/data/core_talent/core_talents";
 import { Pactspirits } from "@/src/data/pactspirit/pactspirits";
 import type { Pactspirit } from "@/src/data/pactspirit/types";
 import type { TalentNodeData, TreeName } from "@/src/data/talent_tree";
@@ -44,6 +46,7 @@ import type {
   PactspiritPage,
   PactspiritSlot,
   PlacedPrism,
+  PlacedSlate,
   TalentInventory,
   TalentNode,
   TalentPage,
@@ -542,6 +545,152 @@ const getDivinitySrc = (slateId: string): string => {
   return `Divinity#${slateId}`;
 };
 
+// Check if an affix line matches any Core talent (by name or any line of effect)
+const isCoreTalentLine = (affixLineText: string): boolean => {
+  const normalizedText = affixLineText.trim().toLowerCase();
+  return CoreTalents.some((ct) => {
+    // Check if it matches the name
+    if (ct.name.toLowerCase() === normalizedText) return true;
+    // Check if any line from the Core talent affix matches
+    const affixLines = ct.affix
+      .split(/\n/)
+      .map((line) => line.trim().toLowerCase());
+    return affixLines.some((line) => line === normalizedText);
+  });
+};
+
+type CopyDirection = "up" | "down" | "left" | "right";
+
+// Parse the copy direction from a meta affix text
+const parseCopyDirection = (
+  metaAffixText: string,
+): CopyDirection | "all" | undefined => {
+  const lowerText = metaAffixText.toLowerCase();
+  if (lowerText.includes("all adjacent")) return "all";
+  if (lowerText.includes("above")) return "up";
+  if (lowerText.includes("below")) return "down";
+  if (lowerText.includes("on the left")) return "left";
+  if (lowerText.includes("on the right")) return "right";
+  return undefined;
+};
+
+// Get adjacent slates for a given position on the grid
+const getAdjacentSlates = (
+  position: { row: number; col: number },
+  inventory: DivinitySlate[],
+  placements: PlacedSlate[],
+): Map<CopyDirection, DivinitySlate> => {
+  const directions: {
+    dir: CopyDirection;
+    offset: { row: number; col: number };
+  }[] = [
+    { dir: "up", offset: { row: -1, col: 0 } },
+    { dir: "down", offset: { row: 1, col: 0 } },
+    { dir: "left", offset: { row: 0, col: -1 } },
+    { dir: "right", offset: { row: 0, col: 1 } },
+  ];
+
+  const result = new Map<CopyDirection, DivinitySlate>();
+
+  for (const { dir, offset } of directions) {
+    const adjacentRow = position.row + offset.row;
+    const adjacentCol = position.col + offset.col;
+
+    const placement = findSlateAtCell(
+      adjacentRow,
+      adjacentCol,
+      inventory,
+      placements,
+    );
+    if (placement !== undefined) {
+      const slate = inventory.find((s) => s.id === placement.slateId);
+      if (slate !== undefined) {
+        result.set(dir, slate);
+      }
+    }
+  }
+
+  return result;
+};
+
+// Get the last non-Core affix from a slate (as an Affix object)
+const getLastCopyableAffix = (
+  slate: DivinitySlate,
+  src: string,
+): Affix | undefined => {
+  // Don't copy from other copy slates (they have metaAffixes)
+  if (slate.metaAffixes.length > 0) return undefined;
+
+  // Work backwards through affixes to find the last non-Core one
+  for (let i = slate.affixes.length - 1; i >= 0; i--) {
+    const affix = slate.affixes[i];
+    // Check if any line in this affix is a Core talent
+    const isCore = affix.affixLines.some((line) => isCoreTalentLine(line.text));
+    if (!isCore) {
+      // Return a copy with updated source
+      return {
+        affixLines: affix.affixLines.map((line) => ({
+          text: line.text,
+          mods: line.mods?.map((mod) => ({ ...mod, src })),
+        })),
+        src,
+      };
+    }
+  }
+  return undefined;
+};
+
+// Get copied affixes for a placed copy slate based on its meta affixes
+const getCopiedAffixesForSlate = (
+  slate: DivinitySlate,
+  placement: PlacedSlate,
+  inventory: DivinitySlate[],
+  placements: PlacedSlate[],
+): Affix[] => {
+  // Only process slates with metaAffixes (copy slates)
+  if (slate.metaAffixes.length === 0) return [];
+
+  const src = getDivinitySrc(slate.id);
+  const direction = parseCopyDirection(slate.metaAffixes[0]);
+  if (direction === undefined) return [];
+
+  const adjacentSlates = getAdjacentSlates(
+    placement.position,
+    inventory,
+    placements,
+  );
+  const copiedAffixes: Affix[] = [];
+
+  if (direction === "all") {
+    // Copy from all adjacent slates in order: up, left, down, right
+    // Track copied slate IDs to avoid copying from the same slate twice
+    // (a multi-cell slate could be adjacent from multiple directions)
+    const copiedSlateIds = new Set<string>();
+    const orderOfDirections: CopyDirection[] = ["up", "left", "down", "right"];
+    for (const dir of orderOfDirections) {
+      const adjacentSlate = adjacentSlates.get(dir);
+      if (adjacentSlate !== undefined && !copiedSlateIds.has(adjacentSlate.id)) {
+        const copiedAffix = getLastCopyableAffix(adjacentSlate, src);
+        if (copiedAffix !== undefined) {
+          copiedAffixes.push(copiedAffix);
+          copiedSlateIds.add(adjacentSlate.id);
+        }
+      }
+    }
+  } else {
+    // Copy from single direction
+    const adjacentSlate = adjacentSlates.get(direction);
+    if (adjacentSlate !== undefined) {
+      const copiedAffix = getLastCopyableAffix(adjacentSlate, src);
+      if (copiedAffix !== undefined) {
+        copiedAffixes.push(copiedAffix);
+      }
+    }
+  }
+
+  return copiedAffixes;
+};
+
 const convertDivinitySlate = (slate: SaveDataDivinitySlate): DivinitySlate => {
   const src = getDivinitySrc(slate.id);
   return {
@@ -552,6 +701,7 @@ const convertDivinitySlate = (slate: SaveDataDivinitySlate): DivinitySlate => {
     flippedH: slate.flippedH,
     flippedV: slate.flippedV,
     affixes: slate.affixes.map((text) => convertAffix(text, src)),
+    metaAffixes: slate.metaAffixes ?? [],
     isLegendary: slate.isLegendary,
     legendaryName: slate.legendaryName,
   };
@@ -561,9 +711,34 @@ const convertDivinityPage = (
   saveDataDivinityPage: SaveDataDivinityPage,
   divinitySlateList: SaveDataDivinitySlate[],
 ): DivinityPage => {
+  // First convert all slates to inventory
+  const inventory = divinitySlateList.map(convertDivinitySlate);
+  const placements = saveDataDivinityPage.placedSlates;
+
+  // For each placed slate with metaAffixes, populate copied affixes from adjacent slates
+  for (const placement of placements) {
+    const slateIndex = inventory.findIndex((s) => s.id === placement.slateId);
+    if (slateIndex === -1) continue;
+
+    const slate = inventory[slateIndex];
+    if (slate.metaAffixes.length > 0) {
+      const copiedAffixes = getCopiedAffixesForSlate(
+        slate,
+        placement,
+        inventory,
+        placements,
+      );
+      // Update the slate with copied affixes
+      inventory[slateIndex] = {
+        ...slate,
+        affixes: [...slate.affixes, ...copiedAffixes],
+      };
+    }
+  }
+
   return {
-    placedSlates: saveDataDivinityPage.placedSlates,
-    inventory: divinitySlateList.map(convertDivinitySlate),
+    placedSlates: placements,
+    inventory,
   };
 };
 
