@@ -2772,3 +2772,165 @@ describe("Pactspirit Ring Mods", () => {
     expect(actual?.avgHit).toBeCloseTo(150);
   });
 });
+
+describe("Divinity Slate Mods", () => {
+  test("placed divinity slate affixes are included in damage calculations", () => {
+    const loadout = initLoadout({
+      gearPage: {
+        equippedGear: { mainHand: baseWeapon },
+        inventory: [],
+      },
+      skillPage: {
+        activeSkills: {
+          1: {
+            skillName: "[Test] Simple Attack",
+            enabled: true,
+            level: 20,
+            supportSkills: {},
+          },
+        },
+        passiveSkills: {},
+      },
+      divinityPage: {
+        placedSlates: [{ slateId: "slate-1", position: { row: 2, col: 2 } }],
+        inventory: [
+          {
+            id: "slate-1",
+            shape: "Single",
+            rotation: 0,
+            flippedH: false,
+            flippedV: false,
+            affixes: [
+              affix([
+                { type: "DmgPct", value: 0.5, modType: "global", addn: false },
+              ]),
+            ],
+            metaAffixes: [],
+          },
+        ],
+      },
+    });
+
+    const results = calculateOffense({
+      loadout,
+      configuration: defaultConfiguration,
+    });
+    const actual = results["[Test] Simple Attack"];
+
+    expect(actual).toBeDefined();
+    // 100 base damage * (1 + 0.5) = 150
+    expect(actual?.avgHit).toBeCloseTo(150);
+  });
+
+  test("only placed slates contribute to damage, not inventory-only slates", () => {
+    const loadout = initLoadout({
+      gearPage: {
+        equippedGear: { mainHand: baseWeapon },
+        inventory: [],
+      },
+      skillPage: {
+        activeSkills: {
+          1: {
+            skillName: "[Test] Simple Attack",
+            enabled: true,
+            level: 20,
+            supportSkills: {},
+          },
+        },
+        passiveSkills: {},
+      },
+      divinityPage: {
+        placedSlates: [], // No slates placed
+        inventory: [
+          {
+            id: "slate-1",
+            shape: "Single",
+            rotation: 0,
+            flippedH: false,
+            flippedV: false,
+            affixes: [
+              affix([
+                { type: "DmgPct", value: 0.5, modType: "global", addn: false },
+              ]),
+            ],
+            metaAffixes: [],
+          },
+        ],
+      },
+    });
+
+    const results = calculateOffense({
+      loadout,
+      configuration: defaultConfiguration,
+    });
+    const actual = results["[Test] Simple Attack"];
+
+    expect(actual).toBeDefined();
+    // 100 base damage * 1 = 100 (no bonus from unplaced slate)
+    expect(actual?.avgHit).toBeCloseTo(100);
+  });
+
+  test("multiple placed slates stack additively", () => {
+    const loadout = initLoadout({
+      gearPage: {
+        equippedGear: { mainHand: baseWeapon },
+        inventory: [],
+      },
+      skillPage: {
+        activeSkills: {
+          1: {
+            skillName: "[Test] Simple Attack",
+            enabled: true,
+            level: 20,
+            supportSkills: {},
+          },
+        },
+        passiveSkills: {},
+      },
+      divinityPage: {
+        placedSlates: [
+          { slateId: "slate-1", position: { row: 2, col: 2 } },
+          { slateId: "slate-2", position: { row: 3, col: 3 } },
+        ],
+        inventory: [
+          {
+            id: "slate-1",
+            shape: "Single",
+            rotation: 0,
+            flippedH: false,
+            flippedV: false,
+            affixes: [
+              affix([
+                { type: "DmgPct", value: 0.3, modType: "global", addn: false },
+              ]),
+            ],
+            metaAffixes: [],
+          },
+          {
+            id: "slate-2",
+            shape: "Single",
+            rotation: 0,
+            flippedH: false,
+            flippedV: false,
+            affixes: [
+              affix([
+                { type: "DmgPct", value: 0.2, modType: "global", addn: false },
+              ]),
+            ],
+            metaAffixes: [],
+          },
+        ],
+      },
+    });
+
+    const results = calculateOffense({
+      loadout,
+      configuration: defaultConfiguration,
+    });
+    const actual = results["[Test] Simple Attack"];
+
+    expect(actual).toBeDefined();
+    // 100 base damage * (1 + 0.3 + 0.2) = 150
+    expect(actual?.avgHit).toBeCloseTo(150);
+  });
+});

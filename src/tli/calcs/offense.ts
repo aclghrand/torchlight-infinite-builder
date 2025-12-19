@@ -17,6 +17,7 @@ import type { DmgModType } from "../constants";
 import {
   type Affix,
   type Configuration,
+  type DivinityPage,
   type DmgRange,
   getAllAffixes,
   getTalentAffixes,
@@ -116,10 +117,23 @@ const getPactspiritAffixes = (
   return affixes;
 };
 
+const getDivinityAffixes = (divinityPage: DivinityPage): Affix[] => {
+  const affixes: Affix[] = [];
+  for (const placedSlate of divinityPage.placedSlates) {
+    const slate = divinityPage.inventory.find(
+      (s) => s.id === placedSlate.slateId,
+    );
+    if (slate !== undefined) {
+      affixes.push(...slate.affixes);
+    }
+  }
+  return affixes;
+};
+
 export const collectMods = (loadout: Loadout): Mod[] => {
   return [
-    // todo: handle divinity slates
     // todo: handle hero stuff
+    ...collectModsFromAffixes(getDivinityAffixes(loadout.divinityPage)),
     ...collectModsFromAffixes(getPactspiritAffixes(loadout.pactspiritPage)),
     ...collectModsFromAffixes(getTalentAffixes(loadout.talentPage)),
     ...collectModsFromAffixes(
