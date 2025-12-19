@@ -1,6 +1,6 @@
 "use client";
 
-import { GOD_COLORS } from "@/src/app/lib/divinity-utils";
+import { getSlateColor } from "@/src/app/lib/divinity-utils";
 import type { DivinitySlate } from "@/src/tli/core";
 
 interface SlateEdges {
@@ -58,7 +58,7 @@ export const DivinityGridCell: React.FC<DivinityGridCellProps> = ({
       <div
         role="button"
         tabIndex={0}
-        className={`relative h-12 w-12 ${GOD_COLORS[slate.god]} cursor-grab select-none`}
+        className={`relative h-12 w-12 ${getSlateColor(slate)} cursor-grab select-none`}
         style={getOutlineStyleForSlate(slateEdges)}
         onClick={onClick}
         onKeyDown={(e) => e.key === "Enter" && onClick()}
@@ -76,8 +76,8 @@ export const DivinityGridCell: React.FC<DivinityGridCellProps> = ({
 
   // Valid grid cell (within mask)
   const getBackgroundClass = (): string => {
-    if (slate) {
-      return GOD_COLORS[slate.god];
+    if (slate !== undefined) {
+      return getSlateColor(slate);
     }
     return "bg-zinc-800";
   };

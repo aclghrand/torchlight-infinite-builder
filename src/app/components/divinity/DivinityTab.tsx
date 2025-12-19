@@ -9,6 +9,7 @@ import type {
   SlateShape,
 } from "@/src/tli/core";
 import { DivinityGrid } from "./DivinityGrid";
+import { LegendarySlateCrafter } from "./LegendarySlateCrafter";
 import { SlateCrafter } from "./SlateCrafter";
 import { SlateInventory } from "./SlateInventory";
 
@@ -68,6 +69,8 @@ export const DivinityTab: React.FC<DivinityTabProps> = ({
 
       <div className="flex flex-col gap-6">
         <SlateCrafter onSave={onSaveSlate} />
+
+        <LegendarySlateCrafter onSave={onSaveSlate} />
 
         <SlateInventory
           slates={divinityPage.inventory}

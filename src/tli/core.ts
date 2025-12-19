@@ -200,7 +200,15 @@ export const getTalentAffixes = (talentPage: TalentPage): Affix[] => {
   return affixes;
 };
 
-export const SLATE_SHAPES = ["O", "L", "Z"] as const;
+export const SLATE_SHAPES = [
+  "O",
+  "L",
+  "Z",
+  "Single",
+  "CornerL",
+  "Vertical2",
+  "Pedigree",
+] as const;
 export type SlateShape = (typeof SLATE_SHAPES)[number];
 
 export const DIVINITY_GODS = [
@@ -216,7 +224,14 @@ export type DivinityGod = (typeof DIVINITY_GODS)[number];
 export const ROTATIONS = [0, 90, 180, 270] as const;
 export type Rotation = (typeof ROTATIONS)[number];
 
-export type DivinityAffixType = "Legendary Medium" | "Medium";
+export const DIVINITY_AFFIX_TYPES = [
+  "Legendary Medium",
+  "Medium",
+  "Micro",
+  "Core",
+] as const;
+export type DivinityAffixType = (typeof DIVINITY_AFFIX_TYPES)[number];
+
 export interface PlacedSlate {
   slateId: string;
   position: { row: number; col: number };
@@ -224,13 +239,15 @@ export interface PlacedSlate {
 
 export interface DivinitySlate {
   id: string;
-  god: DivinityGod;
+  god?: DivinityGod;
   shape: SlateShape;
   rotation: Rotation;
   flippedH: boolean;
   flippedV: boolean;
   affixes: Affix[];
   affixTypes: DivinityAffixType[];
+  isLegendary?: boolean;
+  legendaryName?: string;
 }
 
 export interface DivinityPage {

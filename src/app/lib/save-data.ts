@@ -31,13 +31,15 @@ export {
 
 export interface DivinitySlate {
   id: string;
-  god: DivinityGod;
+  god?: DivinityGod;
   shape: SlateShape;
   rotation: Rotation;
   flippedH: boolean;
   flippedV: boolean;
   affixes: string[];
   affixTypes: DivinityAffixType[];
+  isLegendary?: boolean;
+  legendaryName?: string;
 }
 
 export const PRISM_RARITIES = ["rare", "legendary"] as const;

@@ -4,16 +4,20 @@ import {
   applyRotation,
   getTransformedCells,
 } from "@/src/app/lib/divinity-shapes";
-import { GOD_COLORS } from "@/src/app/lib/divinity-utils";
+import {
+  GOD_COLORS,
+  LEGENDARY_SLATE_COLOR,
+} from "@/src/app/lib/divinity-utils";
 import type { DivinityGod, Rotation, SlateShape } from "@/src/tli/core";
 
 interface SlatePreviewProps {
   shape: SlateShape;
-  god: DivinityGod;
+  god?: DivinityGod;
   rotation?: Rotation;
   flippedH?: boolean;
   flippedV?: boolean;
   size?: "small" | "medium" | "large";
+  isLegendary?: boolean;
 }
 
 export const SlatePreview: React.FC<SlatePreviewProps> = ({
@@ -23,6 +27,7 @@ export const SlatePreview: React.FC<SlatePreviewProps> = ({
   flippedH = false,
   flippedV = false,
   size = "medium",
+  isLegendary = false,
 }) => {
   const cells = getTransformedCells(shape, rotation, flippedH, flippedV);
   const { bounds } = applyRotation(shape, rotation);
@@ -32,6 +37,18 @@ export const SlatePreview: React.FC<SlatePreviewProps> = ({
 
   const cellSet = new Set(cells.map(([r, c]) => `${r},${c}`));
 
+  const getCellColor = (): string => {
+    if (isLegendary) {
+      return LEGENDARY_SLATE_COLOR;
+    }
+    if (god !== undefined) {
+      return GOD_COLORS[god];
+    }
+    return "bg-zinc-600";
+  };
+
+  const cellColor = getCellColor();
+
   const gridRows = [];
   for (let row = 0; row < bounds.rows; row++) {
     const rowCells = [];
@@ -40,7 +57,7 @@ export const SlatePreview: React.FC<SlatePreviewProps> = ({
       rowCells.push(
         <div
           key={`${row}-${col}`}
-          className={`${isFilled ? GOD_COLORS[god] : "bg-transparent"}`}
+          className={`${isFilled ? cellColor : "bg-transparent"}`}
           style={{
             width: cellSize,
             height: cellSize,

@@ -17,7 +17,7 @@ import {
   getOccupiedCells,
   getTransformedCells,
 } from "@/src/app/lib/divinity-shapes";
-import { GOD_COLORS } from "@/src/app/lib/divinity-utils";
+import { getSlateColor } from "@/src/app/lib/divinity-utils";
 import {
   type DivinityPage,
   ROTATIONS,
@@ -449,7 +449,7 @@ export const DivinityGrid: React.FC<DivinityGridProps> = ({
           return (
             <div
               key={`${r}-${c}`}
-              className={`absolute ${GOD_COLORS[slate.god]} ${opacity}`}
+              className={`absolute ${getSlateColor(slate)} ${opacity}`}
               style={{
                 ...borderStyle,
                 left: `${(c - minCol) * CELL_SIZE}px`,

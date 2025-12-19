@@ -1,4 +1,5 @@
 import { Talents } from "@/src/data/talent/talents";
+import type { DivinitySlate } from "@/src/tli/core";
 import type { DivinityAffixType, DivinityGod } from "./save-data";
 
 export interface DivinityAffix {
@@ -53,6 +54,21 @@ export const GOD_TEXT_COLORS: Record<DivinityGod, string> = {
   Might: "text-stone-400",
 };
 
+// Legendary slate colors (orange theme)
+export const LEGENDARY_SLATE_COLOR = "bg-orange-600";
+export const LEGENDARY_SLATE_BORDER = "border-orange-500";
+export const LEGENDARY_SLATE_TEXT = "text-orange-400";
+
 export const getSlateDisplayName = (god: DivinityGod): string => {
   return `${god} Slate`;
+};
+
+export const getSlateColor = (slate: DivinitySlate): string => {
+  if (slate.isLegendary === true) {
+    return LEGENDARY_SLATE_COLOR;
+  }
+  if (slate.god !== undefined) {
+    return GOD_COLORS[slate.god];
+  }
+  return "bg-zinc-600";
 };

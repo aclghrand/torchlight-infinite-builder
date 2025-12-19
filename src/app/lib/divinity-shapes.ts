@@ -24,6 +24,36 @@ export const SHAPE_CELLS: Record<SlateShape, [number, number][]> = {
     [1, 1],
     [1, 2],
   ],
+  // Legendary slate shapes
+  Single: [[0, 0]],
+  // "A Corner of Divinity" - L shape:
+  // OO
+  // O
+  CornerL: [
+    [0, 0],
+    [0, 1],
+    [1, 0],
+  ],
+  // "Fallen Starlight" - vertical 2x1:
+  // O
+  // O
+  Vertical2: [
+    [0, 0],
+    [1, 0],
+  ],
+  // "Pedigree of Gods" - custom 7-cell:
+  // OO
+  // OOO
+  //  OO
+  Pedigree: [
+    [0, 0],
+    [0, 1],
+    [1, 0],
+    [1, 1],
+    [1, 2],
+    [2, 1],
+    [2, 2],
+  ],
 };
 
 export const SHAPE_BOUNDS: Record<SlateShape, { rows: number; cols: number }> =
@@ -31,6 +61,11 @@ export const SHAPE_BOUNDS: Record<SlateShape, { rows: number; cols: number }> =
     O: { rows: 2, cols: 2 },
     L: { rows: 3, cols: 2 },
     Z: { rows: 2, cols: 3 },
+    // Legendary slate shapes
+    Single: { rows: 1, cols: 1 },
+    CornerL: { rows: 2, cols: 2 },
+    Vertical2: { rows: 2, cols: 1 },
+    Pedigree: { rows: 3, cols: 3 },
   };
 
 const normalizeCoordinates = (
