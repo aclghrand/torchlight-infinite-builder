@@ -76,7 +76,9 @@ export const findSlateAtCell = (
   slates: DivinitySlate[],
   placements: PlacedSlate[],
 ): PlacedSlate | undefined => {
-  for (const placement of placements) {
+  // Iterate in reverse so most recently placed slate appears on top
+  for (let i = placements.length - 1; i >= 0; i--) {
+    const placement = placements[i];
     const slate = slates.find((s) => s.id === placement.slateId);
     if (!slate) continue;
 
