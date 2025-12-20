@@ -87,9 +87,13 @@ export const LegendarySlateCrafter: React.FC<LegendarySlateCrafterProps> = ({
       )
       .map((affix) => ({
         value: affix.effect,
-        label: getAffixDisplayText(affix),
+        label:
+          affix.isCoreTalent && affix.displayName !== undefined
+            ? affix.displayName
+            : affix.effect.split("\n").join(" / "),
         sublabel: affix.type,
-      }));
+      }))
+      .sort((a, b) => a.label.localeCompare(b.label));
   };
 
   const handleTemplateChange = (templateKey: string): void => {

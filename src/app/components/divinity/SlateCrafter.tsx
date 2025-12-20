@@ -59,9 +59,10 @@ export const SlateCrafter: React.FC<SlateCrafterProps> = ({ onSave }) => {
       )
       .map((affix) => ({
         value: affix.effect,
-        label: affix.effect.split("\n")[0],
+        label: affix.effect.split("\n").join(" / "),
         sublabel: affix.type === "Legendary Medium" ? "Legendary" : "Medium",
-      }));
+      }))
+      .sort((a, b) => a.label.localeCompare(b.label));
   };
 
   const handleGodChange = (newGod: DivinityGod): void => {
