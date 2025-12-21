@@ -30,6 +30,7 @@ interface EquipmentUIState {
   baseStatsAffixIndex: number | undefined;
   sweetDreamAffixIndex: number | undefined;
   sweetDreamAffixPercentage: number;
+  towerSequenceAffixIndex: number | undefined;
 
   // Legendary crafting state
   selectedLegendaryIndex: number | undefined;
@@ -48,6 +49,7 @@ interface EquipmentUIState {
   setBaseStatsAffixIndex: (index: number | undefined) => void;
   setSweetDreamAffixIndex: (index: number | undefined) => void;
   setSweetDreamAffixPercentage: (percentage: number) => void;
+  setTowerSequenceAffixIndex: (index: number | undefined) => void;
   resetCrafting: () => void;
 
   setSelectedLegendaryIndex: (index: number | undefined) => void;
@@ -70,6 +72,7 @@ export const useEquipmentUIStore = create<EquipmentUIState>()(
     baseStatsAffixIndex: undefined,
     sweetDreamAffixIndex: undefined,
     sweetDreamAffixPercentage: DEFAULT_QUALITY,
+    towerSequenceAffixIndex: undefined,
     selectedLegendaryIndex: undefined,
     legendaryAffixSlots: [],
     selectedGearSlot: "helmet",
@@ -84,6 +87,7 @@ export const useEquipmentUIStore = create<EquipmentUIState>()(
         state.baseStatsAffixIndex = undefined;
         state.sweetDreamAffixIndex = undefined;
         state.sweetDreamAffixPercentage = DEFAULT_QUALITY;
+        state.towerSequenceAffixIndex = undefined;
       }),
 
     setAffixSlot: (index, update) =>
@@ -135,6 +139,11 @@ export const useEquipmentUIStore = create<EquipmentUIState>()(
         state.sweetDreamAffixPercentage = percentage;
       }),
 
+    setTowerSequenceAffixIndex: (index) =>
+      set((state) => {
+        state.towerSequenceAffixIndex = index;
+      }),
+
     resetCrafting: () =>
       set((state) => {
         state.selectedEquipmentType = undefined;
@@ -144,6 +153,7 @@ export const useEquipmentUIStore = create<EquipmentUIState>()(
         state.baseStatsAffixIndex = undefined;
         state.sweetDreamAffixIndex = undefined;
         state.sweetDreamAffixPercentage = DEFAULT_QUALITY;
+        state.towerSequenceAffixIndex = undefined;
       }),
 
     setSelectedLegendaryIndex: (index) =>

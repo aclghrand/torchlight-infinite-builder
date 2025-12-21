@@ -65,6 +65,12 @@ export const EquipmentSection = () => {
   const setSweetDreamAffixPercentage = useEquipmentUIStore(
     (state) => state.setSweetDreamAffixPercentage,
   );
+  const towerSequenceAffixIndex = useEquipmentUIStore(
+    (state) => state.towerSequenceAffixIndex,
+  );
+  const setTowerSequenceAffixIndex = useEquipmentUIStore(
+    (state) => state.setTowerSequenceAffixIndex,
+  );
   const baseAffixSlots = useEquipmentUIStore((state) => state.baseAffixSlots);
   const setBaseAffixSlot = useEquipmentUIStore(
     (state) => state.setBaseAffixSlot,
@@ -115,6 +121,14 @@ export const EquipmentSection = () => {
     () =>
       selectedEquipmentType
         ? getFilteredAffixes(selectedEquipmentType, "Sweet Dream Affix")
+        : [],
+    [selectedEquipmentType],
+  );
+
+  const towerSequenceAffixes = useMemo(
+    () =>
+      selectedEquipmentType
+        ? getFilteredAffixes(selectedEquipmentType, "Tower Sequence")
         : [],
     [selectedEquipmentType],
   );
@@ -237,6 +251,18 @@ export const EquipmentSection = () => {
     setSweetDreamAffixIndex(undefined);
   }, [setSweetDreamAffixIndex]);
 
+  const handleTowerSequenceSelect = useCallback(
+    (_slotIndex: number, value: string) => {
+      const index = value === "" ? undefined : parseInt(value, 10);
+      setTowerSequenceAffixIndex(index);
+    },
+    [setTowerSequenceAffixIndex],
+  );
+
+  const handleClearTowerSequence = useCallback(() => {
+    setTowerSequenceAffixIndex(undefined);
+  }, [setTowerSequenceAffixIndex]);
+
   const handleSaveToInventory = useCallback(() => {
     if (!selectedEquipmentType) return;
 
@@ -269,6 +295,12 @@ export const EquipmentSection = () => {
           )
         : undefined;
 
+    // Build tower sequence affix (1 max, no quality)
+    const tower_sequence_affix =
+      towerSequenceAffixIndex !== undefined
+        ? towerSequenceAffixes[towerSequenceAffixIndex].craftableAffix
+        : undefined;
+
     // Build prefixes (slots 0-2)
     const prefixes: string[] = [];
     affixSlots.slice(0, 3).forEach((selection) => {
@@ -294,6 +326,7 @@ export const EquipmentSection = () => {
       suffixes: suffixes.length > 0 ? suffixes : undefined,
       blend_affix,
       sweet_dream_affix,
+      tower_sequence_affix,
     };
 
     addItemToInventory(newItem);
@@ -315,6 +348,8 @@ export const EquipmentSection = () => {
     sweetDreamAffixIndex,
     sweetDreamAffixPercentage,
     sweetDreamAffixes,
+    towerSequenceAffixIndex,
+    towerSequenceAffixes,
   ]);
 
   const handleSelectItemForSlot = useCallback(
@@ -446,6 +481,27 @@ export const EquipmentSection = () => {
                     onSliderChange={handleSweetDreamSliderChange}
                     onClear={handleClearSweetDream}
                     hideTierInfo
+                  />
+                </div>
+              )}
+              {/* Tower Sequence Affix Section */}
+              {towerSequenceAffixes.length > 0 && (
+                <div className="mb-6">
+                  <h3 className="mb-3 text-lg font-semibold text-zinc-50">
+                    Tower Sequence (1 max)
+                  </h3>
+                  <AffixSlotComponent
+                    slotIndex={-4}
+                    affixType="Tower Sequence"
+                    affixes={towerSequenceAffixes}
+                    selection={{
+                      affixIndex: towerSequenceAffixIndex,
+                      percentage: 100,
+                    }}
+                    onAffixSelect={handleTowerSequenceSelect}
+                    onSliderChange={() => {}}
+                    onClear={handleClearTowerSequence}
+                    hideQualitySlider
                   />
                 </div>
               )}

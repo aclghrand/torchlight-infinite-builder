@@ -11,6 +11,7 @@ const AFFIX_SLOT_TYPES = [
   "Base Stats",
   "Base Affix",
   "Sweet Dream Affix",
+  "Tower Sequence",
 ] as const;
 
 type AffixSlotType = (typeof AFFIX_SLOT_TYPES)[number];
