@@ -174,6 +174,8 @@ export interface ConfigurationPage {
   enemyFrostbittenEnabled: boolean;
   enemyFrostbittenPoints: number | undefined;
   crueltyBuffStacks: number;
+  enemyRes: number | undefined;
+  enemyArmor: number | undefined;
 }
 
 export interface EquippedGear {

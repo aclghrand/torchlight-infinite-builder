@@ -60,6 +60,8 @@ const createMinimalSaveData = (
     enemyFrostbittenEnabled: false,
     enemyFrostbittenPoints: undefined,
     crueltyBuffStacks: 40,
+    enemyRes: undefined,
+    enemyArmor: undefined,
   },
   calculationsPage: { selectedSkillName: undefined },
   ...overrides,

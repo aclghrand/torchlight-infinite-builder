@@ -43,6 +43,35 @@ export const ConfigurationTab: React.FC<ConfigurationTabProps> = ({
       }
     };
 
+  const handleEnemyResChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ): void => {
+    const value = e.target.value;
+    if (value === "") {
+      onUpdate({ enemyRes: undefined });
+      return;
+    }
+    const parsed = Number(value);
+    if (!Number.isNaN(parsed)) {
+      const clamped = Math.max(0, Math.min(100, parsed));
+      onUpdate({ enemyRes: clamped / 100 });
+    }
+  };
+
+  const handleEnemyArmorChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ): void => {
+    const value = e.target.value;
+    if (value === "") {
+      onUpdate({ enemyArmor: undefined });
+      return;
+    }
+    const parsed = Number(value);
+    if (!Number.isNaN(parsed)) {
+      onUpdate({ enemyArmor: Math.max(0, parsed) });
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div>
@@ -116,6 +145,37 @@ export const ConfigurationTab: React.FC<ConfigurationTabProps> = ({
             min={0}
             max={100}
             className="w-14 rounded border border-zinc-700 bg-zinc-800 px-2 py-0.5 text-center text-sm text-zinc-50 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/30"
+          />
+
+          <label className="text-right text-zinc-50">
+            Enemy Resistance %
+            <InfoTooltip text="Enemy elemental resistance. Defaults to 50%." />
+          </label>
+          <input
+            type="number"
+            value={
+              config.enemyRes !== undefined
+                ? Math.round(config.enemyRes * 100)
+                : ""
+            }
+            onChange={handleEnemyResChange}
+            min={0}
+            max={100}
+            placeholder="50"
+            className="w-14 rounded border border-zinc-700 bg-zinc-800 px-2 py-0.5 text-center text-sm text-zinc-50 placeholder:text-zinc-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/30"
+          />
+
+          <label className="text-right text-zinc-50">
+            Enemy Armor
+            <InfoTooltip text="Enemy armor value. Defaults to 27273 (50% physical damage mitigation)." />
+          </label>
+          <input
+            type="number"
+            value={config.enemyArmor ?? ""}
+            onChange={handleEnemyArmorChange}
+            min={0}
+            placeholder="27273"
+            className="w-20 rounded border border-zinc-700 bg-zinc-800 px-2 py-0.5 text-center text-sm text-zinc-50 placeholder:text-zinc-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/30"
           />
         </div>
       </div>

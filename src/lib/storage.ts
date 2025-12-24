@@ -66,6 +66,8 @@ export const createEmptyConfigurationPage = (): ConfigurationPage => ({
   enemyFrostbittenEnabled: false,
   enemyFrostbittenPoints: undefined,
   crueltyBuffStacks: 40,
+  enemyRes: undefined,
+  enemyArmor: undefined,
 });
 
 export const createEmptySkillPage = (): SkillPage => ({

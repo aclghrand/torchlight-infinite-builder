@@ -82,5 +82,7 @@ export const useConfiguration = (): Configuration => {
     },
     crueltyBuffStacks:
       configPage?.crueltyBuffStacks ?? defaults.crueltyBuffStacks,
+    enemyRes: configPage?.enemyRes,
+    enemyArmor: configPage?.enemyArmor,
   };
 };

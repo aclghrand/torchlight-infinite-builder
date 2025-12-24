@@ -50,8 +50,11 @@ export interface Configuration {
   crueltyBuffStacks?: number;
   numShadowHits?: number;
 
-  // enemy defensive stats
+  // ---enemy defensive stats---
+
+  // default to .5
   enemyRes?: number;
+  // default to 27273 (effective phys dmg mitigation of 50%)
   enemyArmor?: number;
 }
 
