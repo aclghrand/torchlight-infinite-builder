@@ -47,7 +47,7 @@ export interface PerStackable {
   // number of max stacks
   limit?: number; // default infinity
   // max limit of mod's value
-  valueLimit?: number | DmgRange; // default infinite
+  valueLimit?: number; // default infinite
   // how much to divide the stackable number by
   amt?: number; // default 1
 }

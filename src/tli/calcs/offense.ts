@@ -847,7 +847,9 @@ const multValue = <T extends number | DmgRange>(
   }
 };
 
-const multModValue = <T extends Extract<Mod, { value: number | DmgRange }>>(
+type ModWithValue = Extract<Mod, { value: number | DmgRange }>;
+
+const multModValue = <T extends ModWithValue>(
   mod: T,
   multiplier: number,
 ): T => {
@@ -906,7 +908,18 @@ const normalizeStackable = <T extends Mod>(
 
   const div = mod.per.amt || 1;
   const mult = Math.min(stacks / div, mod.per.limit ?? Infinity);
-  return multModValue(mod, mult) as T;
+  const newModValue = multValue(mod.value, mult);
+  if (typeof newModValue === "number" && mod.per.valueLimit !== undefined) {
+    return {
+      ...mod,
+      value: Math.min(newModValue, mod.per.valueLimit),
+    };
+  } else {
+    return {
+      ...mod,
+      value: newModValue,
+    };
+  }
 };
 
 interface Stats {

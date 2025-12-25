@@ -1374,6 +1374,133 @@ describe("mod normalization with per-stack mods", () => {
     const results = calculateOffense(input);
     validate(results, skillName, { avgHit: 120, critChance: 0.07 });
   });
+
+  test("per-stack limit caps the effective stack count", () => {
+    // +10% damage per willpower stack, limit 3, with 10 stacks
+    // Effective stacks: min(10, 3) = 3
+    // Damage bonus: 3 * 10% = 30%
+    // 100 * (1 + 0.3) = 130
+    const input = createModsInput([
+      affix([{ type: "MaxWillpowerStacks", value: 10 }]),
+      affix([
+        {
+          type: "DmgPct",
+          value: 0.1,
+          modType: "global",
+          addn: false,
+          per: { stackable: "willpower", limit: 3 },
+        },
+      ]),
+    ]);
+    const results = calculateOffense(input);
+    validate(results, skillName, { avgHit: 130 });
+  });
+
+  test("per-stack limit has no effect when stacks below limit", () => {
+    // +10% damage per willpower stack, limit 10, with 3 stacks
+    // Effective stacks: min(3, 10) = 3
+    // Damage bonus: 3 * 10% = 30%
+    // 100 * (1 + 0.3) = 130
+    const input = createModsInput([
+      affix([{ type: "MaxWillpowerStacks", value: 3 }]),
+      affix([
+        {
+          type: "DmgPct",
+          value: 0.1,
+          modType: "global",
+          addn: false,
+          per: { stackable: "willpower", limit: 10 },
+        },
+      ]),
+    ]);
+    const results = calculateOffense(input);
+    validate(results, skillName, { avgHit: 130 });
+  });
+
+  test("per-stack valueLimit caps the final computed value", () => {
+    // +10% damage per willpower stack, valueLimit 0.25, with 10 stacks
+    // Raw value: 10 * 0.1 = 1.0 (100% damage)
+    // Capped value: min(1.0, 0.25) = 0.25 (25% damage)
+    // 100 * (1 + 0.25) = 125
+    const input = createModsInput([
+      affix([{ type: "MaxWillpowerStacks", value: 10 }]),
+      affix([
+        {
+          type: "DmgPct",
+          value: 0.1,
+          modType: "global",
+          addn: false,
+          per: { stackable: "willpower", valueLimit: 0.25 },
+        },
+      ]),
+    ]);
+    const results = calculateOffense(input);
+    validate(results, skillName, { avgHit: 125 });
+  });
+
+  test("per-stack valueLimit has no effect when value below limit", () => {
+    // +10% damage per willpower stack, valueLimit 1.0, with 3 stacks
+    // Raw value: 3 * 0.1 = 0.3 (30% damage)
+    // Capped value: min(0.3, 1.0) = 0.3 (no cap applied)
+    // 100 * (1 + 0.3) = 130
+    const input = createModsInput([
+      affix([{ type: "MaxWillpowerStacks", value: 3 }]),
+      affix([
+        {
+          type: "DmgPct",
+          value: 0.1,
+          modType: "global",
+          addn: false,
+          per: { stackable: "willpower", valueLimit: 1.0 },
+        },
+      ]),
+    ]);
+    const results = calculateOffense(input);
+    validate(results, skillName, { avgHit: 130 });
+  });
+
+  test("per-stack with both limit and valueLimit applies both constraints", () => {
+    // +20% damage per willpower stack, limit 5, valueLimit 0.5, with 10 stacks
+    // Effective stacks: min(10, 5) = 5
+    // Raw value: 5 * 0.2 = 1.0 (100% damage)
+    // Capped value: min(1.0, 0.5) = 0.5 (50% damage)
+    // 100 * (1 + 0.5) = 150
+    const input = createModsInput([
+      affix([{ type: "MaxWillpowerStacks", value: 10 }]),
+      affix([
+        {
+          type: "DmgPct",
+          value: 0.2,
+          modType: "global",
+          addn: false,
+          per: { stackable: "willpower", limit: 5, valueLimit: 0.5 },
+        },
+      ]),
+    ]);
+    const results = calculateOffense(input);
+    validate(results, skillName, { avgHit: 150 });
+  });
+
+  test("per-stack with amt divides stacks before applying limit", () => {
+    // +30% damage per 3 willpower stacks, limit 2, with 10 stacks
+    // Effective stack multiplier: min(10/3, 2) = min(3.33, 2) = 2
+    // Damage bonus: 2 * 30% = 60%
+    // 100 * (1 + 0.6) = 160
+    const input = createModsInput([
+      affix([{ type: "MaxWillpowerStacks", value: 10 }]),
+      affix([
+        {
+          type: "DmgPct",
+          value: 0.3,
+          modType: "global",
+          addn: false,
+          per: { stackable: "willpower", amt: 3, limit: 2 },
+        },
+      ]),
+    ]);
+    const results = calculateOffense(input);
+    validate(results, skillName, { avgHit: 160 });
+  });
 });
 
 // Additional damage per stat tests
