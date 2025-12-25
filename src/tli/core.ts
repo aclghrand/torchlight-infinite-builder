@@ -1,6 +1,7 @@
 import type { HeroTraitName } from "@/src/data/hero_trait/types";
 import type { BaseStatMod } from "./base_stat_mod";
 import type { EquipmentType } from "./gear_data_types";
+import { getHeroTraitMods } from "./hero/hero_trait_mods";
 import type { Mod } from "./mod";
 
 export const PRISM_RARITIES = ["rare", "legendary"] as const;
@@ -361,8 +362,23 @@ export interface HeroPage {
 export const getHeroAffixes = (heroPage: HeroPage): Affix[] => {
   const affixes: Affix[] = [];
 
-  const { memorySlots } = heroPage;
-  // TODO: handle traits at some point
+  const { memorySlots, traits } = heroPage;
+
+  const traitSlots = [
+    traits.level1,
+    traits.level45,
+    traits.level60,
+    traits.level75,
+  ];
+  for (const traitName of traitSlots) {
+    if (traitName !== undefined) {
+      // defaulting to level3 for now
+      const mods = getHeroTraitMods(traitName, 3);
+      if (mods.length > 0) {
+        affixes.push({ affixLines: [{ text: traitName, mods }] });
+      }
+    }
+  }
 
   if (memorySlots.slot45) affixes.push(...memorySlots.slot45.affixes);
   if (memorySlots.slot60) affixes.push(...memorySlots.slot60.affixes);

@@ -39,5 +39,9 @@ const heroTraitModFactories: Partial<Record<HeroTraitName, ModFactory[]>> = {
 };
 
 export const getHeroTraitMods = (name: HeroTraitName, level: number): Mod[] => {
-  return heroTraitModFactories[name]?.map((f) => f(level - 1)) ?? [];
+  const mods = heroTraitModFactories[name]?.map((f) => f(level - 1)) ?? [];
+  const modsWithSrc = mods.map((mod) => {
+    return { ...mod, src: `HeroTrait: ${name} Lv.${level}` };
+  });
+  return modsWithSrc;
 };
