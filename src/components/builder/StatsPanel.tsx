@@ -24,13 +24,50 @@ export const StatsPanel = () => {
     return calculateOffense(input);
   }, [loadout, configuration]);
 
-  const offenseSummary = selectedSkill
-    ? offenseResults[selectedSkill]
-    : undefined;
+  const { skills, resourcePool } = offenseResults;
+  const offenseSummary = selectedSkill ? skills[selectedSkill] : undefined;
 
   return (
     <div className="sticky top-6 rounded-lg border border-zinc-700 bg-zinc-900 p-4">
       <h3 className="mb-4 text-lg font-semibold text-zinc-50">Stats Summary</h3>
+
+      <div className="mb-4 space-y-2">
+        <div className="text-xs font-medium text-zinc-400">Resource Pool</div>
+        <div className="grid grid-cols-3 gap-2">
+          <div className="rounded bg-zinc-800 p-2 text-center">
+            <div className="text-xs text-zinc-500">STR</div>
+            <div className="font-medium text-zinc-50">
+              {formatStatValue.integer(resourcePool.stats.str)}
+            </div>
+          </div>
+          <div className="rounded bg-zinc-800 p-2 text-center">
+            <div className="text-xs text-zinc-500">DEX</div>
+            <div className="font-medium text-zinc-50">
+              {formatStatValue.integer(resourcePool.stats.dex)}
+            </div>
+          </div>
+          <div className="rounded bg-zinc-800 p-2 text-center">
+            <div className="text-xs text-zinc-500">INT</div>
+            <div className="font-medium text-zinc-50">
+              {formatStatValue.integer(resourcePool.stats.int)}
+            </div>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          <div className="rounded bg-zinc-800 p-2">
+            <div className="text-xs text-zinc-500">Max Mana</div>
+            <div className="font-medium text-blue-400">
+              {formatStatValue.integer(resourcePool.maxMana)}
+            </div>
+          </div>
+          <div className="rounded bg-zinc-800 p-2">
+            <div className="text-xs text-zinc-500">Mercury</div>
+            <div className="font-medium text-purple-400">
+              {formatStatValue.integer(resourcePool.mercuryPts)}
+            </div>
+          </div>
+        </div>
+      </div>
 
       {offenseSummary ? (
         <>

@@ -116,7 +116,7 @@ const validate = (
   skillName: OffenseSkillName,
   expected: ExpectedOutput,
 ) => {
-  const actual = results[skillName as ImplementedActiveSkillName];
+  const actual = results.skills[skillName as ImplementedActiveSkillName];
   expect(actual).toBeDefined();
   for (const [key, value] of Object.entries(expected)) {
     expect(actual?.[key as keyof typeof expected]).toBeCloseTo(value);
@@ -1916,7 +1916,7 @@ describe("resolveSelectedSkillMods via calculateOffense", () => {
       loadout: createFrostSpikeLoadout(20),
       configuration: defaultConfiguration,
     });
-    const actual = results["Frost Spike"];
+    const actual = results.skills["Frost Spike"];
     if (actual === undefined) throw new Error("Expected actual to be defined");
 
     const mods = actual.resolvedMods;
@@ -1959,7 +1959,7 @@ describe("resolveSelectedSkillMods via calculateOffense", () => {
       loadout: createFrostSpikeLoadout(20),
       configuration: defaultConfiguration,
     });
-    const actual = results["Frost Spike"];
+    const actual = results.skills["Frost Spike"];
 
     if (actual === undefined) throw new Error("Expected actual to be defined");
     validate(results, "Frost Spike", { avgHit: 201 });
@@ -1978,7 +1978,7 @@ describe("resolveSelectedSkillMods via calculateOffense", () => {
       loadout: createFrostSpikeLoadout(1),
       configuration: defaultConfiguration,
     });
-    const actual = results["Frost Spike"];
+    const actual = results.skills["Frost Spike"];
 
     if (actual === undefined) throw new Error("Expected actual to be defined");
     validate(results, "Frost Spike", { avgHit: 149 });
@@ -2066,7 +2066,7 @@ describe("resolveBuffSkillMods", () => {
       loadout,
       configuration: frostbittenEnabledConfig,
     });
-    const actual = results["[Test] Simple Attack"];
+    const actual = results.skills["[Test] Simple Attack"];
 
     expect(actual).toBeDefined();
     const iceBondBuffMod = actual?.resolvedMods.find(
@@ -2090,7 +2090,7 @@ describe("resolveBuffSkillMods", () => {
       loadout,
       configuration: defaultConfiguration,
     });
-    const actual = results["[Test] Simple Attack"];
+    const actual = results.skills["[Test] Simple Attack"];
 
     expect(actual).toBeDefined();
     const bullsRageBuffMod = actual?.resolvedMods.find(
@@ -2110,7 +2110,7 @@ describe("resolveBuffSkillMods", () => {
       loadout,
       configuration: defaultConfiguration,
     });
-    const actual = results["[Test] Simple Attack"];
+    const actual = results.skills["[Test] Simple Attack"];
 
     expect(actual).toBeDefined();
     const iceBondBuffMod = actual?.resolvedMods.find(
@@ -2145,7 +2145,7 @@ describe("resolveBuffSkillMods", () => {
         enemyArmor: undefined,
       },
     });
-    const actual = results["[Test] Simple Attack"];
+    const actual = results.skills["[Test] Simple Attack"];
 
     expect(actual).toBeDefined();
     const iceBondBuffMod = actual?.resolvedMods.find(
@@ -2177,8 +2177,8 @@ describe("resolveBuffSkillMods", () => {
       loadout: loadoutL20,
       configuration: frostbittenEnabledConfig,
     });
-    const actualL1 = resultsL1["[Test] Simple Attack"];
-    const actualL20 = resultsL20["[Test] Simple Attack"];
+    const actualL1 = resultsL1.skills["[Test] Simple Attack"];
+    const actualL20 = resultsL20.skills["[Test] Simple Attack"];
 
     const buffModL1 = actualL1?.resolvedMods.find(
       (m) =>
@@ -2211,7 +2211,7 @@ describe("resolveBuffSkillMods", () => {
       loadout,
       configuration: frostbittenEnabledConfig,
     });
-    const actual = results["[Test] Simple Attack"];
+    const actual = results.skills["[Test] Simple Attack"];
 
     expect(actual).toBeDefined();
     const iceBondBuffMod = actual?.resolvedMods.find(
@@ -2236,7 +2236,7 @@ describe("resolveBuffSkillMods", () => {
       loadout,
       configuration: frostbittenEnabledConfig,
     });
-    const actual = results["[Test] Simple Attack"];
+    const actual = results.skills["[Test] Simple Attack"];
 
     expect(actual).toBeDefined();
     const iceBondBuffMod = actual?.resolvedMods.find(
@@ -2285,7 +2285,7 @@ describe("resolveBuffSkillMods", () => {
       loadout,
       configuration: frostbittenEnabledConfig,
     });
-    const actual = results["Frost Spike"];
+    const actual = results.skills["Frost Spike"];
 
     expect(actual).toBeDefined();
 
@@ -2324,7 +2324,7 @@ describe("resolveBuffSkillMods", () => {
       loadout,
       configuration: frostbittenEnabledConfig,
     });
-    const actual = results["[Test] Simple Attack"];
+    const actual = results.skills["[Test] Simple Attack"];
 
     expect(actual).toBeDefined();
     const iceBondBuffMod = actual?.resolvedMods.find(
@@ -2354,7 +2354,7 @@ describe("resolveBuffSkillMods", () => {
       loadout,
       configuration: frostbittenEnabledConfig,
     });
-    const actual = results["[Test] Simple Attack"];
+    const actual = results.skills["[Test] Simple Attack"];
 
     expect(actual).toBeDefined();
 
@@ -2392,7 +2392,7 @@ describe("resolveBuffSkillMods", () => {
       loadout,
       configuration: frostbittenEnabledConfig,
     });
-    const actual = results["[Test] Simple Attack"];
+    const actual = results.skills["[Test] Simple Attack"];
 
     expect(actual).toBeDefined();
     const iceBondBuffMod = actual?.resolvedMods.find(
@@ -2428,8 +2428,8 @@ describe("resolveBuffSkillMods", () => {
       loadout: loadoutL20,
       configuration: frostbittenEnabledConfig,
     });
-    const actualL1 = resultsL1["[Test] Simple Attack"];
-    const actualL20 = resultsL20["[Test] Simple Attack"];
+    const actualL1 = resultsL1.skills["[Test] Simple Attack"];
+    const actualL20 = resultsL20.skills["[Test] Simple Attack"];
 
     const buffModL1 = actualL1?.resolvedMods.find(
       (m) =>
@@ -2481,7 +2481,7 @@ describe("resolveBuffSkillMods", () => {
       loadout,
       configuration: defaultConfiguration,
     });
-    const actual = results["[Test] Simple Attack"];
+    const actual = results.skills["[Test] Simple Attack"];
 
     expect(actual).toBeDefined();
     const preciseCrueltyBuffMod = actual?.resolvedMods.find(
@@ -2528,7 +2528,7 @@ describe("resolveBuffSkillMods", () => {
       loadout,
       configuration: configWith20Stacks,
     });
-    const actual = results["[Test] Simple Attack"];
+    const actual = results.skills["[Test] Simple Attack"];
 
     expect(actual).toBeDefined();
     const preciseCrueltyBuffMod = actual?.resolvedMods.find(
@@ -2568,7 +2568,7 @@ describe("resolveBuffSkillMods", () => {
       loadout,
       configuration: defaultConfiguration,
     });
-    const actual = results["[Test] Simple Attack"];
+    const actual = results.skills["[Test] Simple Attack"];
 
     expect(actual).toBeDefined();
     // AuraEffPct from levelMods should not be in resolvedMods
@@ -2614,7 +2614,7 @@ describe("resolveBuffSkillMods", () => {
       loadout,
       configuration: defaultConfiguration,
     });
-    const actual = results["[Test] Simple Attack"];
+    const actual = results.skills["[Test] Simple Attack"];
 
     expect(actual).toBeDefined();
     const preciseCrueltyBuffMod = actual?.resolvedMods.find(
@@ -2639,7 +2639,7 @@ describe("resolveBuffSkillMods", () => {
       loadout,
       configuration: defaultConfiguration,
     });
-    const actual = results["[Test] Simple Attack"];
+    const actual = results.skills["[Test] Simple Attack"];
 
     expect(actual).toBeDefined();
     // Bull's Rage at level 20 provides 27% additional melee damage (no aura scaling)
@@ -2698,7 +2698,7 @@ describe("Pactspirit Ring Mods", () => {
       loadout,
       configuration: defaultConfiguration,
     });
-    const actual = results["[Test] Simple Attack"];
+    const actual = results.skills["[Test] Simple Attack"];
 
     expect(actual).toBeDefined();
     // 100 base damage * (1 + 0.5) = 150
@@ -2755,7 +2755,7 @@ describe("Pactspirit Ring Mods", () => {
       loadout,
       configuration: defaultConfiguration,
     });
-    const actual = results["[Test] Simple Attack"];
+    const actual = results.skills["[Test] Simple Attack"];
 
     expect(actual).toBeDefined();
     // 100 base damage * (1 + 0.3 + 0.3) = 160
@@ -2822,7 +2822,7 @@ describe("Pactspirit Ring Mods", () => {
       loadout,
       configuration: defaultConfiguration,
     });
-    const actual = results["[Test] Simple Attack"];
+    const actual = results.skills["[Test] Simple Attack"];
 
     expect(actual).toBeDefined();
     // 100 base damage * (1 + 0.75 from destiny, NOT 0.25 from original) = 175
@@ -2895,7 +2895,7 @@ describe("Pactspirit Ring Mods", () => {
       loadout,
       configuration: defaultConfiguration,
     });
-    const actual = results["[Test] Simple Attack"];
+    const actual = results.skills["[Test] Simple Attack"];
 
     expect(actual).toBeDefined();
     // 100 base damage * (1 + 0.2 + 0.3) = 150
@@ -2945,7 +2945,7 @@ describe("Divinity Slate Mods", () => {
       loadout,
       configuration: defaultConfiguration,
     });
-    const actual = results["[Test] Simple Attack"];
+    const actual = results.skills["[Test] Simple Attack"];
 
     expect(actual).toBeDefined();
     // 100 base damage * (1 + 0.5) = 150
@@ -2993,7 +2993,7 @@ describe("Divinity Slate Mods", () => {
       loadout,
       configuration: defaultConfiguration,
     });
-    const actual = results["[Test] Simple Attack"];
+    const actual = results.skills["[Test] Simple Attack"];
 
     expect(actual).toBeDefined();
     // 100 base damage * 1 = 100 (no bonus from unplaced slate)
@@ -3057,7 +3057,7 @@ describe("Divinity Slate Mods", () => {
       loadout,
       configuration: defaultConfiguration,
     });
-    const actual = results["[Test] Simple Attack"];
+    const actual = results.skills["[Test] Simple Attack"];
 
     expect(actual).toBeDefined();
     // 100 base damage * (1 + 0.3 + 0.2) = 150

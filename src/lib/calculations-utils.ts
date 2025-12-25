@@ -190,4 +190,5 @@ export const formatStatValue = {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }),
+  integer: (val: number) => Math.round(val).toLocaleString("en-US"),
 };

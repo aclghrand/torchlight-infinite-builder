@@ -830,9 +830,10 @@ export interface OffenseInput {
   configuration: Configuration;
 }
 
-export type OffenseResults = Partial<
-  Record<ImplementedActiveSkillName, OffenseSummary>
->;
+export interface OffenseResults {
+  skills: Partial<Record<ImplementedActiveSkillName, OffenseSummary>>;
+  resourcePool: ResourcePool;
+}
 
 const multValue = <T extends number | DmgRange>(
   value: T,
@@ -1390,7 +1391,7 @@ const resolveModsForOffenseSkill = (
   return mods;
 };
 
-interface ResourcePool {
+export interface ResourcePool {
   stats: Stats;
   maxMana: number;
   mercuryPts: number;
@@ -1438,7 +1439,7 @@ export const calculateOffense = (input: OffenseInput): OffenseResults => {
   const enabledSlots = skillSlots.filter((s) => s.enabled);
 
   //  Calculate for each implemented skill
-  const results: OffenseResults = {};
+  const skills: OffenseResults["skills"] = {};
   for (const slot of enabledSlots) {
     const perSkillContext = resolvePerSkillMods(slot);
     if (perSkillContext === undefined) {
@@ -1473,7 +1474,7 @@ export const calculateOffense = (input: OffenseInput): OffenseResults => {
       skillHit.avg * critChance * critDmgMult + skillHit.avg * (1 - critChance);
     const avgDps = avgHitWithCrit * doubleDmgMult * aspd;
 
-    results[slot.skillName as ImplementedActiveSkillName] = {
+    skills[slot.skillName as ImplementedActiveSkillName] = {
       critChance,
       critDmgMult,
       aspd,
@@ -1484,5 +1485,5 @@ export const calculateOffense = (input: OffenseInput): OffenseResults => {
     };
   }
 
-  return results;
+  return { skills, resourcePool };
 };

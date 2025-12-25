@@ -41,9 +41,8 @@ function CalculationsPage(): React.ReactNode {
     return calculateOffense(input);
   }, [loadout, configuration]);
 
-  const offenseSummary = selectedSkill
-    ? offenseResults[selectedSkill]
-    : undefined;
+  const { skills, resourcePool } = offenseResults;
+  const offenseSummary = selectedSkill ? skills[selectedSkill] : undefined;
 
   const groupedMods = useMemo(() => {
     if (!offenseSummary) return undefined;
@@ -62,6 +61,44 @@ function CalculationsPage(): React.ReactNode {
           selectedSkill={selectedSkill}
           onSkillChange={setCalculationsSelectedSkill}
         />
+      </div>
+
+      <div className="rounded-lg border border-zinc-700 bg-zinc-900 p-6">
+        <h3 className="mb-4 text-lg font-semibold text-zinc-50">
+          Resource Pool
+        </h3>
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
+          <div className="rounded-lg bg-zinc-800 p-4">
+            <div className="text-sm text-zinc-400">Strength</div>
+            <div className="text-xl font-semibold text-zinc-50">
+              {formatStatValue.integer(resourcePool.stats.str)}
+            </div>
+          </div>
+          <div className="rounded-lg bg-zinc-800 p-4">
+            <div className="text-sm text-zinc-400">Dexterity</div>
+            <div className="text-xl font-semibold text-zinc-50">
+              {formatStatValue.integer(resourcePool.stats.dex)}
+            </div>
+          </div>
+          <div className="rounded-lg bg-zinc-800 p-4">
+            <div className="text-sm text-zinc-400">Intelligence</div>
+            <div className="text-xl font-semibold text-zinc-50">
+              {formatStatValue.integer(resourcePool.stats.int)}
+            </div>
+          </div>
+          <div className="rounded-lg bg-zinc-800 p-4">
+            <div className="text-sm text-zinc-400">Max Mana</div>
+            <div className="text-xl font-semibold text-blue-400">
+              {formatStatValue.integer(resourcePool.maxMana)}
+            </div>
+          </div>
+          <div className="rounded-lg bg-zinc-800 p-4">
+            <div className="text-sm text-zinc-400">Mercury Points</div>
+            <div className="text-xl font-semibold text-purple-400">
+              {formatStatValue.integer(resourcePool.mercuryPts)}
+            </div>
+          </div>
+        </div>
       </div>
 
       {offenseSummary && groupedMods && (
