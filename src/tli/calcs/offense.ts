@@ -1067,7 +1067,7 @@ const resolveBuffSkillMods = (
     }
 
     const prenormMods = [...loadoutMods, ...supportMods, ...levelMods];
-    const mods = normalizeModsForSkill(prenormMods, skill, config);
+    const mods = resolveModsForSkill(prenormMods, skill, config);
 
     // === Calculate SkillEffPct multiplier (from support skills + loadout mods) ===
     // todo: add area, cdr, duration, and other buff-skill modifiers
@@ -1293,7 +1293,7 @@ const replaceCoreTalentMods = (mods: Mod[]): Mod[] => {
 };
 
 // Normalizes mods for a specific skill, handling "per" properties
-const normalizeModsForSkill = (
+const resolveModsForSkill = (
   prenormModsFromParam: Mod[],
   skill: BaseActiveSkill | BasePassiveSkill,
   config: Configuration,
@@ -1386,7 +1386,7 @@ export const calculateOffense = (input: OffenseInput): OffenseResults => {
       continue; // Skip non-implemented skills
     }
 
-    const mods = normalizeModsForSkill(
+    const mods = resolveModsForSkill(
       [...prenormMods, ...perSkillContext.mods],
       perSkillContext.skill,
       configuration,
