@@ -169,11 +169,7 @@ export const allParsers = [
     value: c.value,
   })),
 
-  t("{value:int} shadow quantity").output("ShadowQuant", (c) => ({
-    value: c.value,
-  })),
-
-  t("shadow quantity {value:int}").output("ShadowQuant", (c) => ({
+  t.multi([t("{value:int} shadow quantity"), t("shadow quantity {value:int}")]).output("ShadowQuant", (c) => ({
     value: c.value,
   })),
 
@@ -193,18 +189,14 @@ export const allParsers = [
     penType: "all" as const,
   })),
 
-  t("{value:dec%} (elemental|erosion) resistance penetration")
-    .capture("penType", (m) => m[2].toLowerCase() as "elemental" | "erosion")
+  t
+    .multi([
+      t("{value:dec%} {penType:ResPenType} resistance penetration"),
+      t("{value:dec%} {penType:ResPenType} penetration"),
+    ])
     .output("ResPenPct", (c) => ({
       value: c.value,
-      penType: c.penType as ResPenType,
-    })),
-
-  t("{value:dec%} (cold|lightning|fire) penetration")
-    .capture("penType", (m) => m[2].toLowerCase() as "cold" | "lightning" | "fire")
-    .output("ResPenPct", (c) => ({
-      value: c.value,
-      penType: c.penType as ResPenType,
+      penType: c.penType,
     })),
 
   t("{value:dec%} armor dmg mitigation penetration").output("ArmorPenPct", (c) => ({
