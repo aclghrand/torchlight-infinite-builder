@@ -767,6 +767,26 @@ const parseDmgPctPerManaConsumedRecently = (
   };
 };
 
+const parseCritRatingAndCritDmgPct = (
+  input: string,
+): [ModOfType<"CritRatingPct">, ModOfType<"CritDmgPct">] | undefined => {
+  // Regex to parse: +5% Critical Strike Rating and Critical Strike Damage
+  const pattern =
+    /^([+-])?(\d+(?:\.\d+)?)% critical strike rating and critical strike damage$/i;
+  const match = input.match(pattern);
+
+  if (!match) {
+    return undefined;
+  }
+
+  const value = parseFloat(match[2]) / 100;
+
+  return [
+    { type: "CritRatingPct", value, modType: "global" },
+    { type: "CritDmgPct", value, modType: "global", addn: false },
+  ];
+};
+
 /**
  * Parses an affix line string and returns extracted mods.
  *
@@ -783,6 +803,7 @@ export const parseMod = (input: string): Mod[] | undefined => {
     parseGearAspdWithDmgPenalty,
     parseFlatDmgToAtksAndSpellsPer,
     parseFlatDmgToAtksAndSpells,
+    parseCritRatingAndCritDmgPct,
   ];
 
   for (const parser of multiModParsers) {

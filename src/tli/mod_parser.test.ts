@@ -738,3 +738,22 @@ test("parse spell damage per mana consumed recently with value limit", () => {
     },
   ]);
 });
+
+test("parse critical strike rating and damage combined", () => {
+  const result = parseMod(
+    "+5% Critical Strike Rating and Critical Strike Damage",
+  );
+  expect(result).toEqual([
+    {
+      type: "CritRatingPct",
+      value: 0.05,
+      modType: "global",
+    },
+    {
+      type: "CritDmgPct",
+      value: 0.05,
+      modType: "global",
+      addn: false,
+    },
+  ]);
+});
