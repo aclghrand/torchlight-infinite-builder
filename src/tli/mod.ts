@@ -38,7 +38,8 @@ export type Stackable =
   | "fervor"
   | "max_mana"
   | "mana_consumed_recently"
-  | "mercury_pt";
+  | "mercury_pt"
+  | "unsealed_mana_whole_pct";
 
 export type StatType = "str" | "dex" | "int";
 

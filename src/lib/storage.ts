@@ -69,6 +69,7 @@ export const createEmptyConfigurationPage = (): ConfigurationPage => ({
   crueltyBuffStacks: 40,
   numShadowHits: undefined,
   manaConsumedRecently: undefined,
+  unsealedManaWholePct: undefined,
   realmOfMercuryEnabled: false,
   enemyRes: undefined,
   enemyArmor: undefined,

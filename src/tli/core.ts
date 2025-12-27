@@ -54,6 +54,8 @@ export interface Configuration {
   numShadowHits: number | undefined;
   // default to 0
   manaConsumedRecently: number | undefined;
+  // default to 0
+  unsealedManaWholePct: number | undefined;
 
   // --------------------
   // hero-specific config
@@ -98,15 +100,19 @@ export const getAllAffixes = (gear: Gear): Affix[] => {
   const affixes: Affix[] = [];
   // handle base stats
 
-  if (gear.legendary_affixes) {
+  if (gear.legendary_affixes !== undefined) {
+    // Legendary gear: blend first, then legendary affixes
+    if (gear.blend_affix !== undefined) affixes.push(gear.blend_affix);
     affixes.push(...gear.legendary_affixes);
   } else {
-    if (gear.base_affixes) affixes.push(...gear.base_affixes);
-    if (gear.sweet_dream_affix) affixes.push(gear.sweet_dream_affix);
-    if (gear.tower_sequence_affix) affixes.push(gear.tower_sequence_affix);
-    if (gear.blend_affix) affixes.push(gear.blend_affix);
-    if (gear.prefixes) affixes.push(...gear.prefixes);
-    if (gear.suffixes) affixes.push(...gear.suffixes);
+    if (gear.base_affixes !== undefined) affixes.push(...gear.base_affixes);
+    if (gear.sweet_dream_affix !== undefined)
+      affixes.push(gear.sweet_dream_affix);
+    if (gear.tower_sequence_affix !== undefined)
+      affixes.push(gear.tower_sequence_affix);
+    if (gear.blend_affix !== undefined) affixes.push(gear.blend_affix);
+    if (gear.prefixes !== undefined) affixes.push(...gear.prefixes);
+    if (gear.suffixes !== undefined) affixes.push(...gear.suffixes);
   }
 
   return affixes;

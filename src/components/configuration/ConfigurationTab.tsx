@@ -92,6 +92,21 @@ export const ConfigurationTab: React.FC<ConfigurationTabProps> = ({
     }
   };
 
+  const handleUnsealedManaChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ): void => {
+    const value = e.target.value;
+    if (value === "") {
+      onUpdate({ unsealedManaWholePct: undefined });
+      return;
+    }
+    const parsed = Number(value);
+    if (!Number.isNaN(parsed)) {
+      const clamped = Math.max(0, Math.min(100, parsed));
+      onUpdate({ unsealedManaWholePct: clamped });
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div>
@@ -217,6 +232,20 @@ export const ConfigurationTab: React.FC<ConfigurationTabProps> = ({
             min={0}
             placeholder="0"
             className="w-28 rounded border border-zinc-700 bg-zinc-800 px-2 py-0.5 text-center text-sm text-zinc-50 placeholder:text-zinc-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/30"
+          />
+
+          <label className="text-right text-zinc-50">
+            Unsealed Mana %
+            <InfoTooltip text="Percentage of mana currently unsealed. Defaults to 0." />
+          </label>
+          <input
+            type="number"
+            value={config.unsealedManaWholePct ?? ""}
+            onChange={handleUnsealedManaChange}
+            min={0}
+            max={100}
+            placeholder="0"
+            className="w-14 rounded border border-zinc-700 bg-zinc-800 px-2 py-0.5 text-center text-sm text-zinc-50 placeholder:text-zinc-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/30"
           />
 
           <label className="text-right text-zinc-50">

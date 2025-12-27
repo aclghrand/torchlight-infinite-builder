@@ -2,6 +2,12 @@ import { useMemo, useState } from "react";
 import { Legendaries } from "@/src/data/legendary/legendaries";
 import type { Gear } from "@/src/lib/save-data";
 import { craft } from "@/src/tli/crafting/craft";
+import {
+  formatBlendAffix,
+  formatBlendOption,
+  formatBlendPreview,
+  getBlendAffixes,
+} from "../../lib/blend-utils";
 import { DEFAULT_QUALITY } from "../../lib/constants";
 import { generateItemId } from "../../lib/storage";
 import { SearchableSelect } from "../ui/SearchableSelect";
@@ -25,6 +31,11 @@ export const LegendaryGearModule: React.FC<LegendaryGearModuleProps> = ({
     number | undefined
   >(undefined);
   const [affixStates, setAffixStates] = useState<LegendaryAffixState[]>([]);
+  const [selectedBlendIndex, setSelectedBlendIndex] = useState<
+    number | undefined
+  >(undefined);
+
+  const blendAffixes = useMemo(() => getBlendAffixes(), []);
 
   const sortedLegendaries = useMemo(() => {
     return [...Legendaries].sort((a, b) => a.name.localeCompare(b.name));
@@ -43,8 +54,18 @@ export const LegendaryGearModule: React.FC<LegendaryGearModuleProps> = ({
       ? sortedLegendaries[selectedLegendaryIndex]
       : undefined;
 
+  const isBelt = selectedLegendary?.equipmentType === "Belt";
+
+  const blendOptions = useMemo(() => {
+    return blendAffixes.map((blend, idx) => ({
+      value: idx,
+      label: formatBlendOption(blend),
+    }));
+  }, [blendAffixes]);
+
   const handleLegendarySelect = (index: number | undefined) => {
     setSelectedLegendaryIndex(index);
+    setSelectedBlendIndex(undefined);
     if (index !== undefined) {
       const legendary = sortedLegendaries[index];
       setAffixStates(
@@ -73,7 +94,7 @@ export const LegendaryGearModule: React.FC<LegendaryGearModuleProps> = ({
   };
 
   const handleSaveToInventory = () => {
-    if (!selectedLegendary) return;
+    if (selectedLegendary === undefined) return;
 
     const legendary_affixes = affixStates.map((state, i) => {
       const affix = state.isCorrupted
@@ -82,10 +103,16 @@ export const LegendaryGearModule: React.FC<LegendaryGearModuleProps> = ({
       return craftAffix(affix, state.percentage);
     });
 
+    const blend_affix =
+      isBelt && selectedBlendIndex !== undefined
+        ? formatBlendAffix(blendAffixes[selectedBlendIndex])
+        : undefined;
+
     const newItem: Gear = {
       id: generateItemId(),
       equipmentType: selectedLegendary.equipmentType,
       legendary_affixes,
+      blend_affix,
       rarity: "legendary",
       baseStats: selectedLegendary.baseStat,
       legendaryName: selectedLegendary.name,
@@ -95,6 +122,7 @@ export const LegendaryGearModule: React.FC<LegendaryGearModuleProps> = ({
 
     setSelectedLegendaryIndex(undefined);
     setAffixStates([]);
+    setSelectedBlendIndex(undefined);
   };
 
   return (
@@ -127,6 +155,35 @@ export const LegendaryGearModule: React.FC<LegendaryGearModuleProps> = ({
                   {selectedLegendary.baseStat}
                 </span>
               </div>
+            </div>
+          )}
+
+          {/* Blending Section (Belts Only) */}
+          {isBelt && (
+            <div className="mb-6">
+              <h3 className="text-lg font-semibold mb-3 text-zinc-50">
+                Blending (1 max)
+              </h3>
+              <SearchableSelect
+                value={selectedBlendIndex}
+                onChange={setSelectedBlendIndex}
+                options={blendOptions}
+                placeholder="Select a blend..."
+              />
+              {selectedBlendIndex !== undefined && (
+                <div className="mt-3 bg-zinc-800 p-3 rounded-lg border border-zinc-700">
+                  <pre className="text-sm text-amber-400 whitespace-pre-wrap font-sans">
+                    {formatBlendPreview(blendAffixes[selectedBlendIndex])}
+                  </pre>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedBlendIndex(undefined)}
+                    className="mt-2 text-xs text-zinc-400 hover:text-zinc-200"
+                  >
+                    Clear
+                  </button>
+                </div>
+              )}
             </div>
           )}
 

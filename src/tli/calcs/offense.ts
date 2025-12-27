@@ -977,7 +977,7 @@ const filterOutPerMods = (mods: Mod[]): Mod[] => {
   return staticMods;
 };
 
-// includes any mods that always apply, but don't come from loadout, like damage from stats
+// includes any mods that always apply, but don't come from loadout, like damage from stats, non-skill buffs, etc
 const calculateImplicitMods = (): Mod[] => {
   return [
     {
@@ -988,6 +988,23 @@ const calculateImplicitMods = (): Mod[] => {
       addn: true,
       per: { stackable: "main_stat" },
       src: "Additional Damage from skill Main Stat (.5% per stat)",
+    },
+    {
+      type: "AspdPct",
+      value: 0.02,
+      addn: true,
+      per: { stackable: "unsealed_mana_whole_pct", amt: 10 },
+      cond: "realm_of_mercury",
+      src: "Realm of Mercury",
+    },
+    {
+      type: "DmgPct",
+      value: 0.03,
+      modType: "elemental",
+      addn: true,
+      per: { stackable: "unsealed_mana_whole_pct", amt: 10 },
+      cond: "realm_of_mercury",
+      src: "Realm of Mercury",
     },
   ];
 };
@@ -1371,15 +1388,7 @@ const resolveModsForOffenseSkill = (
   config: Configuration,
 ): Mod[] => {
   const { stats, maxMana, mercuryPts } = resourcePool;
-  const prenormMods = filterModsByCond(
-    // core talent mod replacement should be done much sooner
-    replaceCoreTalentMods([
-      ...prenormModsFromParam,
-      ...calculateImplicitMods(),
-    ]),
-    loadout,
-    config,
-  );
+  const prenormMods = filterModsByCond(prenormModsFromParam, loadout, config);
   const mods = filterOutPerMods(prenormMods);
 
   const totalMainStats = calculateTotalMainStats(skill, stats);
@@ -1422,6 +1431,15 @@ const resolveModsForOffenseSkill = (
       prenormMods,
       "mana_consumed_recently",
       manaConsumedRecently,
+    ),
+  );
+
+  const unsealedManaWholePct = config.unsealedManaWholePct ?? 0;
+  mods.push(
+    ...normalizeStackables(
+      prenormMods,
+      "unsealed_mana_whole_pct",
+      unsealedManaWholePct,
     ),
   );
 
@@ -1469,6 +1487,7 @@ export const calculateOffense = (input: OffenseInput): OffenseResults => {
 
   const unresolvedLoadoutAndBuffMods = [
     ...loadoutMods,
+    ...calculateImplicitMods(),
     ...resolveBuffSkillMods(loadout, loadoutMods, config),
   ];
 
