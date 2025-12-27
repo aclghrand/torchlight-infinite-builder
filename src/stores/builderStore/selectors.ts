@@ -88,6 +88,7 @@ export const useConfiguration = (): Configuration => {
     enemyParalyzed: configPage.enemyParalyzed,
     hasFullMana: configPage.hasFullMana,
     targetEnemyIsNearby: configPage.targetEnemyIsNearby,
+    targetEnemyIsInProximity: configPage.targetEnemyIsInProximity,
     numEnemiesNearby: configPage.numEnemiesNearby,
     numEnemiesAffectedByWarcry: configPage.numEnemiesAffectedByWarcry,
     hasBlockedRecently: configPage.hasBlockedRecently,

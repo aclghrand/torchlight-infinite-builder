@@ -74,6 +74,7 @@ const createMinimalSaveData = (
     enemyParalyzed: false,
     hasFullMana: false,
     targetEnemyIsNearby: false,
+    targetEnemyIsInProximity: false,
     numEnemiesNearby: 0,
     numEnemiesAffectedByWarcry: 0,
     hasBlockedRecently: false,

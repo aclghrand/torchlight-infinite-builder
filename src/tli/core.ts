@@ -69,6 +69,8 @@ export interface Configuration {
   enemyParalyzed: boolean;
   // default to false
   targetEnemyIsNearby: boolean;
+  // default to false
+  targetEnemyIsInProximity: boolean;
   // default to 0
   numEnemiesNearby: number;
   // default to 0
