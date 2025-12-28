@@ -1523,7 +1523,10 @@ const resolveModsForOffenseSkill = (
     if (dmgFromShadowMod !== undefined) {
       const shadowDmgPctMods = filterMod(mods, "ShadowDmgPct");
       const shadowDmgMult = calculateEffMultiplier(shadowDmgPctMods);
-      mods.push(multModValue(dmgFromShadowMod, shadowDmgMult));
+      mods.push({
+        ...multModValue(dmgFromShadowMod, shadowDmgMult),
+        per: undefined,
+      });
     }
   }
 
@@ -1574,6 +1577,8 @@ const calculateResourcePool = (
   const mods = filterOutPerMods(prenormMods);
 
   const stats = calculateStats(mods);
+
+  mods.push(...normalizeStackables(prenormMods, "int", stats.int));
 
   const maxManaFromMods = sumByValue(filterMod(mods, "MaxMana"));
   const maxManaMult = calculateEffMultiplier(filterMod(mods, "MaxManaPct"));

@@ -29,5 +29,5 @@ export const multModValue = <T extends ModWithValue>(
   const newValue = match(mod.value)
     .with(P.number, (x) => x * multiplier)
     .otherwise((x) => multDR(x, multiplier));
-  return { ...mod, value: newValue, per: undefined };
+  return { ...mod, value: newValue };
 };

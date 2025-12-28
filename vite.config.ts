@@ -9,11 +9,5 @@ export default defineConfig({
   server: {
     port: 3000,
   },
-  plugins: [
-    tsconfigPaths(),
-    tanstackStart(),
-    nitro(),
-    react(),
-    tailwindcss(),
-  ],
+  plugins: [tsconfigPaths(), tanstackStart(), nitro(), react(), tailwindcss()],
 });

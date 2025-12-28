@@ -759,6 +759,17 @@ test("parse additional percentage max mana", () => {
   ]);
 });
 
+test("parse mana per intelligence", () => {
+  const result = parseMod("+1 Mana per 6 Intelligence");
+  expect(result).toEqual([
+    {
+      type: "MaxMana",
+      value: 1,
+      per: { stackable: "int", amt: 6 },
+    },
+  ]);
+});
+
 test("parse flat fire damage to attacks", () => {
   const result = parseMod("Adds 9 - 15 Fire Damage to Attacks");
   expect(result).toEqual([

@@ -42,7 +42,8 @@ export type Stackable =
   | "unsealed_mana_pct"
   | "focus_blessing"
   | "agility_blessing"
-  | "num_enemies_affected_by_warcry";
+  | "num_enemies_affected_by_warcry"
+  | "int";
 
 export type StatType = "str" | "dex" | "int";
 

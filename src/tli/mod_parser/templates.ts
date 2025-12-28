@@ -187,6 +187,10 @@ export const allParsers = [
     dmgType: c.dmgType,
   })),
   t("{value:dec} max mana").output("MaxMana", (c) => ({ value: c.value })),
+  t("{value:dec} mana per {amt:int} intelligence").output("MaxMana", (c) => ({
+    value: c.value,
+    per: { stackable: "int", amt: c.amt },
+  })),
   t("{value:dec%} [additional] max mana").output("MaxManaPct", (c) => ({
     value: c.value,
     addn: c.additional !== undefined,
