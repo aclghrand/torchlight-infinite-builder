@@ -104,6 +104,14 @@ export const BuilderLayout = ({ children }: BuilderLayoutProps) => {
             >
               {debugMode ? "Debug ON" : "Debug"}
             </button>
+            <button
+              type="button"
+              onClick={handleExport}
+              className="rounded-lg bg-green-500 px-3 py-1 text-sm font-medium text-white transition-colors hover:bg-green-600"
+              title="Export Build"
+            >
+              Export
+            </button>
           </div>
         </div>
 
@@ -116,16 +124,6 @@ export const BuilderLayout = ({ children }: BuilderLayoutProps) => {
             <PageTabs />
 
             {children}
-
-            <div className="mt-8">
-              <button
-                type="button"
-                onClick={handleExport}
-                className="w-full rounded-lg bg-green-500 px-6 py-3 text-lg font-semibold text-white transition-colors hover:bg-green-600"
-              >
-                Export
-              </button>
-            </div>
           </main>
         </div>
 
