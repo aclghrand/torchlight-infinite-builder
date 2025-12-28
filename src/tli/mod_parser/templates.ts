@@ -6,7 +6,9 @@ import { spec, t } from "./template";
 // Literal constants to avoid `as const` throughout
 const GLOBAL = "global" as const;
 const ATTACK = "attack" as const;
+const AILMENT = "ailment" as const;
 const HAS_FULL_MANA = "has_full_mana" as const;
+const HAS_ELITES_NEARBY = "has_elites_nearby" as const;
 const ENEMY_HAS_AILMENT = "enemy_has_ailment" as const;
 const FROSTBITE_RATING = "frostbite_rating" as const;
 const MANA_CONSUMED_RECENTLY = "mana_consumed_recently" as const;
@@ -95,6 +97,12 @@ export const allParsers = [
     addn: true,
     cond: TARGET_ENEMY_IS_IN_PROXIMITY,
   })),
+  t(
+    "{value:dec%} additional attack damage and ailment damage dealt by attacks when there are elites within 10m nearby",
+  ).outputMany([
+    spec("DmgPct", (c) => ({ value: c.value, modType: ATTACK, addn: true, cond: HAS_ELITES_NEARBY })),
+    spec("DmgPct", (c) => ({ value: c.value, modType: AILMENT, addn: true, cond: HAS_ELITES_NEARBY })),
+  ]),
   t("{value:dec%} [additional] [{modType:DmgModType}] damage").output("DmgPct", (c) => ({
     value: c.value,
     modType: c.modType ?? "global",

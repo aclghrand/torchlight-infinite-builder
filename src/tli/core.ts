@@ -174,6 +174,7 @@ export interface TalentTree {
   nodes: TalentNode[]; // All nodes including unallocated (0 points) and reflected
   selectedCoreTalents?: Affix[];
   selectedCoreTalentNames?: string[]; // Original names for UI display
+  additionalCoreTalentPrismAffix?: Affix;
 }
 
 export interface CraftedPrism {
@@ -236,6 +237,9 @@ export const getTalentAffixes = (talentPage: TalentPage): Affix[] => {
   for (const tree of trees) {
     if (tree?.selectedCoreTalents) {
       affixes.push(...tree.selectedCoreTalents);
+    }
+    if (tree?.additionalCoreTalentPrismAffix) {
+      affixes.push(tree.additionalCoreTalentPrismAffix);
     }
     if (tree?.nodes) {
       for (const node of tree.nodes) {

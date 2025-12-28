@@ -11,6 +11,7 @@ import {
   getTargetAreaPositions,
   reflectPosition,
 } from "@/src/lib/inverse-image-utils";
+import { extractCoreTalentAddedEffect } from "@/src/lib/prism-utils";
 import type {
   SaveData,
   CraftedPrism as SaveDataCraftedPrism,
@@ -299,6 +300,11 @@ const convertTalentTree = (
     }
   }
 
+  const additionalCoreTalentPrismAffixText =
+    placedPrism && placedPrism.treeSlot === treeSlot
+      ? extractCoreTalentAddedEffect(placedPrism.prism.baseAffix)
+      : undefined;
+
   return {
     name: tree.name,
     nodes,
@@ -306,6 +312,10 @@ const convertTalentTree = (
       ? tree.selectedCoreTalents.map((text) => convertAffix(text, src))
       : undefined,
     selectedCoreTalentNames: tree.selectedCoreTalents,
+    additionalCoreTalentPrismAffix:
+      additionalCoreTalentPrismAffixText !== undefined
+        ? convertAffix(additionalCoreTalentPrismAffixText, src)
+        : undefined,
   };
 };
 

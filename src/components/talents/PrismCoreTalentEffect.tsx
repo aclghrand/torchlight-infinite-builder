@@ -1,9 +1,8 @@
 import type React from "react";
-import {
-  getPrismCoreTalentEffect,
-  getPrismReplacedCoreTalent,
-} from "@/src/lib/prism-utils";
+import { ModNotImplementedIcon } from "@/src/components/ui/ModNotImplementedIcon";
+import { getPrismReplacedCoreTalent } from "@/src/lib/prism-utils";
 import type { TreeSlot } from "@/src/lib/types";
+import { useTalentTree } from "@/src/stores/builderStore";
 import type { PlacedPrism } from "@/src/tli/core";
 
 interface PrismCoreTalentEffectProps {
@@ -28,18 +27,20 @@ export const PrismCoreTalentEffect: React.FC<PrismCoreTalentEffectProps> = ({
   placedPrism,
   activeTreeSlot,
 }) => {
+  const tree = useTalentTree(activeTreeSlot);
+
   if (!placedPrism || placedPrism.treeSlot !== activeTreeSlot) {
     return null;
   }
 
-  // Check for "Adds" effect (rare prisms)
-  const addedEffect = getPrismCoreTalentEffect(placedPrism.prism);
+  // Check for "Adds" effect (rare prisms) - from parsed loadout
+  const additionalAffix = tree?.additionalCoreTalentPrismAffix;
 
   // Check for "Replaces" effect (legendary prisms)
   const replacedTalent = getPrismReplacedCoreTalent(placedPrism.prism);
 
   // Display "Adds" effect
-  if (addedEffect) {
+  if (additionalAffix !== undefined) {
     return (
       <div className="mb-4 rounded-lg border border-purple-500/50 bg-purple-500/10 p-4">
         <div className="mb-2 flex items-center gap-2">
@@ -48,9 +49,14 @@ export const PrismCoreTalentEffect: React.FC<PrismCoreTalentEffectProps> = ({
             Prism Core Talent Effect
           </span>
         </div>
-        <div className="whitespace-pre-line text-sm text-blue-400">
-          {addedEffect}
-        </div>
+        <ul className="space-y-1">
+          {additionalAffix.affixLines.map((line, idx) => (
+            <li key={idx} className="text-sm text-blue-400 flex items-center">
+              <span>{line.text}</span>
+              {line.mods === undefined && <ModNotImplementedIcon />}
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }

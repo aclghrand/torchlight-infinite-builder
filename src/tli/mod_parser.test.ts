@@ -109,6 +109,28 @@ test("parse additional attack damage to nearby enemies", () => {
   ]);
 });
 
+test("parse additional attack and ailment damage with elites nearby", () => {
+  const result = parseMod(
+    "+20% additional Attack Damage and Ailment Damage dealt by attacks when there are Elites within 10m nearby",
+  );
+  expect(result).toEqual([
+    {
+      type: "DmgPct",
+      value: 20,
+      modType: "attack",
+      addn: true,
+      cond: "has_elites_nearby",
+    },
+    {
+      type: "DmgPct",
+      value: 20,
+      modType: "ailment",
+      addn: true,
+      cond: "has_elites_nearby",
+    },
+  ]);
+});
+
 test("parse decimal damage", () => {
   const result = parseMod("+12.5% fire damage");
   expect(result).toEqual([
