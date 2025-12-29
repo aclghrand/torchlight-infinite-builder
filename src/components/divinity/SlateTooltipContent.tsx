@@ -38,26 +38,38 @@ export const SlateTooltipContent: React.FC<{ slate: DivinitySlate }> = ({
 
       {/* Regular affixes */}
       {hasAffixes ? (
-        <ul className="space-y-1">
-          {slate.affixes.map((affix, affixIdx) =>
-            affix.affixLines.map((line, lineIdx) => {
-              const coreTalentName = getCoreTalentNameFromText(line.text);
-              return (
-                <li
-                  key={`${affixIdx}-${lineIdx}`}
-                  className="text-xs text-zinc-400 flex items-center"
-                >
-                  <span>{line.text}</span>
-                  {coreTalentName !== undefined ? (
-                    <CoreTalentInfoIcon talentName={coreTalentName} />
-                  ) : (
-                    line.mods === undefined && <ModNotImplementedIcon />
-                  )}
-                </li>
-              );
-            }),
-          )}
-        </ul>
+        <div>
+          {slate.affixes.map((affix, affixIdx) => (
+            <div
+              key={affixIdx}
+              className={
+                affixIdx > 0 ? "mt-1.5 pt-1.5 border-t border-zinc-700" : ""
+              }
+            >
+              {affix.affixLines.map((line, lineIdx) => {
+                const coreTalentName = getCoreTalentNameFromText(line.text);
+                return (
+                  <div
+                    key={lineIdx}
+                    className="text-xs text-zinc-400 flex items-center"
+                  >
+                    <span>{line.text}</span>
+                    {coreTalentName !== undefined ? (
+                      <CoreTalentInfoIcon talentName={coreTalentName} />
+                    ) : (
+                      line.mods === undefined && <ModNotImplementedIcon />
+                    )}
+                  </div>
+                );
+              })}
+              {affix.maxDivinity !== undefined && (
+                <div className="text-xs text-zinc-500">
+                  (Max Divinity Effect: {affix.maxDivinity})
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       ) : (
         !hasMetaAffixes && (
           <p className="text-xs text-zinc-500 italic">No affixes</p>
