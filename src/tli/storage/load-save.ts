@@ -560,8 +560,8 @@ const convertPactspiritPage = (
   slot3: convertPactspiritSlot(saveDataPactspiritPage.slot3, 3),
 });
 
-const getDivinitySrc = (slate: DivinitySlate): string => {
-  return `Divinity#${slate.legendaryName ?? "rare"}`;
+const getDivinitySrc = (legendaryName: string | undefined): string => {
+  return `Divinity#${legendaryName ?? "rare"}`;
 };
 
 // Check if an affix line matches any Core talent (by name or any line of effect)
@@ -669,7 +669,7 @@ const getCopiedAffixesForSlate = (
   // Only process slates with metaAffixes (copy slates)
   if (slate.metaAffixes.length === 0) return [];
 
-  const src = getDivinitySrc(slate);
+  const src = getDivinitySrc(slate.legendaryName);
   const direction = parseCopyDirection(slate.metaAffixes[0]);
   if (direction === undefined) return [];
 
@@ -714,7 +714,7 @@ const getCopiedAffixesForSlate = (
 };
 
 const convertDivinitySlate = (slate: SaveDataDivinitySlate): DivinitySlate => {
-  const src = getDivinitySrc(slate.id);
+  const src = getDivinitySrc(slate.legendaryName);
   return {
     id: slate.id,
     god: slate.god,
