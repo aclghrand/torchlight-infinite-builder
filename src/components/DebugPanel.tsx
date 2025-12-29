@@ -268,6 +268,7 @@ interface DebugPanelProps {
   debugPanelExpanded: boolean;
   setDebugPanelExpanded: (expanded: boolean) => void;
   onClose: () => void;
+  onSaveDataChange: (newSaveData: SaveData) => void;
 }
 
 const MIN_HEIGHT = 100;
@@ -280,13 +281,51 @@ export const DebugPanel: React.FC<DebugPanelProps> = ({
   debugPanelExpanded,
   setDebugPanelExpanded,
   onClose,
+  onSaveDataChange,
 }) => {
   const [view, setView] = useState<DebugView>("saveData");
   const [searchTerm, setSearchTerm] = useState("");
   const [panelHeight, setPanelHeight] = useState(DEFAULT_HEIGHT);
+  const [editMode, setEditMode] = useState(false);
+  const [editText, setEditText] = useState("");
+  const [parseError, setParseError] = useState<string | undefined>(undefined);
   const isResizing = useRef(false);
   const startY = useRef(0);
   const startHeight = useRef(0);
+
+  const handleEnterEditMode = (): void => {
+    setEditText(JSON.stringify(saveData, null, 2));
+    setParseError(undefined);
+    setEditMode(true);
+  };
+
+  const handleCancelEdit = (): void => {
+    setEditMode(false);
+    setEditText("");
+    setParseError(undefined);
+  };
+
+  const handleEditTextChange = (text: string): void => {
+    setEditText(text);
+    try {
+      JSON.parse(text);
+      setParseError(undefined);
+    } catch (e) {
+      setParseError(e instanceof Error ? e.message : "Invalid JSON");
+    }
+  };
+
+  const handleApplyChanges = (): void => {
+    try {
+      const parsed = JSON.parse(editText) as SaveData;
+      onSaveDataChange(parsed);
+      setEditMode(false);
+      setEditText("");
+      setParseError(undefined);
+    } catch (e) {
+      setParseError(e instanceof Error ? e.message : "Invalid JSON");
+    }
+  };
 
   const handleMouseDown = useCallback(
     (e: React.MouseEvent) => {
@@ -325,8 +364,11 @@ export const DebugPanel: React.FC<DebugPanelProps> = ({
   }, []);
 
   const currentData = view === "saveData" ? saveData : loadout;
-  const title =
-    view === "saveData" ? "Debug: SaveData (Raw)" : "Debug: Loadout (Parsed)";
+  const title = editMode
+    ? "Debug: SaveData (Edit Mode)"
+    : view === "saveData"
+      ? "Debug: SaveData (Raw)"
+      : "Debug: Loadout (Parsed)";
 
   const matchingPaths = useMemo(() => {
     if (searchTerm === "") return undefined;
@@ -358,42 +400,83 @@ export const DebugPanel: React.FC<DebugPanelProps> = ({
         <div className="flex items-center gap-3">
           <h3 className="font-semibold text-zinc-50">{title}</h3>
           <span className="text-xs text-zinc-500">
-            {JSON.stringify(currentData).length} bytes
+            {editMode
+              ? `${editText.length} chars`
+              : `${JSON.stringify(currentData).length} bytes`}
           </span>
-          <div className="flex items-center gap-2">
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search..."
-              className="px-2 py-1 w-40 bg-zinc-800 border border-zinc-700 rounded text-sm text-zinc-50 placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
-            />
-            {searchTerm !== "" && (
-              <span className="text-xs text-zinc-400">
-                {matchCount} {matchCount === 1 ? "match" : "matches"}
-              </span>
-            )}
-          </div>
+          {!editMode && (
+            <div className="flex items-center gap-2">
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search..."
+                className="px-2 py-1 w-40 bg-zinc-800 border border-zinc-700 rounded text-sm text-zinc-50 placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+              />
+              {searchTerm !== "" && (
+                <span className="text-xs text-zinc-400">
+                  {matchCount} {matchCount === 1 ? "match" : "matches"}
+                </span>
+              )}
+            </div>
+          )}
+          {editMode && parseError !== undefined && (
+            <span className="text-xs text-red-400">
+              Parse error: {parseError}
+            </span>
+          )}
         </div>
         <div className="flex gap-2">
-          <button
-            type="button"
-            onClick={() =>
-              setView(view === "saveData" ? "loadout" : "saveData")
-            }
-            className="px-3 py-1 bg-zinc-700 hover:bg-zinc-600 text-zinc-50 text-sm rounded transition-colors"
-            title="Toggle between SaveData and Loadout views"
-          >
-            {view === "saveData" ? "View Parsed" : "View Raw"}
-          </button>
-          <button
-            type="button"
-            onClick={copyDebugJson}
-            className="px-3 py-1 bg-amber-500 hover:bg-amber-600 text-zinc-950 text-sm rounded transition-colors"
-            title="Copy JSON to clipboard"
-          >
-            Copy JSON
-          </button>
+          {editMode ? (
+            <>
+              <button
+                type="button"
+                onClick={handleCancelEdit}
+                className="px-3 py-1 bg-zinc-700 hover:bg-zinc-600 text-zinc-50 text-sm rounded transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleApplyChanges}
+                disabled={parseError !== undefined}
+                className="px-3 py-1 bg-green-600 hover:bg-green-700 disabled:bg-zinc-700 disabled:text-zinc-500 text-white text-sm rounded transition-colors"
+              >
+                Apply Changes
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                type="button"
+                onClick={() =>
+                  setView(view === "saveData" ? "loadout" : "saveData")
+                }
+                className="px-3 py-1 bg-zinc-700 hover:bg-zinc-600 text-zinc-50 text-sm rounded transition-colors"
+                title="Toggle between SaveData and Loadout views"
+              >
+                {view === "saveData" ? "View Parsed" : "View Raw"}
+              </button>
+              {view === "saveData" && (
+                <button
+                  type="button"
+                  onClick={handleEnterEditMode}
+                  className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded transition-colors"
+                  title="Edit SaveData JSON"
+                >
+                  Edit
+                </button>
+              )}
+              <button
+                type="button"
+                onClick={copyDebugJson}
+                className="px-3 py-1 bg-amber-500 hover:bg-amber-600 text-zinc-950 text-sm rounded transition-colors"
+                title="Copy JSON to clipboard"
+              >
+                Copy JSON
+              </button>
+            </>
+          )}
           <button
             type="button"
             onClick={() => setDebugPanelExpanded(!debugPanelExpanded)}
@@ -415,15 +498,24 @@ export const DebugPanel: React.FC<DebugPanelProps> = ({
       {/* Panel Content */}
       {debugPanelExpanded && (
         <div className="p-4 overflow-auto" style={{ height: panelHeight }}>
-          <div className="text-xs font-mono">
-            <JsonNode
-              key={searchTerm}
-              data={currentData}
-              defaultExpanded={true}
-              searchTerm={searchTerm}
-              matchingPaths={matchingPaths}
+          {editMode ? (
+            <textarea
+              value={editText}
+              onChange={(e) => handleEditTextChange(e.target.value)}
+              className="w-full h-full bg-zinc-800 text-zinc-50 font-mono text-xs p-2 border border-zinc-700 rounded resize-none focus:outline-none focus:ring-1 focus:ring-amber-500"
+              spellCheck={false}
             />
-          </div>
+          ) : (
+            <div className="text-xs font-mono">
+              <JsonNode
+                key={searchTerm}
+                data={currentData}
+                defaultExpanded={true}
+                searchTerm={searchTerm}
+                matchingPaths={matchingPaths}
+              />
+            </div>
+          )}
         </div>
       )}
     </div>

@@ -6,6 +6,7 @@ import {
   saveDebugModeToStorage,
 } from "../../lib/storage";
 import {
+  useBuilderActions,
   useCurrentSaveName,
   useLoadout,
   useSaveDataRaw,
@@ -24,6 +25,7 @@ export const BuilderLayout = ({ children }: BuilderLayoutProps) => {
 
   const currentSaveName = useCurrentSaveName();
   const saveDataForExport = useSaveDataRaw("export");
+  const { setSaveData } = useBuilderActions();
 
   const loadout = useLoadout();
 
@@ -140,6 +142,7 @@ export const BuilderLayout = ({ children }: BuilderLayoutProps) => {
             debugPanelExpanded={debugPanelExpanded}
             setDebugPanelExpanded={setDebugPanelExpanded}
             onClose={handleDebugToggle}
+            onSaveDataChange={setSaveData}
           />
         )}
       </div>
