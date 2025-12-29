@@ -523,6 +523,9 @@ const dmgModTypesForSkill = (skill: BaseActiveSkill): DmgModType[] => {
       dmgModTypes.push(dmgModType);
     }
   });
+  if (skill.kinds.includes("hit_enemies")) {
+    dmgModTypes.push("hit");
+  }
   return dmgModTypes;
 };
 
