@@ -1768,15 +1768,17 @@ const calculateResourcePool = (
   return { stats, maxLife, maxMana, mercuryPts };
 };
 
+export interface Resistance {
+  max: number;
+  potential: number;
+  actual: number;
+}
+
 export interface Defenses {
-  maxColdResPct: number;
-  maxLightningResPct: number;
-  maxFireResPct: number;
-  maxErosionResPct: number;
-  coldResPct: number;
-  lightningResPct: number;
-  fireResPct: number;
-  erosionResPct: number;
+  coldRes: Resistance;
+  lightningRes: Resistance;
+  fireRes: Resistance;
+  erosionRes: Resistance;
 }
 
 export const calculateDefenses = (
@@ -1802,43 +1804,18 @@ export const calculateDefenses = (
     return sumByValue(mods.filter((m) => resTypes.includes(m.resType)));
   };
 
-  const calcMaxRes = (mods: ResMod[], resTypes: ResType[]): number => {
-    const addedMaxRes = sumResMods(mods, resTypes);
-    return Math.min(90, 60 + addedMaxRes);
+  const calcRes = (resTypes: ResType[]): Resistance => {
+    const max = Math.min(90, 60 + sumResMods(maxResMods, resTypes));
+    const potential = sumResMods(resMods, resTypes);
+    const actual = Math.min(max, potential);
+    return { max, potential, actual };
   };
-
-  const calcRes = (
-    mods: ResMod[],
-    resTypes: ResType[],
-    maxRes: number,
-  ): number => {
-    const res = sumResMods(mods, resTypes);
-    return Math.min(maxRes, res);
-  };
-
-  const maxColdResPct = calcMaxRes(maxResMods, ["cold", "elemental"]);
-  const maxLightningResPct = calcMaxRes(maxResMods, ["lightning", "elemental"]);
-  const maxFireResPct = calcMaxRes(maxResMods, ["fire", "elemental"]);
-  const maxErosionResPct = calcMaxRes(maxResMods, ["erosion"]);
-
-  const coldResPct = calcRes(resMods, ["cold", "elemental"], maxColdResPct);
-  const lightningResPct = calcRes(
-    resMods,
-    ["lightning", "elemental"],
-    maxLightningResPct,
-  );
-  const fireResPct = calcRes(resMods, ["fire", "elemental"], maxFireResPct);
-  const erosionResPct = calcRes(resMods, ["erosion"], maxErosionResPct);
 
   return {
-    maxColdResPct,
-    maxLightningResPct,
-    maxFireResPct,
-    maxErosionResPct,
-    coldResPct,
-    lightningResPct,
-    fireResPct,
-    erosionResPct,
+    coldRes: calcRes(["cold", "elemental"]),
+    lightningRes: calcRes(["lightning", "elemental"]),
+    fireRes: calcRes(["fire", "elemental"]),
+    erosionRes: calcRes(["erosion"]),
   };
 };
 

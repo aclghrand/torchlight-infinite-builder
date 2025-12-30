@@ -3984,14 +3984,10 @@ describe("resistance calculations", () => {
     const input = createResInput([]);
     const results = calculateOffense(input);
     expect(results.defenses).toEqual({
-      maxColdResPct: 60,
-      maxLightningResPct: 60,
-      maxFireResPct: 60,
-      maxErosionResPct: 60,
-      coldResPct: 0,
-      lightningResPct: 0,
-      fireResPct: 0,
-      erosionResPct: 0,
+      coldRes: { max: 60, potential: 0, actual: 0 },
+      lightningRes: { max: 60, potential: 0, actual: 0 },
+      fireRes: { max: 60, potential: 0, actual: 0 },
+      erosionRes: { max: 60, potential: 0, actual: 0 },
     });
   });
 
@@ -4000,10 +3996,14 @@ describe("resistance calculations", () => {
       { type: "ResistancePct", value: 30, resType: "cold" },
     ]);
     const results = calculateOffense(input);
-    expect(results.defenses.coldResPct).toBe(30);
-    expect(results.defenses.lightningResPct).toBe(0);
-    expect(results.defenses.fireResPct).toBe(0);
-    expect(results.defenses.erosionResPct).toBe(0);
+    expect(results.defenses.coldRes).toEqual({
+      max: 60,
+      potential: 30,
+      actual: 30,
+    });
+    expect(results.defenses.lightningRes.actual).toBe(0);
+    expect(results.defenses.fireRes.actual).toBe(0);
+    expect(results.defenses.erosionRes.actual).toBe(0);
   });
 
   test("stacking resistance mods", () => {
@@ -4012,7 +4012,11 @@ describe("resistance calculations", () => {
       { type: "ResistancePct", value: 15, resType: "fire" },
     ]);
     const results = calculateOffense(input);
-    expect(results.defenses.fireResPct).toBe(35);
+    expect(results.defenses.fireRes).toEqual({
+      max: 60,
+      potential: 35,
+      actual: 35,
+    });
   });
 
   test("elemental resistance applies to cold, lightning, and fire", () => {
@@ -4020,10 +4024,10 @@ describe("resistance calculations", () => {
       { type: "ResistancePct", value: 25, resType: "elemental" },
     ]);
     const results = calculateOffense(input);
-    expect(results.defenses.coldResPct).toBe(25);
-    expect(results.defenses.lightningResPct).toBe(25);
-    expect(results.defenses.fireResPct).toBe(25);
-    expect(results.defenses.erosionResPct).toBe(0);
+    expect(results.defenses.coldRes.actual).toBe(25);
+    expect(results.defenses.lightningRes.actual).toBe(25);
+    expect(results.defenses.fireRes.actual).toBe(25);
+    expect(results.defenses.erosionRes.actual).toBe(0);
   });
 
   test("elemental resistance stacks with specific element resistance", () => {
@@ -4032,9 +4036,9 @@ describe("resistance calculations", () => {
       { type: "ResistancePct", value: 15, resType: "cold" },
     ]);
     const results = calculateOffense(input);
-    expect(results.defenses.coldResPct).toBe(35);
-    expect(results.defenses.lightningResPct).toBe(20);
-    expect(results.defenses.fireResPct).toBe(20);
+    expect(results.defenses.coldRes.actual).toBe(35);
+    expect(results.defenses.lightningRes.actual).toBe(20);
+    expect(results.defenses.fireRes.actual).toBe(20);
   });
 
   test("max resistance mod increases cap", () => {
@@ -4042,8 +4046,8 @@ describe("resistance calculations", () => {
       { type: "MaxResistancePct", value: 5, resType: "fire" },
     ]);
     const results = calculateOffense(input);
-    expect(results.defenses.maxFireResPct).toBe(65);
-    expect(results.defenses.maxColdResPct).toBe(60);
+    expect(results.defenses.fireRes.max).toBe(65);
+    expect(results.defenses.coldRes.max).toBe(60);
   });
 
   test("max resistance capped at 90", () => {
@@ -4051,7 +4055,7 @@ describe("resistance calculations", () => {
       { type: "MaxResistancePct", value: 50, resType: "lightning" },
     ]);
     const results = calculateOffense(input);
-    expect(results.defenses.maxLightningResPct).toBe(90);
+    expect(results.defenses.lightningRes.max).toBe(90);
   });
 
   test("elemental max resistance applies to cold, lightning, and fire", () => {
@@ -4059,19 +4063,22 @@ describe("resistance calculations", () => {
       { type: "MaxResistancePct", value: 10, resType: "elemental" },
     ]);
     const results = calculateOffense(input);
-    expect(results.defenses.maxColdResPct).toBe(70);
-    expect(results.defenses.maxLightningResPct).toBe(70);
-    expect(results.defenses.maxFireResPct).toBe(70);
-    expect(results.defenses.maxErosionResPct).toBe(60);
+    expect(results.defenses.coldRes.max).toBe(70);
+    expect(results.defenses.lightningRes.max).toBe(70);
+    expect(results.defenses.fireRes.max).toBe(70);
+    expect(results.defenses.erosionRes.max).toBe(60);
   });
 
-  test("actual resistance capped at max resistance", () => {
+  test("actual resistance capped at max, potential uncapped", () => {
     const input = createResInput([
       { type: "ResistancePct", value: 80, resType: "cold" },
     ]);
     const results = calculateOffense(input);
-    expect(results.defenses.coldResPct).toBe(60);
-    expect(results.defenses.maxColdResPct).toBe(60);
+    expect(results.defenses.coldRes).toEqual({
+      max: 60,
+      potential: 80,
+      actual: 60,
+    });
   });
 
   test("actual resistance respects increased max", () => {
@@ -4080,8 +4087,11 @@ describe("resistance calculations", () => {
       { type: "ResistancePct", value: 70, resType: "erosion" },
     ]);
     const results = calculateOffense(input);
-    expect(results.defenses.maxErosionResPct).toBe(75);
-    expect(results.defenses.erosionResPct).toBe(70);
+    expect(results.defenses.erosionRes).toEqual({
+      max: 75,
+      potential: 70,
+      actual: 70,
+    });
   });
 
   test("negative resistance allowed", () => {
@@ -4089,6 +4099,10 @@ describe("resistance calculations", () => {
       { type: "ResistancePct", value: -20, resType: "fire" },
     ]);
     const results = calculateOffense(input);
-    expect(results.defenses.fireResPct).toBe(-20);
+    expect(results.defenses.fireRes).toEqual({
+      max: 60,
+      potential: -20,
+      actual: -20,
+    });
   });
 });
