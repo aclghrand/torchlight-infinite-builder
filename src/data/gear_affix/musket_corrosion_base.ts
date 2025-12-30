@@ -7,7 +7,24 @@ export const MUSKET_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     affixType: "Corrosion Base",
     craftingPool: "",
     tier: "0",
-    craftableAffix: "+(12-15)% chance for Attacks to cause Ailment",
+    craftableAffix:
+      "+(6-12)% chance to gain 1 stack of Agility Blessing on defeat",
+  },
+  {
+    equipmentSlot: "Two-Handed",
+    equipmentType: "Musket",
+    affixType: "Corrosion Base",
+    craftingPool: "",
+    tier: "0",
+    craftableAffix: "Damage Penetrates (8-12)% Elemental Resistance",
+  },
+  {
+    equipmentSlot: "Two-Handed",
+    equipmentType: "Musket",
+    affixType: "Corrosion Base",
+    craftingPool: "",
+    tier: "0",
+    craftableAffix: "Adds (7-10) - (14-17) Physical Damage to the gear",
   },
   {
     equipmentSlot: "Two-Handed",
@@ -16,6 +33,14 @@ export const MUSKET_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     craftingPool: "",
     tier: "0",
     craftableAffix: "+(15-25)% gear Physical Damage",
+  },
+  {
+    equipmentSlot: "Two-Handed",
+    equipmentType: "Musket",
+    affixType: "Corrosion Base",
+    craftingPool: "",
+    tier: "0",
+    craftableAffix: "+(5-8)% gear Attack Speed",
   },
   {
     equipmentSlot: "Two-Handed",
@@ -39,31 +64,6 @@ export const MUSKET_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     affixType: "Corrosion Base",
     craftingPool: "",
     tier: "0",
-    craftableAffix: "+(5-8)% gear Attack Speed",
-  },
-  {
-    equipmentSlot: "Two-Handed",
-    equipmentType: "Musket",
-    affixType: "Corrosion Base",
-    craftingPool: "",
-    tier: "0",
-    craftableAffix:
-      "+(6-12)% chance to gain 1 stack of Agility Blessing on defeat",
-  },
-  {
-    equipmentSlot: "Two-Handed",
-    equipmentType: "Musket",
-    affixType: "Corrosion Base",
-    craftingPool: "",
-    tier: "0",
-    craftableAffix: "Adds (7-10) - (14-17) Physical Damage to the gear",
-  },
-  {
-    equipmentSlot: "Two-Handed",
-    equipmentType: "Musket",
-    affixType: "Corrosion Base",
-    craftingPool: "",
-    tier: "0",
     craftableAffix: "Adds (7-12)% of Elemental Damage as Erosion Damage",
   },
   {
@@ -72,6 +72,6 @@ export const MUSKET_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     affixType: "Corrosion Base",
     craftingPool: "",
     tier: "0",
-    craftableAffix: "Damage Penetrates (8-12)% Elemental Resistance",
+    craftableAffix: "+(12-15)% chance for Attacks to cause Ailment",
   },
 ];

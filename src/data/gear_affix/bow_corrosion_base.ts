@@ -7,7 +7,8 @@ export const BOW_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     affixType: "Corrosion Base",
     craftingPool: "",
     tier: "0",
-    craftableAffix: "+(1-2) Projectile Skill Level",
+    craftableAffix:
+      "+(6-12)% chance to gain 1 stack of Agility Blessing on defeat",
   },
   {
     equipmentSlot: "Two-Handed",
@@ -15,7 +16,15 @@ export const BOW_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     affixType: "Corrosion Base",
     craftingPool: "",
     tier: "0",
-    craftableAffix: "+(15-20)% Projectile Speed",
+    craftableAffix: "Damage Penetrates (8-12)% Elemental Resistance",
+  },
+  {
+    equipmentSlot: "Two-Handed",
+    equipmentType: "Bow",
+    affixType: "Corrosion Base",
+    craftingPool: "",
+    tier: "0",
+    craftableAffix: "Adds (7-10) - (14-17) Physical Damage to the gear",
   },
   {
     equipmentSlot: "Two-Handed",
@@ -24,6 +33,14 @@ export const BOW_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     craftingPool: "",
     tier: "0",
     craftableAffix: "+(15-25)% gear Physical Damage",
+  },
+  {
+    equipmentSlot: "Two-Handed",
+    equipmentType: "Bow",
+    affixType: "Corrosion Base",
+    craftingPool: "",
+    tier: "0",
+    craftableAffix: "+(5-8)% gear Attack Speed",
   },
   {
     equipmentSlot: "Two-Handed",
@@ -47,7 +64,7 @@ export const BOW_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     affixType: "Corrosion Base",
     craftingPool: "",
     tier: "0",
-    craftableAffix: "+(5-8)% gear Attack Speed",
+    craftableAffix: "+(1-2) Projectile Skill Level",
   },
   {
     equipmentSlot: "Two-Handed",
@@ -55,23 +72,6 @@ export const BOW_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     affixType: "Corrosion Base",
     craftingPool: "",
     tier: "0",
-    craftableAffix:
-      "+(6-12)% chance to gain 1 stack of Agility Blessing on defeat",
-  },
-  {
-    equipmentSlot: "Two-Handed",
-    equipmentType: "Bow",
-    affixType: "Corrosion Base",
-    craftingPool: "",
-    tier: "0",
-    craftableAffix: "Adds (7-10) - (14-17) Physical Damage to the gear",
-  },
-  {
-    equipmentSlot: "Two-Handed",
-    equipmentType: "Bow",
-    affixType: "Corrosion Base",
-    craftingPool: "",
-    tier: "0",
-    craftableAffix: "Damage Penetrates (8-12)% Elemental Resistance",
+    craftableAffix: "+(15-20)% Projectile Speed",
   },
 ];

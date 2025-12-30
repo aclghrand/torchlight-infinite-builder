@@ -8,7 +8,7 @@ export const CLAW_BASE_STATS_AFFIXES: readonly BaseGearAffix[] = [
     craftingPool: "",
     tier: "",
     craftableAffix:
-      "10 - 10 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
+      "6 - 6 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
   },
   {
     equipmentSlot: "One-Handed",
@@ -17,7 +17,25 @@ export const CLAW_BASE_STATS_AFFIXES: readonly BaseGearAffix[] = [
     craftingPool: "",
     tier: "",
     craftableAffix:
-      "109 - 109 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
+      "7 - 7 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
+  },
+  {
+    equipmentSlot: "One-Handed",
+    equipmentType: "Claw",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix:
+      "8 - 8 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
+  },
+  {
+    equipmentSlot: "One-Handed",
+    equipmentType: "Claw",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix:
+      "10 - 10 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
   },
   {
     equipmentSlot: "One-Handed",
@@ -35,43 +53,7 @@ export const CLAW_BASE_STATS_AFFIXES: readonly BaseGearAffix[] = [
     craftingPool: "",
     tier: "",
     craftableAffix:
-      "130 - 130 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
-  },
-  {
-    equipmentSlot: "One-Handed",
-    equipmentType: "Claw",
-    affixType: "Base Stats",
-    craftingPool: "",
-    tier: "",
-    craftableAffix:
-      "142 - 142 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
-  },
-  {
-    equipmentSlot: "One-Handed",
-    equipmentType: "Claw",
-    affixType: "Base Stats",
-    craftingPool: "",
-    tier: "",
-    craftableAffix:
-      "154 - 154 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
-  },
-  {
-    equipmentSlot: "One-Handed",
-    equipmentType: "Claw",
-    affixType: "Base Stats",
-    craftingPool: "",
-    tier: "",
-    craftableAffix:
       "16 - 16 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
-  },
-  {
-    equipmentSlot: "One-Handed",
-    equipmentType: "Claw",
-    affixType: "Base Stats",
-    craftingPool: "",
-    tier: "",
-    craftableAffix:
-      "178 - 178 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
   },
   {
     equipmentSlot: "One-Handed",
@@ -143,24 +125,6 @@ export const CLAW_BASE_STATS_AFFIXES: readonly BaseGearAffix[] = [
     craftingPool: "",
     tier: "",
     craftableAffix:
-      "6 - 6 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
-  },
-  {
-    equipmentSlot: "One-Handed",
-    equipmentType: "Claw",
-    affixType: "Base Stats",
-    craftingPool: "",
-    tier: "",
-    craftableAffix:
-      "7 - 7 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
-  },
-  {
-    equipmentSlot: "One-Handed",
-    equipmentType: "Claw",
-    affixType: "Base Stats",
-    craftingPool: "",
-    tier: "",
-    craftableAffix:
       "73 - 73 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
   },
   {
@@ -170,7 +134,7 @@ export const CLAW_BASE_STATS_AFFIXES: readonly BaseGearAffix[] = [
     craftingPool: "",
     tier: "",
     craftableAffix:
-      "8 - 8 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
+      "89 - 89 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
   },
   {
     equipmentSlot: "One-Handed",
@@ -179,6 +143,42 @@ export const CLAW_BASE_STATS_AFFIXES: readonly BaseGearAffix[] = [
     craftingPool: "",
     tier: "",
     craftableAffix:
-      "89 - 89 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
+      "109 - 109 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
+  },
+  {
+    equipmentSlot: "One-Handed",
+    equipmentType: "Claw",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix:
+      "130 - 130 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
+  },
+  {
+    equipmentSlot: "One-Handed",
+    equipmentType: "Claw",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix:
+      "142 - 142 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
+  },
+  {
+    equipmentSlot: "One-Handed",
+    equipmentType: "Claw",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix:
+      "154 - 154 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
+  },
+  {
+    equipmentSlot: "One-Handed",
+    equipmentType: "Claw",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix:
+      "178 - 178 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
   },
 ];

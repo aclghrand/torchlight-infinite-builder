@@ -7,7 +7,16 @@ export const TIN_STAFF_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     affixType: "Corrosion Base",
     craftingPool: "",
     tier: "0",
-    craftableAffix: "+(1-2) Support Skill Level",
+    craftableAffix:
+      "+(6-12)% chance to gain 1 stack of Focus Blessing on defeat",
+  },
+  {
+    equipmentSlot: "Two-Handed",
+    equipmentType: "Tin Staff",
+    affixType: "Corrosion Base",
+    craftingPool: "",
+    tier: "0",
+    craftableAffix: "Damage Penetrates (8-12)% Elemental Resistance",
   },
   {
     equipmentSlot: "Two-Handed",
@@ -31,14 +40,6 @@ export const TIN_STAFF_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     affixType: "Corrosion Base",
     craftingPool: "",
     tier: "0",
-    craftableAffix: "+(40-48)% Critical Strike Damage",
-  },
-  {
-    equipmentSlot: "Two-Handed",
-    equipmentType: "Tin Staff",
-    affixType: "Corrosion Base",
-    craftingPool: "",
-    tier: "0",
     craftableAffix: "+(50-60)% Spell Critical Strike Rating",
   },
   {
@@ -47,8 +48,7 @@ export const TIN_STAFF_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     affixType: "Corrosion Base",
     craftingPool: "",
     tier: "0",
-    craftableAffix:
-      "+(6-12)% chance to gain 1 stack of Focus Blessing on defeat",
+    craftableAffix: "+(40-48)% Critical Strike Damage",
   },
   {
     equipmentSlot: "Two-Handed",
@@ -72,6 +72,6 @@ export const TIN_STAFF_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     affixType: "Corrosion Base",
     craftingPool: "",
     tier: "0",
-    craftableAffix: "Damage Penetrates (8-12)% Elemental Resistance",
+    craftableAffix: "+(1-2) Support Skill Level",
   },
 ];

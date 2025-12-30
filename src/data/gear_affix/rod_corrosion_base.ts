@@ -7,31 +7,8 @@ export const ROD_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     affixType: "Corrosion Base",
     craftingPool: "",
     tier: "0",
-    craftableAffix: "+(10-16)% Cast Speed",
-  },
-  {
-    equipmentSlot: "One-Handed",
-    equipmentType: "Rod",
-    affixType: "Corrosion Base",
-    craftingPool: "",
-    tier: "0",
-    craftableAffix: "+(20-30)% Minion Damage",
-  },
-  {
-    equipmentSlot: "One-Handed",
-    equipmentType: "Rod",
-    affixType: "Corrosion Base",
-    craftingPool: "",
-    tier: "0",
-    craftableAffix: "+(25-32)% Minion Critical Strike Damage",
-  },
-  {
-    equipmentSlot: "One-Handed",
-    equipmentType: "Rod",
-    affixType: "Corrosion Base",
-    craftingPool: "",
-    tier: "0",
-    craftableAffix: "+(30-40)% Minion Critical Strike Rating",
+    craftableAffix:
+      "+(5-8)% chance to trigger the Main Spell Skill 1 additional time when using it",
   },
   {
     equipmentSlot: "One-Handed",
@@ -49,7 +26,7 @@ export const ROD_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     craftingPool: "",
     tier: "0",
     craftableAffix:
-      "+(5-8)% chance to trigger the Main Spell Skill 1 additional time when using it",
+      "+(5-8)% Elemental and Erosion Resistance Penetration for Minions",
   },
   {
     equipmentSlot: "One-Handed",
@@ -57,8 +34,31 @@ export const ROD_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     affixType: "Corrosion Base",
     craftingPool: "",
     tier: "0",
-    craftableAffix:
-      "+(5-8)% Elemental and Erosion Resistance Penetration for Minions",
+    craftableAffix: "+(10-16)% Cast Speed",
+  },
+  {
+    equipmentSlot: "One-Handed",
+    equipmentType: "Rod",
+    affixType: "Corrosion Base",
+    craftingPool: "",
+    tier: "0",
+    craftableAffix: "+(20-30)% Minion Damage",
+  },
+  {
+    equipmentSlot: "One-Handed",
+    equipmentType: "Rod",
+    affixType: "Corrosion Base",
+    craftingPool: "",
+    tier: "0",
+    craftableAffix: "+(30-40)% Minion Critical Strike Rating",
+  },
+  {
+    equipmentSlot: "One-Handed",
+    equipmentType: "Rod",
+    affixType: "Corrosion Base",
+    craftingPool: "",
+    tier: "0",
+    craftableAffix: "+(25-32)% Minion Critical Strike Damage",
   },
   {
     equipmentSlot: "One-Handed",

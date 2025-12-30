@@ -7,7 +7,7 @@ export const SPIRIT_RING_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     affixType: "Corrosion Base",
     craftingPool: "",
     tier: "0",
-    craftableAffix: "+(15-25)% Max Energy Shield",
+    craftableAffix: "+5% XP earned",
   },
   {
     equipmentSlot: "Trinket",
@@ -15,7 +15,23 @@ export const SPIRIT_RING_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     affixType: "Corrosion Base",
     craftingPool: "",
     tier: "0",
-    craftableAffix: "+(15-25)% Max Life",
+    craftableAffix: "+5% Movement Speed",
+  },
+  {
+    equipmentSlot: "Trinket",
+    equipmentType: "Spirit Ring",
+    affixType: "Corrosion Base",
+    craftingPool: "",
+    tier: "0",
+    craftableAffix: "Immune to curse",
+  },
+  {
+    equipmentSlot: "Trinket",
+    equipmentType: "Spirit Ring",
+    affixType: "Corrosion Base",
+    craftingPool: "",
+    tier: "0",
+    craftableAffix: "Immune to Trauma\nImmune to Wilt",
   },
   {
     equipmentSlot: "Trinket",
@@ -31,23 +47,7 @@ export const SPIRIT_RING_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     affixType: "Corrosion Base",
     craftingPool: "",
     tier: "0",
-    craftableAffix: "+(50-70)% damage",
-  },
-  {
-    equipmentSlot: "Trinket",
-    equipmentType: "Spirit Ring",
-    affixType: "Corrosion Base",
-    craftingPool: "",
-    tier: "0",
-    craftableAffix: "+(6-8)% Attack Speed",
-  },
-  {
-    equipmentSlot: "Trinket",
-    equipmentType: "Spirit Ring",
-    affixType: "Corrosion Base",
-    craftingPool: "",
-    tier: "0",
-    craftableAffix: "+(6-8)% Cast Speed",
+    craftableAffix: "+(8-10)% Strength",
   },
   {
     equipmentSlot: "Trinket",
@@ -71,7 +71,7 @@ export const SPIRIT_RING_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     affixType: "Corrosion Base",
     craftingPool: "",
     tier: "0",
-    craftableAffix: "+(8-10)% Strength",
+    craftableAffix: "+(6-8)% Attack Speed",
   },
   {
     equipmentSlot: "Trinket",
@@ -79,7 +79,7 @@ export const SPIRIT_RING_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     affixType: "Corrosion Base",
     craftingPool: "",
     tier: "0",
-    craftableAffix: "+5% Movement Speed",
+    craftableAffix: "+(6-8)% Cast Speed",
   },
   {
     equipmentSlot: "Trinket",
@@ -87,7 +87,7 @@ export const SPIRIT_RING_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     affixType: "Corrosion Base",
     craftingPool: "",
     tier: "0",
-    craftableAffix: "+5% XP earned",
+    craftableAffix: "+(50-70)% damage",
   },
   {
     equipmentSlot: "Trinket",
@@ -95,7 +95,7 @@ export const SPIRIT_RING_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     affixType: "Corrosion Base",
     craftingPool: "",
     tier: "0",
-    craftableAffix: "Immune to Trauma\nImmune to Wilt",
+    craftableAffix: "+(15-25)% Max Life",
   },
   {
     equipmentSlot: "Trinket",
@@ -103,6 +103,6 @@ export const SPIRIT_RING_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     affixType: "Corrosion Base",
     craftingPool: "",
     tier: "0",
-    craftableAffix: "Immune to curse",
+    craftableAffix: "+(15-25)% Max Energy Shield",
   },
 ];

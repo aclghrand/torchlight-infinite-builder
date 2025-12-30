@@ -7,7 +7,7 @@ export const HELMET_INT_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     affixType: "Corrosion Base",
     craftingPool: "",
     tier: "0",
-    craftableAffix: "(-50--30)% Cursed Effect",
+    craftableAffix: "Max Focus Blessing Stacks +1",
   },
   {
     equipmentSlot: "Helmet",
@@ -16,6 +16,32 @@ export const HELMET_INT_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     craftingPool: "",
     tier: "0",
     craftableAffix: "+(10-15)% Sealed Mana Compensation",
+  },
+  {
+    equipmentSlot: "Helmet",
+    equipmentType: "Helmet (INT)",
+    affixType: "Corrosion Base",
+    craftingPool: "",
+    tier: "0",
+    craftableAffix:
+      "Triggers Lv. (15-20) Timid Curse upon inflicting damage. Cooldown: 0.3 s",
+  },
+  {
+    equipmentSlot: "Helmet",
+    equipmentType: "Helmet (INT)",
+    affixType: "Corrosion Base",
+    craftingPool: "",
+    tier: "0",
+    craftableAffix:
+      "Triggers Lv. (15-20) Entangled Pain Curse upon inflicting damage. Cooldown: 0.3 s",
+  },
+  {
+    equipmentSlot: "Helmet",
+    equipmentType: "Helmet (INT)",
+    affixType: "Corrosion Base",
+    craftingPool: "",
+    tier: "0",
+    craftableAffix: "Immune to Blinding\nImmune to Paralysis",
   },
   {
     equipmentSlot: "Helmet",
@@ -39,6 +65,14 @@ export const HELMET_INT_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     affixType: "Corrosion Base",
     craftingPool: "",
     tier: "0",
+    craftableAffix: "(-50--30)% Cursed Effect",
+  },
+  {
+    equipmentSlot: "Helmet",
+    equipmentType: "Helmet (INT)",
+    affixType: "Corrosion Base",
+    craftingPool: "",
+    tier: "0",
     craftableAffix: "+(30-50)% gear Energy Shield",
   },
   {
@@ -48,39 +82,5 @@ export const HELMET_INT_CORROSION_BASE_AFFIXES: readonly BaseGearAffix[] = [
     craftingPool: "",
     tier: "0",
     craftableAffix: "+(50-70)% damage",
-  },
-  {
-    equipmentSlot: "Helmet",
-    equipmentType: "Helmet (INT)",
-    affixType: "Corrosion Base",
-    craftingPool: "",
-    tier: "0",
-    craftableAffix: "Immune to Blinding\nImmune to Paralysis",
-  },
-  {
-    equipmentSlot: "Helmet",
-    equipmentType: "Helmet (INT)",
-    affixType: "Corrosion Base",
-    craftingPool: "",
-    tier: "0",
-    craftableAffix: "Max Focus Blessing Stacks +1",
-  },
-  {
-    equipmentSlot: "Helmet",
-    equipmentType: "Helmet (INT)",
-    affixType: "Corrosion Base",
-    craftingPool: "",
-    tier: "0",
-    craftableAffix:
-      "Triggers Lv. (15-20) Timid Curse upon inflicting damage. Cooldown: 0.3 s",
-  },
-  {
-    equipmentSlot: "Helmet",
-    equipmentType: "Helmet (INT)",
-    affixType: "Corrosion Base",
-    craftingPool: "",
-    tier: "0",
-    craftableAffix:
-      "Triggers Lv. (15-20) Entangled Pain Curse upon inflicting damage. Cooldown: 0.3 s",
   },
 ];

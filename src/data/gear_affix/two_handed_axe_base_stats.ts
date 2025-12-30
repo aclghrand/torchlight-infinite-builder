@@ -8,7 +8,7 @@ export const TWO_HANDED_AXE_BASE_STATS_AFFIXES: readonly BaseGearAffix[] = [
     craftingPool: "",
     tier: "",
     craftableAffix:
-      "10 - 10 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
+      "7 - 7 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
   },
   {
     equipmentSlot: "Two-Handed",
@@ -17,7 +17,16 @@ export const TWO_HANDED_AXE_BASE_STATS_AFFIXES: readonly BaseGearAffix[] = [
     craftingPool: "",
     tier: "",
     craftableAffix:
-      "110 - 110 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
+      "8 - 8 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
+  },
+  {
+    equipmentSlot: "Two-Handed",
+    equipmentType: "Two-Handed Axe",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix:
+      "10 - 10 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
   },
   {
     equipmentSlot: "Two-Handed",
@@ -35,15 +44,6 @@ export const TWO_HANDED_AXE_BASE_STATS_AFFIXES: readonly BaseGearAffix[] = [
     craftingPool: "",
     tier: "",
     craftableAffix:
-      "135 - 135 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
-  },
-  {
-    equipmentSlot: "Two-Handed",
-    equipmentType: "Two-Handed Axe",
-    affixType: "Base Stats",
-    craftingPool: "",
-    tier: "",
-    craftableAffix:
       "16 - 16 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
   },
   {
@@ -53,43 +53,7 @@ export const TWO_HANDED_AXE_BASE_STATS_AFFIXES: readonly BaseGearAffix[] = [
     craftingPool: "",
     tier: "",
     craftableAffix:
-      "160 - 160 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
-  },
-  {
-    equipmentSlot: "Two-Handed",
-    equipmentType: "Two-Handed Axe",
-    affixType: "Base Stats",
-    craftingPool: "",
-    tier: "",
-    craftableAffix:
-      "175 - 175 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
-  },
-  {
-    equipmentSlot: "Two-Handed",
-    equipmentType: "Two-Handed Axe",
-    affixType: "Base Stats",
-    craftingPool: "",
-    tier: "",
-    craftableAffix:
-      "190 - 190 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
-  },
-  {
-    equipmentSlot: "Two-Handed",
-    equipmentType: "Two-Handed Axe",
-    affixType: "Base Stats",
-    craftingPool: "",
-    tier: "",
-    craftableAffix:
       "20 - 20 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
-  },
-  {
-    equipmentSlot: "Two-Handed",
-    equipmentType: "Two-Handed Axe",
-    affixType: "Base Stats",
-    craftingPool: "",
-    tier: "",
-    craftableAffix:
-      "220 - 220 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
   },
   {
     equipmentSlot: "Two-Handed",
@@ -152,15 +116,6 @@ export const TWO_HANDED_AXE_BASE_STATS_AFFIXES: readonly BaseGearAffix[] = [
     craftingPool: "",
     tier: "",
     craftableAffix:
-      "7 - 7 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
-  },
-  {
-    equipmentSlot: "Two-Handed",
-    equipmentType: "Two-Handed Axe",
-    affixType: "Base Stats",
-    craftingPool: "",
-    tier: "",
-    craftableAffix:
       "70 - 70 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
   },
   {
@@ -170,7 +125,7 @@ export const TWO_HANDED_AXE_BASE_STATS_AFFIXES: readonly BaseGearAffix[] = [
     craftingPool: "",
     tier: "",
     craftableAffix:
-      "8 - 8 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
+      "90 - 90 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
   },
   {
     equipmentSlot: "Two-Handed",
@@ -179,6 +134,51 @@ export const TWO_HANDED_AXE_BASE_STATS_AFFIXES: readonly BaseGearAffix[] = [
     craftingPool: "",
     tier: "",
     craftableAffix:
-      "90 - 90 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
+      "110 - 110 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
+  },
+  {
+    equipmentSlot: "Two-Handed",
+    equipmentType: "Two-Handed Axe",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix:
+      "135 - 135 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
+  },
+  {
+    equipmentSlot: "Two-Handed",
+    equipmentType: "Two-Handed Axe",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix:
+      "160 - 160 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
+  },
+  {
+    equipmentSlot: "Two-Handed",
+    equipmentType: "Two-Handed Axe",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix:
+      "175 - 175 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
+  },
+  {
+    equipmentSlot: "Two-Handed",
+    equipmentType: "Two-Handed Axe",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix:
+      "190 - 190 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
+  },
+  {
+    equipmentSlot: "Two-Handed",
+    equipmentType: "Two-Handed Axe",
+    affixType: "Base Stats",
+    craftingPool: "",
+    tier: "",
+    craftableAffix:
+      "220 - 220 Physical Damage\n500 Critical Strike Rating\n1.5 Attack Speed",
   },
 ];
