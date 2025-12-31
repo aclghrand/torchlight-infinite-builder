@@ -140,19 +140,51 @@ export const getAffectedPositions = (
 
 // Scale numeric values in affix text by a multiplier
 // Handles integers and decimals, e.g. "+8% Movement Speed" -> "+16% Movement Speed" when scaled by 2
+// Excludes cooldown values from scaling (e.g., "6 s cooldown" or "Cooldown: 0.3 s")
 export const scaleAffixText = (text: string, multiplier: number): string => {
-  // Match numbers (integers and decimals) that appear in the text
-  // Captures optional sign, integer part, and optional decimal part
-  return text.replace(/([+-]?)(\d+(?:\.\d+)?)/g, (_match, sign, numStr) => {
-    const num = parseFloat(numStr);
-    const scaled = num * multiplier;
-    // Format: preserve decimal places if original had them, otherwise use integer
-    const hasDecimal = numStr.includes(".");
-    const formatted = hasDecimal
-      ? scaled.toFixed(numStr.split(".")[1].length)
-      : Math.round(scaled).toString();
-    return sign + formatted;
-  });
+  // Patterns for cooldown values that should NOT be scaled:
+  // - "X s cooldown" (e.g., "6 s cooldown against the same target")
+  // - "Cooldown: X s" (e.g., "Cooldown: 0.3 s")
+  const cooldownPatterns = [
+    /(\d+(?:\.\d+)?)\s*s\s+cooldown/gi,
+    /Cooldown:\s*(\d+(?:\.\d+)?)\s*s/gi,
+  ];
+
+  // Collect cooldown values and their positions to preserve them
+  const cooldownMatches: { start: number; end: number; original: string }[] =
+    [];
+  for (const pattern of cooldownPatterns) {
+    for (const match of text.matchAll(pattern)) {
+      cooldownMatches.push({
+        start: match.index,
+        end: match.index + match[0].length,
+        original: match[0],
+      });
+    }
+  }
+
+  // Scale numbers, but skip those within cooldown ranges
+  return text.replace(
+    /([+-]?)(\d+(?:\.\d+)?)/g,
+    (match, sign, numStr, offset) => {
+      // Check if this number is within a cooldown pattern
+      const isInCooldown = cooldownMatches.some(
+        (cm) => offset >= cm.start && offset < cm.end,
+      );
+      if (isInCooldown) {
+        return match; // Return original, don't scale
+      }
+
+      const num = parseFloat(numStr);
+      const scaled = num * multiplier;
+      // Format: preserve decimal places if original had them, otherwise use integer
+      const hasDecimal = numStr.includes(".");
+      const formatted = hasDecimal
+        ? scaled.toFixed(numStr.split(".")[1].length)
+        : Math.round(scaled).toString();
+      return sign + formatted;
+    },
+  );
 };
 
 // Get bonus affixes that apply to a specific node from the placed prism
