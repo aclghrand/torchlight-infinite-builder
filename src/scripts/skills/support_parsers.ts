@@ -257,3 +257,22 @@ export const guardParser: SupportLevelParser = (input) => {
 
   return { dmgPct };
 };
+
+export const passivationParser: SupportLevelParser = (input) => {
+  const { skillName, progressionTable } = input;
+
+  // Extract erosion damage percentage from progression table
+  const col = findColumn(
+    progressionTable,
+    "additional erosion damage",
+    skillName,
+  );
+  const dmgPct: Record<number, number> = {};
+  for (const [levelStr, text] of Object.entries(col.rows)) {
+    dmgPct[Number(levelStr)] = parseNumericValue(text);
+  }
+
+  validateAllLevels(dmgPct, skillName);
+
+  return { dmgPct };
+};

@@ -13,6 +13,7 @@ import {
   guardParser,
   hauntParser,
   massEffectParser,
+  passivationParser,
   quickDecisionParser,
   steamrollParser,
   wellFoughtBattleParser,
@@ -70,6 +71,11 @@ export const SKILL_PARSERS: SkillParserEntry[] = [
     skillName: "Guard",
     categories: ["support"],
     parser: guardParser,
+  },
+  {
+    skillName: "Passivation",
+    categories: ["support"],
+    parser: passivationParser,
   },
   {
     skillName: "Frost Spike",

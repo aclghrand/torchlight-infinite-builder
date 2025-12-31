@@ -98,4 +98,13 @@ export const supportSkillModFactories: Partial<
     },
     { type: "GeneratesBarrier" },
   ],
+  Passivation: (l, vals) => [
+    { type: "CannotInflictWilt" },
+    {
+      type: "DmgPct",
+      value: v(vals.dmgPct, l),
+      addn: true,
+      dmgModType: "erosion",
+    },
+  ],
 };

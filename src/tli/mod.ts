@@ -222,6 +222,7 @@ interface ModDefinitions {
   // skill-specific
   MindControlMaxLink: { value: number };
   InitialMaxChannel: { value: number };
+  CannotInflictWilt: object;
 }
 
 // Generate the Mod union type from ModDefinitions
