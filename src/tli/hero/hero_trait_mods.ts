@@ -54,3 +54,10 @@ export const getHeroTraitMods = (name: HeroTraitName, level: number): Mod[] => {
   });
   return modsWithSrc;
 };
+
+/**
+ * Check if a hero trait has a factory implementation.
+ */
+export const isHeroTraitImplemented = (name: HeroTraitName): boolean => {
+  return heroTraitModFactories[name] !== undefined;
+};

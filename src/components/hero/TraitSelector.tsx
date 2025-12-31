@@ -5,7 +5,7 @@ import {
   TooltipContent,
   TooltipTitle,
 } from "@/src/components/ui/Tooltip";
-import type { BaseHeroTrait } from "@/src/data/hero_trait/types";
+import type { BaseHeroTrait, HeroTraitName } from "@/src/data/hero_trait/types";
 import { useTooltip } from "@/src/hooks/useTooltip";
 import type { HeroMemorySlot } from "@/src/lib/save-data";
 import {
@@ -14,6 +14,7 @@ import {
   type HeroPage,
   type HeroTraits,
 } from "@/src/tli/core";
+import { isHeroTraitImplemented } from "@/src/tli/hero/hero_trait_mods";
 import {
   getCompatibleLoadoutMemoriesForSlot,
   getTraitsForHeroAtLevel,
@@ -103,6 +104,8 @@ const TraitItem = ({
     </div>
   );
 
+  const implemented = isHeroTraitImplemented(trait.name as HeroTraitName);
+
   const tooltip = (
     <Tooltip
       isVisible={isVisible}
@@ -114,6 +117,14 @@ const TraitItem = ({
       <TooltipContent>
         <div className="max-h-64 overflow-y-auto">{trait.affix}</div>
       </TooltipContent>
+      {!implemented && (
+        <>
+          <hr className="border-zinc-700 my-2" />
+          <div className="text-xs text-orange-400 italic">
+            Trait not implemented yet
+          </div>
+        </>
+      )}
     </Tooltip>
   );
 
