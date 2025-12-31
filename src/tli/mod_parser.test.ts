@@ -559,6 +559,17 @@ test("parse flat intelligence", () => {
   ]);
 });
 
+test("parse flat all stats", () => {
+  const result = parseMod("+20 all stats");
+  expect(result).toEqual([
+    {
+      type: "Stat",
+      statModType: "all",
+      value: 20,
+    },
+  ]);
+});
+
 test("parse percentage strength", () => {
   const result = parseMod("+4% Strength");
   expect(result).toEqual([
@@ -588,6 +599,17 @@ test("parse percentage intelligence", () => {
       type: "StatPct",
       statModType: "int",
       value: 4,
+    },
+  ]);
+});
+
+test("parse percentage all stats", () => {
+  const result = parseMod("+10% all stats");
+  expect(result).toEqual([
+    {
+      type: "StatPct",
+      statModType: "all",
+      value: 10,
     },
   ]);
 });

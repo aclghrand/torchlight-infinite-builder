@@ -262,9 +262,11 @@ export const allParsers = [
   t("{value:dec} {statModType:StatWord}")
     .enum("StatWord", StatWordMapping)
     .output("Stat", (c) => ({ value: c.value, statModType: c.statModType })),
+  t("{value:dec} all stats").output("Stat", (c) => ({ value: c.value, statModType: "all" as const })),
   t("{value:dec%} {statModType:StatWord}")
     .enum("StatWord", StatWordMapping)
     .output("StatPct", (c) => ({ value: c.value, statModType: c.statModType })),
+  t("{value:dec%} all stats").output("StatPct", (c) => ({ value: c.value, statModType: "all" as const })),
   t("max focus blessing stacks \\+{value:int}").output("MaxFocusBlessing", (c) => ({ value: c.value })),
   t("max agility blessing stacks \\+{value:int}").output("MaxAgilityBlessing", (c) => ({ value: c.value })),
   t("has hasten").output("HasHasten", () => ({})),
