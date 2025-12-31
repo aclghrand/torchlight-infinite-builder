@@ -1124,6 +1124,16 @@ test("parse max agility blessing stacks with higher value", () => {
   ]);
 });
 
+test("parse max channeled stacks", () => {
+  const result = parseMod("Max Channeled Stacks +1");
+  expect(result).toEqual([
+    {
+      type: "MaxChannel",
+      value: 1,
+    },
+  ]);
+});
+
 test("parse additional attack damage dealt to nearby enemies", () => {
   const result = parseMod(
     "+10% additional Attack Damage dealt to Nearby enemies",

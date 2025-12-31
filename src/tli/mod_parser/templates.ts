@@ -276,6 +276,7 @@ export const allParsers = [
   t("{value:dec%} all stats").output("StatPct", (c) => ({ value: c.value, statModType: "all" as const })),
   t("max focus blessing stacks \\+{value:int}").output("MaxFocusBlessing", (c) => ({ value: c.value })),
   t("max agility blessing stacks \\+{value:int}").output("MaxAgilityBlessing", (c) => ({ value: c.value })),
+  t("max channeled stacks \\+{value:int}").output("MaxChannel", (c) => ({ value: c.value })),
   t("has hasten").output("HasHasten", () => ({})),
   t("{value:dec%} [additional] movement speed").output("MovementSpeedPct", (c) => ({
     value: c.value,
