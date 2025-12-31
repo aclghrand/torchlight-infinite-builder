@@ -228,7 +228,7 @@ interface ModDefinitions {
   MindControlMaxLink: { value: number };
   InitialMaxChannel: { value: number };
   AfflictionInflictedPerSec: { value: number };
-  AfflictionEffectPct: { value: number };
+  AfflictionEffectPct: { value: number, addn?: boolean };
   CannotInflictWilt: object;
   // enemy mods
   EnemyRes: { value: number; resType: ResType };

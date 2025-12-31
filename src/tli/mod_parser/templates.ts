@@ -312,7 +312,10 @@ export const allParsers = [
     addn: c.additional !== undefined,
   })),
   t("{value:dec} affliction inflicted per second").output("AfflictionInflictedPerSec", (c) => ({ value: c.value })),
-  t("{value:dec%} affliction effect").output("AfflictionEffectPct", (c) => ({ value: c.value })),
+  t("{value:dec%} [additional] affliction effect").output("AfflictionEffectPct", (c) => ({
+    value: c.value,
+    addn: c.additional !== undefined,
+  })),
   // Sage's Insight resistance reduction mods
   t(
     "when a spell hit inflicts fire damage, {value:dec%} cold, lightning, and erosion resistance for the target for {dur:dec} s",
