@@ -40,14 +40,7 @@ import type {
 import { getActiveSkillMods } from "../skills/active_mods";
 import { getPassiveSkillMods } from "../skills/passive_mods";
 import { getSupportSkillMods } from "../skills/support_mods";
-import {
-  getCustomAffixes,
-  getDivinityAffixes,
-  getGearAffixes,
-  getHeroAffixes,
-  getPactspiritAffixes,
-  getTalentAffixes,
-} from "./affix-collectors";
+import { getAllAffixes, getGearAffixes } from "./affix-collectors";
 import type { OffenseSkillName } from "./skill_confs";
 import { type ModWithValue, multModValue, multValue } from "./util";
 
@@ -127,43 +120,7 @@ const collectModsFromAffixes = (affixes: Affix[]): Mod[] => {
 };
 
 export const collectMods = (loadout: Loadout): Mod[] => {
-  return [
-    ...collectModsFromAffixes(getHeroAffixes(loadout.heroPage)),
-    ...collectModsFromAffixes(getDivinityAffixes(loadout.divinityPage)),
-    ...collectModsFromAffixes(getPactspiritAffixes(loadout.pactspiritPage)),
-    ...collectModsFromAffixes(getTalentAffixes(loadout.talentPage)),
-    ...collectModsFromAffixes(
-      getGearAffixes(loadout.gearPage.equippedGear.helmet),
-    ),
-    ...collectModsFromAffixes(
-      getGearAffixes(loadout.gearPage.equippedGear.chest),
-    ),
-    ...collectModsFromAffixes(
-      getGearAffixes(loadout.gearPage.equippedGear.neck),
-    ),
-    ...collectModsFromAffixes(
-      getGearAffixes(loadout.gearPage.equippedGear.gloves),
-    ),
-    ...collectModsFromAffixes(
-      getGearAffixes(loadout.gearPage.equippedGear.belt),
-    ),
-    ...collectModsFromAffixes(
-      getGearAffixes(loadout.gearPage.equippedGear.boots),
-    ),
-    ...collectModsFromAffixes(
-      getGearAffixes(loadout.gearPage.equippedGear.leftRing),
-    ),
-    ...collectModsFromAffixes(
-      getGearAffixes(loadout.gearPage.equippedGear.rightRing),
-    ),
-    ...collectModsFromAffixes(
-      getGearAffixes(loadout.gearPage.equippedGear.mainHand),
-    ),
-    ...collectModsFromAffixes(
-      getGearAffixes(loadout.gearPage.equippedGear.offHand),
-    ),
-    ...collectModsFromAffixes(getCustomAffixes(loadout.customAffixLines)),
-  ];
+  return collectModsFromAffixes(getAllAffixes(loadout));
 };
 
 const resolveCoreTalentMods = (mods: Mod[]): Mod[] => {

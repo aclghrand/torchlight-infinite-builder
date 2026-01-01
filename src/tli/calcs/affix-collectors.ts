@@ -146,3 +146,23 @@ export const getCustomAffixes = (customAffixLines: AffixLine[]): Affix[] => {
   if (customAffixLines.length === 0) return [];
   return [{ affixLines: customAffixLines, src: "CustomAffix" }];
 };
+
+export const getAllAffixes = (loadout: Loadout): Affix[] => {
+  return [
+    ...getHeroAffixes(loadout.heroPage),
+    ...getDivinityAffixes(loadout.divinityPage),
+    ...getPactspiritAffixes(loadout.pactspiritPage),
+    ...getTalentAffixes(loadout.talentPage),
+    ...getGearAffixes(loadout.gearPage.equippedGear.helmet),
+    ...getGearAffixes(loadout.gearPage.equippedGear.chest),
+    ...getGearAffixes(loadout.gearPage.equippedGear.neck),
+    ...getGearAffixes(loadout.gearPage.equippedGear.gloves),
+    ...getGearAffixes(loadout.gearPage.equippedGear.belt),
+    ...getGearAffixes(loadout.gearPage.equippedGear.boots),
+    ...getGearAffixes(loadout.gearPage.equippedGear.leftRing),
+    ...getGearAffixes(loadout.gearPage.equippedGear.rightRing),
+    ...getGearAffixes(loadout.gearPage.equippedGear.mainHand),
+    ...getGearAffixes(loadout.gearPage.equippedGear.offHand),
+    ...getCustomAffixes(loadout.customAffixLines),
+  ];
+};
