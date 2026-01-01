@@ -320,6 +320,12 @@ export const allParsers = [
     value: c.value,
     addn: c.additional !== undefined,
   })),
+  t("{value:int} gear energy shield").output("GearEnergyShield", (c) => ({ value: c.value })),
+  t("{value:int} gear evasion").output("GearEvasion", (c) => ({ value: c.value })),
+  t("{value:int} armor and evasion").outputMany([
+    spec("Armor", (c) => ({ value: c.value })),
+    spec("Evasion", (c) => ({ value: c.value })),
+  ]),
   t("{value:dec%} max elemental and erosion resistance").outputMany([
     spec("MaxResistancePct", (c) => ({ value: c.value, resType: "elemental" as const })),
     spec("MaxResistancePct", (c) => ({ value: c.value, resType: "erosion" as const })),
@@ -426,7 +432,7 @@ export const allParsers = [
     value: c.value,
     addn: c.additional !== undefined,
   })),
-  // Skill area - curse specific must come before global
+  t("{value:dec%} curse duration").output("CurseDurationPct", (c) => ({ value: c.value })),
   t("{value:dec%} [additional] curse skill area").output("SkillAreaPct", (c) => ({
     value: c.value,
     skillAreaModType: "curse" as const,

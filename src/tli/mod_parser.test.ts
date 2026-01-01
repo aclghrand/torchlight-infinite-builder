@@ -1869,3 +1869,41 @@ test("parse gains repentance when gaining any blessing", () => {
     },
   ]);
 });
+
+test("parse gear energy shield", () => {
+  const result = parseMod("+140 gear Energy Shield");
+  expect(result).toEqual([
+    {
+      type: "GearEnergyShield",
+      value: 140,
+    },
+  ]);
+});
+
+test("parse curse duration", () => {
+  const result = parseMod("+100% Curse Duration");
+  expect(result).toEqual([
+    {
+      type: "CurseDurationPct",
+      value: 100,
+    },
+  ]);
+});
+
+test("parse gear evasion", () => {
+  const result = parseMod("+1920 gear Evasion");
+  expect(result).toEqual([
+    {
+      type: "GearEvasion",
+      value: 1920,
+    },
+  ]);
+});
+
+test("parse armor and evasion", () => {
+  const result = parseMod("+685 Armor and Evasion");
+  expect(result).toEqual([
+    { type: "Armor", value: 685 },
+    { type: "Evasion", value: 685 },
+  ]);
+});

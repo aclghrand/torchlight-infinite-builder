@@ -378,7 +378,6 @@ function TalentsSlotPage(): React.ReactNode {
           <CoreTalentSelector
             treeName={currentTalentTree.name}
             treeSlot={activeTreeSlot}
-            pointsSpent={currentTreeTotalPoints}
             selectedCoreTalents={
               currentTalentTree.selectedCoreTalentNames ?? []
             }

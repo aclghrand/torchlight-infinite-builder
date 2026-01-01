@@ -8,9 +8,7 @@ import { useTooltip } from "@/src/hooks/useTooltip";
 import {
   getAvailableGodGoddessCoreTalents,
   getAvailableProfessionCoreTalents,
-  getCoreTalentsForTree,
   getMaxCoreTalentSlots,
-  isCoreTalentSlotUnlocked,
   isGodGoddessTree,
   type TreeSlot,
 } from "@/src/lib/core-talent-utils";
@@ -18,7 +16,6 @@ import {
 interface CoreTalentSelectorProps {
   treeName: string;
   treeSlot: TreeSlot;
-  pointsSpent: number;
   selectedCoreTalents: string[];
   onSelectCoreTalent: (
     slotIndex: number,
@@ -30,7 +27,6 @@ interface CoreTalentSelectorProps {
 interface SlotConfig {
   index: number;
   label: string;
-  unlocked: boolean;
   available: BaseCoreTalent[];
   selected: string | undefined;
 }
@@ -38,50 +34,43 @@ interface SlotConfig {
 export const CoreTalentSelector: React.FC<CoreTalentSelectorProps> = ({
   treeName,
   treeSlot,
-  pointsSpent,
   selectedCoreTalents,
   onSelectCoreTalent,
   replacedByPrism,
 }) => {
   const isGodTree = isGodGoddessTree(treeName);
   const maxSlots = getMaxCoreTalentSlots(treeSlot);
-  const allTalentsForTree = getCoreTalentsForTree(treeName);
 
   const slots: SlotConfig[] = [];
 
   if (isGodTree) {
     const { firstSlot, secondSlot } = getAvailableGodGoddessCoreTalents(
       treeName,
-      pointsSpent,
       selectedCoreTalents,
     );
 
     slots.push({
       index: 0,
-      label: "Core Talent 1 (12 pts)",
-      unlocked: isCoreTalentSlotUnlocked(treeSlot, 0, pointsSpent),
+      label: "Core Talent 1",
       available: firstSlot,
       selected: selectedCoreTalents[0],
     });
 
     slots.push({
       index: 1,
-      label: "Core Talent 2 (24 pts)",
-      unlocked: isCoreTalentSlotUnlocked(treeSlot, 1, pointsSpent),
+      label: "Core Talent 2",
       available: secondSlot,
       selected: selectedCoreTalents[1],
     });
   } else {
     const available = getAvailableProfessionCoreTalents(
       treeName,
-      pointsSpent,
       selectedCoreTalents,
     );
 
     slots.push({
       index: 0,
-      label: "Core Talent (24 pts)",
-      unlocked: isCoreTalentSlotUnlocked(treeSlot, 0, pointsSpent),
+      label: "Core Talent",
       available,
       selected: selectedCoreTalents[0],
     });
@@ -112,10 +101,8 @@ export const CoreTalentSelector: React.FC<CoreTalentSelectorProps> = ({
           <CoreTalentSlot
             key={slot.index}
             label={slot.label}
-            unlocked={slot.unlocked}
             available={slot.available}
             selected={slot.selected}
-            allTalentsForTree={allTalentsForTree}
             onSelect={(name) => onSelectCoreTalent(slot.index, name)}
           />
         ))}
@@ -126,19 +113,15 @@ export const CoreTalentSelector: React.FC<CoreTalentSelectorProps> = ({
 
 interface CoreTalentSlotProps {
   label: string;
-  unlocked: boolean;
   available: BaseCoreTalent[];
   selected: string | undefined;
-  allTalentsForTree: BaseCoreTalent[];
   onSelect: (name: string | undefined) => void;
 }
 
 const CoreTalentSlot: React.FC<CoreTalentSlotProps> = ({
   label,
-  unlocked,
   available,
   selected,
-  allTalentsForTree,
   onSelect,
 }) => {
   const { isVisible, triggerRef, triggerRect, tooltipHandlers } = useTooltip();
@@ -156,45 +139,33 @@ const CoreTalentSlot: React.FC<CoreTalentSlotProps> = ({
   return (
     <div
       className={`p-3 rounded-lg border ${
-        unlocked
-          ? selected
-            ? "border-amber-500 bg-amber-500/10"
-            : "border-zinc-600 bg-zinc-800"
-          : "border-zinc-800 bg-zinc-900 opacity-50"
+        selected !== undefined
+          ? "border-amber-500 bg-amber-500/10"
+          : "border-zinc-600 bg-zinc-800"
       }`}
       ref={triggerRef}
     >
       <div className="text-xs text-zinc-400 mb-2">{label}</div>
 
-      {unlocked ? (
-        <div className="space-y-1">
-          {/* Show all talents in original order: available ones + the currently selected one */}
-          {allTalentsForTree
-            .filter(
-              (ct) =>
-                available.some((a) => a.name === ct.name) ||
-                ct.name === selected,
-            )
-            .map((ct) => (
-              <button
-                key={ct.name}
-                onClick={() =>
-                  onSelect(selected === ct.name ? undefined : ct.name)
-                }
-                onMouseEnter={() => setHoveredTalent(ct)}
-                className={`w-full px-3 py-2 border rounded-lg text-sm text-left transition-colors ${
-                  selected === ct.name
-                    ? "border-amber-500 bg-amber-500/20 text-amber-400"
-                    : "border-zinc-700 bg-zinc-800 text-zinc-50 hover:border-amber-500/50"
-                }`}
-              >
-                {ct.name}
-              </button>
-            ))}
-        </div>
-      ) : (
-        <div className="text-sm text-zinc-500 italic">Locked</div>
-      )}
+      <div className="space-y-1">
+        {available.map((ct) => {
+          const isSelected = ct.name === selected;
+          return (
+            <button
+              key={ct.name}
+              onClick={() => onSelect(isSelected ? undefined : ct.name)}
+              onMouseEnter={() => setHoveredTalent(ct)}
+              className={`w-full px-3 py-2 border rounded-lg text-sm text-left transition-colors ${
+                isSelected
+                  ? "border-amber-500 bg-amber-500/20 text-amber-400"
+                  : "border-zinc-700 bg-zinc-800 text-zinc-50 hover:border-amber-500/50"
+              }`}
+            >
+              {ct.name}
+            </button>
+          );
+        })}
+      </div>
 
       <Tooltip
         isVisible={isVisible && hoveredTalent !== undefined}

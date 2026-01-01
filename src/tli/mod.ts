@@ -219,10 +219,13 @@ interface ModDefinitions {
   MaxEnergyShield: { value: number };
   GearArmor: { value: number };
   GearArmorPct: { value: number };
+  Armor: { value: number };
   ArmorPct: { value: number; addn: boolean };
   GearEvasion: { value: number };
   GearEvasionPct: { value: number };
+  Evasion: { value: number };
   EvasionPct: { value: number; addn: boolean };
+  DefensePct: { value: number };
   ResistancePct: { value: number; resType: ResType };
   MaxResistancePct: { value: number; resType: ResType };
   LifeRegainPct: { value: number };
