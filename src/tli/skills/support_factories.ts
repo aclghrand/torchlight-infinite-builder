@@ -128,4 +128,17 @@ export const supportSkillModFactories: Partial<
       skillAreaModType: "global",
     },
   ],
+  Cataclysm: (l, vals) => [
+    {
+      type: "AfflictionInflictedPerSec",
+      value: v(vals.afflictionInflictedPerSec, l),
+    },
+    {
+      type: "DmgPct",
+      value: v(vals.additionalDmgPct, l),
+      addn: true,
+      dmgModType: "global",
+      cond: "enemy_at_max_affliction",
+    },
+  ],
 };

@@ -178,6 +178,17 @@ export const SupportSkills = [
     ],
     supportTargets: ["dot", "inflict_ailment"],
     cannotSupportTargets: [],
+    levelValues: {
+      afflictionInflictedPerSec: [
+        8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+        8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      ],
+      additionalDmgPct: [
+        26.5, 27, 27.5, 28, 28.5, 29, 29.5, 30, 30.5, 31, 31.5, 32, 32.5, 33,
+        33.5, 34, 34.5, 35, 35.5, 36, 36.5, 37, 37.5, 38, 38.5, 39, 39.5, 40,
+        40.5, 41, 41.5, 42, 42.5, 43, 43.5, 44, 44.5, 45, 45.5, 46,
+      ],
+    },
   },
   {
     type: "Support",

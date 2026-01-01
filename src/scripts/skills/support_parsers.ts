@@ -333,3 +333,32 @@ export const auraAmplificationParser: SupportLevelParser = (input) => {
     skillAreaPct: createConstantLevels(areaMatch.value),
   };
 };
+
+export const cataclysmParser: SupportLevelParser = (input) => {
+  const { skillName, description, progressionTable } = input;
+
+  // Extract affliction inflicted per second from description (constant 8)
+  const firstDescription = getDescriptionPart(skillName, description, 0);
+  const afflictionMatch = template("inflicts {value:int} affliction").match(
+    firstDescription,
+    skillName,
+  );
+
+  // Extract additional damage percentage from progression table
+  const dmgCol = findColumn(
+    progressionTable,
+    "affliction grants an additional",
+    skillName,
+  );
+  const additionalDmgPct: Record<number, number> = {};
+  for (const [levelStr, text] of Object.entries(dmgCol.rows)) {
+    additionalDmgPct[Number(levelStr)] = parseNumericValue(text);
+  }
+
+  validateAllLevels(additionalDmgPct, skillName);
+
+  return {
+    afflictionInflictedPerSec: createConstantLevels(afflictionMatch.value),
+    additionalDmgPct,
+  };
+};
