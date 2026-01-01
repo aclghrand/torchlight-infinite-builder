@@ -219,6 +219,14 @@ export const allParsers = [
     value: c.value,
     addn: c.additional !== undefined,
   })),
+  t("{value:dec%} [additional] minion critical strike rating").output("MinionCritRatingPct", (c) => ({
+    value: c.value,
+    addn: c.additional !== undefined,
+  })),
+  t("{value:dec%} [additional] minion damage").output("MinionDmgPct", (c) => ({
+    value: c.value,
+    addn: c.additional !== undefined,
+  })),
   t("{value:dec%} [additional] attack and cast speed when at full mana").outputMany([
     spec("AspdPct", (c) => ({ value: c.value, addn: c.additional !== undefined, cond: HAS_FULL_MANA })),
     spec("CspdPct", (c) => ({ value: c.value, addn: c.additional !== undefined, cond: HAS_FULL_MANA })),
@@ -303,6 +311,7 @@ export const allParsers = [
     value: c.value,
     addn: c.additional !== undefined,
   })),
+  t("{value:dec} max energy shield").output("MaxEnergyShield", (c) => ({ value: c.value })),
   t("{value:dec%} [additional] armor").output("ArmorPct", (c) => ({
     value: c.value,
     addn: c.additional !== undefined,
@@ -373,6 +382,10 @@ export const allParsers = [
     value: c.value,
   })),
   t("{value:dec%} [additional] movement speed").output("MovementSpeedPct", (c) => ({
+    value: c.value,
+    addn: c.additional !== undefined,
+  })),
+  t("{value:dec%} [additional] projectile speed").output("ProjectileSpeedPct", (c) => ({
     value: c.value,
     addn: c.additional !== undefined,
   })),

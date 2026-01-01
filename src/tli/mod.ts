@@ -181,7 +181,12 @@ interface ModDefinitions {
   CritDmgPct: { value: number; addn: boolean; modType: CritDmgModType };
   AspdPct: { value: number; addn: boolean };
   CspdPct: { value: number; addn: boolean };
+  // minions
   MinionAspdAndCspdPct: { value: number; addn: boolean };
+  MinionDmgPct: { value: number; addn?: boolean };
+  MinionCritRatingPct: { value: number; addn?: boolean };
+  // end minions
+  ProjectileSpeedPct: { value: number; addn?: boolean };
   DoubleDmgChancePct: { value: number };
   Stat: { value: number; statModType: StatModType };
   StatPct: { value: number; statModType: StatModType };
@@ -211,6 +216,7 @@ interface ModDefinitions {
   GearMaxEnergyShield: { value: number };
   GearMaxEnergyShieldPct: { value: number };
   MaxEnergyShieldPct: { value: number; addn: boolean };
+  MaxEnergyShield: { value: number };
   GearArmor: { value: number };
   GearArmorPct: { value: number };
   ArmorPct: { value: number; addn: boolean };
