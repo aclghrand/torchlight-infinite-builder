@@ -297,6 +297,19 @@ test("parse blur additional damage over time effect", () => {
   ]);
 });
 
+test("parse additional damage after blur ends", () => {
+  const result = parseMod("+25% additional damage for 3 s after Blur ends");
+  expect(result).toEqual([
+    {
+      type: "DmgPct",
+      value: 25,
+      dmgModType: "global",
+      addn: true,
+      cond: "blur_ended_recently",
+    },
+  ]);
+});
+
 test("parse additional damage applied to life", () => {
   const result = parseMod("8% additional damage applied to Life");
   expect(result).toEqual([

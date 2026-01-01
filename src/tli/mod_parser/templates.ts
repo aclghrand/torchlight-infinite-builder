@@ -14,6 +14,7 @@ const HAS_FOCUS_BLESSING = "has_focus_blessing" as const;
 const HAS_BLOCKED_RECENTLY = "has_blocked_recently" as const;
 const HAS_CRIT_RECENTLY = "has_crit_recently" as const;
 const HAS_BLUR = "has_blur" as const;
+const BLUR_ENDED_RECENTLY = "blur_ended_recently" as const;
 const FROSTBITE_RATING = "frostbite_rating" as const;
 const FERVOR = "fervor" as const;
 const MANA_CONSUMED_RECENTLY = "mana_consumed_recently" as const;
@@ -193,6 +194,12 @@ export const allParsers = [
     value: c.value,
     dmgModType: "channeled" as const,
     addn: c.additional !== undefined,
+  })),
+  t("{value:dec%} additional damage for {dur:int} s after blur ends").output("DmgPct", (c) => ({
+    value: c.value,
+    dmgModType: GLOBAL,
+    addn: true,
+    cond: BLUR_ENDED_RECENTLY,
   })),
   t("{value:dec%} [additional] [{modType:DmgModType}] damage").output("DmgPct", (c) => ({
     value: c.value,
