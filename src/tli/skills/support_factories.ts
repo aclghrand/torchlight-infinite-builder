@@ -120,4 +120,8 @@ export const supportSkillModFactories: Partial<
       dmgModType: "global",
     },
   ],
+  "Aura Amplification": (l, vals) => [
+    { type: "AuraEffPct", value: v(vals.auraEffPct, l) },
+    { type: "SkillAreaPct", value: v(vals.skillAreaPct, l) },
+  ],
 };

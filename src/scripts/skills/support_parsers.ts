@@ -305,3 +305,31 @@ export const controlSpellParser: SupportLevelParser = (input) => {
     dmgPct,
   };
 };
+
+export const auraAmplificationParser: SupportLevelParser = (input) => {
+  const { skillName, description, progressionTable } = input;
+
+  // Extract aura effect from progression table
+  const auraEffCol = findColumn(
+    progressionTable,
+    "aura effect for the supported skill",
+    skillName,
+  );
+  const auraEffPct: Record<number, number> = {};
+  for (const [levelStr, text] of Object.entries(auraEffCol.rows)) {
+    auraEffPct[Number(levelStr)] = parseNumericValue(text);
+  }
+
+  validateAllLevels(auraEffPct, skillName);
+
+  // Extract skill area from description (constant +100%)
+  const firstDescription = getDescriptionPart(skillName, description, 0);
+  const areaMatch = template(
+    "{value:int%} skill area for the supported skill",
+  ).match(firstDescription, skillName);
+
+  return {
+    auraEffPct,
+    skillAreaPct: createConstantLevels(areaMatch.value),
+  };
+};

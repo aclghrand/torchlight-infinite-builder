@@ -14,6 +14,7 @@ import {
   spellAmplificationParser,
 } from "./passive_parsers";
 import {
+  auraAmplificationParser,
   controlSpellParser,
   criticalStrikeDamageIncreaseParser,
   criticalStrikeRatingIncreaseParser,
@@ -89,6 +90,11 @@ export const SKILL_PARSERS: SkillParserEntry[] = [
     skillName: "Control Spell",
     categories: ["support"],
     parser: controlSpellParser,
+  },
+  {
+    skillName: "Aura Amplification",
+    categories: ["support"],
+    parser: auraAmplificationParser,
   },
   {
     skillName: "Frost Spike",

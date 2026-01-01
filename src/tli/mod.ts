@@ -217,6 +217,7 @@ interface ModDefinitions {
   ShadowDmgPct: { value: number; addn: boolean };
   Projectile: { value: number };
   MaxProjectile: { value: number; override?: boolean };
+  SkillAreaPct: { value: number; addn?: boolean };
   SkillEffPct: { value: number; addn?: boolean };
   AuraEffPct: { value: number; addn?: boolean; unscalable?: boolean };
   CurseEffPct: { value: number; addn?: boolean };
