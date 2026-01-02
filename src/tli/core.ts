@@ -1,6 +1,7 @@
 import type { HeroName, HeroTraitName } from "@/src/data/hero_trait/types";
 import type { EquipmentType } from "./gear_data_types";
 import type { Mod } from "./mod";
+import { MagnificentSupportSkillName } from "../data/skill";
 
 export const PRISM_RARITIES = ["rare", "legendary"] as const;
 export type PrismRarity = (typeof PRISM_RARITIES)[number];
@@ -316,7 +317,7 @@ export interface SupportSkillSlot {
 }
 
 export interface MagnificentSupportSkillSlot {
-  name: string;
+  name: MagnificentSupportSkillName;
   tier: 0 | 1 | 2; // lower is better (tier 0 is best)
   rank: 1 | 2 | 3 | 4 | 5; // higher is better (rank 5 is max)
   value: number; // specific value within the tier's range
