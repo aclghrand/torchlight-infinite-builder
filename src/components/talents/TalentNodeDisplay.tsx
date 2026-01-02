@@ -322,39 +322,38 @@ export const TalentNodeDisplay: React.FC<TalentNodeDisplayProps> = ({
           {allocated}/{node.maxPoints}
         </div>
 
-        {/* Allocation Buttons */}
-        <div className="absolute -top-2 -right-2 flex gap-1">
-          <button
-            type="button"
-            onClick={onAllocate}
-            disabled={!canAllocate}
-            className={`
-              w-5 h-5 rounded-full text-white text-xs font-bold
-              ${
-                canAllocate
-                  ? "bg-cyan-500 hover:bg-cyan-400"
-                  : "bg-zinc-700 text-zinc-500 cursor-not-allowed"
-              }
-            `}
-          >
-            +
-          </button>
-          <button
-            type="button"
-            onClick={onDeallocate}
-            disabled={!canDeallocate}
-            className={`
-              w-5 h-5 rounded-full text-white text-xs font-bold
-              ${
-                canDeallocate
-                  ? "bg-red-500 hover:bg-red-600"
-                  : "bg-zinc-700 text-zinc-500 cursor-not-allowed"
-              }
-            `}
-          >
-            -
-          </button>
-        </div>
+        {/* Add Button - Top Left */}
+        <button
+          type="button"
+          onClick={onAllocate}
+          disabled={!canAllocate}
+          className={`
+            absolute -top-2 -left-2 w-7 h-7 rounded-full text-white text-sm font-bold
+            ${
+              canAllocate
+                ? "bg-cyan-500 hover:bg-cyan-400"
+                : "bg-zinc-700 text-zinc-500 cursor-not-allowed"
+            }
+          `}
+        >
+          +
+        </button>
+        {/* Remove Button - Top Right */}
+        <button
+          type="button"
+          onClick={onDeallocate}
+          disabled={!canDeallocate}
+          className={`
+            absolute -top-2 -right-2 w-7 h-7 rounded-full text-white text-sm font-bold
+            ${
+              canDeallocate
+                ? "bg-red-500 hover:bg-red-600"
+                : "bg-zinc-700 text-zinc-500 cursor-not-allowed"
+            }
+          `}
+        >
+          -
+        </button>
 
         <Tooltip
           isVisible={isVisible}
@@ -431,13 +430,14 @@ export const TalentNodeDisplay: React.FC<TalentNodeDisplayProps> = ({
 
       {/* Allocation Buttons (hidden when selecting prism or inverse image on empty node) */}
       {!canPlacePrism && !canPlaceInverseImage && (
-        <div className="absolute -top-2 -right-2 flex gap-1">
+        <>
+          {/* Add Button - Top Left */}
           <button
             type="button"
             onClick={onAllocate}
             disabled={!canAllocate}
             className={`
-              w-5 h-5 rounded-full text-white text-xs font-bold
+              absolute -top-2 -left-2 w-7 h-7 rounded-full text-white text-sm font-bold
               ${
                 canAllocate
                   ? "bg-green-500 hover:bg-green-600"
@@ -447,12 +447,13 @@ export const TalentNodeDisplay: React.FC<TalentNodeDisplayProps> = ({
           >
             +
           </button>
+          {/* Remove Button - Top Right */}
           <button
             type="button"
             onClick={onDeallocate}
             disabled={!canDeallocate}
             className={`
-              w-5 h-5 rounded-full text-white text-xs font-bold
+              absolute -top-2 -right-2 w-7 h-7 rounded-full text-white text-sm font-bold
               ${
                 canDeallocate
                   ? "bg-red-500 hover:bg-red-600"
@@ -462,7 +463,7 @@ export const TalentNodeDisplay: React.FC<TalentNodeDisplayProps> = ({
           >
             -
           </button>
-        </div>
+        </>
       )}
 
       {/* Place Prism indicator when selecting */}
