@@ -1810,7 +1810,10 @@ describe("resolveSelectedSkillSupportMods via calculateOffense", () => {
     enabled: true,
     level: 20,
     supportSkills: Object.fromEntries(
-      supportNames.map((s, i) => [i + 1, { name: s.name, level: s.level }]),
+      supportNames.map((s, i) => [
+        i + 1,
+        { skillType: "support" as const, name: s.name, level: s.level },
+      ]),
     ),
   });
 
@@ -2193,7 +2196,7 @@ describe("resolveBuffSkillMods", () => {
         level: number;
         supportSkills: Record<
           number,
-          { name: string; level: number } | undefined
+          { skillType: "support"; name: string; level: number } | undefined
         >;
       }
     > = {
@@ -2204,7 +2207,11 @@ describe("resolveBuffSkillMods", () => {
         supportSkills: Object.fromEntries(
           (mainSkill.supports ?? []).map((s, i) => [
             i + 1,
-            { name: s.name, level: s.level ?? 20 },
+            {
+              skillType: "support" as const,
+              name: s.name,
+              level: s.level ?? 20,
+            },
           ]),
         ),
       },
@@ -2218,7 +2225,11 @@ describe("resolveBuffSkillMods", () => {
         supportSkills: Object.fromEntries(
           (buff.supports ?? []).map((s, i) => [
             i + 1,
-            { name: s.name, level: s.level ?? 20 },
+            {
+              skillType: "support" as const,
+              name: s.name,
+              level: s.level ?? 20,
+            },
           ]),
         ),
       };

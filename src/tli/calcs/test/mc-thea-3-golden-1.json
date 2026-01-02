@@ -628,18 +628,26 @@
         "enabled": true,
         "supportSkills": {
           "1": {
+            "skillType": "support",
             "name": "Guard"
           },
           "2": {
+            "skillType": "support",
             "name": "Cataclysm"
           },
           "3": {
-            "name": "Mind Control: Concentrate (Magnificent)"
+            "skillType": "magnificent_support",
+            "name": "Mind Control: Concentrate (Magnificent)",
+            "tier": 1,
+            "rank": 1,
+            "value": 6.1
           },
           "4": {
+            "skillType": "support",
             "name": "Passivation"
           },
           "5": {
+            "skillType": "support",
             "name": "Control Spell"
           }
         }
@@ -649,12 +657,15 @@
         "enabled": true,
         "supportSkills": {
           "1": {
+            "skillType": "support",
             "name": "Extended Duration"
           },
           "2": {
+            "skillType": "support",
             "name": "Well-Fought Battle"
           },
           "3": {
+            "skillType": "support",
             "name": "Mass Effect"
           }
         }
@@ -664,9 +675,11 @@
         "enabled": true,
         "supportSkills": {
           "1": {
+            "skillType": "support",
             "name": "Preparation"
           },
           "2": {
+            "skillType": "support",
             "name": "Terrain of Malice"
           }
         }
@@ -676,9 +689,11 @@
         "enabled": true,
         "supportSkills": {
           "1": {
+            "skillType": "support",
             "name": "Preparation"
           },
           "2": {
+            "skillType": "support",
             "name": "Terrain of Malice"
           }
         }
@@ -688,15 +703,22 @@
         "enabled": true,
         "supportSkills": {
           "1": {
+            "skillType": "activation_medium",
             "name": "Activation Medium: Instruction"
           },
           "2": {
+            "skillType": "support",
             "name": "Reaping Agony"
           },
           "3": {
-            "name": "Shackles of Malice: Defile (Magnificent)"
+            "skillType": "magnificent_support",
+            "name": "Shackles of Malice: Defile (Magnificent)",
+            "tier": 0,
+            "rank": 5,
+            "value": 0
           },
           "4": {
+            "skillType": "support",
             "name": "Grudge"
           }
         }
@@ -708,12 +730,15 @@
         "enabled": true,
         "supportSkills": {
           "1": {
+            "skillType": "support",
             "name": "Restrain"
           },
           "2": {
+            "skillType": "support",
             "name": "Reaping Agony"
           },
           "3": {
+            "skillType": "support",
             "name": "Focus Acceleration"
           }
         }
@@ -723,9 +748,11 @@
         "enabled": true,
         "supportSkills": {
           "1": {
+            "skillType": "support",
             "name": "Restrain"
           },
           "2": {
+            "skillType": "support",
             "name": "Aura Amplification"
           }
         }
@@ -735,15 +762,19 @@
         "enabled": true,
         "supportSkills": {
           "1": {
+            "skillType": "support",
             "name": "Restrain"
           },
           "2": {
+            "skillType": "support",
             "name": "Seal Conversion"
           },
           "3": {
+            "skillType": "support",
             "name": "Aura Amplification"
           },
           "4": {
+            "skillType": "support",
             "name": "Increased Area"
           }
         }
@@ -753,9 +784,11 @@
         "enabled": true,
         "supportSkills": {
           "1": {
+            "skillType": "support",
             "name": "Restrain"
           },
           "2": {
+            "skillType": "support",
             "name": "Aura Amplification"
           }
         }
@@ -1074,15 +1107,14 @@
     "hasBlur": true,
     "blurEndedRecently": true,
     "hasAffliction": false,
+    "numMindControlLinksUsed": 1,
     "customAffixLines": [
       "// Shackles of malice: defile",
       "+40% additional curse effect",
       "// Shackled of Malice / Reaping Agony",
       "Reaps 0.9 s of Damage Over Time when dealing Damage Over Time. The effect has a 4 s cooldown against the same target",
       "// Corrosion Focus / Reaping Agony",
-      "Reaps 0.9 s of Damage Over Time when dealing Damage Over Time. The effect has a 4 s cooldown against the same target",
-      "// Mind Control: Concentrate, 16 links - 1",
-      "+91.5% additional damage"
+      "Reaps 0.9 s of Damage Over Time when dealing Damage Over Time. The effect has a 4 s cooldown against the same target"
     ]
   },
   "calculationsPage": {

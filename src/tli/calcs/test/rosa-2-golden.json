@@ -624,18 +624,23 @@
         "enabled": true,
         "supportSkills": {
           "1": {
+            "skillType": "activation_medium",
             "name": "Activation Medium: Still Attack"
           },
           "2": {
+            "skillType": "support",
             "name": "Haunt"
           },
           "3": {
+            "skillType": "support",
             "name": "Steamroll"
           },
           "4": {
+            "skillType": "support",
             "name": "Quick Decision"
           },
           "5": {
+            "skillType": "support",
             "name": "Critical Strike Damage Increase"
           }
         },
@@ -646,15 +651,19 @@
         "enabled": true,
         "supportSkills": {
           "1": {
+            "skillType": "activation_medium",
             "name": "Activation Medium: Elite"
           },
           "2": {
+            "skillType": "support",
             "name": "Well-Fought Battle"
           },
           "3": {
+            "skillType": "support",
             "name": "Mass Effect"
           },
           "4": {
+            "skillType": "support",
             "name": "Cooldown Reduction"
           }
         },
@@ -665,12 +674,15 @@
         "enabled": true,
         "supportSkills": {
           "1": {
+            "skillType": "activation_medium",
             "name": "Activation Medium: Sentry"
           },
           "2": {
+            "skillType": "support",
             "name": "Mass Effect"
           },
           "3": {
+            "skillType": "support",
             "name": "Well-Fought Battle"
           }
         },
@@ -681,18 +693,23 @@
         "enabled": true,
         "supportSkills": {
           "1": {
+            "skillType": "activation_medium",
             "name": "Activation Medium: Elite"
           },
           "2": {
+            "skillType": "support",
             "name": "Concentration Warcry"
           },
           "3": {
+            "skillType": "support",
             "name": "Extended Duration"
           },
           "4": {
+            "skillType": "support",
             "name": "Cooldown Reduction"
           },
           "5": {
+            "skillType": "support",
             "name": "Increased Area"
           }
         },
@@ -705,12 +722,15 @@
         "enabled": true,
         "supportSkills": {
           "1": {
+            "skillType": "support",
             "name": "Seal Conversion"
           },
           "2": {
+            "skillType": "support",
             "name": "Restrain"
           },
           "3": {
+            "skillType": "support",
             "name": "Precise: Malleable"
           }
         },
