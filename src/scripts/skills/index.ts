@@ -10,11 +10,6 @@ import {
   mindControlParser,
 } from "./active_parsers";
 import {
-  burningCombustionParser,
-  mindControlConcentrateParser,
-} from "./magnificent_support_parsers";
-import { chainLightningLuckyParser } from "./noble_support_parsers";
-import {
   corrosionFocusParser,
   deepPainParser,
   erosionAmplificationParser,
@@ -42,11 +37,7 @@ import {
   wellFoughtBattleParser,
   willpowerParser,
 } from "./support_parsers";
-import type {
-  MagnificentSkillParserEntry,
-  SkillCategory,
-  SkillParserEntry,
-} from "./types";
+import type { SkillCategory, SkillParserEntry } from "./types";
 
 export const SKILL_PARSERS: SkillParserEntry[] = [
   {
@@ -224,47 +215,4 @@ export const getParserForSkill = (
     (entry) =>
       entry.skillName === skillName && entry.categories.includes(category),
   );
-};
-
-// ============================================
-// Magnificent Support Parsers
-// ============================================
-
-export const MAGNIFICENT_SUPPORT_PARSERS: MagnificentSkillParserEntry[] = [
-  {
-    skillName: "Burning Shot: Combustion (Magnificent)",
-    parser: burningCombustionParser,
-  },
-  {
-    skillName: "Mind Control: Concentrate (Magnificent)",
-    parser: mindControlConcentrateParser,
-  },
-];
-
-export const getMagnificentParserForSkill = (
-  skillName: string,
-): MagnificentSkillParserEntry | undefined => {
-  return MAGNIFICENT_SUPPORT_PARSERS.find(
-    (entry) => entry.skillName === skillName,
-  );
-};
-
-// ============================================
-// Noble Support Parsers
-// ============================================
-
-// Noble parsers use same type as Magnificent since they share tier/rank/value system
-export type NobleSkillParserEntry = MagnificentSkillParserEntry;
-
-export const NOBLE_SUPPORT_PARSERS: NobleSkillParserEntry[] = [
-  {
-    skillName: "Chain Lightning: Lucky (Noble)",
-    parser: chainLightningLuckyParser,
-  },
-];
-
-export const getNobleParserForSkill = (
-  skillName: string,
-): NobleSkillParserEntry | undefined => {
-  return NOBLE_SUPPORT_PARSERS.find((entry) => entry.skillName === skillName);
 };
