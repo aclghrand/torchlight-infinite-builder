@@ -138,6 +138,25 @@ test("parse curse damage dealt and damage taken", () => {
   ]);
 });
 
+test("parse additional damage per movement speed with cap", () => {
+  const result = parseMod(
+    "+1% additional Damage per +10% Movement Speed, up to +10%",
+  );
+  expect(result).toEqual([
+    {
+      type: "DmgPct",
+      value: 1,
+      dmgModType: "global",
+      addn: true,
+      per: {
+        stackable: "movement_speed_bonus_pct",
+        amt: 10,
+        valueLimit: 10,
+      },
+    },
+  ]);
+});
+
 test("parse additional damage when having both sealed mana and life", () => {
   const result = parseMod(
     "+10% additional damage when having both Sealed Mana and Life",

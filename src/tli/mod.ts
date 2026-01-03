@@ -66,6 +66,7 @@ export type Stackable =
   | "skill_charges_on_use"
   | "cruelty_buff"
   | "fervor"
+  | "movement_speed_bonus_pct"
   | "max_mana"
   | "mana_consumed_recently"
   | "mercury_pt"

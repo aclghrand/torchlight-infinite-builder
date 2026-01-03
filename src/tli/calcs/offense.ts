@@ -1961,6 +1961,7 @@ const resolveModsForOffenseSkill = (
   skill: BaseActiveSkill | BasePassiveSkill,
   skillLevel: number,
   resourcePool: ResourcePool,
+  defenses: Defenses,
   loadout: Loadout,
   config: Configuration,
   derivedCtx: DerivedCtx,
@@ -1988,6 +1989,14 @@ const resolveModsForOffenseSkill = (
 
   const totalMainStats = calculateTotalMainStats(skill, stats);
   mods.push(...normalizeStackables(prenormMods, "main_stat", totalMainStats));
+
+  mods.push(
+    ...normalizeStackables(
+      prenormMods,
+      "movement_speed_bonus_pct",
+      defenses.movementSpeedBonusPct,
+    ),
+  );
 
   mods.push(
     ...normalizeStackables(
@@ -2243,7 +2252,7 @@ export const calculateDefenses = (
   };
 
   const movementSpeedBonusPct =
-    calculateEffMultiplier(filterMod(mods, "MovementSpeedPct")) - 1;
+    (calculateEffMultiplier(filterMod(mods, "MovementSpeedPct")) - 1) * 100;
 
   return {
     coldRes: calcRes(["cold", "elemental"]),
@@ -2492,6 +2501,7 @@ export const calculateOffense = (input: OffenseInput): OffenseResults => {
       perSkillContext.skill,
       skillLevel,
       resourcePool,
+      defenses,
       loadout,
       config,
       derivedCtx,

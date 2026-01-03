@@ -26,6 +26,7 @@ const AT_MAX_CHANNELED_STACKS = "at_max_channeled_stacks" as const;
 const ENEMY_IS_CURSED = "enemy_is_cursed" as const;
 const HAVE_BOTH_SEALED_MANA_AND_LIFE = "have_both_sealed_mana_and_life" as const;
 const TARGET_ENEMY_IS_ELITE = "target_enemy_is_elite" as const;
+const MOVEMENT_SPEED_BONUS_PCT = "movement_speed_bonus_pct" as const;
 
 const coreTalentNameSet = new Set(CoreTalentNames.map((name) => name.toLowerCase()));
 
@@ -81,6 +82,10 @@ export const allParsers = [
       return { value: c.value, dmgModType: c.modType, addn: false, per };
     },
   ),
+  t("{value:dec%} additional damage per \\+{amt:dec%} movement speed, up to \\+{limit:dec%}").output("DmgPct", (c) => {
+    const per: PerStackable = { stackable: MOVEMENT_SPEED_BONUS_PCT, amt: c.amt, valueLimit: c.limit };
+    return { value: c.value, dmgModType: GLOBAL, addn: true, per };
+  }),
   t("{value:dec%} additional damage for the next skill when mana reaches the max").output("DmgPct", (c) => ({
     value: c.value,
     dmgModType: GLOBAL,
