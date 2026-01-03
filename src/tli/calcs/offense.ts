@@ -850,7 +850,7 @@ function calculatePenetration(
     | NumDmgValues;
 }
 
-const calculateSkillHit = (
+const calculateAtkHit = (
   gearDmg: GearDmg,
   flatDmg: DmgRanges,
   mods: Mod[],
@@ -2378,7 +2378,7 @@ const calcAvgAttackDps = (
 ): OffenseAttackDpsSummary | undefined => {
   const gearDmg = calculateGearDmg(loadout, mods);
   const flatDmg = calculateFlatDmg(mods, "attack");
-  const skillHit = calculateSkillHit(
+  const skillHit = calculateAtkHit(
     gearDmg,
     flatDmg,
     mods,
