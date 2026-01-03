@@ -29,6 +29,21 @@ export const activeSkillModFactories: Partial<
       },
     ],
   }),
+  // Test skill for spell damage testing
+  "[Test] Simple Spell": (l, vals) => ({
+    offense: [
+      { type: "AddedDmgEffPct", value: v(vals.addedDmgEffPct, l) },
+      {
+        type: "SpellDmg",
+        value: {
+          min: v(vals.spellDmgMin, l),
+          max: v(vals.spellDmgMax, l),
+        },
+        dmgType: "physical",
+        castTime: v(vals.castTime, l),
+      },
+    ],
+  }),
   "Frost Spike": (l, vals) => ({
     offense: [
       { type: "WeaponAtkDmgPct", value: v(vals.weaponAtkDmgPct, l) },
@@ -186,5 +201,20 @@ export const activeSkillModFactories: Partial<
         per: { stackable: "arcane_circle_stack", limit: 15 },
       },
     ],
+  }),
+  "Chain Lightning": (l, vals) => ({
+    offense: [
+      { type: "AddedDmgEffPct", value: v(vals.addedDmgEffPct, l) },
+      {
+        type: "SpellDmg",
+        value: {
+          min: v(vals.spellDmgMin, l),
+          max: v(vals.spellDmgMax, l),
+        },
+        dmgType: "lightning",
+        castTime: v(vals.castTime, l),
+      },
+    ],
+    mods: [{ type: "Jump", value: v(vals.jump, l) }],
   }),
 };

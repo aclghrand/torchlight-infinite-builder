@@ -358,3 +358,89 @@ export const arcaneCircleParser: SupportLevelParser = (input) => {
 
   return { spellDmgPctPerStack };
 };
+
+export const chainLightningParser: SupportLevelParser = (input) => {
+  const { skillName, progressionTable } = input;
+
+  // Get columns - use exact match for "damage" to avoid substring collision
+  const addedDmgEffCol = findColumn(
+    progressionTable,
+    "effectiveness of added damage",
+    skillName,
+  );
+  const damageCol = progressionTable.find(
+    (col) => col.header.toLowerCase() === "damage",
+  );
+  if (damageCol === undefined) {
+    throw new Error(`${skillName}: no "damage" column found`);
+  }
+  const descriptCol = findColumn(progressionTable, "descript", skillName);
+
+  // Level-scaling values
+  const addedDmgEffPct: Record<number, number> = {};
+  const spellDmgMin: Record<number, number> = {};
+  const spellDmgMax: Record<number, number> = {};
+
+  // Parse effectiveness of added damage (levels 1-20)
+  for (const [levelStr, text] of Object.entries(addedDmgEffCol.rows)) {
+    const level = Number(levelStr);
+    if (level <= 20 && text !== "") {
+      addedDmgEffPct[level] = parseNumericValue(text);
+    }
+  }
+
+  // Parse spell damage min/max from damage column (levels 1-20)
+  // Format: "Deals 1-23 Spell Lightning damage"
+  for (const [levelStr, text] of Object.entries(damageCol.rows)) {
+    const level = Number(levelStr);
+    if (level <= 20 && text !== "") {
+      const match = template("deals {min:int}-{max:int} spell lightning").match(
+        text,
+        skillName,
+      );
+      spellDmgMin[level] = match.min;
+      spellDmgMax[level] = match.max;
+    }
+  }
+
+  // Fill levels 21-40 with level 20 values
+  const level20AddedDmgEff = addedDmgEffPct[20];
+  const level20SpellDmgMin = spellDmgMin[20];
+  const level20SpellDmgMax = spellDmgMax[20];
+  if (
+    level20AddedDmgEff === undefined ||
+    level20SpellDmgMin === undefined ||
+    level20SpellDmgMax === undefined
+  ) {
+    throw new Error(`${skillName}: level 20 values missing`);
+  }
+  for (let level = 21; level <= 40; level++) {
+    addedDmgEffPct[level] = level20AddedDmgEff;
+    spellDmgMin[level] = level20SpellDmgMin;
+    spellDmgMax[level] = level20SpellDmgMax;
+  }
+
+  // Extract constants from level 1 Descript
+  const descript = descriptCol.rows[1];
+  if (descript === undefined) {
+    throw new Error(`${skillName}: no descript found for level 1`);
+  }
+
+  // Jump: "+2 Jumps for this skill"
+  const jump = template("{value:int} jumps for this skill").match(
+    descript,
+    skillName,
+  ).value;
+
+  validateAllLevels(addedDmgEffPct, skillName);
+  validateAllLevels(spellDmgMin, skillName);
+  validateAllLevels(spellDmgMax, skillName);
+
+  return {
+    addedDmgEffPct,
+    spellDmgMin,
+    spellDmgMax,
+    castTime: createConstantLevels(0.65),
+    jump: createConstantLevels(jump),
+  };
+};

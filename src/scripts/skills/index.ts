@@ -1,6 +1,7 @@
 import {
   arcaneCircleParser,
   bullsRageParser,
+  chainLightningParser,
   chargingWarcryParser,
   corruptionParser,
   entangledPainParser,
@@ -103,6 +104,11 @@ export const SKILL_PARSERS: SkillParserEntry[] = [
     skillName: "Erosion Amplification",
     categories: ["passive"],
     parser: erosionAmplificationParser,
+  },
+  {
+    skillName: "Chain Lightning",
+    categories: ["active"],
+    parser: chainLightningParser,
   },
 ];
 

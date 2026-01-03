@@ -787,6 +787,25 @@ const createTestPersistentSpell = (): BaseActiveSkill => {
   };
 };
 
+const createTestSimpleSpell = (): BaseActiveSkill => {
+  const constantValues = Array.from({ length: 40 }, () => 100);
+  const constantCastTime = Array.from({ length: 40 }, () => 1);
+  return {
+    type: "Active",
+    name: "[Test] Simple Spell",
+    kinds: ["deal_damage", "hit_enemies"],
+    tags: ["Spell"],
+    description: ["this is used for testing spell damage"],
+    mainStats: ["int"],
+    levelValues: {
+      addedDmgEffPct: constantValues,
+      spellDmgMin: constantValues,
+      spellDmgMax: constantValues,
+      castTime: constantCastTime,
+    },
+  };
+};
+
 const generateActiveSkillFile = (
   constName: string,
   skills: BaseActiveSkill[],
@@ -1091,8 +1110,10 @@ const main = async (): Promise<void> => {
   // Add test skills for testing purposes
   const testSkill = createTestActiveSkill();
   const testPersistentSpell = createTestPersistentSpell();
+  const testSimpleSpell = createTestSimpleSpell();
   activeSkillGroups.get("Active")?.push(testSkill);
   activeSkillGroups.get("Active")?.push(testPersistentSpell);
+  activeSkillGroups.get("Active")?.push(testSimpleSpell);
 
   // Generate active skill files
   for (const [skillType, skills] of activeSkillGroups) {

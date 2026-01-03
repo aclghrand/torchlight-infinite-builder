@@ -1,3 +1,4 @@
+import type { DmgRange } from "@/src/tli/core";
 import type { DmgChunkType } from "@/src/tli/mod";
 import type { ActivationMediumSkills } from "./activation_medium";
 import { ActiveSkills } from "./active";
@@ -188,6 +189,12 @@ export type SkillOffense =
       value: number;
       dmgType: DmgChunkType;
       duration: number;
+    }
+  | {
+      type: "SpellDmg";
+      value: DmgRange;
+      dmgType: DmgChunkType;
+      castTime: number;
     };
 
 export type SkillOffenseType = SkillOffense["type"];
