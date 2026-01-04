@@ -207,8 +207,31 @@ const extractLegendary = (
   // Extract name
   const name = mainCard.find("h5.card-title.item_rarity").text().trim();
 
-  // Extract baseStat
-  const baseStat = cleanHtmlText(mainCard.find('div[data-block="attrs2"]'), $);
+  // Extract baseStat - includes attrs2 plus any sibling div.text-center before the hr
+  const attrs2 = mainCard.find('div[data-block="attrs2"]');
+  let baseStat = cleanHtmlText(attrs2, $);
+
+  // Look for additional base stat divs that come after attrs2 but before the hr
+  // These are div.text-center elements without data-block attribute
+  let nextElem = attrs2.next();
+  while (nextElem.length > 0) {
+    const tagName = nextElem.prop("tagName")?.toLowerCase();
+    // Stop at hr or any non-div element
+    if (tagName === "hr" || tagName !== "div") {
+      break;
+    }
+    // Only include div.text-center without data-block attribute
+    if (
+      nextElem.hasClass("text-center") &&
+      nextElem.attr("data-block") === undefined
+    ) {
+      const extraStat = cleanHtmlText(nextElem, $);
+      if (extraStat) {
+        baseStat = baseStat ? `${baseStat}\n${extraStat}` : extraStat;
+      }
+    }
+    nextElem = nextElem.next();
+  }
 
   // Extract normal affixes (div.t1)
   const normalAffixes: LegendaryAffix[] = [];

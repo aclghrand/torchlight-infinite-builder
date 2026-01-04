@@ -339,7 +339,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Cinnabar Pendant",
-    baseStat: "",
+    baseStat: "+3 Dexterity",
     name: "Blessing Pendant",
     normalAffixes: [
       "+29 Attack and Spell Critical Strike Rating",
@@ -415,7 +415,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Wind Blade Waistguard",
-    baseStat: "",
+    baseStat: "+15 Max Life",
     name: "Bodhi Girdle",
     normalAffixes: [
       "+(19-27)% Erosion Resistance",
@@ -518,7 +518,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Burning Flame Ring",
-    baseStat: "",
+    baseStat: "+3% Fire Resistance",
     name: "Born in Fire",
     normalAffixes: [
       "+5 Max Life per 1 levels",
@@ -574,7 +574,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Ripple Pendant",
-    baseStat: "",
+    baseStat: "+8 Dexterity",
     name: "Broken Sun Ring",
     normalAffixes: [
       "+(220-264) Max Life",
@@ -593,7 +593,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Sealed Ice Ring",
-    baseStat: "",
+    baseStat: "+11% Cold Resistance",
     name: "Burning Ice",
     normalAffixes: [
       "+(20-24)% Max Life and Max Energy Shield",
@@ -636,7 +636,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Wind Blade Waistguard",
-    baseStat: "",
+    baseStat: "+15 Max Life",
     name: "Call of Souls",
     normalAffixes: [
       "Regenerates 1% Life per second",
@@ -653,7 +653,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Tortoiseshell Amulet",
-    baseStat: "",
+    baseStat: "+3 Strength",
     name: "Chain behind the Curtain",
     normalAffixes: [
       "+(6-20)% Max Energy Shield",
@@ -674,7 +674,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Tortoiseshell Amulet",
-    baseStat: "",
+    baseStat: "+3 Strength",
     name: "Chain of Resistance",
     normalAffixes: [
       "+(165-176) Max Life",
@@ -714,7 +714,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Abyss Darkness Ring",
-    baseStat: "",
+    baseStat: "+3% Erosion Resistance",
     name: "Chaotic Ending",
     normalAffixes: [
       "+(11-12) all stats",
@@ -954,7 +954,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Lunar Corona Necklace",
-    baseStat: "",
+    baseStat: "+8 Intelligence",
     name: "Clarity",
     normalAffixes: [
       "+(88-132) Max Life",
@@ -973,7 +973,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Abyss Darkness Ring",
-    baseStat: "",
+    baseStat: "+3% Erosion Resistance",
     name: "Clay Doll's Broken Finger",
     normalAffixes: [
       "+80% Spell Damage for 2s after using a Terra Skill.",
@@ -1049,7 +1049,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Ripple Pendant",
-    baseStat: "",
+    baseStat: "+8 Dexterity",
     name: "Coldness Tracer's Tear",
     normalAffixes: [
       "+40% chance to cause Ailments",
@@ -1068,7 +1068,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Rock Waistguard",
-    baseStat: "",
+    baseStat: "+10 Max Life",
     name: "Compensatory Life",
     normalAffixes: [
       "+(27-32)% Max Mana",
@@ -1089,7 +1089,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Rock Waistguard",
-    baseStat: "",
+    baseStat: "+10 Max Life",
     name: "Confusion Elemental Belt",
     normalAffixes: [
       "+(6-8)% all stats",
@@ -1110,7 +1110,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "God's Grace Girdle",
-    baseStat: "",
+    baseStat: "+18 Max Energy Shield",
     name: "Corrosion of Manifolds",
     normalAffixes: [
       "+(20-25) all stats",
@@ -1258,7 +1258,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Rock Waistguard",
-    baseStat: "",
+    baseStat: "+10 Max Life",
     name: "Cry of Divinity",
     normalAffixes: [
       "Regenerates 1% Life per second",
@@ -1297,7 +1297,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Dragon Scale Waistguard",
-    baseStat: "",
+    baseStat: "+35 Max Life",
     name: "Dawn Break",
     normalAffixes: [
       "+(500-1000) Armor and Evasion",
@@ -1367,7 +1367,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Command Spirit Ring",
-    baseStat: "",
+    baseStat: "+8% Minion Damage",
     name: "Decayed Mind",
     normalAffixes: [
       "+(3-4)% Sealed Mana Compensation",
@@ -1390,7 +1390,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Obsidian Necklace",
-    baseStat: "",
+    baseStat: "+3 Intelligence",
     name: "Decaying Blessing",
     normalAffixes: [
       "+(15-20)% Max Life",
@@ -1430,7 +1430,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Dragon Scale Waistguard",
-    baseStat: "",
+    baseStat: "+35 Max Life",
     name: "Desire of Survival",
     normalAffixes: [
       "+(5-10) Strength",
@@ -1614,7 +1614,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Sage's Necklace",
-    baseStat: "",
+    baseStat: "+18 Intelligence",
     name: "Elegy of Immortality",
     normalAffixes: [
       "Mobility Skills gain 1 Charge for every 4 time(s) you channel",
@@ -1661,7 +1661,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Radiant Lunar Girdle",
-    baseStat: "",
+    baseStat: "+50 Max Energy Shield",
     name: "Elemental Whisper Belt",
     normalAffixes: [
       "Adds (4-6) - (14-16) Fire Damage to Spells",
@@ -1680,7 +1680,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Wind Blade Waistguard",
-    baseStat: "",
+    baseStat: "+15 Max Life",
     name: "Embrace of the Dark Surge",
     normalAffixes: [
       "+(100-300) Max Life",
@@ -1701,7 +1701,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "God's Grace Girdle",
-    baseStat: "",
+    baseStat: "+18 Max Energy Shield",
     name: "Enamor",
     normalAffixes: [
       "(-3--2) Main Skill Level",
@@ -2029,7 +2029,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Dragon Scale Waistguard",
-    baseStat: "",
+    baseStat: "+35 Max Life",
     name: "Entangled Root",
     normalAffixes: [
       "Has Lv. (35-40) Precise: Rejuvenation while standing still",
@@ -2072,7 +2072,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Wind Blade Waistguard",
-    baseStat: "",
+    baseStat: "+15 Max Life",
     name: "Eternal Sea Fog",
     normalAffixes: [
       "+(5-15)% Defense",
@@ -2095,7 +2095,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Dragon Scale Waistguard",
-    baseStat: "",
+    baseStat: "+35 Max Life",
     name: "Eternal Sun",
     normalAffixes: [
       "+(330-550) Max Life",
@@ -2114,7 +2114,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Wayfarer Waistguard",
-    baseStat: "",
+    baseStat: "+110 Max Life",
     name: "Eternity",
     normalAffixes: [
       "+(160-220) Max Life",
@@ -2139,7 +2139,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "God's Grace Girdle",
-    baseStat: "",
+    baseStat: "+18 Max Energy Shield",
     name: "Everburn Thunderfire",
     normalAffixes: [
       "+(18-25) Strength and Dexterity",
@@ -2181,7 +2181,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "High Heavens Lightning Ring",
-    baseStat: "",
+    baseStat: "+9% Lightning Resistance",
     name: "Exemption Thunderhell",
     normalAffixes: [
       "+(10-15)% Max Life and Max Energy Shield",
@@ -2202,7 +2202,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Flare Amulet",
-    baseStat: "",
+    baseStat: "+8 Strength",
     name: "False God's Skin",
     normalAffixes: [
       "+(6-10)% all stats",
@@ -2374,7 +2374,8 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Wiseman's Wand",
-    baseStat: "500 Critical Strike Rating\n1.2 Attack Speed",
+    baseStat:
+      "500 Critical Strike Rating\n1.2 Attack Speed\nAdds 10 - 10 Cold Damage to Spells",
     name: "Fiery Oath",
     normalAffixes: [
       "+(1-2) Fire Skill Level",
@@ -2437,7 +2438,8 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "White Crystal Wand",
-    baseStat: "500 Critical Strike Rating\n1.2 Attack Speed",
+    baseStat:
+      "500 Critical Strike Rating\n1.2 Attack Speed\nAdds 12 - 12 Lightning Damage to Spells",
     name: "Fire Lord's Promise",
     normalAffixes: [
       "+(60-80)% Spell Damage",
@@ -2611,7 +2613,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Rotten Darkness Ring",
-    baseStat: "",
+    baseStat: "+6% Erosion Resistance",
     name: "Folklore of Locking Fingers",
     normalAffixes: [
       "+10% Max Life and Max Energy Shield",
@@ -2651,7 +2653,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Cataclysm Amulet",
-    baseStat: "",
+    baseStat: "+5 Strength",
     name: "Forlorn Crystal",
     normalAffixes: [
       "+(25-36)% Armor",
@@ -2670,7 +2672,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Radiant Lunar Girdle",
-    baseStat: "",
+    baseStat: "+50 Max Energy Shield",
     name: "Formation Breaker",
     normalAffixes: [
       "(-40-20)% additional Attack and Cast Speed for Sentry Skills",
@@ -2736,7 +2738,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Shaman's Necklace",
-    baseStat: "",
+    baseStat: "+5 Intelligence",
     name: "Frostbolt",
     normalAffixes: [
       "+(150-250) Max Energy Shield",
@@ -2755,7 +2757,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Torched Flame Ring",
-    baseStat: "",
+    baseStat: "+11% Fire Resistance",
     name: "Frozen Flame",
     normalAffixes: [
       "+(20-24)% Max Life and Max Energy Shield",
@@ -2776,7 +2778,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Blight Ice Ring",
-    baseStat: "",
+    baseStat: "+4% Cold Resistance",
     name: "Frozen Lightning",
     normalAffixes: [
       "+(7-11) Dexterity and Intelligence",
@@ -2902,7 +2904,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Obsidian Necklace",
-    baseStat: "",
+    baseStat: "+3 Intelligence",
     name: "Furious Man's Loud Song",
     normalAffixes: [
       "+(220-264) Max Life",
@@ -2921,7 +2923,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Raging Boil Flame Ring",
-    baseStat: "",
+    baseStat: "+6% Fire Resistance",
     name: "Fury Heart",
     normalAffixes: [
       "+(40-50)% attack Critical Strike Damage",
@@ -3242,7 +3244,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Ripple Pendant",
-    baseStat: "",
+    baseStat: "+8 Dexterity",
     name: "Heart of Animitta",
     normalAffixes: [
       "+(190-220) Max Life and Max Energy Shield",
@@ -3263,7 +3265,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Chilling Lightning Ring",
-    baseStat: "",
+    baseStat: "+6% Lightning Resistance",
     name: "Heart of Magic",
     normalAffixes: [
       "+(73-146) Max Energy Shield",
@@ -3282,7 +3284,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Snow Ice Ring",
-    baseStat: "",
+    baseStat: "+6% Cold Resistance",
     name: "Heart of Rock",
     normalAffixes: [
       "After taking a hit, gains 1 stack of Tenacity Blessing every 0.25 s for 2 s",
@@ -3301,7 +3303,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Ripple Pendant",
-    baseStat: "",
+    baseStat: "+8 Dexterity",
     name: "Heart of the Storm",
     normalAffixes: [
       "+(12-16)% Max Life and Max Energy Shield",
@@ -3422,7 +3424,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Harvest Spirit Ring",
-    baseStat: "",
+    baseStat: "+12% Minion Damage",
     name: "Horn Ring",
     normalAffixes: [
       "Regenerates (50-60) Life per second",
@@ -3441,7 +3443,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Dragon Scale Waistguard",
-    baseStat: "",
+    baseStat: "+35 Max Life",
     name: "Hot Night's Embrace",
     normalAffixes: [
       "+(30-40) Intelligence",
@@ -3460,7 +3462,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Ripple Pendant",
-    baseStat: "",
+    baseStat: "+8 Dexterity",
     name: "Howling Wind",
     normalAffixes: [
       "Eliminate enemies under 10% Life on hit",
@@ -3557,7 +3559,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Obsidian Necklace",
-    baseStat: "",
+    baseStat: "+3 Intelligence",
     name: "Illusory Ocean Silk - Ash",
     normalAffixes: [
       "+(8-12)% Max Life, Max Mana, and Max Energy Shield",
@@ -3580,7 +3582,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Lunar Corona Necklace",
-    baseStat: "",
+    baseStat: "+8 Intelligence",
     name: "Illusory Ocean Silk - Chilly",
     normalAffixes: [
       "+(8-12)% Max Life, Max Mana, and Max Energy Shield",
@@ -3603,7 +3605,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Ripple Pendant",
-    baseStat: "",
+    baseStat: "+8 Dexterity",
     name: "Illusory Ocean Silk - Iron Rain",
     normalAffixes: [
       "+(8-12)% Max Life, Max Mana, and Max Energy Shield",
@@ -3626,7 +3628,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Shaman's Necklace",
-    baseStat: "",
+    baseStat: "+5 Intelligence",
     name: "Illusory Ocean Silk - Thunder",
     normalAffixes: [
       "+(8-12)% Max Life, Max Mana, and Max Energy Shield",
@@ -3649,7 +3651,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Tortoiseshell Amulet",
-    baseStat: "",
+    baseStat: "+3 Strength",
     name: "Illusory Ocean Silk - Unreal",
     normalAffixes: [
       "+(8-12)% Max Life, Max Mana, and Max Energy Shield",
@@ -3748,7 +3750,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Spring Source Girdle",
-    baseStat: "",
+    baseStat: "+12 Max Energy Shield",
     name: "Insulation",
     normalAffixes: [
       "Adds (1-4) - (75-100) Lightning Damage to Attacks and Spells",
@@ -3791,7 +3793,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Lunar Corona Necklace",
-    baseStat: "",
+    baseStat: "+8 Intelligence",
     name: "Iron Nest",
     normalAffixes: [
       "Command decreases every second instead of increasing every second\nLoses Command instead of gaining it when using Dark Gate",
@@ -3852,7 +3854,8 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Sage Wand",
-    baseStat: "500 Critical Strike Rating\n1.2 Attack Speed",
+    baseStat:
+      "500 Critical Strike Rating\n1.2 Attack Speed\nAdds 20 - 20 Lightning Damage to Spells",
     name: "Jumble Ice",
     normalAffixes: [
       "+(180-240) Max Mana",
@@ -3871,7 +3874,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Agony Darkness Ring",
-    baseStat: "",
+    baseStat: "+4% Erosion Resistance",
     name: "Kaleidoscope",
     normalAffixes: [
       "+66 Max Life",
@@ -3973,7 +3976,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Obsidian Necklace",
-    baseStat: "",
+    baseStat: "+3 Intelligence",
     name: "Lady's Tears",
     normalAffixes: [
       "+1 Passive Skill Level",
@@ -4036,7 +4039,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Shaman's Necklace",
-    baseStat: "",
+    baseStat: "+5 Intelligence",
     name: "Law of Greed",
     normalAffixes: [
       "+(20-30)% Max Life, Max Mana, and Max Energy Shield",
@@ -4095,7 +4098,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Radiant Lunar Girdle",
-    baseStat: "",
+    baseStat: "+50 Max Energy Shield",
     name: "Light Hunter Belt",
     normalAffixes: [
       "+(150-400) Max Energy Shield",
@@ -4135,7 +4138,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Burning Flame Ring",
-    baseStat: "",
+    baseStat: "+3% Fire Resistance",
     name: "Lone Survivor",
     normalAffixes: [
       "+(60-70) Max Life",
@@ -4191,7 +4194,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Biting Wind Ice Ring",
-    baseStat: "",
+    baseStat: "+3% Cold Resistance",
     name: "Lonesome",
     normalAffixes: [
       "+(25-30) Max Mana",
@@ -4290,7 +4293,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Obsidian Necklace",
-    baseStat: "",
+    baseStat: "+3 Intelligence",
     name: "Magnus' Mindflame",
     normalAffixes: [
       "+(88-110) Max Life",
@@ -4393,7 +4396,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Sunlight Pendant",
-    baseStat: "",
+    baseStat: "+5 Dexterity",
     name: "Master Defender Pendant",
     normalAffixes: [
       "+(70-100) Max Life",
@@ -4438,7 +4441,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Lunar Corona Necklace",
-    baseStat: "",
+    baseStat: "+8 Intelligence",
     name: "Mercurial Torment",
     normalAffixes: [
       "+(100-120) Max Mana",
@@ -4542,7 +4545,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Shaman's Necklace",
-    baseStat: "",
+    baseStat: "+5 Intelligence",
     name: "Mortal's Reverie",
     normalAffixes: [
       "+(190-220) Max Life",
@@ -4561,7 +4564,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Obsidian Necklace",
-    baseStat: "",
+    baseStat: "+3 Intelligence",
     name: "Mother Goddess' Paddock",
     normalAffixes: [
       "+(30-40)% Defense",
@@ -4608,7 +4611,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Obsidian Necklace",
-    baseStat: "",
+    baseStat: "+3 Intelligence",
     name: "Mourner's Shadow",
     normalAffixes: [
       "+(220-264) Max Life",
@@ -4627,7 +4630,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Ripple Pendant",
-    baseStat: "",
+    baseStat: "+8 Dexterity",
     name: "Necklace of Firebird",
     normalAffixes: [
       "+(8-12)% Max Life and Max Energy Shield",
@@ -4646,7 +4649,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Obsidian Necklace",
-    baseStat: "",
+    baseStat: "+3 Intelligence",
     name: "Necklace of Inverse",
     normalAffixes: [
       "+(30-40) all stats",
@@ -4685,7 +4688,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Cataclysm Amulet",
-    baseStat: "",
+    baseStat: "+5 Strength",
     name: "Ocean of Rock",
     normalAffixes: [
       "+(132-176) Max Life",
@@ -4743,7 +4746,8 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Wraith Wand",
-    baseStat: "500 Critical Strike Rating\n1.2 Attack Speed",
+    baseStat:
+      "500 Critical Strike Rating\n1.2 Attack Speed\nAdds 16 - 16 Fire Damage to Spells",
     name: "Oversight",
     normalAffixes: [
       "+(3-4) Spell Skill Level",
@@ -4758,7 +4762,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Shaman's Necklace",
-    baseStat: "",
+    baseStat: "+5 Intelligence",
     name: "Ownerless",
     normalAffixes: [
       "+(209-220) Max Life",
@@ -4779,7 +4783,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Wind Blade Waistguard",
-    baseStat: "",
+    baseStat: "+15 Max Life",
     name: "Pale Mist's Embrace",
     normalAffixes: [
       "+44 Max Life",
@@ -4798,7 +4802,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Sealed Ice Ring",
-    baseStat: "",
+    baseStat: "+11% Cold Resistance",
     name: "Passing of Time",
     normalAffixes: [
       "Consumes 10% of current Life and Energy Shield per second",
@@ -4834,7 +4838,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Sunlight Pendant",
-    baseStat: "",
+    baseStat: "+5 Dexterity",
     name: "Pentagram Astrolabe",
     normalAffixes: [
       {
@@ -4936,7 +4940,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Obsidian Necklace",
-    baseStat: "",
+    baseStat: "+3 Intelligence",
     name: "Phantom",
     normalAffixes: [
       "+(100-120) Max Mana",
@@ -4973,7 +4977,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Cinnabar Pendant",
-    baseStat: "",
+    baseStat: "+3 Dexterity",
     name: "Photophobia",
     normalAffixes: [
       "[Beacon] +2 Max Spell Burst",
@@ -5010,7 +5014,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Spring Source Girdle",
-    baseStat: "",
+    baseStat: "+12 Max Energy Shield",
     name: "Polygonal Enclosure",
     normalAffixes: [
       "+(15-25)% Max Life and Max Energy Shield",
@@ -5073,7 +5077,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Moonstone Necklace",
-    baseStat: "",
+    baseStat: "+12 Intelligence",
     name: "Prayer Bead of Evil",
     normalAffixes: [
       "+60 Max Life",
@@ -5242,7 +5246,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Dragon Scale Waistguard",
-    baseStat: "",
+    baseStat: "+35 Max Life",
     name: "Rat Herder's Golden Rein",
     normalAffixes: [
       "(-20--15)% additional damage taken while channeling",
@@ -5282,7 +5286,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Ripple Pendant",
-    baseStat: "",
+    baseStat: "+8 Dexterity",
     name: "Rat King's Megagon Dice",
     normalAffixes: [
       "+(65-75)% Critical Strike Damage",
@@ -5341,7 +5345,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Dazzling Lightning Ring",
-    baseStat: "",
+    baseStat: "+4% Lightning Resistance",
     name: "Revered Light",
     normalAffixes: ["+1 to Beam Skill Level", "+1 Beams"],
     corruptionAffixes: ["+2 to Beam Skill Level", "+2 Beams"],
@@ -5449,7 +5453,8 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Ivory Staff",
-    baseStat: "500 Critical Strike Rating\n1.2 Attack Speed",
+    baseStat:
+      "500 Critical Strike Rating\n1.2 Attack Speed\nAdds 8 - 8 Erosion Damage to Spells",
     name: "Sage's Foresight",
     normalAffixes: [
       "+(100-120)% Spell Damage",
@@ -5491,7 +5496,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Lunar Corona Necklace",
-    baseStat: "",
+    baseStat: "+8 Intelligence",
     name: "Sage's Shackle",
     normalAffixes: [
       "+25 all stats",
@@ -5550,7 +5555,8 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Voodoo Wand",
-    baseStat: "500 Critical Strike Rating\n1.2 Attack Speed",
+    baseStat:
+      "500 Critical Strike Rating\n1.2 Attack Speed\nAdds 8 - 8 Erosion Damage to Spells",
     name: "Scepter of Excommunication",
     normalAffixes: [
       "+(20-30) Intelligence",
@@ -5567,7 +5573,8 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Voodoo Staff",
-    baseStat: "500 Critical Strike Rating\n1.2 Attack Speed",
+    baseStat:
+      "500 Critical Strike Rating\n1.2 Attack Speed\nAdds 32 - 32 Fire Damage to Spells",
     name: "Scorching Tempo",
     normalAffixes: [
       "You have a Lv. (1-20) Charged Flames",
@@ -5645,7 +5652,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Firestorm Flame Ring",
-    baseStat: "",
+    baseStat: "+9% Fire Resistance",
     name: "Searing Finger Bone",
     normalAffixes: [
       "+120% Fire Damage",
@@ -5719,7 +5726,8 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Wiseman's Wand",
-    baseStat: "500 Critical Strike Rating\n1.2 Attack Speed",
+    baseStat:
+      "500 Critical Strike Rating\n1.2 Attack Speed\nAdds 10 - 10 Cold Damage to Spells",
     name: "Shadow of Thunderlight's Fury",
     normalAffixes: [
       "+(80-100)% Spell Damage",
@@ -5820,7 +5828,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Wayfarer Waistguard",
-    baseStat: "",
+    baseStat: "+110 Max Life",
     name: "Silent Observer",
     normalAffixes: [
       "+(100-150) Max Life",
@@ -5858,7 +5866,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Blight Ice Ring",
-    baseStat: "",
+    baseStat: "+4% Cold Resistance",
     name: "Silver Frost",
     normalAffixes: [
       "+(20-30) Intelligence",
@@ -5911,7 +5919,8 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Rambone Wand",
-    baseStat: "500 Critical Strike Rating\n1.2 Attack Speed",
+    baseStat:
+      "500 Critical Strike Rating\n1.2 Attack Speed\nAdds 3 - 3 Lightning Damage to Spells",
     name: "Spring Resurrection",
     normalAffixes: [
       "+(100-120)% Spell Damage",
@@ -5952,7 +5961,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Rock Waistguard",
-    baseStat: "",
+    baseStat: "+10 Max Life",
     name: "Steel's Lament",
     normalAffixes: [
       "+(165-176) Max Life",
@@ -5996,7 +6005,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Flare Amulet",
-    baseStat: "",
+    baseStat: "+8 Strength",
     name: "Strange Snow",
     normalAffixes: [
       "+(150-200) Max Life",
@@ -6034,7 +6043,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "God's Grace Girdle",
-    baseStat: "",
+    baseStat: "+18 Max Energy Shield",
     name: "Strayed Healer's Waistguard",
     normalAffixes: [
       "+(10-12)% Max Life and Max Mana",
@@ -6057,7 +6066,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Firestorm Flame Ring",
-    baseStat: "",
+    baseStat: "+9% Fire Resistance",
     name: "Stream of Steel",
     normalAffixes: [
       "+(60-70)% Melee Damage",
@@ -6115,7 +6124,8 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Deception Scepter",
-    baseStat: "500 Critical Strike Rating\n1.2 Attack Speed",
+    baseStat:
+      "500 Critical Strike Rating\n1.2 Attack Speed\n+21% Damage Over Time",
     name: "Supreme Throne",
     normalAffixes: [
       "Adds (46-48) - (55-60) Cold, Fire, Lightning, and Physical Damage to Spells",
@@ -6282,7 +6292,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Punished Lightning Ring",
-    baseStat: "",
+    baseStat: "+11% Lightning Resistance",
     name: "Time of Vow",
     normalAffixes: [
       "Restores 10% Missing Life and Energy Shield per second",
@@ -6320,7 +6330,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Rotten Darkness Ring",
-    baseStat: "",
+    baseStat: "+6% Erosion Resistance",
     name: "Traceless Pain",
     normalAffixes: [
       "+(50-70)% Damage Over Time",
@@ -6339,7 +6349,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Dragon Scale Waistguard",
-    baseStat: "",
+    baseStat: "+35 Max Life",
     name: "Tranquil Stir",
     normalAffixes: [
       "(-20--10)% Intelligence",
@@ -6419,7 +6429,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Shaman's Necklace",
-    baseStat: "",
+    baseStat: "+5 Intelligence",
     name: "Truth",
     normalAffixes: [
       "+(4-5) all skills' level",
@@ -6571,7 +6581,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Dazzling Lightning Ring",
-    baseStat: "",
+    baseStat: "+4% Lightning Resistance",
     name: "Unholy Prayer",
     normalAffixes: [
       "Max Agility Blessing Stacks +1",
@@ -6803,7 +6813,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Flare Amulet",
-    baseStat: "",
+    baseStat: "+8 Strength",
     name: "Vortex Heart",
     normalAffixes: [
       "Adds (44-46) - (54-56) Physical Damage to Attacks and Spells",
@@ -6843,7 +6853,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Lunar Corona Necklace",
-    baseStat: "",
+    baseStat: "+8 Intelligence",
     name: "Warden's Breastpin",
     normalAffixes: [
       "+(1-2) Passive Skill Level",
@@ -6941,7 +6951,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Agony Darkness Ring",
-    baseStat: "",
+    baseStat: "+4% Erosion Resistance",
     name: "Windbreath Convergence",
     normalAffixes: [
       "+40% Defense",
@@ -6962,7 +6972,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Agony Darkness Ring",
-    baseStat: "",
+    baseStat: "+4% Erosion Resistance",
     name: "Windbreath Dispersion",
     normalAffixes: [
       "+40% Defense",
@@ -7014,7 +7024,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "God's Grace Girdle",
-    baseStat: "",
+    baseStat: "+18 Max Energy Shield",
     name: "Winter of Origin",
     normalAffixes: [
       "+(15-20)% Minion Attack and Cast Speed",
@@ -7035,7 +7045,7 @@ export const Legendaries: readonly Legendary[] = [
   },
   {
     baseItem: "Dragon Scale Waistguard",
-    baseStat: "",
+    baseStat: "+35 Max Life",
     name: "Witchdoctor's Herb Bag",
     normalAffixes: [
       "+(30-50) Max Life",
