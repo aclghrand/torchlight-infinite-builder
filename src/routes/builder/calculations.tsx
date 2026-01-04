@@ -339,7 +339,7 @@ function CalculationsPage(): React.ReactNode {
           <div className="rounded-lg bg-zinc-800 p-4">
             <div className="text-sm text-zinc-400">Movement Speed</div>
             <div className="text-xl font-semibold text-green-400">
-              {defenses.movementSpeedBonusPct}%
+              {formatStatValue.pct(defenses.movementSpeedBonusPct)}
             </div>
           </div>
         </div>
