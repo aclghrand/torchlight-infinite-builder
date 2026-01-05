@@ -253,6 +253,7 @@ interface ModDefinitions {
   BaseProjectileQuant: { value: number };
   Projectile: { value: number };
   MaxProjectile: { value: number; override?: boolean };
+  MaxSpellBurst: { value: number };
   SkillAreaPct: {
     value: number;
     skillAreaModType: SkillAreaModType;
