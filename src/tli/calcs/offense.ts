@@ -473,7 +473,11 @@ const calculateCritChance = (
     modTypes.push("spell");
   }
 
-  const addedFlatCritRating = sumByValue(filterMod(allMods, "FlatCritRating"));
+  const addedFlatCritRating = sumByValue(
+    filterMod(allMods, "FlatCritRating").filter((m) =>
+      modTypes.includes(m.modType),
+    ),
+  );
   const baseCritRating = 500;
   const baseCritChance = (baseCritRating + addedFlatCritRating) / 100 / 100;
 

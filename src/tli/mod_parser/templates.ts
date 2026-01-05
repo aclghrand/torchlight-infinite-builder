@@ -222,6 +222,10 @@ export const allParsers = [
     value: c.value,
     modType: c.modType ?? "global",
   })),
+  t("\\+{value:int} [{modType:CritRatingModType}] critical strike rating").output("FlatCritRating", (c) => ({
+    value: c.value,
+    modType: c.modType ?? "global",
+  })),
   t("{value:dec%} [additional] [{modType:CritDmgModType}] critical strike damage").output("CritDmgPct", (c) => ({
     value: c.value,
     addn: c.additional !== undefined,

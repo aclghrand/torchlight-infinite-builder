@@ -424,6 +424,49 @@ test("return undefined for invalid crit rating mod type", () => {
   expect(result).toBeUndefined();
 });
 
+test("parse flat spell critical strike rating", () => {
+  const result = parseMod("+110 Spell Critical Strike Rating");
+  expect(result).toEqual([
+    {
+      type: "FlatCritRating",
+      value: 110,
+      modType: "spell",
+    },
+  ]);
+});
+
+test("parse flat attack critical strike rating", () => {
+  const result = parseMod("+200 Attack Critical Strike Rating");
+  expect(result).toEqual([
+    {
+      type: "FlatCritRating",
+      value: 200,
+      modType: "attack",
+    },
+  ]);
+});
+
+test("parse flat global critical strike rating", () => {
+  const result = parseMod("+100 Critical Strike Rating");
+  expect(result).toEqual([
+    {
+      type: "FlatCritRating",
+      value: 100,
+      modType: "global",
+    },
+  ]);
+});
+
+test("parse gear base critical strike rating", () => {
+  const result = parseMod("100 Critical Strike Rating");
+  expect(result).toEqual([
+    {
+      type: "GearBaseCritRating",
+      value: 100,
+    },
+  ]);
+});
+
 test("parse global critical strike damage", () => {
   const result = parseMod("+5% Critical Strike Damage");
   expect(result).toEqual([
