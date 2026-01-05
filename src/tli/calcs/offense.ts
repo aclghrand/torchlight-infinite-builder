@@ -2585,8 +2585,11 @@ const calcAvgSpellBurstDps = (
   const burstsPerSecMult = calculateEffMultiplier(chargeSpeedMods);
   const burstsPerSec = baseBurstsPerSec * burstsPerSecMult;
   const maxSpellBurst = sumByValue(filterMod(mods, "MaxSpellBurst"));
+  const spellBurstDmgMult = calculateAddn(
+    filterMod(mods, "SpellBurstAdditionalDmgPct").map((m) => m.value),
+  );
 
-  const avgDps = burstsPerSec * maxSpellBurst * avgHit;
+  const avgDps = burstsPerSec * maxSpellBurst * avgHit * spellBurstDmgMult;
 
   return { burstsPerSec, maxSpellBurst, avgDps };
 };
