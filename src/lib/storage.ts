@@ -1,3 +1,4 @@
+import { DEFAULT_CONFIGURATION } from "@/src/tli/core";
 import { DEBUG_MODE_STORAGE_KEY } from "./constants";
 import type {
   CalculationsPage,
@@ -63,58 +64,8 @@ export const createEmptyCalculationsPage = (): CalculationsPage => ({
   selectedSkillName: undefined,
 });
 
-export const createEmptyConfigurationPage = (): ConfigurationPage => ({
-  level: 95,
-  fervorEnabled: false,
-  fervorPoints: undefined,
-  enemyFrostbittenEnabled: false,
-  enemyFrostbittenPoints: undefined,
-  crueltyBuffStacks: 40,
-  numShadowHits: undefined,
-  manaConsumedRecently: undefined,
-  sealedManaPct: undefined,
-  sealedLifePct: undefined,
-  realmOfMercuryEnabled: false,
-  baptismOfPurityEnabled: false,
-  focusBlessings: undefined,
-  hasFocusBlessing: false,
-  agilityBlessings: undefined,
-  hasAgilityBlessing: false,
-  tenacityBlessings: undefined,
-  hasTenacityBlessing: false,
-  enemyColdRes: undefined,
-  enemyLightningRes: undefined,
-  enemyFireRes: undefined,
-  enemyErosionRes: undefined,
-  enemyArmor: undefined,
-  enemyParalyzed: false,
-  hasFullMana: false,
-  targetEnemyIsElite: false,
-  targetEnemyIsNearby: false,
-  targetEnemyIsInProximity: false,
-  numEnemiesNearby: 0,
-  numEnemiesAffectedByWarcry: 0,
-  hasBlockedRecently: false,
-  hasElitesNearby: false,
-  enemyHasAilment: false,
-  hasCritRecently: false,
-  channeling: false,
-  channeledStacks: undefined,
-  sagesInsightFireActivated: false,
-  sagesInsightColdActivated: false,
-  sagesInsightLightningActivated: false,
-  sagesInsightErosionActivated: false,
-  enemyHasAffliction: false,
-  afflictionPts: undefined,
-  enemyHasDesecration: false,
-  tormentStacks: 0,
-  hasBlur: false,
-  blurEndedRecently: false,
-  numMindControlLinksUsed: undefined,
-  hasSquidnova: false,
-  targetEnemyFrozenRecently: false,
-  targetEnemyHasColdInfiltration: false,
-});
+export const createEmptyConfigurationPage = (): ConfigurationPage =>
+  DEFAULT_CONFIGURATION;
 
 export const createEmptySkillPage = (): SkillPage => ({
   activeSkills: {},
