@@ -391,6 +391,9 @@ export const allParsers = [
     value: c.value,
     addn: c.additional !== undefined,
   })),
+  t(
+    "{value:dec%} of the bonuses and additional bonuses to cast speed is also applied to spell burst charge speed",
+  ).output("PlaySafe", (c) => ({ value: c.value })),
   t("{value:+int} max channeled stacks when equipped in the left ring slot").output("MaxChannel", (c) => ({
     value: c.value,
     cond: "equipped_in_left_ring_slot" as const,

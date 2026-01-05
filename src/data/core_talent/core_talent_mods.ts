@@ -407,6 +407,7 @@ export const CoreTalentMods: Record<CoreTalentName, Affix> = {
     affixLines: [
       {
         text: "100% of the bonuses and additional bonuses to Cast Speed is also applied to Spell Burst Charge Speed",
+        mods: [{ type: "PlaySafe", value: 100 }],
       },
     ],
   },

@@ -256,6 +256,7 @@ interface ModDefinitions {
   MaxProjectile: { value: number; override?: boolean };
   MaxSpellBurst: { value: number };
   SpellBurstChargeSpeedPct: { value: number; addn?: boolean };
+  PlaySafe: { value: number };
   SkillAreaPct: {
     value: number;
     skillAreaModType: SkillAreaModType;

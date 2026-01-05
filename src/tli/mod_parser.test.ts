@@ -1407,6 +1407,18 @@ test("parse spell burst charge speed without additional", () => {
   ]);
 });
 
+test("parse play safe cast speed to spell burst", () => {
+  const result = parseMod(
+    "100% of the bonuses and additional bonuses to Cast Speed is also applied to Spell Burst Charge Speed",
+  );
+  expect(result).toEqual([
+    {
+      type: "PlaySafe",
+      value: 100,
+    },
+  ]);
+});
+
 test("parse max channeled stacks", () => {
   const result = parseMod("Max Channeled Stacks +1");
   expect(result).toEqual([
