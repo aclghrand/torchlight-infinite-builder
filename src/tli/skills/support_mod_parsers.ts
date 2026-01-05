@@ -146,6 +146,18 @@ const allSupportParsers = [
       addn: false,
     }),
   ),
+  t("{value:+dec%} cast speed for the supported skill").output(
+    "CspdPct",
+    (c) => ({
+      value: c.value,
+      addn: false,
+    }),
+  ),
+  t(
+    "{value:+dec%} additional hit damage for skills cast by spell burst when spell burst is activated by the supported skill",
+  ).output("SpellBurstAdditionalDmgPct", (c) => ({
+    value: c.value,
+  })),
   t(
     "{value:+dec%} additional attack and cast speed for the supported skill",
   ).outputMany([
@@ -230,6 +242,12 @@ const allSupportParsers = [
       cond: "enemy_is_cursed" as const,
     }),
   ),
+  t(
+    "when the supported skill deals damage to a cursed target, there is a {value:+dec%} chance to paralyze it",
+  ).output("InflictParalysisPct", (c) => ({
+    value: c.value,
+    cond: "enemy_is_cursed" as const,
+  })),
   t("the supported skill cannot inflict wilt").output("CannotInflictWilt"),
   t(
     "every {_:int} time\\(s\\) the supported skill is used, gains a barrier if there's no barrier. interval: {_:int} s",
