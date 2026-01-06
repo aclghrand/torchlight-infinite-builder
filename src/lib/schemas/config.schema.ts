@@ -58,6 +58,7 @@ export const ConfigurationPageSchema = z
       .optional()
       .catch(d.numMindControlLinksUsed),
     hasSquidnova: z.boolean().catch(d.hasSquidnova),
+    targetEnemyIsFrozen: z.boolean().catch(d.targetEnemyIsFrozen),
     targetEnemyFrozenRecently: z.boolean().catch(d.targetEnemyFrozenRecently),
     targetEnemyHasColdInfiltration: z
       .boolean()

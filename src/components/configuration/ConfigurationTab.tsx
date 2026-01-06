@@ -666,6 +666,18 @@ export const ConfigurationTab: React.FC<ConfigurationTabProps> = ({
           />
 
           <label className="text-right text-zinc-50">
+            Target Enemy Is Frozen
+          </label>
+          <input
+            type="checkbox"
+            checked={config.targetEnemyIsFrozen}
+            onChange={(e) =>
+              onUpdate({ targetEnemyIsFrozen: e.target.checked })
+            }
+            className="h-4 w-4 rounded border-zinc-600 bg-zinc-800 accent-amber-500"
+          />
+
+          <label className="text-right text-zinc-50">
             Target Enemy Frozen Recently
           </label>
           <input

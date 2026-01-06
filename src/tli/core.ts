@@ -133,6 +133,8 @@ export interface Configuration {
   // default to false
   hasSquidnova: boolean;
   // default to false
+  targetEnemyIsFrozen: boolean;
+  // default to false
   targetEnemyFrozenRecently: boolean;
   // default to false
   targetEnemyHasColdInfiltration: boolean;
@@ -211,6 +213,7 @@ export const DEFAULT_CONFIGURATION: Configuration = {
   blurEndedRecently: false,
   numMindControlLinksUsed: undefined,
   hasSquidnova: false,
+  targetEnemyIsFrozen: false,
   targetEnemyFrozenRecently: false,
   targetEnemyHasColdInfiltration: false,
   targetEnemyHasLightningInfiltration: false,

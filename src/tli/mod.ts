@@ -313,6 +313,8 @@ interface ModDefinitions {
   GearBasePhysDmg: { value: number };
   GearBaseCritRating: { value: number };
   GearBaseAttackSpeed: { value: number };
+  // infiltrations
+  InflictsInfiltration: object;
   // ailments
   InflictWiltPct: { value: number; isEnemyDebuff?: boolean };
   BaseWiltFlatDmg: { value: number };
