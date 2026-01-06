@@ -160,6 +160,9 @@ export const BuilderLayout = ({ children }: BuilderLayoutProps) => {
             <h1 className="text-3xl font-bold text-zinc-50">
               Torchlight of Building
             </h1>
+            <span className="rounded-full bg-amber-500/20 px-2 py-0.5 text-xs font-medium text-amber-400 border border-amber-500/30">
+              Pre-Alpha
+            </span>
             {currentSaveName !== undefined &&
               (isRenamingBuild ? (
                 <div className="flex items-center gap-2">

@@ -14,7 +14,7 @@ export const Route = createRootRoute({
   component: RootLayout,
   head: () => ({
     meta: [
-      { title: "Torchlight of Building" },
+      { title: "Torchlight of Building (Pre-Alpha)" },
       {
         name: "description",
         content: "Torchlight Infinite character build planner",
