@@ -130,7 +130,7 @@ export const collectMods = (loadout: Loadout): Mod[] => {
 
 const resolveCoreTalentMods = (mods: Mod[]): Mod[] => {
   const coreTalentNamesAndSrc = R.unique(
-    filterMod(mods, "CoreTalent").map((m) => ({ name: m.name, src: m.src })),
+    filterMods(mods, "CoreTalent").map((m) => ({ name: m.name, src: m.src })),
   );
   const newMods: Mod[] = coreTalentNamesAndSrc.flatMap(({ name, src }) => {
     const affix = CoreTalentMods[name];
@@ -202,7 +202,7 @@ const findMod = <T extends Mod["type"]>(
     | undefined;
 };
 
-const filterMod = <T extends Mod["type"]>(
+const filterMods = <T extends Mod["type"]>(
   mods: Mod[],
   type: T,
 ): Extract<Mod, { type: T }>[] => {
@@ -280,7 +280,7 @@ export function convertDmg(
   for (const sourceType of CONVERSION_ORDER) {
     // Step 1: Process "Gain as Extra" mods (calculated BEFORE conversion)
     // This adds extra damage to target pools but does NOT remove from source
-    const addsDmgAsMods = filterMod(allMods, "AddsDmgAsPct").filter(
+    const addsDmgAsMods = filterMods(allMods, "AddsDmgAsPct").filter(
       (m) => m.from === sourceType,
     );
     for (const chunk of pools[sourceType]) {
@@ -293,7 +293,7 @@ export function convertDmg(
     }
 
     // Step 2: Process conversion mods (removes from source, adds to target)
-    const convMods = filterMod(allMods, "ConvertDmgPct").filter(
+    const convMods = filterMods(allMods, "ConvertDmgPct").filter(
       (m) => m.from === sourceType,
     );
     if (convMods.length === 0) continue;
@@ -361,7 +361,7 @@ const calculateGearDmg = (loadout: Loadout, allMods: Mod[]): GearDmg => {
     physBonusPct += gearPhysDmgPct.value;
   }
 
-  filterMod(mainhandMods, "FlatGearDmg").forEach((a) => {
+  filterMods(mainhandMods, "FlatGearDmg").forEach((a) => {
     match(a.modType)
       .with("physical", () => {
         phys = addDR(phys, a.value);
@@ -387,7 +387,7 @@ const calculateGearDmg = (loadout: Loadout, allMods: Mod[]): GearDmg => {
   });
 
   let addnMHDmgMult = 1;
-  filterMod(allMods, "AddnMainHandDmgPct").forEach((a) => {
+  filterMods(allMods, "AddnMainHandDmgPct").forEach((a) => {
     addnMHDmgMult *= 1 + a.value / 100;
   });
 
@@ -419,8 +419,8 @@ const calculateFlatDmg = (
   let erosion = emptyDamageRange();
 
   const mods = match(skillType)
-    .with("attack", () => filterMod(allMods, "FlatDmgToAtks"))
-    .with("spell", () => filterMod(allMods, "FlatDmgToSpells"))
+    .with("attack", () => filterMods(allMods, "FlatDmgToAtks"))
+    .with("spell", () => filterMods(allMods, "FlatDmgToSpells"))
     .exhaustive();
   for (const a of mods) {
     match(a.dmgType)
@@ -458,7 +458,7 @@ const calculateGearAspd = (loadout: Loadout, allMods: Mod[]): number => {
   const baseAspd =
     baseAspdMod?.type === "GearBaseAttackSpeed" ? baseAspdMod.value : 0;
   const gearAspdPctBonus = calculateInc(
-    filterMod(allMods, "GearAspdPct").map((b) => b.value),
+    filterMods(allMods, "GearAspdPct").map((b) => b.value),
   );
   return baseAspd * (1 + gearAspdPctBonus);
 };
@@ -479,14 +479,14 @@ const calculateCritChance = (
   }
 
   const addedFlatCritRating = sumByValue(
-    filterMod(allMods, "FlatCritRating").filter((m) =>
+    filterMods(allMods, "FlatCritRating").filter((m) =>
       modTypes.includes(m.modType),
     ),
   );
   const baseCritRating = 500;
   const baseCritChance = (baseCritRating + addedFlatCritRating) / 100 / 100;
 
-  const critRatingPctMods = filterMod(allMods, "CritRatingPct").filter((m) =>
+  const critRatingPctMods = filterMods(allMods, "CritRatingPct").filter((m) =>
     modTypes.includes(m.modType),
   );
   const critRatingMult = calculateEffMultiplier(critRatingPctMods);
@@ -501,7 +501,7 @@ const calculateCritDmg = (allMods: Mod[], skill: BaseActiveSkill): number => {
   if (skill.tags.includes("Spell")) {
     modTypes.push("spell");
   }
-  const mods = filterMod(allMods, "CritDmgPct").filter((m) =>
+  const mods = filterMods(allMods, "CritDmgPct").filter((m) =>
     modTypes.includes(m.modType),
   );
   const inc = calculateInc(mods.filter((m) => !m.addn).map((v) => v.value));
@@ -511,7 +511,7 @@ const calculateCritDmg = (allMods: Mod[], skill: BaseActiveSkill): number => {
 };
 
 const calculateDoubleDmgMult = (mods: Mod[]): number => {
-  const doubleDmgMods = filterMod(mods, "DoubleDmgChancePct");
+  const doubleDmgMods = filterMods(mods, "DoubleDmgChancePct");
   // capped at 100% chance to deal double damage
   const inc = Math.min(1, calculateInc(doubleDmgMods.map((v) => v.value)));
   return 1 + inc;
@@ -519,7 +519,7 @@ const calculateDoubleDmgMult = (mods: Mod[]): number => {
 
 const calculateAspd = (loadout: Loadout, allMods: Mod[]): number => {
   const gearAspd = calculateGearAspd(loadout, allMods);
-  const aspdPctMods = filterMod(allMods, "AspdPct");
+  const aspdPctMods = filterMods(allMods, "AspdPct");
   const inc = calculateInc(
     aspdPctMods.filter((m) => !m.addn).map((v) => v.value),
   );
@@ -695,11 +695,11 @@ function applyDmgBonusesAndPen(
   input: ApplyDmgBonusesAndPenInput,
 ): DmgRanges | NumDmgValues {
   const { dmgPools, mods, baseDmgModTypes, config, ignoreArmor } = input;
-  const allDmgPcts = filterMod(mods, "DmgPct");
+  const allDmgPcts = filterMods(mods, "DmgPct");
 
   // Convert ElementalSpellDmgPct to elemental DmgPct when skill is a spell
   if (baseDmgModTypes.includes("spell")) {
-    for (const m of filterMod(mods, "ElementalSpellDmgPct")) {
+    for (const m of filterMods(mods, "ElementalSpellDmgPct")) {
       allDmgPcts.push({
         type: "DmgPct",
         value: m.value,
@@ -856,7 +856,7 @@ function calculatePenetration(
 ): DmgRanges | NumDmgValues {
   const { dmg, mods, config, ignoreArmor } = input;
   const enemyRes = calculateEnemyRes(mods, config);
-  const elePenMods = filterMod(mods, "ResPenPct");
+  const elePenMods = filterMods(mods, "ResPenPct");
   const coldPenMods = filterPenMods(elePenMods, ["all", "elemental", "cold"]);
   const lightningPenMods = filterPenMods(elePenMods, [
     "all",
@@ -879,7 +879,7 @@ function calculatePenetration(
     : calculateEnemyArmorDmgMitigation(calculateEnemyArmor(config));
   const totalArmorPenPct = ignoreArmor
     ? 0
-    : sumByValue(filterMod(mods, "ArmorPenPct")) / 100;
+    : sumByValue(filterMods(mods, "ArmorPenPct")) / 100;
   const enemyArmorPhysMult =
     1 - enemyArmorDmgMitigation.physical + totalArmorPenPct;
   const enemyArmorNonPhysMult =
@@ -1403,8 +1403,8 @@ const calculateHeroTraitMods = (loadout: Loadout): Mod[] => {
 
 // todo: very basic stat calculation, will definitely need to handle things like pct, per, and conditionals
 const calculateStats = (mods: Mod[]): Stats => {
-  const statMods = filterMod(mods, "Stat");
-  const statPctMods = filterMod(mods, "StatPct");
+  const statMods = filterMods(mods, "Stat");
+  const statPctMods = filterMods(mods, "StatPct");
   const calcFinalStat = (statType: StatType): number => {
     const flat = sumByValue(
       statMods.filter(
@@ -1731,7 +1731,9 @@ const calculateFervorCritRateMod = (
   mods: Mod[],
   resourcePool: ResourcePool,
 ): Mod => {
-  const fervorEffMult = calculateEffMultiplier(filterMod(mods, "FervorEffPct"));
+  const fervorEffMult = calculateEffMultiplier(
+    filterMods(mods, "FervorEffPct"),
+  );
   const critRatePerPoint = 2 * fervorEffMult;
   const critRateFromFervor = resourcePool.fervorPts * critRatePerPoint;
 
@@ -1774,7 +1776,7 @@ const calculateEnemyFrostbitten = (
 };
 
 const calculateNumShadowHits = (mods: Mod[], config: Configuration): number => {
-  const shadowQuantMods = filterMod(mods, "ShadowQuant");
+  const shadowQuantMods = filterMods(mods, "ShadowQuant");
   const shadowQuant = R.sumBy(shadowQuantMods, (m) => m.value);
   return config.numShadowHits ?? shadowQuant;
 };
@@ -1786,7 +1788,7 @@ const calculateMercuryPts = (
   if (!isHero("Lightbringer Rosa: Unsullied Blade (#2)", loadout)) {
     return undefined;
   }
-  const mercuryPtMods = filterMod(mods, "MaxMercuryPtsPct");
+  const mercuryPtMods = filterMods(mods, "MaxMercuryPtsPct");
   const mult = calculateEffMultiplier(mercuryPtMods);
   return 100 * mult;
 };
@@ -1799,7 +1801,7 @@ interface EnemyRes {
 }
 
 const calculateEnemyRes = (mods: Mod[], config: Configuration): EnemyRes => {
-  const enemyResMods = filterMod(mods, "EnemyRes");
+  const enemyResMods = filterMods(mods, "EnemyRes");
   const sumEnemyResMods = (resTypes: ResType[]) => {
     return sumByValue(enemyResMods.filter((m) => resTypes.includes(m.resType)));
   };
@@ -1868,11 +1870,11 @@ const resolveBuffSkillEffMults = (
     ...normalizeStackables(prenormMods, "cruelty_buff", crueltyBuffStacks),
   );
 
-  const skillEffMods = filterMod(mods, "SkillEffPct");
+  const skillEffMods = filterMods(mods, "SkillEffPct");
   const skillEffMult = calculateEffMultiplier(skillEffMods);
-  const allAuraEffMods = filterMod(mods, "AuraEffPct");
+  const allAuraEffMods = filterMods(mods, "AuraEffPct");
   const auraEffMult = calculateEffMultiplier(allAuraEffMods);
-  const curseEffMult = calculateEffMultiplier(filterMod(mods, "CurseEffPct"));
+  const curseEffMult = calculateEffMultiplier(filterMods(mods, "CurseEffPct"));
 
   return { skillEffMult, auraEffMult, curseEffMult };
 };
@@ -1902,7 +1904,7 @@ const calcMaxBlessings = (
     tenacity: "MaxTenacityBlessing",
   } as const;
   const modType = blessingToModType[blessingType];
-  const additionalMaxBlessings = sumByValue(filterMod(mods, modType));
+  const additionalMaxBlessings = sumByValue(filterMods(mods, modType));
   if (derivedCtx.hasBlasphemer) {
     return Math.max(4 - additionalMaxBlessings, 0);
   } else {
@@ -1927,9 +1929,9 @@ const calcDesecration = (
   if (!derivedCtx.hasBlasphemer) {
     return undefined;
   }
-  const addedFocus = sumByValue(filterMod(mods, "MaxFocusBlessing"));
-  const addedAgility = sumByValue(filterMod(mods, "MaxAgilityBlessing"));
-  const addedTenacity = sumByValue(filterMod(mods, "MaxTenacityBlessing"));
+  const addedFocus = sumByValue(filterMods(mods, "MaxFocusBlessing"));
+  const addedAgility = sumByValue(filterMods(mods, "MaxAgilityBlessing"));
+  const addedTenacity = sumByValue(filterMods(mods, "MaxTenacityBlessing"));
   return (
     3 +
     Math.min(addedFocus, 4) +
@@ -1948,7 +1950,7 @@ const calculateAffliction = (mods: Mod[], config: Configuration): Mod[] => {
   }
   const afflictionPts = calcAfflictionPts(config);
   const afflictionEffMult = calculateEffMultiplier(
-    filterMod(mods, "AfflictionEffectPct"),
+    filterMods(mods, "AfflictionEffectPct"),
   );
   const afflictionValue = afflictionPts * afflictionEffMult;
   return [
@@ -1994,7 +1996,7 @@ const calculateAddedSkillLevels = (
   );
 
   let addedSkillLevels = 0;
-  for (const mod of filterMod(mods, "SkillLevel")) {
+  for (const mod of filterMods(mods, "SkillLevel")) {
     const matches = match(mod.skillLevelType)
       .with(
         "main",
@@ -2105,7 +2107,7 @@ const resolveModsForOffenseSkill = (
 
   if (config.targetEnemyHasWhimsySignal) {
     const whimsySignalEffMult = calculateEffMultiplier(
-      filterMod(mods, "WhimsySignalEffPct"),
+      filterMods(mods, "WhimsySignalEffPct"),
     );
     const whimsySignalDmgPctVal = 30 * whimsySignalEffMult;
     mods.push({
@@ -2119,7 +2121,7 @@ const resolveModsForOffenseSkill = (
   }
 
   const movementSpeedBonusPct =
-    (calculateEffMultiplier(filterMod(mods, "MovementSpeedPct")) - 1) * 100;
+    (calculateEffMultiplier(filterMods(mods, "MovementSpeedPct")) - 1) * 100;
   mods.push(
     ...normalizeStackables(
       prenormMods,
@@ -2131,7 +2133,7 @@ const resolveModsForOffenseSkill = (
   // squidnova
   if (config.hasSquidnova) {
     const squidNovaEffMult = calculateEffMultiplier(
-      filterMod(mods, "SquidnovaEffPct"),
+      filterMods(mods, "SquidnovaEffPct"),
     );
     const squidNovaDmgPctValue = 16 * squidNovaEffMult;
     mods.push({
@@ -2145,7 +2147,9 @@ const resolveModsForOffenseSkill = (
 
   // frail - additionally increases spell damage taken by 15%
   if (config.targetEnemyHasFrail) {
-    const frailEffMult = calculateEffMultiplier(filterMod(mods, "FrailEffPct"));
+    const frailEffMult = calculateEffMultiplier(
+      filterMods(mods, "FrailEffPct"),
+    );
     const frailSpellDmgPctValue = 15 * frailEffMult;
     mods.push({
       type: "DmgPct",
@@ -2158,7 +2162,7 @@ const resolveModsForOffenseSkill = (
   }
 
   // must happen after movement_speed_bonus_pct normalization
-  const maxSpellBurst = sumByValue(filterMod(mods, "MaxSpellBurst"));
+  const maxSpellBurst = sumByValue(filterMods(mods, "MaxSpellBurst"));
   mods.push(
     ...normalizeStackables(prenormMods, "max_spell_burst", maxSpellBurst),
   );
@@ -2188,7 +2192,7 @@ const resolveModsForOffenseSkill = (
   mods.push(...calculateTorment(config));
   mods.push(...calculateAffliction(mods, config));
 
-  const repentanceStacks = 4 + sumByValue(filterMod(mods, "MaxRepentance"));
+  const repentanceStacks = 4 + sumByValue(filterMods(mods, "MaxRepentance"));
   mods.push(
     ...normalizeStackables(prenormMods, "repentance", repentanceStacks),
   );
@@ -2237,7 +2241,7 @@ const resolveModsForOffenseSkill = (
   const maxProjectiles = findMod(mods, "MaxProjectile")?.value;
   const projectiles = Math.trunc(
     Math.min(
-      sumByValue(filterMod(mods, "Projectile")),
+      sumByValue(filterMods(mods, "Projectile")),
       maxProjectiles ?? Infinity,
     ),
   );
@@ -2254,7 +2258,7 @@ const resolveModsForOffenseSkill = (
     const numShadowHits = calculateNumShadowHits(mods, config);
     const dmgFromShadowMod = calculateAddnDmgFromShadows(numShadowHits);
     if (dmgFromShadowMod !== undefined) {
-      const shadowDmgPctMods = filterMod(mods, "ShadowDmgPct");
+      const shadowDmgPctMods = filterMods(mods, "ShadowDmgPct");
       const shadowDmgMult = calculateEffMultiplier(shadowDmgPctMods);
       mods.push({
         ...multModValue(dmgFromShadowMod, shadowDmgMult),
@@ -2336,12 +2340,12 @@ const calculateResourcePool = (
   mods.push(...normalizeStackables(prenormMods, "dex", stats.dex));
   mods.push(...normalizeStackables(prenormMods, "int", stats.int));
 
-  const maxLifeFromMods = sumByValue(filterMod(mods, "MaxLife"));
-  const maxLifeMult = calculateEffMultiplier(filterMod(mods, "MaxLifePct"));
+  const maxLifeFromMods = sumByValue(filterMods(mods, "MaxLife"));
+  const maxLifeMult = calculateEffMultiplier(filterMods(mods, "MaxLifePct"));
   const maxLife = (50 + config.level * 13 + maxLifeFromMods) * maxLifeMult;
 
-  const maxManaFromMods = sumByValue(filterMod(mods, "MaxMana"));
-  const maxManaMult = calculateEffMultiplier(filterMod(mods, "MaxManaPct"));
+  const maxManaFromMods = sumByValue(filterMods(mods, "MaxMana"));
+  const maxManaMult = calculateEffMultiplier(filterMods(mods, "MaxManaPct"));
   const maxMana = (40 + config.level * 5 + maxManaFromMods) * maxManaMult;
 
   mods.push(...normalizeStackables(prenormMods, "max_mana", maxMana));
@@ -2360,7 +2364,7 @@ const calculateResourcePool = (
   const desecration = calcDesecration(mods, derivedCtx);
 
   const additionalMaxChanneledStacks = Math.round(
-    sumByValue(filterMod(mods, "MaxChannel")),
+    sumByValue(filterMods(mods, "MaxChannel")),
   );
 
   const haveFervor = findMod(mods, "HaveFervor") !== undefined;
@@ -2411,8 +2415,8 @@ export const calculateDefenses = (
   );
   const mods = filterOutPerMods(prenormMods);
 
-  const maxResMods = filterMod(mods, "MaxResistancePct");
-  const resMods = filterMod(mods, "ResistancePct");
+  const maxResMods = filterMods(mods, "MaxResistancePct");
+  const resMods = filterMods(mods, "ResistancePct");
 
   type ResMod = ModOfType<"MaxResistancePct"> | ModOfType<"ResistancePct">;
   const sumResMods = <T extends ResMod>(
@@ -2491,7 +2495,7 @@ const calcAvgPersistentDps = (
 
   const duration =
     offense.duration *
-    calculateEffMultiplier(filterMod(mods, "SkillEffDurationPct"));
+    calculateEffMultiplier(filterMods(mods, "SkillEffDurationPct"));
 
   return {
     base: { physical, cold, lightning, fire, erosion },
@@ -2527,12 +2531,12 @@ const calcTotalReapDps = (
   const dotDuration = persistentDpsSummary.duration;
   const dotDps = persistentDpsSummary.total;
   const reapDurationMult = calculateEffMultiplier(
-    filterMod(mods, "ReapDurationPct"),
+    filterMods(mods, "ReapDurationPct"),
   );
-  const reapCdrMult = calculateEffMultiplier(filterMod(mods, "ReapCdrPct"));
+  const reapCdrMult = calculateEffMultiplier(filterMods(mods, "ReapCdrPct"));
   const reapPurificationPct =
-    sumByValue(filterMod(mods, "ReapPurificationPct")) / 100;
-  const reaps = filterMod(mods, "Reap").map((m) => {
+    sumByValue(filterMods(mods, "ReapPurificationPct")) / 100;
+  const reaps = filterMods(mods, "Reap").map((m) => {
     const duration = Math.min(m.duration * reapDurationMult, dotDuration);
     const rawCooldown = m.cooldown / reapCdrMult;
     const reapsPerSecond = calcReapsPerSecond(rawCooldown);
@@ -2692,7 +2696,7 @@ const calcAvgSpellDps = (
   }
   const { avg, castTime } = spellHit;
 
-  const cspdMult = calculateEffMultiplier(filterMod(mods, "CspdPct"));
+  const cspdMult = calculateEffMultiplier(filterMods(mods, "CspdPct"));
   const cspd = (1 / castTime) * cspdMult;
   const critChance = calculateCritChance(mods, skill);
   const critDmgMult = calculateCritDmg(mods, skill);
@@ -2730,9 +2734,9 @@ const calcAvgSpellBurstDps = (
   const playSafe = findMod(mods, "PlaySafe");
   const baseBurstsPerSec = 0.5;
   const chargeSpeedMods = [
-    ...filterMod(mods, "SpellBurstChargeSpeedPct"),
+    ...filterMods(mods, "SpellBurstChargeSpeedPct"),
     ...(playSafe !== undefined
-      ? filterMod(mods, "CspdPct").map((m) =>
+      ? filterMods(mods, "CspdPct").map((m) =>
           multModValue(m, playSafe.value / 100),
         )
       : []),
@@ -2740,7 +2744,7 @@ const calcAvgSpellBurstDps = (
   const burstsPerSecMult = calculateEffMultiplier(chargeSpeedMods);
   const burstsPerSec = baseBurstsPerSec * burstsPerSecMult;
   const spellBurstDmgMult = calculateAddn(
-    filterMod(mods, "SpellBurstAdditionalDmgPct").map((m) => m.value),
+    filterMods(mods, "SpellBurstAdditionalDmgPct").map((m) => m.value),
   );
 
   if (derivedCtx.hero !== bing2) {
@@ -2756,10 +2760,10 @@ const calcAvgSpellBurstDps = (
   // - At 100 Ingenuity Essence, it resets and triggers Ingenuity Overload
   const baseWhimsyEssencePerSec = 20;
   const whimsyEssenceOnBurst = sumByValue(
-    filterMod(mods, "RestoreWhimsyEssenceOnSpellBurst"),
+    filterMods(mods, "RestoreWhimsyEssenceOnSpellBurst"),
   );
   const whimsyEssenceRecoverSpeedMult = calculateEffMultiplier(
-    filterMod(mods, "WhimsyEssenceRecoverySpeedPct"),
+    filterMods(mods, "WhimsyEssenceRecoverySpeedPct"),
   );
 
   // Burst gains can overshoot 100 and waste essence. Assuming uniform
