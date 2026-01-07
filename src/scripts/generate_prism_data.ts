@@ -20,11 +20,40 @@ const extractPrismData = (html: string): Prism[] => {
       return;
     }
 
+    const affixTd = $(tds[2]);
     const item: Prism = {
       type: $(tds[0]).text().trim(),
       rarity: $(tds[1]).text().trim(),
-      affix: cleanEffectText($(tds[2]).html() || ""),
+      affix: cleanEffectText(affixTd.html() || ""),
     };
+
+    // Extract replacement core talent if present
+    const tooltipSpan = affixTd.find("span.tooltip");
+    if (
+      tooltipSpan.length > 0 &&
+      item.affix.includes("Replaces the Core Talent")
+    ) {
+      const name = tooltipSpan.text().trim();
+      const rawAffix = tooltipSpan.attr("data-title") || "";
+      if (name !== "" && rawAffix !== "") {
+        item.replacementCoreTalent = {
+          name,
+          affix: cleanEffectText(rawAffix),
+        };
+      }
+    }
+
+    // Extract added core talent affix if present
+    const addedPrefix = "Adds an additional effect to the Core Talent";
+    if (item.affix.startsWith(addedPrefix)) {
+      const delimiter = "Advanced Talent Panel:\n";
+      const delimiterIndex = item.affix.indexOf(delimiter);
+      if (delimiterIndex !== -1) {
+        item.addedCoreTalentAffix = item.affix.slice(
+          delimiterIndex + delimiter.length,
+        );
+      }
+    }
 
     items.push(item);
   });

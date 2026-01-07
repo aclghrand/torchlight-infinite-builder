@@ -17,6 +17,7 @@ export interface AffixLine {
 }
 
 export interface Affix {
+  specialName?: string;
   affixLines: AffixLine[];
   maxDivinity?: number;
   src?: string;
@@ -294,7 +295,7 @@ export interface TalentTree {
   selectedCoreTalents?: Affix[];
   selectedCoreTalentNames?: string[]; // Original names for UI display
   additionalCoreTalentPrismAffix?: Affix;
-  replacementPrismCoreTalent?: string; // Ethereal talent name if prism replaces core talents
+  replacementPrismCoreTalent?: Affix; // Ethereal talent affix if prism replaces core talents
 }
 
 export interface CraftedPrism {

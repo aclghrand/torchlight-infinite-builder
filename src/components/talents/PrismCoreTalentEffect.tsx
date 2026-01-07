@@ -61,7 +61,7 @@ export const PrismCoreTalentEffect: React.FC<PrismCoreTalentEffectProps> = ({
   }
 
   // Display "Replaces" ethereal talent
-  if (replacedTalent) {
+  if (replacedTalent !== undefined) {
     return (
       <div className="mb-4 rounded-lg border border-purple-500/50 bg-purple-500/10 p-4">
         <div className="mb-2 flex items-center gap-2">
@@ -70,9 +70,17 @@ export const PrismCoreTalentEffect: React.FC<PrismCoreTalentEffectProps> = ({
             Prism Ethereal Talent
           </span>
         </div>
-        <div className="text-sm font-medium text-amber-400">
-          {replacedTalent}
+        <div className="text-sm font-medium text-amber-400 mb-2">
+          {replacedTalent.specialName}
         </div>
+        <ul className="space-y-1">
+          {replacedTalent.affixLines.map((line, idx) => (
+            <li key={idx} className="text-sm text-blue-400 flex items-center">
+              <span>{line.text}</span>
+              {line.mods === undefined && <ModNotImplementedIcon />}
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }
