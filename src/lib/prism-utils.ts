@@ -1,51 +1,5 @@
 import { Prisms } from "@/src/data/prism/prisms";
-import type { CraftedPrism, PlacedPrism, PrismRarity } from "./save-data";
-
-const ADDS_CORE_TALENT_PREFIX =
-  "Adds an additional effect to the Core Talent on the";
-
-const REPLACES_CORE_TALENT_PREFIX = "Replaces the Core Talent on the";
-
-// Extract the "added effect" text from a prism's "Adds an additional effect..." base affix
-export const extractCoreTalentAddedEffect = (
-  baseAffix: string,
-): string | undefined => {
-  if (!baseAffix.startsWith(ADDS_CORE_TALENT_PREFIX)) {
-    return undefined;
-  }
-  const parts = baseAffix.split(":\n");
-  if (parts.length <= 1) return undefined;
-  const effect = parts.slice(1).join(":\n").trim();
-  return effect || undefined;
-};
-
-// Get the core talent added effect from a crafted prism, if applicable
-export const getPrismCoreTalentEffect = (
-  prism: CraftedPrism,
-): string | undefined => {
-  return extractCoreTalentAddedEffect(prism.baseAffix);
-};
-
-// Extract the ethereal talent name from a "Replaces the Core Talent..." base affix
-export const extractReplacedCoreTalentName = (
-  baseAffix: string,
-): string | undefined => {
-  if (!baseAffix.startsWith(REPLACES_CORE_TALENT_PREFIX)) {
-    return undefined;
-  }
-  // Format: "Replaces the Core Talent on the ... Advanced Talent Panel with [NAME]"
-  // Some affixes have extra text after the name on a new line
-  const match = baseAffix.match(/with\s+(.+?)(?:\n|$)/);
-  if (!match) return undefined;
-  return match[1].trim() || undefined;
-};
-
-// Get the replaced core talent name from a crafted prism, if applicable
-export const getPrismReplacedCoreTalent = (
-  prism: CraftedPrism,
-): string | undefined => {
-  return extractReplacedCoreTalentName(prism.baseAffix);
-};
+import type { PlacedPrism, PrismRarity } from "./save-data";
 
 export interface PrismAffix {
   type: string;

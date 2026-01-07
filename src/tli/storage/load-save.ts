@@ -3,6 +3,7 @@ import { CoreTalents } from "@/src/data/core_talent/core_talents";
 import type { HeroName, HeroTraitName } from "@/src/data/hero_trait/types";
 import { Pactspirits } from "@/src/data/pactspirit/pactspirits";
 import type { Pactspirit } from "@/src/data/pactspirit/types";
+import { Prisms } from "@/src/data/prism/prisms";
 import { SupportSkills as SupportSkillsData } from "@/src/data/skill/support";
 import { MagnificentSupportSkills } from "@/src/data/skill/support_magnificent";
 import { NobleSupportSkills } from "@/src/data/skill/support_noble";
@@ -20,10 +21,6 @@ import {
   getTargetAreaPositions,
   reflectPosition,
 } from "@/src/lib/inverse-image-utils";
-import {
-  extractCoreTalentAddedEffect,
-  extractReplacedCoreTalentName,
-} from "@/src/lib/prism-utils";
 import type {
   SaveData,
   BaseSupportSkillSlot as SaveDataBaseSupportSkillSlot,
@@ -340,14 +337,28 @@ const convertTalentTree = (
     }
   }
 
-  const additionalCoreTalentPrismAffixText =
+  // Look up prism data to get the new structured fields
+  const prismData =
     placedPrism && placedPrism.treeSlot === treeSlot
-      ? extractCoreTalentAddedEffect(placedPrism.prism.baseAffix)
+      ? Prisms.find((p) => p.affix === placedPrism.prism.baseAffix)
+      : undefined;
+
+  const additionalCoreTalentPrismAffix =
+    prismData?.addedCoreTalentAffix !== undefined
+      ? convertAffix(prismData.addedCoreTalentAffix, src)
       : undefined;
 
   const replacementPrismCoreTalent =
-    placedPrism && placedPrism.treeSlot === treeSlot
-      ? extractReplacedCoreTalentName(placedPrism.prism.baseAffix)
+    prismData?.replacementCoreTalent !== undefined
+      ? {
+          specialName: prismData.replacementCoreTalent.name,
+          affixLines: prismData.replacementCoreTalent.affix
+            .split("\n")
+            .map((text) => ({
+              text,
+              mods: parseMod(text)?.map((mod) => ({ ...mod, src })),
+            })),
+        }
       : undefined;
 
   return {
@@ -357,10 +368,7 @@ const convertTalentTree = (
       ? tree.selectedCoreTalents.map((text) => convertAffix(text, src))
       : undefined,
     selectedCoreTalentNames: tree.selectedCoreTalents,
-    additionalCoreTalentPrismAffix:
-      additionalCoreTalentPrismAffixText !== undefined
-        ? convertAffix(additionalCoreTalentPrismAffixText, src)
-        : undefined,
+    additionalCoreTalentPrismAffix,
     replacementPrismCoreTalent,
   };
 };
