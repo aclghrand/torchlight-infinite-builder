@@ -28,6 +28,8 @@ export const ConfigurationPageSchema = z
     hasTenacityBlessing: z.boolean().catch(d.hasTenacityBlessing),
     hasFullMana: z.boolean().catch(d.hasFullMana),
     enemyParalyzed: z.boolean().catch(d.enemyParalyzed),
+    enemyNumbed: z.boolean().catch(d.enemyNumbed),
+    enemyNumbedStacks: z.number().optional().catch(d.enemyNumbedStacks),
     targetEnemyIsElite: z.boolean().catch(d.targetEnemyIsElite),
     targetEnemyIsNearby: z.boolean().catch(d.targetEnemyIsNearby),
     targetEnemyIsInProximity: z.boolean().catch(d.targetEnemyIsInProximity),

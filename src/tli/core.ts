@@ -88,6 +88,10 @@ export interface Configuration {
   // default to false
   enemyParalyzed: boolean;
   // default to false
+  enemyNumbed: boolean;
+  // default to max
+  enemyNumbedStacks?: number;
+  // default to false
   targetEnemyIsElite: boolean;
   // default to false
   targetEnemyIsNearby: boolean;
@@ -197,6 +201,8 @@ export const DEFAULT_CONFIGURATION: Configuration = {
   hasTenacityBlessing: false,
   hasFullMana: false,
   enemyParalyzed: false,
+  enemyNumbed: false,
+  enemyNumbedStacks: undefined,
   targetEnemyIsElite: false,
   targetEnemyIsNearby: false,
   targetEnemyIsInProximity: false,

@@ -431,6 +431,28 @@ export const ConfigurationTab: React.FC<ConfigurationTabProps> = ({
             className="h-4 w-4 rounded border-zinc-600 bg-zinc-800 accent-amber-500"
           />
 
+          <label className="text-right text-zinc-50">Enemy Numbed</label>
+          <input
+            type="checkbox"
+            checked={config.enemyNumbed}
+            onChange={(e) => onUpdate({ enemyNumbed: e.target.checked })}
+            className="h-4 w-4 rounded border-zinc-600 bg-zinc-800 accent-amber-500"
+          />
+
+          {config.enemyNumbed && (
+            <>
+              <label className="text-right text-zinc-50">
+                Numbed Stacks
+                <InfoTooltip text="Defaults to max" />
+              </label>
+              <NumberInput
+                value={config.enemyNumbedStacks}
+                onChange={(v) => onUpdate({ enemyNumbedStacks: v })}
+                min={0}
+              />
+            </>
+          )}
+
           <label className="text-right text-zinc-50">Has Full Mana</label>
           <input
             type="checkbox"
