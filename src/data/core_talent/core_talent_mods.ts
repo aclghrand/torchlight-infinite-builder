@@ -400,7 +400,18 @@ export const CoreTalentMods: Record<CoreTalentName, Affix> = {
         text: "Max Focus Blessing Stacks +1",
         mods: [{ type: "MaxFocusBlessing", value: 1 }],
       },
-      { text: "+3% additional Spell Damage per stack of Focus Blessing owned" },
+      {
+        text: "+3% additional Spell Damage per stack of Focus Blessing owned",
+        mods: [
+          {
+            type: "DmgPct",
+            value: 3,
+            dmgModType: "spell",
+            addn: true,
+            per: { stackable: "focus_blessing" },
+          },
+        ],
+      },
     ],
   },
   "Play Safe": {
@@ -425,7 +436,10 @@ export const CoreTalentMods: Record<CoreTalentName, Affix> = {
       {
         text: "Energy Shield Charge started recently cannot be interrupted by damage",
       },
-      { text: "+50% Energy Shield Charge Speed" },
+      {
+        text: "+50% Energy Shield Charge Speed",
+        mods: [{ type: "EnergyShieldChargeSpeedPct", value: 50 }],
+      },
     ],
   },
   Mana: {
@@ -547,7 +561,17 @@ export const CoreTalentMods: Record<CoreTalentName, Affix> = {
         text: "+25% additional Cold Damage",
         mods: [{ type: "DmgPct", value: 25, dmgModType: "cold", addn: true }],
       },
-      { text: "+25% additional Minion Cold Damage" },
+      {
+        text: "+25% additional Minion Cold Damage",
+        mods: [
+          {
+            type: "MinionDmgPct",
+            value: 25,
+            addn: true,
+            minionDmgModType: "cold",
+          },
+        ],
+      },
       { text: "Skills no longer cost Mana" },
     ],
   },
@@ -605,7 +629,17 @@ export const CoreTalentMods: Record<CoreTalentName, Affix> = {
           { type: "DmgPct", value: 33, dmgModType: "physical", addn: true },
         ],
       },
-      { text: "+30% additional Minion Physical Damage" },
+      {
+        text: "+30% additional Minion Physical Damage",
+        mods: [
+          {
+            type: "MinionDmgPct",
+            value: 30,
+            addn: true,
+            minionDmgModType: "physical",
+          },
+        ],
+      },
       { text: "-1% additional Elemental Damage for every 3 level(s)." },
     ],
   },
@@ -696,7 +730,14 @@ export const CoreTalentMods: Record<CoreTalentName, Affix> = {
       { text: "+4% additional damage per 1 stack(s) of Fortitude" },
     ],
   },
-  Defensiveness: { affixLines: [{ text: "+25% Block Ratio" }] },
+  Defensiveness: {
+    affixLines: [
+      {
+        text: "+25% Block Ratio",
+        mods: [{ type: "BlockRatioPct", value: 25 }],
+      },
+    ],
+  },
   "Full Defense": {
     affixLines: [
       { text: "+25% additional Defense gained from Shield" },

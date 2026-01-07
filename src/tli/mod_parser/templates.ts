@@ -446,6 +446,15 @@ export const allParsers = [
   })),
   t("{value:+dec%} attack block chance").output("AttackBlockChancePct", (c) => ({ value: c.value })),
   t("{value:+dec%} spell block chance").output("SpellBlockChancePct", (c) => ({ value: c.value })),
+  t("{value:+dec%} attack and spell block chance").outputMany([
+    spec("AttackBlockChancePct", (c) => ({ value: c.value })),
+    spec("SpellBlockChancePct", (c) => ({ value: c.value })),
+  ]),
+  t("{value:+dec%} block ratio").output("BlockRatioPct", (c) => ({ value: c.value })),
+  t("{value:+dec%} block ratio when holding a shield").output("BlockRatioPct", (c) => ({
+    value: c.value,
+    cond: "holding_shield" as const,
+  })),
   t("{value:+dec} max life").output("MaxLife", (c) => ({ value: c.value })),
   t("{value:+dec%} [additional] max life").output("MaxLifePct", (c) => ({
     value: c.value,

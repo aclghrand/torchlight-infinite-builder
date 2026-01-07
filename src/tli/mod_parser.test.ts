@@ -839,6 +839,41 @@ test("parse spell block chance", () => {
   ]);
 });
 
+test("parse attack and spell block chance", () => {
+  const result = parseMod("+19% Attack and Spell Block Chance");
+  expect(result).toEqual([
+    {
+      type: "AttackBlockChancePct",
+      value: 19,
+    },
+    {
+      type: "SpellBlockChancePct",
+      value: 19,
+    },
+  ]);
+});
+
+test("parse block ratio", () => {
+  const result = parseMod("+25% Block Ratio");
+  expect(result).toEqual([
+    {
+      type: "BlockRatioPct",
+      value: 25,
+    },
+  ]);
+});
+
+test("parse block ratio when holding a shield", () => {
+  const result = parseMod("+5% Block ratio when holding a Shield");
+  expect(result).toEqual([
+    {
+      type: "BlockRatioPct",
+      value: 5,
+      cond: "holding_shield",
+    },
+  ]);
+});
+
 test("parse max life", () => {
   const result = parseMod("+3% Max Life");
   expect(result).toEqual([

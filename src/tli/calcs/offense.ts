@@ -727,6 +727,14 @@ const filterModsByCond = (
         () => config.targetEnemyFrozenRecently,
       )
       .with("has_squidnova", () => config.hasSquidnova)
+      .with("holding_shield", () => {
+        const offhand = loadout.gearPage.equippedGear.offHand?.equipmentType;
+        return (
+          offhand === "Shield (DEX)" ||
+          offhand === "Shield (INT)" ||
+          offhand === "Shield (STR)"
+        );
+      })
       .exhaustive();
   });
 };
@@ -1612,6 +1620,7 @@ export const calculateDefenses = (
   const attackBlockPct = sumByValue(filterMods(mods, "AttackBlockChancePct"));
   const spellBlockPct = sumByValue(filterMods(mods, "SpellBlockChancePct"));
   const blockRatioPct = Math.min(
+    60,
     30 + sumByValue(filterMods(mods, "BlockRatioPct")),
   );
 
