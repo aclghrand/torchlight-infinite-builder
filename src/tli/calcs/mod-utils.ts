@@ -42,18 +42,29 @@ export const calculateAddn = (bonuses: number[]): number => {
   );
 };
 
-// Calculates (1 + inc) * addn multiplier from mods with value and addn properties
-export const calculateEffMultiplier = <
-  T extends { value: number; addn?: boolean },
->(
+type ModTypeWithNumericValue = Extract<Mod, { value: number }>["type"];
+
+// Calculates (1 + inc) * addn multiplier
+// Overload 1: Filter mods by type first, then calculate
+export function calcEffMult<T extends ModTypeWithNumericValue>(
+  mods: Mod[],
+  modType: T,
+): number;
+// Overload 2: Calculate directly from array of {value, addn?}
+export function calcEffMult<T extends { value: number; addn?: boolean }>(
   mods: T[],
-): number => {
-  const incMods = mods.filter((m) => m.addn === undefined || m.addn === false);
-  const addnMods = mods.filter((m) => m.addn === true);
+): number;
+// Implementation
+export function calcEffMult(mods: unknown[], modType?: Mod["type"]): number {
+  const filtered =
+    modType !== undefined ? filterMods(mods as Mod[], modType) : mods;
+  const typed = filtered as { value: number; addn?: boolean }[];
+  const incMods = typed.filter((m) => m.addn === undefined || m.addn === false);
+  const addnMods = typed.filter((m) => m.addn === true);
   const inc = calculateInc(incMods.map((m) => m.value));
   const addn = calculateAddn(addnMods.map((m) => m.value));
   return (1 + inc) * addn;
-};
+}
 
 export const collectModsFromAffixes = (affixes: Affix[]): Mod[] => {
   return affixes.flatMap((a) => a.affixLines.flatMap((l) => l.mods ?? []));

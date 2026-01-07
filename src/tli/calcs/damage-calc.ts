@@ -10,8 +10,8 @@ import type { Configuration, DmgRange, Loadout } from "../core";
 import type { DmgChunkType, Mod, ModT, ResType } from "../mod";
 import { getGearAffixes } from "./affix-collectors";
 import {
+  calcEffMult,
   calculateAddn,
-  calculateEffMultiplier,
   calculateInc,
   collectModsFromAffixes,
   filterMods,
@@ -717,7 +717,7 @@ export const calculateCritChance = (
   const critRatingPctMods = filterMods(allMods, "CritRatingPct").filter((m) =>
     modTypes.includes(m.modType),
   );
-  const critRatingMult = calculateEffMultiplier(critRatingPctMods);
+  const critRatingMult = calcEffMult(critRatingPctMods);
   return Math.min(baseCritChance * critRatingMult, 1);
 };
 

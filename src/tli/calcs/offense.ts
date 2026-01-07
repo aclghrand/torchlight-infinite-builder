@@ -19,22 +19,17 @@ import {
 } from "../../data/skill";
 import type { DmgModType } from "../constants";
 import type {
+  ActivationMediumSkillSlot,
   BaseSupportSkillSlot,
   Configuration,
   DmgRange,
   Loadout,
+  MagnificentSupportSkillSlot,
+  NobleSupportSkillSlot,
   SkillSlot,
 } from "../core";
 import { getHeroTraitMods } from "../hero/hero_trait_mods";
-import type {
-  ConditionThreshold,
-  DmgChunkType,
-  Mod,
-  ModT,
-  ResType,
-  Stackable,
-  StatType,
-} from "../mod";
+import type { DmgChunkType, Mod, ModT, ResType, StatType } from "../mod";
 import { getActiveSkillMods } from "../skills/active_mods";
 import { getPassiveSkillMods } from "../skills/passive_mods";
 import { buildSupportSkillAffixes } from "../storage/load-save";
@@ -59,8 +54,8 @@ import {
   type NumDmgValues,
 } from "./damage-calc";
 import {
+  calcEffMult,
   calculateAddn,
-  calculateEffMultiplier,
   collectMods,
   collectModsFromAffixes,
   filterMods,
@@ -73,7 +68,7 @@ import {
   sumByValue,
 } from "./mod-utils";
 import type { OffenseSkillName } from "./skill_confs";
-import { type ModWithValue, multModValue, multValue } from "./util";
+import { multModValue, multValue } from "./util";
 
 // Re-export types that consumers expect from offense.ts
 export type { DmgChunk, DmgPools, DmgRanges };
@@ -217,9 +212,7 @@ const calculateAffliction = (mods: Mod[], config: Configuration): Mod[] => {
     return [];
   }
   const afflictionPts = calcAfflictionPts(config);
-  const afflictionEffMult = calculateEffMultiplier(
-    filterMods(mods, "AfflictionEffectPct"),
-  );
+  const afflictionEffMult = calcEffMult(mods, "AfflictionEffectPct");
   const afflictionValue = afflictionPts * afflictionEffMult;
   return [
     {
@@ -251,9 +244,7 @@ const calculateFervorCritRateMod = (
   mods: Mod[],
   resourcePool: ResourcePool,
 ): Mod => {
-  const fervorEffMult = calculateEffMultiplier(
-    filterMods(mods, "FervorEffPct"),
-  );
+  const fervorEffMult = calcEffMult(mods, "FervorEffPct");
   const critRatePerPoint = 2 * fervorEffMult;
   const critRateFromFervor = resourcePool.fervorPts * critRatePerPoint;
 
@@ -738,6 +729,28 @@ const filterModsByCond = (
   });
 };
 
+interface FilteredMods {
+  prenormMods: Mod[];
+  mods: Mod[];
+}
+
+const applyModFilters = (
+  inputMods: Mod[],
+  loadout: Loadout,
+  config: Configuration,
+  derivedCtx: DerivedCtx,
+  withCondThreshold: boolean = true,
+): FilteredMods => {
+  const condFiltered = filterModsByCond(inputMods, loadout, config, derivedCtx);
+  const prenormMods = withCondThreshold
+    ? filterModsByCondThreshold(condFiltered, config)
+    : condFiltered;
+  return {
+    prenormMods,
+    mods: filterOutPerMods(prenormMods),
+  };
+};
+
 const listActiveSkillSlots = (loadout: Loadout): SkillSlot[] => {
   // we're sure that SkillSlots properties only has SkillSlot as values
   const slots = Object.values(loadout.skillPage.activeSkills) as (
@@ -893,6 +906,32 @@ const resolveSelectedSkillMods = (
   }));
 };
 
+type TieredSupportSlot =
+  | MagnificentSupportSkillSlot
+  | NobleSupportSkillSlot
+  | ActivationMediumSkillSlot;
+
+const collectSupportAffixMods = (ss: TieredSupportSlot): Mod[] => {
+  const prefix = {
+    magnificent_support: "Magnificent",
+    noble_support: "Noble",
+    activation_medium: "Activation Medium",
+  }[ss.skillType];
+  const tierPart = ` T${ss.tier}`;
+  const rankPart = "rank" in ss ? ` R${ss.rank}` : "";
+
+  const mods: Mod[] = [];
+  for (const affix of ss.affixes) {
+    for (const { mod } of affix.mods ?? []) {
+      mods.push({
+        ...mod,
+        src: `${prefix}: ${ss.name}${tierPart}${rankPart}`,
+      });
+    }
+  }
+  return mods;
+};
+
 const resolveSelectedSkillSupportMods = (
   slot: SkillSlot,
   loadoutMods: Mod[],
@@ -940,44 +979,9 @@ const resolveSelectedSkillSupportMods = (
         }
       }
     }
-    // Handle magnificent support skills
-    else if (ss.skillType === "magnificent_support") {
-      for (const affix of ss.affixes) {
-        if (affix.mods !== undefined) {
-          for (const { mod } of affix.mods) {
-            supportMods.push({
-              ...mod,
-              src: `Magnificent: ${ss.name} T${ss.tier} R${ss.rank}`,
-            });
-          }
-        }
-      }
-    }
-    // Handle noble support skills
-    else if (ss.skillType === "noble_support") {
-      for (const affix of ss.affixes) {
-        if (affix.mods !== undefined) {
-          for (const { mod } of affix.mods) {
-            supportMods.push({
-              ...mod,
-              src: `Noble: ${ss.name} T${ss.tier} R${ss.rank}`,
-            });
-          }
-        }
-      }
-    }
-    // Handle activation medium skills
-    else if (ss.skillType === "activation_medium") {
-      for (const affix of ss.affixes) {
-        if (affix.mods !== undefined) {
-          for (const { mod } of affix.mods) {
-            supportMods.push({
-              ...mod,
-              src: `Activation Medium: ${ss.name} T${ss.tier}`,
-            });
-          }
-        }
-      }
+    // Handle magnificent, noble, and activation medium support skills
+    else {
+      supportMods.push(...collectSupportAffixMods(ss));
     }
   }
   return supportMods;
@@ -1064,8 +1068,7 @@ const calculateMercuryPts = (
   if (!isHero("Lightbringer Rosa: Unsullied Blade (#2)", loadout)) {
     return undefined;
   }
-  const mercuryPtMods = filterMods(mods, "MaxMercuryPtsPct");
-  const mult = calculateEffMultiplier(mercuryPtMods);
+  const mult = calcEffMult(mods, "MaxMercuryPtsPct");
   return 100 * mult;
 };
 
@@ -1081,12 +1084,12 @@ const resolveBuffSkillEffMults = (
       m.type === "SkillEffPct" ||
       m.type === "CurseEffPct",
   );
-  const prenormMods = filterModsByCondThreshold(
-    filterModsByCond(buffSkillEffMods, loadout, config, derivedCtx),
+  const { prenormMods, mods } = applyModFilters(
+    buffSkillEffMods,
+    loadout,
     config,
+    derivedCtx,
   );
-
-  const mods = filterOutPerMods(prenormMods);
   const skillUse = 3;
   mods.push(...normalizeStackables(prenormMods, "skill_use", skillUse));
 
@@ -1104,11 +1107,9 @@ const resolveBuffSkillEffMults = (
     ...normalizeStackables(prenormMods, "cruelty_buff", crueltyBuffStacks),
   );
 
-  const skillEffMods = filterMods(mods, "SkillEffPct");
-  const skillEffMult = calculateEffMultiplier(skillEffMods);
-  const allAuraEffMods = filterMods(mods, "AuraEffPct");
-  const auraEffMult = calculateEffMultiplier(allAuraEffMods);
-  const curseEffMult = calculateEffMultiplier(filterMods(mods, "CurseEffPct"));
+  const skillEffMult = calcEffMult(mods, "SkillEffPct");
+  const auraEffMult = calcEffMult(mods, "AuraEffPct");
+  const curseEffMult = calcEffMult(mods, "CurseEffPct");
 
   return { skillEffMult, auraEffMult, curseEffMult };
 };
@@ -1157,11 +1158,12 @@ const calculateAddedSkillLevels = (
   config: Configuration,
   derivedCtx: DerivedCtx,
 ): number => {
-  const prenormMods = filterModsByCondThreshold(
-    filterModsByCond(loadoutMods, loadout, config, derivedCtx),
+  const { prenormMods, mods } = applyModFilters(
+    loadoutMods,
+    loadout,
     config,
+    derivedCtx,
   );
-  const mods = filterOutPerMods(prenormMods);
 
   const sealedLifePct = config.sealedLifePct ?? 0;
   mods.push(
@@ -1270,14 +1272,13 @@ const resolveModsForOffenseSkill = (
     additionalMaxChanneledStacks,
     desecration,
   } = resourcePool;
-  const prenormMods = filterModsByCondThreshold(
-    filterModsByCond(prenormModsFromParam, loadout, config, derivedCtx),
+  const { prenormMods, mods: baseMods } = applyModFilters(
+    prenormModsFromParam,
+    loadout,
     config,
+    derivedCtx,
   );
-  const mods = [
-    ...filterOutPerMods(prenormMods),
-    ...calculateSkillLevelDmgMods(skillLevel),
-  ];
+  const mods = [...baseMods, ...calculateSkillLevelDmgMods(skillLevel)];
 
   mods.push(...normalizeStackables(prenormMods, "level", config.level));
 
@@ -1291,9 +1292,7 @@ const resolveModsForOffenseSkill = (
   mods.push(...normalizeStackables(prenormMods, "stat", sumStats));
 
   if (config.targetEnemyHasWhimsySignal) {
-    const whimsySignalEffMult = calculateEffMultiplier(
-      filterMods(mods, "WhimsySignalEffPct"),
-    );
+    const whimsySignalEffMult = calcEffMult(mods, "WhimsySignalEffPct");
     const whimsySignalDmgPctVal = 30 * whimsySignalEffMult;
     mods.push({
       type: "DmgPct",
@@ -1306,7 +1305,7 @@ const resolveModsForOffenseSkill = (
   }
 
   const movementSpeedBonusPct =
-    (calculateEffMultiplier(filterMods(mods, "MovementSpeedPct")) - 1) * 100;
+    (calcEffMult(mods, "MovementSpeedPct") - 1) * 100;
   mods.push(
     ...normalizeStackables(
       prenormMods,
@@ -1317,9 +1316,7 @@ const resolveModsForOffenseSkill = (
 
   // squidnova
   if (config.hasSquidnova) {
-    const squidNovaEffMult = calculateEffMultiplier(
-      filterMods(mods, "SquidnovaEffPct"),
-    );
+    const squidNovaEffMult = calcEffMult(mods, "SquidnovaEffPct");
     const squidNovaDmgPctValue = 16 * squidNovaEffMult;
     mods.push({
       type: "DmgPct",
@@ -1355,9 +1352,7 @@ const resolveModsForOffenseSkill = (
 
   // frail - additionally increases spell damage taken by 15%
   if (config.targetEnemyHasFrail) {
-    const frailEffMult = calculateEffMultiplier(
-      filterMods(mods, "FrailEffPct"),
-    );
+    const frailEffMult = calcEffMult(mods, "FrailEffPct");
     const frailSpellDmgPctValue = 15 * frailEffMult;
     mods.push({
       type: "DmgPct",
@@ -1467,7 +1462,7 @@ const resolveModsForOffenseSkill = (
     const dmgFromShadowMod = calculateAddnDmgFromShadows(numShadowHits);
     if (dmgFromShadowMod !== undefined) {
       const shadowDmgPctMods = filterMods(mods, "ShadowDmgPct");
-      const shadowDmgMult = calculateEffMultiplier(shadowDmgPctMods);
+      const shadowDmgMult = calcEffMult(shadowDmgPctMods);
       mods.push({
         ...multModValue(dmgFromShadowMod, shadowDmgMult),
         per: undefined,
@@ -1520,8 +1515,13 @@ const calculateResourcePool = (
   // potential perf issue: this is a duplicate filtering, since it also
   //   happens in calculateOffense with a slightly larger superset.
   //   maybe we should factor it out if performance becomes an issue
-  const prenormMods = filterModsByCond(paramMods, loadout, config, derivedCtx);
-  const mods = filterOutPerMods(prenormMods);
+  const { prenormMods, mods } = applyModFilters(
+    paramMods,
+    loadout,
+    config,
+    derivedCtx,
+    false, // withCondThreshold
+  );
 
   mods.push(...normalizeStackables(prenormMods, "level", config.level));
 
@@ -1532,11 +1532,11 @@ const calculateResourcePool = (
   mods.push(...normalizeStackables(prenormMods, "int", stats.int));
 
   const maxLifeFromMods = sumByValue(filterMods(mods, "MaxLife"));
-  const maxLifeMult = calculateEffMultiplier(filterMods(mods, "MaxLifePct"));
+  const maxLifeMult = calcEffMult(mods, "MaxLifePct");
   const maxLife = (50 + config.level * 13 + maxLifeFromMods) * maxLifeMult;
 
   const maxManaFromMods = sumByValue(filterMods(mods, "MaxMana"));
-  const maxManaMult = calculateEffMultiplier(filterMods(mods, "MaxManaPct"));
+  const maxManaMult = calcEffMult(mods, "MaxManaPct");
   const maxMana = (40 + config.level * 5 + maxManaFromMods) * maxManaMult;
 
   mods.push(...normalizeStackables(prenormMods, "max_mana", maxMana));
@@ -1587,11 +1587,7 @@ export const calculateDefenses = (
   config: Configuration,
   derivedCtx: DerivedCtx,
 ): Defenses => {
-  const prenormMods = filterModsByCondThreshold(
-    filterModsByCond(paramMods, loadout, config, derivedCtx),
-    config,
-  );
-  const mods = filterOutPerMods(prenormMods);
+  const { mods } = applyModFilters(paramMods, loadout, config, derivedCtx);
 
   const maxResMods = filterMods(mods, "MaxResistancePct");
   const resMods = filterMods(mods, "ResistancePct");
@@ -1671,9 +1667,7 @@ const calcAvgPersistentDps = (
   const erosion = dmgValues.erosion ?? 0;
   const total = physical + cold + lightning + fire + erosion;
 
-  const duration =
-    offense.duration *
-    calculateEffMultiplier(filterMods(mods, "SkillEffDurationPct"));
+  const duration = offense.duration * calcEffMult(mods, "SkillEffDurationPct");
 
   return {
     base: { physical, cold, lightning, fire, erosion },
@@ -1708,10 +1702,8 @@ const calcTotalReapDps = (
 ): TotalReapDpsSummary | undefined => {
   const dotDuration = persistentDpsSummary.duration;
   const dotDps = persistentDpsSummary.total;
-  const reapDurationMult = calculateEffMultiplier(
-    filterMods(mods, "ReapDurationPct"),
-  );
-  const reapCdrMult = calculateEffMultiplier(filterMods(mods, "ReapCdrPct"));
+  const reapDurationMult = calcEffMult(mods, "ReapDurationPct");
+  const reapCdrMult = calcEffMult(mods, "ReapCdrPct");
   const reapPurificationPct =
     sumByValue(filterMods(mods, "ReapPurificationPct")) / 100;
   const reaps = filterMods(mods, "Reap").map((m) => {
@@ -1874,7 +1866,7 @@ const calcAvgSpellDps = (
   }
   const { avg, castTime } = spellHit;
 
-  const cspdMult = calculateEffMultiplier(filterMods(mods, "CspdPct"));
+  const cspdMult = calcEffMult(mods, "CspdPct");
   const cspd = (1 / castTime) * cspdMult;
   const critChance = calculateCritChance(mods, skill);
   const critDmgMult = calculateCritDmg(mods, skill);
@@ -1919,7 +1911,7 @@ const calcAvgSpellBurstDps = (
         )
       : []),
   ];
-  const burstsPerSecMult = calculateEffMultiplier(chargeSpeedMods);
+  const burstsPerSecMult = calcEffMult(chargeSpeedMods);
   const burstsPerSec = baseBurstsPerSec * burstsPerSecMult;
   const spellBurstDmgMult = calculateAddn(
     filterMods(mods, "SpellBurstAdditionalDmgPct").map((m) => m.value),
@@ -1940,8 +1932,9 @@ const calcAvgSpellBurstDps = (
   const whimsyEssenceOnBurst = sumByValue(
     filterMods(mods, "RestoreWhimsyEssenceOnSpellBurst"),
   );
-  const whimsyEssenceRecoverSpeedMult = calculateEffMultiplier(
-    filterMods(mods, "WhimsyEssenceRecoverySpeedPct"),
+  const whimsyEssenceRecoverSpeedMult = calcEffMult(
+    mods,
+    "WhimsyEssenceRecoverySpeedPct",
   );
 
   // Burst gains can overshoot 100 and waste essence. Assuming uniform
