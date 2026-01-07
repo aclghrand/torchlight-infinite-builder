@@ -1,5 +1,4 @@
 import React from "react";
-import { ModNotImplementedIcon } from "@/src/components/ui/ModNotImplementedIcon";
 import { Tooltip, TooltipTitle } from "@/src/components/ui/Tooltip";
 import type { BaseCoreTalent } from "@/src/data/core_talent";
 import { CoreTalentMods } from "@/src/data/core_talent/core_talent_mods";
@@ -177,19 +176,25 @@ const CoreTalentSlot: React.FC<CoreTalentSlotProps> = ({
         {hoveredTalent !== undefined && (
           <>
             <TooltipTitle>{hoveredTalent.name}</TooltipTitle>
-            <ul className="space-y-1">
+            <div>
               {CoreTalentMods[
                 hoveredTalent.name as CoreTalentName
               ].affixLines.map((line, idx) => (
-                <li
+                <div
                   key={idx}
-                  className="text-xs text-zinc-300 flex items-center"
+                  className={
+                    idx > 0 ? "mt-1 pt-1 border-t border-zinc-800" : ""
+                  }
                 >
-                  <span>{line.text}</span>
-                  {line.mods === undefined && <ModNotImplementedIcon />}
-                </li>
+                  <div className="text-xs text-zinc-300">{line.text}</div>
+                  {line.mods === undefined && (
+                    <div className="text-xs text-red-500">
+                      (Mod not supported in TOB yet)
+                    </div>
+                  )}
+                </div>
               ))}
-            </ul>
+            </div>
           </>
         )}
       </Tooltip>

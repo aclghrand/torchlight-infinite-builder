@@ -1,4 +1,3 @@
-import { ModNotImplementedIcon } from "@/src/components/ui/ModNotImplementedIcon";
 import { TooltipContent, TooltipTitle } from "@/src/components/ui/Tooltip";
 import type { BaseSkill } from "@/src/data/skill/types";
 import type { BaseSupportSkillSlot, SupportAffix } from "@/src/tli/core";
@@ -94,14 +93,21 @@ export const SupportSkillSelectedTooltipContent: React.FC<
 
       {/* Affixes with mod implementation status */}
       {displayAffixes.length > 0 ? (
-        <div className="space-y-1">
+        <div>
           {displayAffixes.map((affix, i) => {
             const hasImplementedMod =
               affix.mods !== undefined && affix.mods.length > 0;
             return (
-              <div key={i} className="flex items-start gap-1">
-                <span className="text-xs text-zinc-400">{affix.text}</span>
-                {!hasImplementedMod && <ModNotImplementedIcon />}
+              <div
+                key={i}
+                className={i > 0 ? "mt-1 pt-1 border-t border-zinc-800" : ""}
+              >
+                <div className="text-xs text-zinc-400">{affix.text}</div>
+                {!hasImplementedMod && (
+                  <div className="text-xs text-red-500">
+                    (Mod not supported in TOB yet)
+                  </div>
+                )}
               </div>
             );
           })}

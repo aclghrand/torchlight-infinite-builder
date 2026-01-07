@@ -1,4 +1,3 @@
-import { ModNotImplementedIcon } from "@/src/components/ui/ModNotImplementedIcon";
 import {
   Tooltip,
   TooltipContent,
@@ -366,9 +365,16 @@ export const TalentNodeDisplay: React.FC<TalentNodeDisplayProps> = ({
           </TooltipTitle>
           <TooltipContent>
             {node.affix.affixLines.map((line, idx) => (
-              <div key={idx} className="flex items-center">
-                <span>{line.text}</span>
-                {!line.mods && <ModNotImplementedIcon />}
+              <div
+                key={idx}
+                className={idx > 0 ? "mt-1 pt-1 border-t border-zinc-800" : ""}
+              >
+                <div>{line.text}</div>
+                {!line.mods && (
+                  <div className="text-xs text-red-500">
+                    (Mod not supported in TOB yet)
+                  </div>
+                )}
               </div>
             ))}
           </TooltipContent>
@@ -493,9 +499,16 @@ export const TalentNodeDisplay: React.FC<TalentNodeDisplayProps> = ({
         <TooltipTitle>{talentTypeName}</TooltipTitle>
         <TooltipContent>
           {node.affix.affixLines.map((line, idx) => (
-            <div key={idx} className="flex items-center">
-              <span>{line.text}</span>
-              {!line.mods && <ModNotImplementedIcon />}
+            <div
+              key={idx}
+              className={idx > 0 ? "mt-1 pt-1 border-t border-zinc-800" : ""}
+            >
+              <div>{line.text}</div>
+              {!line.mods && (
+                <div className="text-xs text-red-500">
+                  (Mod not supported in TOB yet)
+                </div>
+              )}
             </div>
           ))}
         </TooltipContent>

@@ -1,4 +1,3 @@
-import { ModNotImplementedIcon } from "@/src/components/ui/ModNotImplementedIcon";
 import { Tooltip, TooltipTitle } from "@/src/components/ui/Tooltip";
 import { useTooltip } from "@/src/hooks/useTooltip";
 import type { HeroMemory } from "@/src/tli/core";
@@ -60,19 +59,32 @@ export const HeroMemoryItem: React.FC<HeroMemoryItemProps> = ({
       >
         <TooltipTitle>{memory.memoryType}</TooltipTitle>
         {memory.affixes.length > 0 ? (
-          <ul className="space-y-1">
-            {memory.affixes.flatMap((affix, affixIdx) =>
-              affix.affixLines.map((line, lineIdx) => (
-                <li
-                  key={`${affixIdx}-${lineIdx}`}
-                  className="text-xs text-zinc-400 flex items-center"
-                >
-                  <span>{line.text}</span>
-                  {line.mods === undefined && <ModNotImplementedIcon />}
-                </li>
-              )),
-            )}
-          </ul>
+          <div>
+            {memory.affixes.map((affix, affixIdx) => (
+              <div
+                key={affixIdx}
+                className={
+                  affixIdx > 0 ? "mt-2 pt-2 border-t border-zinc-500" : ""
+                }
+              >
+                {affix.affixLines.map((line, lineIdx) => (
+                  <div
+                    key={lineIdx}
+                    className={
+                      lineIdx > 0 ? "mt-1 pt-1 border-t border-zinc-800" : ""
+                    }
+                  >
+                    <div className="text-xs text-zinc-400">{line.text}</div>
+                    {line.mods === undefined && (
+                      <div className="text-xs text-red-500">
+                        (Mod not supported in TOB yet)
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
         ) : (
           <p className="text-xs text-zinc-500 italic">No affixes</p>
         )}

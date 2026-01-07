@@ -1,5 +1,4 @@
 import type React from "react";
-import { ModNotImplementedIcon } from "@/src/components/ui/ModNotImplementedIcon";
 import type { TreeSlot } from "@/src/lib/types";
 import { useTalentTree } from "@/src/stores/builderStore";
 import type { PlacedPrism } from "@/src/tli/core";
@@ -48,14 +47,21 @@ export const PrismCoreTalentEffect: React.FC<PrismCoreTalentEffectProps> = ({
             Prism Core Talent Effect
           </span>
         </div>
-        <ul className="space-y-1">
+        <div>
           {additionalAffix.affixLines.map((line, idx) => (
-            <li key={idx} className="text-sm text-blue-400 flex items-center">
-              <span>{line.text}</span>
-              {line.mods === undefined && <ModNotImplementedIcon />}
-            </li>
+            <div
+              key={idx}
+              className={idx > 0 ? "mt-1 pt-1 border-t border-zinc-800" : ""}
+            >
+              <div className="text-sm text-blue-400">{line.text}</div>
+              {line.mods === undefined && (
+                <div className="text-xs text-red-500">
+                  (Mod not supported in TOB yet)
+                </div>
+              )}
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     );
   }
@@ -73,14 +79,21 @@ export const PrismCoreTalentEffect: React.FC<PrismCoreTalentEffectProps> = ({
         <div className="text-sm font-medium text-amber-400 mb-2">
           {replacedTalent.specialName}
         </div>
-        <ul className="space-y-1">
+        <div>
           {replacedTalent.affixLines.map((line, idx) => (
-            <li key={idx} className="text-sm text-blue-400 flex items-center">
-              <span>{line.text}</span>
-              {line.mods === undefined && <ModNotImplementedIcon />}
-            </li>
+            <div
+              key={idx}
+              className={idx > 0 ? "mt-1 pt-1 border-t border-zinc-800" : ""}
+            >
+              <div className="text-sm text-blue-400">{line.text}</div>
+              {line.mods === undefined && (
+                <div className="text-xs text-red-500">
+                  (Mod not supported in TOB yet)
+                </div>
+              )}
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     );
   }

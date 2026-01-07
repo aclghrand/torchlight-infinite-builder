@@ -14,9 +14,9 @@ interface TooltipProps {
 }
 
 const widthClasses = {
-  sm: "w-64",
-  md: "w-72",
-  lg: "w-80",
+  sm: "w-72",
+  md: "w-80",
+  lg: "w-96",
 } as const;
 
 const variantClasses = {

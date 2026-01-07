@@ -1,4 +1,3 @@
-import { ModNotImplementedIcon } from "@/src/components/ui/ModNotImplementedIcon";
 import {
   Tooltip,
   TooltipContent,
@@ -99,17 +98,23 @@ export const RingSlot: React.FC<RingSlotProps> = ({
             : displayName}
         </TooltipTitle>
         <TooltipContent>
-          <ul className="space-y-1">
+          <div>
             {displayAffix.affixLines.map((line, lineIdx) => (
-              <li
+              <div
                 key={lineIdx}
-                className="text-xs text-zinc-400 flex items-center"
+                className={
+                  lineIdx > 0 ? "mt-1 pt-1 border-t border-zinc-800" : ""
+                }
               >
-                <span>{line.text}</span>
-                {line.mods === undefined && <ModNotImplementedIcon />}
-              </li>
+                <div className="text-xs text-zinc-400">{line.text}</div>
+                {line.mods === undefined && (
+                  <div className="text-xs text-red-500">
+                    (Mod not supported in TOB yet)
+                  </div>
+                )}
+              </div>
             ))}
-          </ul>
+          </div>
         </TooltipContent>
       </Tooltip>
     </div>

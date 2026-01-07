@@ -1,4 +1,3 @@
-import { ModNotImplementedIcon } from "@/src/components/ui/ModNotImplementedIcon";
 import { TooltipTitle } from "@/src/components/ui/Tooltip";
 import { getGearAffixes } from "@/src/tli/calcs/affix-collectors";
 import type { Gear } from "@/src/tli/core";
@@ -19,7 +18,7 @@ export const GearTooltipContent: React.FC<{ item: Gear }> = ({ item }) => {
             <div
               key={affixIdx}
               className={
-                affixIdx > 0 ? "mt-1.5 pt-1.5 border-t border-zinc-700" : ""
+                affixIdx > 0 ? "mt-2 pt-2 border-t border-zinc-500" : ""
               }
             >
               {affix.specialName !== undefined && (
@@ -30,10 +29,16 @@ export const GearTooltipContent: React.FC<{ item: Gear }> = ({ item }) => {
               {affix.affixLines.map((line, lineIdx) => (
                 <div
                   key={lineIdx}
-                  className="text-xs text-zinc-400 flex items-center"
+                  className={
+                    lineIdx > 0 ? "mt-1 pt-1 border-t border-zinc-800" : ""
+                  }
                 >
-                  <span>{line.text}</span>
-                  {line.mods === undefined && <ModNotImplementedIcon />}
+                  <div className="text-xs text-zinc-400">{line.text}</div>
+                  {line.mods === undefined && (
+                    <div className="text-xs text-red-500">
+                      (Mod not supported in TOB yet)
+                    </div>
+                  )}
                 </div>
               ))}
               {affix.maxDivinity !== undefined && (
