@@ -3023,3 +3023,25 @@ test("parse generates barrier", () => {
     },
   ]);
 });
+
+test("parse origin of spirit magus effect", () => {
+  const result = parseMod("+15% Origin of Spirit Magus effect");
+  expect(result).toEqual([
+    {
+      type: "SpiritMagusOriginEffPct",
+      value: 15,
+      addn: false,
+    },
+  ]);
+});
+
+test("parse additional origin of spirit magus effect", () => {
+  const result = parseMod("+30% additional Origin of Spirit Magus Effect");
+  expect(result).toEqual([
+    {
+      type: "SpiritMagusOriginEffPct",
+      value: 30,
+      addn: true,
+    },
+  ]);
+});

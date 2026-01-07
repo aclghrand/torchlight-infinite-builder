@@ -309,6 +309,7 @@ interface ModDefinitions {
   SkillEffPct: { value: number; addn?: boolean };
   AuraEffPct: { value: number; addn?: boolean; unscalable?: boolean };
   FocusBuffEffPct: { value: number; addn?: boolean };
+  SpiritMagusOriginEffPct: { value: number; addn?: boolean };
   CurseEffPct: { value: number; addn?: boolean };
   CurseDurationPct: { value: number };
   SealedManaCompPct: { value: number; addn?: boolean };

@@ -1085,7 +1085,10 @@ export const CoreTalentMods: Record<CoreTalentName, Affix> = {
   Source: {
     affixLines: [
       { text: "+50% Sealed Mana Compensation for Spirit Magus Skills" },
-      { text: "+30% additional Origin of Spirit Magus Effect" },
+      {
+        text: "+30% additional Origin of Spirit Magus Effect",
+        mods: [{ type: "SpiritMagusOriginEffPct", value: 30, addn: true }],
+      },
       { text: "Spirit Magi +30% additional Empower Skill Effect" },
     ],
   },

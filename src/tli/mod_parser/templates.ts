@@ -696,6 +696,10 @@ export const allParsers = [
     value: c.value,
     addn: c.additional !== undefined,
   })),
+  t("{value:+dec%} [additional] origin of spirit magus effect").output("SpiritMagusOriginEffPct", (c) => ({
+    value: c.value,
+    addn: c.additional !== undefined,
+  })),
   t("{value:+dec%} curse duration").output("CurseDurationPct", (c) => ({ value: c.value })),
   t("{value:+dec%} [additional] curse skill area").output("SkillAreaPct", (c) => ({
     value: c.value,

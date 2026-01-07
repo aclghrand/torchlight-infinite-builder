@@ -771,6 +771,21 @@ const findSkill = (
   return PassiveSkills.find((s) => s.name === name) as BasePassiveSkill;
 };
 
+const calcBuffSkillType = (
+  skill: BaseActiveSkill | BasePassiveSkill,
+): "aura" | "curse" | "spirit_magus_origin" | "other" => {
+  if (skill.type === "Passive" && skill.tags?.includes("Aura")) {
+    return "aura";
+  }
+  if (skill.type === "Active" && skill.tags?.includes("Curse")) {
+    return "curse";
+  }
+  if (skill.type === "Passive" && skill.tags?.includes("Spirit Magus")) {
+    return "spirit_magus_origin";
+  }
+  return "other";
+};
+
 // resolves mods coming from skills that provide buffs (levelBuffMods)
 // for example, "Bull's Rage" provides a buff that increases all melee damage
 const resolveBuffSkillMods = (
@@ -792,10 +807,7 @@ const resolveBuffSkillMods = (
     const skill = findSkill(
       skillSlot.skillName as ActiveSkillName | PassiveSkillName,
     );
-    const isAuraSkill =
-      (skill.type === "Passive" && skill.tags?.includes("Aura")) ?? false;
-    const isCurseSkill =
-      (skill.type === "Active" && skill.tags?.includes("Curse")) ?? false;
+    const buffSkillType = calcBuffSkillType(skill);
 
     // Get support skill mods (includes SkillEffPct, AuraEffPct, etc.)
     const supportMods = resolveSelectedSkillSupportMods(
@@ -819,6 +831,7 @@ const resolveBuffSkillMods = (
         config,
         derivedCtx,
       );
+    const buffSrc = `${buffSkillType}: ${skill.name} Lv.${level}`;
     if (skill.type === "Active") {
       const activeMods = getActiveSkillMods(
         skill.name as ActiveSkillName,
@@ -832,7 +845,7 @@ const resolveBuffSkillMods = (
       rawBuffMods =
         activeMods.buffMods?.map((mod) => ({
           ...mod,
-          src: `${isAuraSkill ? "Aura" : "Buff"}: ${skill.name} Lv.${level}`,
+          src: buffSrc,
         })) ?? [];
     } else if (skill.type === "Passive") {
       const passiveMods = getPassiveSkillMods(
@@ -847,13 +860,17 @@ const resolveBuffSkillMods = (
       rawBuffMods =
         passiveMods.buffMods?.map((mod) => ({
           ...mod,
-          src: `${isAuraSkill ? "Aura" : "Buff"}: ${skill.name} Lv.${level}`,
+          src: buffSrc,
         })) ?? [];
     }
 
     const prenormMods = [...loadoutMods, ...supportMods, ...levelMods];
-    const { skillEffMult, auraEffMult, curseEffMult } =
-      resolveBuffSkillEffMults(prenormMods, loadout, config, derivedCtx);
+    const {
+      skillEffMult,
+      auraEffMult,
+      curseEffMult,
+      spiritMagusOriginEffMult,
+    } = resolveBuffSkillEffMults(prenormMods, loadout, config, derivedCtx);
 
     // === Apply multipliers to buff mods ===
     for (const mod of rawBuffMods) {
@@ -866,10 +883,12 @@ const resolveBuffSkillMods = (
       // Calculate final value
       let finalValue = mod.value;
       if (!("unscalable" in mod && mod.unscalable === true)) {
-        if (isAuraSkill) {
+        if (buffSkillType === "aura") {
           finalValue = multValue(finalValue, auraEffMult);
-        } else if (isCurseSkill) {
+        } else if (buffSkillType === "curse") {
           finalValue = multValue(finalValue, curseEffMult);
+        } else if (buffSkillType === "spirit_magus_origin") {
+          finalValue = multValue(finalValue, spiritMagusOriginEffMult);
         } else {
           finalValue = multValue(finalValue, skillEffMult);
         }
@@ -1067,12 +1086,18 @@ const resolveBuffSkillEffMults = (
   loadout: Loadout,
   config: Configuration,
   derivedCtx: DerivedCtx,
-): { skillEffMult: number; auraEffMult: number; curseEffMult: number } => {
+): {
+  skillEffMult: number;
+  auraEffMult: number;
+  curseEffMult: number;
+  spiritMagusOriginEffMult: number;
+} => {
   const buffSkillEffMods = unresolvedModsFromParam.filter(
     (m) =>
       m.type === "AuraEffPct" ||
       m.type === "SkillEffPct" ||
-      m.type === "CurseEffPct",
+      m.type === "CurseEffPct" ||
+      m.type === "SpiritMagusOriginEffPct",
   );
   const { prenormMods, mods } = applyModFilters(
     buffSkillEffMods,
@@ -1100,8 +1125,9 @@ const resolveBuffSkillEffMults = (
   const skillEffMult = calcEffMult(mods, "SkillEffPct");
   const auraEffMult = calcEffMult(mods, "AuraEffPct");
   const curseEffMult = calcEffMult(mods, "CurseEffPct");
+  const spiritMagusOriginEffMult = calcEffMult(mods, "SpiritMagusOriginEffPct");
 
-  return { skillEffMult, auraEffMult, curseEffMult };
+  return { skillEffMult, auraEffMult, curseEffMult, spiritMagusOriginEffMult };
 };
 
 const calcMaxBlessings = (
