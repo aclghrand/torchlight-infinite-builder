@@ -57,29 +57,29 @@ export interface Configuration {
   level: number;
   fervorEnabled: boolean;
   // default to max
-  fervorPoints: number | undefined;
+  fervorPoints?: number;
   enemyFrostbittenEnabled: boolean;
   // default to 100
-  enemyFrostbittenPoints: number | undefined;
+  enemyFrostbittenPoints?: number;
   // default to max
-  crueltyBuffStacks: number | undefined;
+  crueltyBuffStacks?: number;
   // default to max
-  numShadowHits: number | undefined;
+  numShadowHits?: number;
   // default to 0
-  manaConsumedRecently: number | undefined;
+  manaConsumedRecently?: number;
   // default to 0
-  sealedManaPct: number | undefined;
+  sealedManaPct?: number;
   // default to 0
-  sealedLifePct: number | undefined;
+  sealedLifePct?: number;
   // default to max
-  focusBlessings: number | undefined;
+  focusBlessings?: number;
   hasFocusBlessing: boolean;
   // default to max
-  agilityBlessings: number | undefined;
+  agilityBlessings?: number;
   // default to max
   hasAgilityBlessing: boolean;
   // default to max
-  tenacityBlessings: number | undefined;
+  tenacityBlessings?: number;
   // default to max
   hasTenacityBlessing: boolean;
   // default to false
@@ -92,6 +92,10 @@ export interface Configuration {
   targetEnemyIsNearby: boolean;
   // default to false
   targetEnemyIsInProximity: boolean;
+  // default to false
+  targetEnemyHasFrail: boolean;
+  // default to false
+  targetEnemyHasWhimsySignal: boolean;
   // default to 0
   numEnemiesNearby: number;
   // default to 0
@@ -107,7 +111,7 @@ export interface Configuration {
   // default fo false
   channeling: boolean;
   // Defaults to max channeled stacks
-  channeledStacks: number | undefined;
+  channeledStacks?: number;
   // default to false
   sagesInsightFireActivated: boolean;
   // default to false
@@ -119,7 +123,7 @@ export interface Configuration {
   // default to false
   enemyHasAffliction: boolean;
   // default to 100
-  afflictionPts: number | undefined;
+  afflictionPts?: number;
   // default to false
   enemyHasDesecration: boolean;
   // default to 0
@@ -129,7 +133,25 @@ export interface Configuration {
   // default to false
   blurEndedRecently: boolean;
   // default to max
-  numMindControlLinksUsed: number | undefined;
+  numMindControlLinksUsed?: number;
+  // default to false
+  hasSquidnova: boolean;
+  // default to false
+  targetEnemyIsFrozen: boolean;
+  // default to false
+  targetEnemyFrozenRecently: boolean;
+  // default to false
+  targetEnemyHasColdInfiltration: boolean;
+  // default to false
+  targetEnemyHasLightningInfiltration: boolean;
+  // default to false
+  targetEnemyHasFireInfiltration: boolean;
+  // default to 0
+  hasHitEnemyWithElementalDmgRecently: number;
+  // default to 0
+  numSpellSkillsUsedRecently: number;
+  // default to max
+  chainLightningInstancesOnTarget?: number;
 
   // --------------------
   // hero-specific config
@@ -144,16 +166,78 @@ export interface Configuration {
   // ------------
 
   // defaults: cold/lightning/fire = 40, erosion = 30
-  enemyColdRes: number | undefined;
-  enemyLightningRes: number | undefined;
-  enemyFireRes: number | undefined;
-  enemyErosionRes: number | undefined;
+  enemyColdRes?: number;
+  enemyLightningRes?: number;
+  enemyFireRes?: number;
+  enemyErosionRes?: number;
   // default to 27273 (effective phys dmg mitigation of 50%)
-  enemyArmor: number | undefined;
+  enemyArmor?: number;
 
   // custom affix lines for injecting arbitrary mods
   customAffixLines?: string[];
 }
+
+export const DEFAULT_CONFIGURATION: Configuration = {
+  level: 95,
+  fervorEnabled: false,
+  fervorPoints: undefined,
+  enemyFrostbittenEnabled: false,
+  enemyFrostbittenPoints: undefined,
+  crueltyBuffStacks: 40,
+  numShadowHits: undefined,
+  manaConsumedRecently: undefined,
+  sealedManaPct: undefined,
+  sealedLifePct: undefined,
+  focusBlessings: undefined,
+  hasFocusBlessing: false,
+  agilityBlessings: undefined,
+  hasAgilityBlessing: false,
+  tenacityBlessings: undefined,
+  hasTenacityBlessing: false,
+  hasFullMana: false,
+  enemyParalyzed: false,
+  targetEnemyIsElite: false,
+  targetEnemyIsNearby: false,
+  targetEnemyIsInProximity: false,
+  targetEnemyHasFrail: false,
+  targetEnemyHasWhimsySignal: false,
+  numEnemiesNearby: 0,
+  numEnemiesAffectedByWarcry: 0,
+  hasBlockedRecently: false,
+  hasElitesNearby: false,
+  enemyHasAilment: false,
+  hasCritRecently: false,
+  channeling: false,
+  channeledStacks: undefined,
+  sagesInsightFireActivated: false,
+  sagesInsightColdActivated: false,
+  sagesInsightLightningActivated: false,
+  sagesInsightErosionActivated: false,
+  enemyHasAffliction: false,
+  afflictionPts: undefined,
+  enemyHasDesecration: false,
+  tormentStacks: 0,
+  hasBlur: false,
+  blurEndedRecently: false,
+  numMindControlLinksUsed: undefined,
+  hasSquidnova: false,
+  targetEnemyIsFrozen: false,
+  targetEnemyFrozenRecently: false,
+  targetEnemyHasColdInfiltration: false,
+  targetEnemyHasLightningInfiltration: false,
+  targetEnemyHasFireInfiltration: false,
+  hasHitEnemyWithElementalDmgRecently: 0,
+  numSpellSkillsUsedRecently: 0,
+  chainLightningInstancesOnTarget: undefined,
+  realmOfMercuryEnabled: false,
+  baptismOfPurityEnabled: false,
+  enemyColdRes: undefined,
+  enemyLightningRes: undefined,
+  enemyFireRes: undefined,
+  enemyErosionRes: undefined,
+  enemyArmor: undefined,
+  customAffixLines: undefined,
+};
 
 export interface Gear {
   equipmentType: EquipmentType;
@@ -210,6 +294,7 @@ export interface TalentTree {
   selectedCoreTalents?: Affix[];
   selectedCoreTalentNames?: string[]; // Original names for UI display
   additionalCoreTalentPrismAffix?: Affix;
+  replacementPrismCoreTalent?: string; // Ethereal talent name if prism replaces core talents
 }
 
 export interface CraftedPrism {

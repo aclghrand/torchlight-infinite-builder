@@ -384,11 +384,7 @@ function TalentsSlotPage(): React.ReactNode {
             onSelectCoreTalent={(slotIndex, name) =>
               selectCoreTalent(activeTreeSlot, slotIndex, name)
             }
-            replacedByPrism={
-              placedPrism?.treeSlot === activeTreeSlot
-                ? getPrismReplacedCoreTalent(placedPrism.prism)
-                : undefined
-            }
+            replacedByPrism={currentTalentTree.replacementPrismCoreTalent}
           />
         )}
 

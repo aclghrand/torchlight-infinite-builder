@@ -37,6 +37,20 @@ export const ResTypes = [
 
 export type ResType = (typeof ResTypes)[number];
 
+export const InfiltrationTypes = ["cold", "lightning", "fire"] as const;
+
+export type InfiltrationType = (typeof InfiltrationTypes)[number];
+
+export const MinionDmgModTypes = [
+  "physical",
+  "cold",
+  "lightning",
+  "fire",
+  "erosion",
+] as const;
+
+export type MinionDmgModType = (typeof MinionDmgModTypes)[number];
+
 export const SkillAreaModTypes = ["global", "curse"];
 
 export type SkillAreaModType = (typeof SkillAreaModTypes)[number];
@@ -48,6 +62,7 @@ export const SkillLevelTypes = [
   "persistent",
   "erosion",
   "spell",
+  "lightning",
   "all",
 ] as const;
 
@@ -60,8 +75,11 @@ export type HeroTraitLevelType = (typeof HeroTraitLevelTypes)[number];
 export type Stackable =
   | "willpower"
   | "main_stat"
+  | "stat"
+  | "highest_stat"
   | "frostbite_rating"
   | "projectile"
+  | "jump"
   | "skill_use"
   | "skill_charges_on_use"
   | "cruelty_buff"
@@ -84,6 +102,9 @@ export type Stackable =
   | "dex"
   | "int"
   | "level"
+  | "max_spell_burst"
+  | "has_hit_enemy_with_elemental_dmg_recently"
+  | "num_spell_skills_used_recently"
   // max channel stacks beyond initial skill channel stacks
   | "additional_max_channel_stack"
   | "channel_stack"
@@ -146,8 +167,13 @@ export type Condition =
   | "equipped_in_left_ring_slot"
   | "equipped_in_right_ring_slot"
   | "enemy_has_desecration_and_cc"
+  | "enemy_has_cold_infiltration"
+  | "enemy_has_lightning_infiltration"
+  | "enemy_has_fire_infiltration"
+  | "target_enemy_frozen_recently"
   // pactspirits
-  | "has_portrait_of_a_fallen_saintess_pactspirit";
+  | "has_portrait_of_a_fallen_saintess_pactspirit"
+  | "has_squidnova";
 
 export type ConditionThresholdTarget =
   | "num_enemies_nearby"
@@ -179,6 +205,10 @@ interface ModDefinitions {
     addn: boolean;
     isEnemyDebuff?: boolean;
   };
+  ElementalSpellDmgPct: {
+    value: number;
+    addn: boolean;
+  };
   FlatDmgToAtks: { value: DmgRange; dmgType: DmgChunkType };
   FlatDmgToSpells: { value: DmgRange; dmgType: DmgChunkType };
   FlatCritRating: { value: number; modType: CritRatingModType };
@@ -187,9 +217,16 @@ interface ModDefinitions {
   AspdPct: { value: number; addn: boolean };
   CspdPct: { value: number; addn: boolean };
   // minions
-  MinionAspdAndCspdPct: { value: number; addn: boolean };
-  MinionDmgPct: { value: number; addn?: boolean };
+  MinionDmgPct: {
+    value: number;
+    addn?: boolean;
+    minionDmgModType?: MinionDmgModType;
+  };
+  MinionAspdPct: { value: number; addn: boolean };
+  MinionCspdPct: { value: number; addn: boolean };
   MinionCritRatingPct: { value: number; addn?: boolean };
+  MinionCritDmgPct: { value: number; addn?: boolean };
+  MinionResPenPct: { value: number; penType: ResPenType };
   // end minions
   ProjectileSpeedPct: { value: number; addn?: boolean };
   ProjectileSizePct: { value: number };
@@ -199,6 +236,7 @@ interface ModDefinitions {
   HaveFervor: object;
   FixedFervorPts: { value: number };
   FervorEffPct: { value: number };
+  FrailEffPct: { value: number };
   SteepStrikeChancePct: { value: number };
   SteepStrikeDmg: { value: number; addn: boolean };
   SweepSlashDmg: { value: number; addn: boolean };
@@ -236,6 +274,7 @@ interface ModDefinitions {
   MaxResistancePct: { value: number; resType: ResType };
   LifeRegainPct: { value: number };
   EnergyShieldRegainPct: { value: number };
+  EnergyShieldChargeSpeedPct: { value: number };
   RestoreLifePct: { value: number; interval: number };
   DmgTakenPct: { value: number; addn?: boolean };
   // end defenses
@@ -255,6 +294,8 @@ interface ModDefinitions {
   MaxProjectile: { value: number; override?: boolean };
   MaxSpellBurst: { value: number };
   SpellBurstChargeSpeedPct: { value: number; addn?: boolean };
+  SpellBurstAdditionalDmgPct: { value: number };
+  PlaySafe: { value: number };
   SkillAreaPct: {
     value: number;
     skillAreaModType: SkillAreaModType;
@@ -283,13 +324,17 @@ interface ModDefinitions {
   MaxFocusBlessing: { value: number };
   MaxAgilityBlessing: { value: number };
   MaxTenacityBlessing: { value: number };
-  MaxChannel: { value: number };
-  GeneratesFocusBlessing: { value: number };
+  FocusBlessingDurationPct: { value: number };
+  AgilityBlessingDurationPct: { value: number };
+  TenacityBlessingDurationPct: { value: number };
+  GeneratesFocusBlessing: object;
   GeneratesAgilityBlessing: object;
   GeneratesTenacityBlessing: object;
+  MaxChannel: { value: number };
   GeneratesBarrier: object;
   GeneratesTorment: object;
   GeneratesBlur: { value: number };
+  GeneratesSpellAggression: object;
   MaxRepentance: { value: number };
   GeneratesRepentance: { value: number };
   SkillLevel: { value: number; skillLevelType: SkillLevelType };
@@ -298,10 +343,16 @@ interface ModDefinitions {
   GearBasePhysDmg: { value: number };
   GearBaseCritRating: { value: number };
   GearBaseAttackSpeed: { value: number };
+  SkillCost: { value: number };
+  // infiltrations
+  InflictsInfiltration: { infiltrationType: InfiltrationType };
   // ailments
   InflictWiltPct: { value: number; isEnemyDebuff?: boolean };
   BaseWiltFlatDmg: { value: number };
+  InflictFrostbitePct: { value: number; isEnemyDebugg?: boolean };
   InflictParalysisPct: { value: number };
+  FreezeDurationPct: { value: number };
+  InflictFrail: object;
   // skill-specific
   MindControlMaxLink: { value: number };
   InitialMaxChannel: { value: number };
@@ -309,12 +360,21 @@ interface ModDefinitions {
   AfflictionEffectPct: { value: number; addn?: boolean };
   CannotInflictWilt: object;
   IgniteDurationPct: { value: number; addn?: boolean };
+  ChainLightningWebOfLightning: object;
+  ChainLightningMerge: { shotgunFalloffCoefficient: number };
   // enemy mods
   EnemyRes: { value: number; resType: ResType };
   // core talent specific
   ReapPurificationPct: { value: number };
   // hero-specific mods
   Blasphemer: object;
+  // bing2
+  WhimsyEssenceRecoverySpeedPct: { value: number };
+  WhimsySignalEffPct: { value: number };
+  RestoreWhimsyEssenceOnSpellBurst: { value: number };
+  // pactspirit stuff
+  SquidnovaEffPct: { value: number };
+  GeneratesSquidnova: object;
 }
 
 // Generate the Mod union type from ModDefinitions
@@ -322,7 +382,4 @@ export type Mod = {
   [K in keyof ModDefinitions]: { type: K } & ModDefinitions[K] & ModBase;
 }[keyof ModDefinitions];
 
-export type ModOfType<T extends keyof ModDefinitions> = Extract<
-  Mod,
-  { type: T }
->;
+export type ModT<T extends keyof ModDefinitions> = Extract<Mod, { type: T }>;

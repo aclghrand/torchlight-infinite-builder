@@ -108,6 +108,18 @@ export const ActiveSkills = [
       "Casts the skill and Curses enemies within the target area.\nCursed enemies +39% additional Cold Damage taken.\n19.5% chance to be Frostbitten when you are hit by a Cursed enemy\nLasts 5s.",
     ],
     kinds: ["inflict_ailment"],
+    levelValues: {
+      dmgPct: [
+        20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37,
+        38, 39, 40, 40.5, 41, 41.5, 42, 42.5, 43, 43.5, 44, 44.5, 45, 45.5, 46,
+        46.5, 47, 47.5, 48, 48.5, 49, 49.5,
+      ],
+      inflictFrostbitePct: [
+        10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14, 14.5, 15, 15.5, 16, 16.5,
+        17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5,
+        24, 24.5, 25, 25.5, 26, 26.5, 27, 27.5, 28, 28.5, 29, 29.5,
+      ],
+    },
   },
   {
     type: "Active",
@@ -478,6 +490,11 @@ export const ActiveSkills = [
         20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37,
         38, 39, 40, 40.5, 41, 41.5, 42, 42.5, 43, 43.5, 44, 44.5, 45, 45.5, 46,
         46.5, 47, 47.5, 48, 48.5, 49, 49.5,
+      ],
+      inflictWiltPct: [
+        10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14, 14.5, 15, 15.5, 16, 16.5,
+        17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5,
+        24, 24.5, 25, 25.5, 26, 26.5, 27, 27.5, 28, 28.5, 29, 29.5,
       ],
     },
   },
@@ -1937,6 +1954,13 @@ export const ActiveSkills = [
       "Casts the skill and Curses enemies within the target area.\n+39% additional Hit Damage taken by Cursed enemies\nLasts 5s.",
     ],
     kinds: [],
+    levelValues: {
+      dmgPct: [
+        20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37,
+        38, 39, 40, 40.5, 41, 41.5, 42, 42.5, 43, 43.5, 44, 44.5, 45, 45.5, 46,
+        46.5, 47, 47.5, 48, 48.5, 49, 49.5,
+      ],
+    },
   },
   {
     type: "Active",

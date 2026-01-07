@@ -82,5 +82,7 @@ export const MAX_SLATE_AFFIXES = 5;
 
 // Storage keys
 export const DEBUG_MODE_STORAGE_KEY = "tli-planner-debug-mode";
+export const DEBUG_PANEL_HEIGHT_STORAGE_KEY = "tli-planner-debug-panel-height";
+export const DEBUG_PANEL_TAB_STORAGE_KEY = "tli-planner-debug-panel-tab";
 export const SAVES_INDEX_STORAGE_KEY = "tli-planner-saves-index";
 export const SAVE_DATA_STORAGE_KEY_PREFIX = "tli-planner-save-";

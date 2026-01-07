@@ -4,7 +4,13 @@ import {
   CRIT_RATING_MOD_TYPES,
   DMG_MOD_TYPES,
 } from "../constants";
-import { DmgChunkTypes, ResPenTypes, ResTypes, SkillLevelTypes } from "../mod";
+import {
+  DmgChunkTypes,
+  MinionDmgModTypes,
+  ResPenTypes,
+  ResTypes,
+  SkillLevelTypes,
+} from "../mod";
 
 // Global enum registry for validation
 export const enumRegistry = new Map<string, Set<string>>();
@@ -19,6 +25,7 @@ registerEnum("DmgModType", DMG_MOD_TYPES);
 registerEnum("CritRatingModType", CRIT_RATING_MOD_TYPES);
 registerEnum("CritDmgModType", CRIT_DMG_MOD_TYPES);
 registerEnum("DmgChunkType", DmgChunkTypes);
+registerEnum("MinionDmgModType", MinionDmgModTypes);
 registerEnum("ResPenType", ResPenTypes);
 registerEnum("CoreTalentName", CoreTalentNames);
 registerEnum("SkillLevelType", SkillLevelTypes);

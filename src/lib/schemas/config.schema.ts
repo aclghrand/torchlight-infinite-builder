@@ -1,107 +1,94 @@
 import { z } from "zod";
+import { type Configuration, DEFAULT_CONFIGURATION } from "@/src/tli/core";
 
-// Configuration page (matches Configuration interface from core.ts)
+const d = DEFAULT_CONFIGURATION;
+
+// Configuration page schema - must match Configuration interface from core.ts
+// The `satisfies z.ZodType<Configuration>` ensures schema output matches the interface
 export const ConfigurationPageSchema = z
   .object({
-    level: z.number().catch(95),
-    fervorEnabled: z.boolean().catch(false),
-    fervorPoints: z.number().optional().catch(undefined),
-    enemyFrostbittenEnabled: z.boolean().catch(false),
-    enemyFrostbittenPoints: z.number().optional().catch(undefined),
-    crueltyBuffStacks: z.number().optional().catch(40),
-    numShadowHits: z.number().optional().catch(undefined),
-    manaConsumedRecently: z.number().optional().catch(undefined),
-    sealedManaPct: z.number().optional().catch(undefined),
-    sealedLifePct: z.number().optional().catch(undefined),
-    focusBlessings: z.number().optional().catch(undefined),
-    hasFocusBlessing: z.boolean().catch(false),
-    agilityBlessings: z.number().optional().catch(undefined),
-    hasAgilityBlessing: z.boolean().catch(false),
-    tenacityBlessings: z.number().optional().catch(undefined),
-    hasTenacityBlessing: z.boolean().catch(false),
-    hasFullMana: z.boolean().catch(false),
-    enemyParalyzed: z.boolean().catch(false),
-    targetEnemyIsElite: z.boolean().catch(false),
-    targetEnemyIsNearby: z.boolean().catch(false),
-    targetEnemyIsInProximity: z.boolean().catch(false),
-    numEnemiesNearby: z.number().catch(0),
-    numEnemiesAffectedByWarcry: z.number().catch(0),
-    hasBlockedRecently: z.boolean().catch(false),
-    hasElitesNearby: z.boolean().catch(false),
-    enemyHasAilment: z.boolean().catch(false),
-    hasCritRecently: z.boolean().catch(false),
-    channeling: z.boolean().catch(false),
-    channeledStacks: z.number().optional().catch(undefined),
-    sagesInsightFireActivated: z.boolean().catch(false),
-    sagesInsightColdActivated: z.boolean().catch(false),
-    sagesInsightLightningActivated: z.boolean().catch(false),
-    sagesInsightErosionActivated: z.boolean().catch(false),
-    enemyHasAffliction: z.boolean().catch(false),
-    afflictionPts: z.number().optional().catch(undefined),
-    enemyHasDesecration: z.boolean().catch(false),
-    tormentStacks: z.number().catch(0),
-    hasBlur: z.boolean().catch(false),
-    blurEndedRecently: z.boolean().catch(false),
-    numMindControlLinksUsed: z.number().optional().catch(undefined),
-    realmOfMercuryEnabled: z.boolean().catch(false),
-    baptismOfPurityEnabled: z.boolean().catch(false),
-    enemyColdRes: z.number().optional().catch(undefined),
-    enemyLightningRes: z.number().optional().catch(undefined),
-    enemyFireRes: z.number().optional().catch(undefined),
-    enemyErosionRes: z.number().optional().catch(undefined),
-    enemyArmor: z.number().optional().catch(undefined),
-    customAffixLines: z.array(z.string()).optional().catch(undefined),
+    level: z.number().catch(d.level),
+    fervorEnabled: z.boolean().catch(d.fervorEnabled),
+    fervorPoints: z.number().optional().catch(d.fervorPoints),
+    enemyFrostbittenEnabled: z.boolean().catch(d.enemyFrostbittenEnabled),
+    enemyFrostbittenPoints: z
+      .number()
+      .optional()
+      .catch(d.enemyFrostbittenPoints),
+    crueltyBuffStacks: z.number().optional().catch(d.crueltyBuffStacks),
+    numShadowHits: z.number().optional().catch(d.numShadowHits),
+    manaConsumedRecently: z.number().optional().catch(d.manaConsumedRecently),
+    sealedManaPct: z.number().optional().catch(d.sealedManaPct),
+    sealedLifePct: z.number().optional().catch(d.sealedLifePct),
+    focusBlessings: z.number().optional().catch(d.focusBlessings),
+    hasFocusBlessing: z.boolean().catch(d.hasFocusBlessing),
+    agilityBlessings: z.number().optional().catch(d.agilityBlessings),
+    hasAgilityBlessing: z.boolean().catch(d.hasAgilityBlessing),
+    tenacityBlessings: z.number().optional().catch(d.tenacityBlessings),
+    hasTenacityBlessing: z.boolean().catch(d.hasTenacityBlessing),
+    hasFullMana: z.boolean().catch(d.hasFullMana),
+    enemyParalyzed: z.boolean().catch(d.enemyParalyzed),
+    targetEnemyIsElite: z.boolean().catch(d.targetEnemyIsElite),
+    targetEnemyIsNearby: z.boolean().catch(d.targetEnemyIsNearby),
+    targetEnemyIsInProximity: z.boolean().catch(d.targetEnemyIsInProximity),
+    targetEnemyHasFrail: z.boolean().catch(d.targetEnemyHasFrail),
+    targetEnemyHasWhimsySignal: z.boolean().catch(d.targetEnemyHasWhimsySignal),
+    numEnemiesNearby: z.number().catch(d.numEnemiesNearby),
+    numEnemiesAffectedByWarcry: z.number().catch(d.numEnemiesAffectedByWarcry),
+    hasBlockedRecently: z.boolean().catch(d.hasBlockedRecently),
+    hasElitesNearby: z.boolean().catch(d.hasElitesNearby),
+    enemyHasAilment: z.boolean().catch(d.enemyHasAilment),
+    hasCritRecently: z.boolean().catch(d.hasCritRecently),
+    channeling: z.boolean().catch(d.channeling),
+    channeledStacks: z.number().optional().catch(d.channeledStacks),
+    sagesInsightFireActivated: z.boolean().catch(d.sagesInsightFireActivated),
+    sagesInsightColdActivated: z.boolean().catch(d.sagesInsightColdActivated),
+    sagesInsightLightningActivated: z
+      .boolean()
+      .catch(d.sagesInsightLightningActivated),
+    sagesInsightErosionActivated: z
+      .boolean()
+      .catch(d.sagesInsightErosionActivated),
+    enemyHasAffliction: z.boolean().catch(d.enemyHasAffliction),
+    afflictionPts: z.number().optional().catch(d.afflictionPts),
+    enemyHasDesecration: z.boolean().catch(d.enemyHasDesecration),
+    tormentStacks: z.number().catch(d.tormentStacks),
+    hasBlur: z.boolean().catch(d.hasBlur),
+    blurEndedRecently: z.boolean().catch(d.blurEndedRecently),
+    numMindControlLinksUsed: z
+      .number()
+      .optional()
+      .catch(d.numMindControlLinksUsed),
+    hasSquidnova: z.boolean().catch(d.hasSquidnova),
+    targetEnemyIsFrozen: z.boolean().catch(d.targetEnemyIsFrozen),
+    targetEnemyFrozenRecently: z.boolean().catch(d.targetEnemyFrozenRecently),
+    targetEnemyHasColdInfiltration: z
+      .boolean()
+      .catch(d.targetEnemyHasColdInfiltration),
+    targetEnemyHasLightningInfiltration: z
+      .boolean()
+      .catch(d.targetEnemyHasLightningInfiltration),
+    targetEnemyHasFireInfiltration: z
+      .boolean()
+      .catch(d.targetEnemyHasFireInfiltration),
+    hasHitEnemyWithElementalDmgRecently: z
+      .number()
+      .catch(d.hasHitEnemyWithElementalDmgRecently),
+    numSpellSkillsUsedRecently: z.number().catch(d.numSpellSkillsUsedRecently),
+    chainLightningInstancesOnTarget: z
+      .number()
+      .optional()
+      .catch(d.chainLightningInstancesOnTarget),
+    realmOfMercuryEnabled: z.boolean().catch(d.realmOfMercuryEnabled),
+    baptismOfPurityEnabled: z.boolean().catch(d.baptismOfPurityEnabled),
+    enemyColdRes: z.number().optional().catch(d.enemyColdRes),
+    enemyLightningRes: z.number().optional().catch(d.enemyLightningRes),
+    enemyFireRes: z.number().optional().catch(d.enemyFireRes),
+    enemyErosionRes: z.number().optional().catch(d.enemyErosionRes),
+    enemyArmor: z.number().optional().catch(d.enemyArmor),
+    customAffixLines: z.array(z.string()).optional().catch(d.customAffixLines),
   })
-  .catch({
-    level: 95,
-    fervorEnabled: false,
-    fervorPoints: undefined,
-    enemyFrostbittenEnabled: false,
-    enemyFrostbittenPoints: undefined,
-    crueltyBuffStacks: 40,
-    numShadowHits: undefined,
-    manaConsumedRecently: undefined,
-    sealedManaPct: undefined,
-    sealedLifePct: undefined,
-    focusBlessings: undefined,
-    hasFocusBlessing: false,
-    agilityBlessings: undefined,
-    hasAgilityBlessing: false,
-    tenacityBlessings: undefined,
-    hasTenacityBlessing: false,
-    hasFullMana: false,
-    enemyParalyzed: false,
-    targetEnemyIsElite: false,
-    targetEnemyIsNearby: false,
-    targetEnemyIsInProximity: false,
-    numEnemiesNearby: 0,
-    numEnemiesAffectedByWarcry: 0,
-    hasBlockedRecently: false,
-    hasElitesNearby: false,
-    enemyHasAilment: false,
-    hasCritRecently: false,
-    channeling: false,
-    channeledStacks: undefined,
-    sagesInsightFireActivated: false,
-    sagesInsightColdActivated: false,
-    sagesInsightLightningActivated: false,
-    sagesInsightErosionActivated: false,
-    enemyHasAffliction: false,
-    afflictionPts: undefined,
-    enemyHasDesecration: false,
-    tormentStacks: 0,
-    hasBlur: false,
-    blurEndedRecently: false,
-    numMindControlLinksUsed: undefined,
-    realmOfMercuryEnabled: false,
-    baptismOfPurityEnabled: false,
-    enemyColdRes: undefined,
-    enemyLightningRes: undefined,
-    enemyFireRes: undefined,
-    enemyErosionRes: undefined,
-    enemyArmor: undefined,
-    customAffixLines: undefined,
-  });
+  .catch(DEFAULT_CONFIGURATION) satisfies z.ZodType<Configuration>;
 
 export type ConfigurationPage = z.infer<typeof ConfigurationPageSchema>;
 

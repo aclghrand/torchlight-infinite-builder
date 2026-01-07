@@ -293,15 +293,31 @@ function SavesPage(): React.ReactNode {
   );
 
   return (
-    <div className="min-h-screen bg-zinc-950 p-6">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
+    <div className="h-screen bg-zinc-950 flex flex-col overflow-hidden">
+      <div className="max-w-4xl mx-auto w-full flex flex-col h-full px-6">
+        <div className="flex items-center gap-3 py-6">
           <h1 className="text-3xl font-bold text-zinc-50">
             Torchlight Of Building
           </h1>
+          <span className="rounded-full bg-amber-500/20 px-2 py-0.5 text-xs font-medium text-amber-400 border border-amber-500/30">
+            Pre-Alpha
+          </span>
         </div>
 
-        <div className="flex items-center justify-between mb-6">
+        <div className="mb-6 p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg">
+          <div className="flex items-start gap-3">
+            <span className="text-amber-400 text-lg">🛠️</span>
+            <div>
+              <p className="text-amber-200 font-medium">Early Development</p>
+              <p className="text-zinc-400 text-sm mt-1">
+                Please be patient and bear with me on any issues you encounter
+                with this app, as it's still in early phases of development.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-semibold text-zinc-50">
             Your Builds ({savesIndex.saves.length})
           </h2>
@@ -321,56 +337,58 @@ function SavesPage(): React.ReactNode {
           </div>
         </div>
 
-        {savesIndex.saves.length === 0 ? (
-          <div className="text-center py-16 bg-zinc-900 rounded-lg border border-zinc-700">
-            <div className="text-zinc-400 mb-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-16 w-16 mx-auto mb-4 opacity-50"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+        <div className="flex-1 overflow-y-auto min-h-0 pb-6 pr-2">
+          {savesIndex.saves.length === 0 ? (
+            <div className="text-center py-16 bg-zinc-900 rounded-lg border border-zinc-700">
+              <div className="text-zinc-400 mb-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-16 w-16 mx-auto mb-4 opacity-50"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
+                </svg>
+                <p className="text-lg">No builds yet</p>
+                <p className="text-sm text-zinc-500 mt-1">
+                  Create your first character build to get started
+                </p>
+              </div>
+              <button
+                onClick={handleCreateNew}
+                className="px-6 py-3 bg-amber-500 text-zinc-950 rounded-lg font-semibold hover:bg-amber-600 transition-colors"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                />
-              </svg>
-              <p className="text-lg">No builds yet</p>
-              <p className="text-sm text-zinc-500 mt-1">
-                Create your first character build to get started
-              </p>
+                Create New Build
+              </button>
             </div>
-            <button
-              onClick={handleCreateNew}
-              className="px-6 py-3 bg-amber-500 text-zinc-950 rounded-lg font-semibold hover:bg-amber-600 transition-colors"
-            >
-              Create New Build
-            </button>
-          </div>
-        ) : (
-          <div className="grid gap-4">
-            {sortedSaves.map((save) => (
-              <SaveCard
-                key={save.id}
-                save={save}
-                onOpen={() => handleOpenSave(save.id)}
-                onRename={(newName) => handleRenameSave(save.id, newName)}
-                onCopy={() => handleCopySave(save.id)}
-                onDelete={() => handleDeleteSave(save.id)}
-              />
-            ))}
-          </div>
-        )}
-
-        <ImportModal
-          isOpen={importModalOpen}
-          onClose={() => setImportModalOpen(false)}
-          onImport={handleImportBuild}
-        />
+          ) : (
+            <div className="grid gap-4">
+              {sortedSaves.map((save) => (
+                <SaveCard
+                  key={save.id}
+                  save={save}
+                  onOpen={() => handleOpenSave(save.id)}
+                  onRename={(newName) => handleRenameSave(save.id, newName)}
+                  onCopy={() => handleCopySave(save.id)}
+                  onDelete={() => handleDeleteSave(save.id)}
+                />
+              ))}
+            </div>
+          )}
+        </div>
       </div>
+
+      <ImportModal
+        isOpen={importModalOpen}
+        onClose={() => setImportModalOpen(false)}
+        onImport={handleImportBuild}
+      />
     </div>
   );
 }

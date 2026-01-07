@@ -6,6 +6,7 @@ import type {
 } from "../constants";
 import type {
   DmgChunkType,
+  MinionDmgModType,
   ResPenType,
   ResType,
   SkillLevelType,
@@ -34,6 +35,7 @@ export interface CaptureTypeRegistry {
   CritRatingModType: CritRatingModType;
   CritDmgModType: CritDmgModType;
   DmgChunkType: DmgChunkType;
+  MinionDmgModType: MinionDmgModType;
   ResPenType: ResPenType;
   ResType: ResType;
   CoreTalentName: CoreTalentName;

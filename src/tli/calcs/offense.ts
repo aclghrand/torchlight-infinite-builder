@@ -1,7 +1,6 @@
 import * as R from "remeda";
 import { match } from "ts-pattern";
-import { CoreTalentMods } from "@/src/data/core_talent";
-import type { HeroName } from "@/src/data/hero_trait";
+import { bing2, type HeroName } from "@/src/data/hero_trait";
 import type { PactspiritName } from "@/src/data/pactspirit";
 import {
   type ActiveSkillName,
@@ -16,16 +15,10 @@ import {
   type SkillOffense,
   type SkillOffenseOfType,
   type SkillOffenseType,
-  type SkillTag,
   SupportSkills,
 } from "../../data/skill";
+import type { DmgModType } from "../constants";
 import type {
-  CritDmgModType,
-  CritRatingModType,
-  DmgModType,
-} from "../constants";
-import type {
-  Affix,
   BaseSupportSkillSlot,
   Configuration,
   DmgRange,
@@ -37,7 +30,7 @@ import type {
   ConditionThreshold,
   DmgChunkType,
   Mod,
-  ModOfType,
+  ModT,
   ResType,
   Stackable,
   StatType,
@@ -45,104 +38,46 @@ import type {
 import { getActiveSkillMods } from "../skills/active_mods";
 import { getPassiveSkillMods } from "../skills/passive_mods";
 import { buildSupportSkillAffixes } from "../storage/load-save";
-import { getAllAffixes, getGearAffixes } from "./affix-collectors";
+import {
+  addDRs,
+  applyDmgBonusesAndPen,
+  calculateAspd,
+  calculateCritChance,
+  calculateCritDmg,
+  calculateDoubleDmgMult,
+  calculateExtraOffenseMults,
+  calculateFlatDmg,
+  calculateGearDmg,
+  convertDmg,
+  type DmgChunk,
+  type DmgPools,
+  type DmgRanges,
+  dmgModTypesForSkill,
+  emptyDmgRanges,
+  type GearDmg,
+  multDRs,
+  type NumDmgValues,
+} from "./damage-calc";
+import {
+  calculateAddn,
+  calculateEffMultiplier,
+  collectMods,
+  collectModsFromAffixes,
+  filterMods,
+  filterModsByCondThreshold,
+  filterOutPerMods,
+  findMod,
+  modExists,
+  normalizeStackables,
+  resolveCoreTalentMods,
+  sumByValue,
+} from "./mod-utils";
 import type { OffenseSkillName } from "./skill_confs";
 import { type ModWithValue, multModValue, multValue } from "./util";
 
-const addDR = (dr1: DmgRange, dr2: DmgRange): DmgRange => {
-  return {
-    min: dr1.min + dr2.min,
-    max: dr1.max + dr2.max,
-  };
-};
-
-const addValue = <T extends DmgRange | number>(v1: T, v2: T): T => {
-  if (typeof v1 === "number" && typeof v2 === "number") {
-    return (v1 + v2) as T;
-  }
-  return addDR(v1 as DmgRange, v2 as DmgRange) as T;
-};
-
-const addDRs = (drs1: DmgRanges, drs2: DmgRanges): DmgRanges => {
-  return {
-    physical: addDR(drs1.physical, drs2.physical),
-    cold: addDR(drs1.cold, drs2.cold),
-    lightning: addDR(drs1.lightning, drs2.lightning),
-    fire: addDR(drs1.fire, drs2.fire),
-    erosion: addDR(drs1.erosion, drs2.erosion),
-  };
-};
-
-const multDR = (dr: DmgRange, multiplier: number): DmgRange => {
-  return {
-    min: dr.min * multiplier,
-    max: dr.max * multiplier,
-  };
-};
-
-const multDRs = (drs: DmgRanges, multiplier: number): DmgRanges => {
-  return {
-    physical: multDR(drs.physical, multiplier),
-    cold: multDR(drs.cold, multiplier),
-    lightning: multDR(drs.lightning, multiplier),
-    fire: multDR(drs.fire, multiplier),
-    erosion: multDR(drs.erosion, multiplier),
-  };
-};
-
-const emptyDamageRange = (): DmgRange => {
-  return { min: 0, max: 0 };
-};
-
-const sumByValue = (mods: Extract<Mod, { value: number }>[]): number => {
-  return R.sumBy(mods, (m) => m.value);
-};
-
-const calculateInc = (bonuses: number[]) => {
-  return R.pipe(bonuses, R.sum()) / 100;
-};
-
-const calculateAddn = (bonuses: number[]) => {
-  return R.pipe(
-    bonuses,
-    R.reduce((b1, b2) => b1 * (1 + b2 / 100), 1),
-  );
-};
-
-// Calculates (1 + inc) * addn multiplier from mods with value and addn properties
-const calculateEffMultiplier = <T extends { value: number; addn?: boolean }>(
-  mods: T[],
-): number => {
-  const incMods = mods.filter((m) => m.addn === undefined || m.addn === false);
-  const addnMods = mods.filter((m) => m.addn === true);
-  const inc = calculateInc(incMods.map((m) => m.value));
-  const addn = calculateAddn(addnMods.map((m) => m.value));
-  return (1 + inc) * addn;
-};
-
-const collectModsFromAffixes = (affixes: Affix[]): Mod[] => {
-  return affixes.flatMap((a) => a.affixLines.flatMap((l) => l.mods ?? []));
-};
-
-export const collectMods = (loadout: Loadout): Mod[] => {
-  return collectModsFromAffixes(getAllAffixes(loadout));
-};
-
-const resolveCoreTalentMods = (mods: Mod[]): Mod[] => {
-  const coreTalentNamesAndSrc = R.unique(
-    filterMod(mods, "CoreTalent").map((m) => ({ name: m.name, src: m.src })),
-  );
-  const newMods: Mod[] = coreTalentNamesAndSrc.flatMap(({ name, src }) => {
-    const affix = CoreTalentMods[name];
-    const mods = affix.affixLines.flatMap((affixLine) => affixLine.mods ?? []);
-    const modsWithSrc = mods.map((m) => ({
-      ...m,
-      src: `${src}#CoreTalent: ${name}`,
-    }));
-    return modsWithSrc;
-  });
-  return [...mods.filter((m) => m.type !== "CoreTalent"), ...newMods];
-};
+// Re-export types that consumers expect from offense.ts
+export type { DmgChunk, DmgPools, DmgRanges };
+export { collectMods, convertDmg };
 
 export interface OffenseAttackDpsSummary {
   critChance: number;
@@ -160,1000 +95,11 @@ interface OffenseSummary {
   persistentDpsSummary?: PersistentDpsSummary;
   totalReapDpsSummary?: TotalReapDpsSummary;
   totalDps: number;
+  movementSpeedBonusPct: number;
   resolvedMods: Mod[];
 }
 
-interface GearDmg {
-  mainHand: DmgRanges;
-  offHand?: DmgRanges;
-}
-
-const emptyGearDmg = (): GearDmg => {
-  return {
-    mainHand: emptyDmgRanges(),
-  };
-};
-
-export type DmgRanges = Record<DmgChunkType, DmgRange>;
-
-// Num damage values (single number per type, all optional)
-type NumDmgValues = Partial<Record<DmgChunkType, number>>;
-
-// Union type for convertDmg input
-type DmgInput = DmgRanges | NumDmgValues;
-
-const emptyDmgRanges = (): DmgRanges => {
-  return {
-    physical: { min: 0, max: 0 },
-    cold: { min: 0, max: 0 },
-    lightning: { min: 0, max: 0 },
-    fire: { min: 0, max: 0 },
-    erosion: { min: 0, max: 0 },
-  };
-};
-
-const findMod = <T extends Mod["type"]>(
-  mods: Mod[],
-  type: T,
-): Extract<Mod, { type: T }> | undefined => {
-  return mods.find((a) => a.type === type) as
-    | Extract<Mod, { type: T }>
-    | undefined;
-};
-
-const filterMod = <T extends Mod["type"]>(
-  mods: Mod[],
-  type: T,
-): Extract<Mod, { type: T }>[] => {
-  return mods.filter((a) => a.type === type) as Extract<Mod, { type: T }>[];
-};
-
-// A chunk of damage that tracks its conversion history
-export interface DmgChunk<T extends DmgRange | number> {
-  value: T;
-  // Types this damage has been converted from (not including current pool type)
-  history: DmgChunkType[];
-}
-
-// All damage organized by current type
-export interface DmgPools<T extends DmgRange | number> {
-  physical: DmgChunk<T>[];
-  cold: DmgChunk<T>[];
-  lightning: DmgChunk<T>[];
-  fire: DmgChunk<T>[];
-  erosion: DmgChunk<T>[];
-}
-
-// Damage conversion order: Physical → Lightning → Cold → Fire → Erosion
-// Damage can skip steps but never convert backwards
-const CONVERSION_ORDER = ["physical", "lightning", "cold", "fire"] as const;
-
-// see poewiki for a good rundown on damage conversion in poe, which works similarly as tli
-// https://www.poewiki.net/wiki/Damage_conversion
-// a brief summary would be that damage gets converted in a specific order, and converted damage
-// remembers all the damage types through which it was converted for the purposes of applying
-// damage bonuses
-export function convertDmg(
-  dmgInput: DmgRanges,
-  allMods: Mod[],
-): DmgPools<DmgRange>;
-export function convertDmg(
-  dmgInput: NumDmgValues,
-  allMods: Mod[],
-): DmgPools<number>;
-export function convertDmg(
-  dmgInput: DmgInput,
-  allMods: Mod[],
-): DmgPools<DmgRange> | DmgPools<number> {
-  const pools: DmgPools<DmgRange | number> = {
-    physical: [],
-    cold: [],
-    lightning: [],
-    fire: [],
-    erosion: [],
-  };
-
-  // Initialize with non-zero original damage (empty history - not converted from anything)
-  const addIfNonZero = <T extends DmgRange | number>(
-    pool: DmgChunk<T>[],
-    value: T | undefined,
-  ) => {
-    if (value === undefined) return;
-    if (typeof value === "number") {
-      if (value > 0) {
-        (pool as DmgChunk<number>[]).push({ value, history: [] });
-      }
-    } else {
-      if (value.min > 0 || value.max > 0) {
-        (pool as DmgChunk<DmgRange>[]).push({ value, history: [] });
-      }
-    }
-  };
-  addIfNonZero(pools.physical, dmgInput.physical);
-  addIfNonZero(pools.lightning, dmgInput.lightning);
-  addIfNonZero(pools.cold, dmgInput.cold);
-  addIfNonZero(pools.fire, dmgInput.fire);
-  addIfNonZero(pools.erosion, dmgInput.erosion);
-
-  // Process each source type in conversion order
-  for (const sourceType of CONVERSION_ORDER) {
-    // Step 1: Process "Gain as Extra" mods (calculated BEFORE conversion)
-    // This adds extra damage to target pools but does NOT remove from source
-    const addsDmgAsMods = filterMod(allMods, "AddsDmgAsPct").filter(
-      (m) => m.from === sourceType,
-    );
-    for (const chunk of pools[sourceType]) {
-      for (const mod of addsDmgAsMods) {
-        pools[mod.to].push({
-          value: multValue(chunk.value, mod.value / 100),
-          history: [...chunk.history, sourceType],
-        });
-      }
-    }
-
-    // Step 2: Process conversion mods (removes from source, adds to target)
-    const convMods = filterMod(allMods, "ConvertDmgPct").filter(
-      (m) => m.from === sourceType,
-    );
-    if (convMods.length === 0) continue;
-
-    const totalPct = R.sumBy(convMods, (m) => m.value) / 100;
-    const proration = totalPct > 1 ? 1 / totalPct : 1;
-    const unconvertedPct = Math.max(0, 1 - totalPct);
-
-    const chunks = [...pools[sourceType]];
-    pools[sourceType] = [];
-
-    for (const chunk of chunks) {
-      // Unconverted damage stays in source pool with same history
-      if (unconvertedPct > 0) {
-        pools[sourceType].push({
-          value: multValue(chunk.value, unconvertedPct),
-          history: chunk.history,
-        });
-      }
-
-      // Converted damage goes to target pools with updated history
-      for (const mod of convMods) {
-        const convertPct = (mod.value / 100) * proration;
-        pools[mod.to].push({
-          value: multValue(chunk.value, convertPct),
-          history: [...chunk.history, sourceType],
-        });
-      }
-    }
-  }
-
-  return pools as DmgPools<DmgRange> | DmgPools<number>;
-}
-
-// currently only calculating mainhand
-const calculateGearDmg = (loadout: Loadout, allMods: Mod[]): GearDmg => {
-  const mainhand = loadout.gearPage.equippedGear.mainHand;
-  if (mainhand === undefined) {
-    return emptyGearDmg();
-  }
-  const mainhandMods = collectModsFromAffixes(getGearAffixes(mainhand));
-  const basePhysDmgMod = mainhand.baseStats?.baseStatLines
-    .flatMap((l) => l.mods ?? [])
-    .find((m) => m.type === "GearBasePhysDmg");
-  const basePhysDmg =
-    basePhysDmgMod?.type === "GearBasePhysDmg"
-      ? basePhysDmgMod.value
-      : undefined;
-  if (basePhysDmg === undefined) {
-    return emptyGearDmg();
-  }
-
-  let phys = emptyDamageRange();
-  let cold = emptyDamageRange();
-  let lightning = emptyDamageRange();
-  let fire = emptyDamageRange();
-  let erosion = emptyDamageRange();
-
-  phys.min += basePhysDmg;
-  phys.max += basePhysDmg;
-  let physBonusPct = 0;
-
-  const gearPhysDmgPct = findMod(mainhandMods, "GearPhysDmgPct");
-  if (gearPhysDmgPct !== undefined) {
-    physBonusPct += gearPhysDmgPct.value;
-  }
-
-  filterMod(mainhandMods, "FlatGearDmg").forEach((a) => {
-    match(a.modType)
-      .with("physical", () => {
-        phys = addDR(phys, a.value);
-      })
-      .with("cold", () => {
-        cold = addDR(cold, a.value);
-      })
-      .with("lightning", () => {
-        lightning = addDR(lightning, a.value);
-      })
-      .with("fire", () => {
-        fire = addDR(fire, a.value);
-      })
-      .with("erosion", () => {
-        erosion = addDR(erosion, a.value);
-      })
-      .with("elemental", () => {
-        cold = addDR(cold, a.value);
-        lightning = addDR(lightning, a.value);
-        fire = addDR(fire, a.value);
-      })
-      .exhaustive();
-  });
-
-  let addnMHDmgMult = 1;
-  filterMod(allMods, "AddnMainHandDmgPct").forEach((a) => {
-    addnMHDmgMult *= 1 + a.value / 100;
-  });
-
-  phys = multDR(phys, 1 + physBonusPct);
-  phys = multDR(phys, addnMHDmgMult);
-  cold = multDR(cold, addnMHDmgMult);
-  lightning = multDR(lightning, addnMHDmgMult);
-  fire = multDR(fire, addnMHDmgMult);
-  erosion = multDR(erosion, addnMHDmgMult);
-  return {
-    mainHand: {
-      physical: phys,
-      cold: cold,
-      lightning: lightning,
-      fire: fire,
-      erosion: erosion,
-    },
-  };
-};
-
-const calculateFlatDmg = (
-  allMods: Mod[],
-  skillType: "attack" | "spell",
-): DmgRanges => {
-  let phys = emptyDamageRange();
-  let cold = emptyDamageRange();
-  let lightning = emptyDamageRange();
-  let fire = emptyDamageRange();
-  let erosion = emptyDamageRange();
-
-  const mods = match(skillType)
-    .with("attack", () => filterMod(allMods, "FlatDmgToAtks"))
-    .with("spell", () => filterMod(allMods, "FlatDmgToSpells"))
-    .exhaustive();
-  for (const a of mods) {
-    match(a.dmgType)
-      .with("physical", () => {
-        phys = addDR(phys, a.value);
-      })
-      .with("cold", () => {
-        cold = addDR(cold, a.value);
-      })
-      .with("lightning", () => {
-        lightning = addDR(lightning, a.value);
-      })
-      .with("fire", () => {
-        fire = addDR(fire, a.value);
-      })
-      .with("erosion", () => {
-        erosion = addDR(erosion, a.value);
-      })
-      .exhaustive();
-  }
-  return {
-    physical: phys,
-    cold,
-    lightning,
-    fire,
-    erosion,
-  };
-};
-
-const calculateGearAspd = (loadout: Loadout, allMods: Mod[]): number => {
-  const baseAspdMod =
-    loadout.gearPage.equippedGear.mainHand?.baseStats?.baseStatLines
-      .flatMap((l) => l.mods ?? [])
-      .find((m) => m.type === "GearBaseAttackSpeed");
-  const baseAspd =
-    baseAspdMod?.type === "GearBaseAttackSpeed" ? baseAspdMod.value : 0;
-  const gearAspdPctBonus = calculateInc(
-    filterMod(allMods, "GearAspdPct").map((b) => b.value),
-  );
-  return baseAspd * (1 + gearAspdPctBonus);
-};
-
-const calculateCritChance = (
-  allMods: Mod[],
-  skill: BaseActiveSkill,
-): number => {
-  const modTypes: CritRatingModType[] = ["global"];
-  if (skill.tags.includes("Attack")) {
-    modTypes.push("attack");
-  }
-  if (skill.tags.includes("Spell")) {
-    modTypes.push("spell");
-  }
-
-  const addedFlatCritRating = sumByValue(
-    filterMod(allMods, "FlatCritRating").filter((m) =>
-      modTypes.includes(m.modType),
-    ),
-  );
-  const baseCritRating = 500;
-  const baseCritChance = (baseCritRating + addedFlatCritRating) / 100 / 100;
-
-  const critRatingPctMods = filterMod(allMods, "CritRatingPct").filter((m) =>
-    modTypes.includes(m.modType),
-  );
-  const critRatingMult = calculateEffMultiplier(critRatingPctMods);
-  return Math.min(baseCritChance * critRatingMult, 1);
-};
-
-const calculateCritDmg = (allMods: Mod[], skill: BaseActiveSkill): number => {
-  const modTypes: CritDmgModType[] = ["global"];
-  if (skill.tags.includes("Attack")) {
-    modTypes.push("attack");
-  }
-  if (skill.tags.includes("Spell")) {
-    modTypes.push("spell");
-  }
-  const mods = filterMod(allMods, "CritDmgPct").filter((m) =>
-    modTypes.includes(m.modType),
-  );
-  const inc = calculateInc(mods.filter((m) => !m.addn).map((v) => v.value));
-  const addn = calculateAddn(mods.filter((m) => m.addn).map((v) => v.value));
-
-  return (1.5 + inc) * addn;
-};
-
-const calculateDoubleDmgMult = (mods: Mod[]): number => {
-  const doubleDmgMods = filterMod(mods, "DoubleDmgChancePct");
-  // capped at 100% chance to deal double damage
-  const inc = Math.min(1, calculateInc(doubleDmgMods.map((v) => v.value)));
-  return 1 + inc;
-};
-
-const calculateAspd = (loadout: Loadout, allMods: Mod[]): number => {
-  const gearAspd = calculateGearAspd(loadout, allMods);
-  const aspdPctMods = filterMod(allMods, "AspdPct");
-  const inc = calculateInc(
-    aspdPctMods.filter((m) => !m.addn).map((v) => v.value),
-  );
-  const addn = calculateAddn(
-    aspdPctMods.filter((m) => m.addn).map((v) => v.value),
-  );
-
-  return gearAspd * (1 + inc) * addn;
-};
-
-const calculateExtraOffenseMults = (
-  mods: Mod[],
-  config: Configuration,
-): number => {
-  let inc = 0;
-  if (config.baptismOfPurityEnabled) {
-    inc += findMod(mods, "MercuryBaptismDmgPct")?.value ?? 0;
-  }
-  return (100 + inc) / 100;
-};
-
-const dmgModTypePerSkillTag: Partial<Record<SkillTag, DmgModType>> = {
-  Attack: "attack",
-  Spell: "spell",
-  Melee: "melee",
-  Area: "area",
-  Channeled: "channeled",
-  "Shadow Strike": "shadow_strike_skill",
-};
-
-const dmgModTypesForSkill = (skill: BaseActiveSkill): DmgModType[] => {
-  const dmgModTypes: DmgModType[] = ["global"];
-  const tags = skill.tags;
-  tags.forEach((t) => {
-    const dmgModType = dmgModTypePerSkillTag[t];
-    if (dmgModType !== undefined) {
-      dmgModTypes.push(dmgModType);
-    }
-  });
-  if (skill.kinds.includes("hit_enemies")) {
-    dmgModTypes.push("hit");
-  }
-  if (skill.kinds.includes("dot")) {
-    dmgModTypes.push("damage_over_time");
-  }
-  if (skill.tags.includes("Area") && skill.tags.includes("Erosion")) {
-    dmgModTypes.push("erosion_area");
-  }
-  return dmgModTypes;
-};
-
-const filterDmgPctMods = (
-  dmgPctMods: Extract<Mod, { type: "DmgPct" }>[],
-  dmgModTypes: DmgModType[],
-) => {
-  return dmgPctMods.filter((p) => dmgModTypes.includes(p.dmgModType));
-};
-
-const calculateDmgInc = (mods: Extract<Mod, { type: "DmgPct" }>[]) => {
-  return calculateInc(mods.filter((m) => !m.addn).map((m) => m.value));
-};
-
-const calculateDmgAddn = (mods: Extract<Mod, { type: "DmgPct" }>[]) => {
-  return calculateAddn(mods.filter((m) => m.addn).map((m) => m.value));
-};
-
-// Apply damage % bonuses to a single chunk, considering its conversion history
-const calculateChunkDmg = <T extends DmgRange | number>(
-  chunk: DmgChunk<T>,
-  currentType: DmgChunkType,
-  allDmgPctMods: Extract<Mod, { type: "DmgPct" }>[],
-  baseDmgModTypes: DmgModType[],
-): T => {
-  // Chunk benefits from bonuses for current type AND all types in its history
-  const allApplicableTypes: DmgChunkType[] = [currentType, ...chunk.history];
-  const dmgModTypes: DmgModType[] = [...baseDmgModTypes];
-
-  for (const dmgType of allApplicableTypes) {
-    dmgModTypes.push(dmgType);
-    if (["cold", "lightning", "fire"].includes(dmgType)) {
-      dmgModTypes.push("elemental");
-    }
-  }
-
-  const applicableMods = filterDmgPctMods(allDmgPctMods, dmgModTypes);
-
-  const inc = calculateDmgInc(applicableMods);
-  const addn = calculateDmgAddn(applicableMods);
-  const mult = (1 + inc) * addn;
-
-  return multValue(chunk.value, mult);
-};
-
-// Sum all chunks in a pool, applying bonuses to each based on its history
-const calculatePoolTotal = <T extends DmgRange | number>(
-  pool: DmgChunk<T>[],
-  poolType: DmgChunkType,
-  allDmgPctMods: Extract<Mod, { type: "DmgPct" }>[],
-  baseDmgModTypes: DmgModType[],
-  zero: T,
-): T => {
-  return pool.reduce((total, chunk) => {
-    const chunkDmg = calculateChunkDmg(
-      chunk,
-      poolType,
-      allDmgPctMods,
-      baseDmgModTypes,
-    );
-    return addValue(total, chunkDmg);
-  }, zero);
-};
-
-// Calculate totals for all damage pools
-const calculateAllPoolTotals = <T extends DmgRange | number>(
-  dmgPools: DmgPools<T>,
-  allDmgPcts: Extract<Mod, { type: "DmgPct" }>[],
-  baseDmgModTypes: DmgModType[],
-  zero: T,
-): Record<DmgChunkType, T> => ({
-  physical: calculatePoolTotal(
-    dmgPools.physical,
-    "physical",
-    allDmgPcts,
-    baseDmgModTypes,
-    zero,
-  ),
-  cold: calculatePoolTotal(
-    dmgPools.cold,
-    "cold",
-    allDmgPcts,
-    baseDmgModTypes,
-    zero,
-  ),
-  lightning: calculatePoolTotal(
-    dmgPools.lightning,
-    "lightning",
-    allDmgPcts,
-    baseDmgModTypes,
-    zero,
-  ),
-  fire: calculatePoolTotal(
-    dmgPools.fire,
-    "fire",
-    allDmgPcts,
-    baseDmgModTypes,
-    zero,
-  ),
-  erosion: calculatePoolTotal(
-    dmgPools.erosion,
-    "erosion",
-    allDmgPcts,
-    baseDmgModTypes,
-    zero,
-  ),
-});
-
-interface ApplyDmgBonusesAndPenInput {
-  dmgPools: DmgPools<DmgRange> | DmgPools<number>;
-  mods: Mod[];
-  baseDmgModTypes: DmgModType[];
-  config: Configuration;
-  ignoreArmor: boolean;
-}
-
-// Applies damage % bonuses and penetration to damage pools
-function applyDmgBonusesAndPen(
-  input: ApplyDmgBonusesAndPenInput & { dmgPools: DmgPools<DmgRange> },
-): DmgRanges;
-function applyDmgBonusesAndPen(
-  input: ApplyDmgBonusesAndPenInput & { dmgPools: DmgPools<number> },
-): NumDmgValues;
-function applyDmgBonusesAndPen(
-  input: ApplyDmgBonusesAndPenInput,
-): DmgRanges | NumDmgValues {
-  const { dmgPools, mods, baseDmgModTypes, config, ignoreArmor } = input;
-  const allDmgPcts = filterMod(mods, "DmgPct");
-
-  // Determine if we're working with DmgRange or number based on pool contents
-  const firstChunk =
-    dmgPools.physical[0] ??
-    dmgPools.cold[0] ??
-    dmgPools.lightning[0] ??
-    dmgPools.fire[0] ??
-    dmgPools.erosion[0];
-  const isRange =
-    firstChunk === undefined || typeof firstChunk.value !== "number";
-
-  if (isRange) {
-    const beforePen = calculateAllPoolTotals(
-      dmgPools as DmgPools<DmgRange>,
-      allDmgPcts,
-      baseDmgModTypes,
-      { min: 0, max: 0 },
-    ) as DmgRanges;
-    return calculatePenetration({ dmg: beforePen, mods, config, ignoreArmor });
-  }
-
-  const beforePen = calculateAllPoolTotals(
-    dmgPools as DmgPools<number>,
-    allDmgPcts,
-    baseDmgModTypes,
-    0,
-  ) as NumDmgValues;
-  return calculatePenetration({ dmg: beforePen, mods, config, ignoreArmor });
-}
-
-interface SkillHitOverview {
-  // Damage ranges of a single skill hit, not including crit
-  base: {
-    physical: DmgRange;
-    cold: DmgRange;
-    lightning: DmgRange;
-    fire: DmgRange;
-    erosion: DmgRange;
-    total: DmgRange;
-  };
-  // Average damage of a single skill hit, not including crit
-  avg: number;
-}
-
-const getLevelOffense = <T extends SkillOffenseType>(
-  skill: BaseActiveSkill,
-  skillOffenseType: T,
-  level: number,
-): Extract<SkillOffense, { type: T }> => {
-  const skillMods = getActiveSkillMods(skill.name as ActiveSkillName, level);
-  if (skillMods.offense === undefined) {
-    throw new Error(`Skill "${skill.name}" has no levelOffense data`);
-  }
-  const offense = skillMods.offense.find((o) => o.type === skillOffenseType);
-  if (offense === undefined) {
-    throw new Error(
-      `Skill "${skill.name}" has no ${skillOffenseType} in levelOffense`,
-    );
-  }
-  return offense as Extract<SkillOffense, { type: T }>;
-};
-
-const getLevelOffenseValue = (
-  skill: BaseActiveSkill,
-  skillOffenseType: SkillOffenseType,
-  level: number,
-): number | DmgRange => {
-  return getLevelOffense(skill, skillOffenseType, level).value;
-};
-
-const calculateAddnDmgFromShadows = (
-  numShadowHits: number,
-): ModOfType<"DmgPct"> | undefined => {
-  if (numShadowHits <= 0) return;
-  if (numShadowHits === 1) {
-    return {
-      type: "DmgPct",
-      addn: true,
-      value: 100, // 100% additional damage (doubles the hit)
-      dmgModType: "global",
-      src: `Shadow Strike: ${numShadowHits} hits`,
-    };
-  }
-  const falloffCoefficient = 0.7;
-
-  // Each hit deals (1 - falloff)^i of original, where i is 0-indexed
-  // Geometric series: dmgValue * (1 + r + r^2 + ... + r^(n-1)) = dmgValue * (1 - r^n) / (1 - r)
-  const retainedRatio = 1 - falloffCoefficient;
-  const geometricSum =
-    (1 - retainedRatio ** numShadowHits) / falloffCoefficient;
-
-  return {
-    type: "DmgPct",
-    addn: true,
-    value: geometricSum * 100, // Convert to whole percentage
-    dmgModType: "global",
-    src: `Shadow Strike: ${numShadowHits} hits`,
-  };
-};
-
-const filterPenMods = (
-  mods: ModOfType<"ResPenPct">[],
-  penTypes: ModOfType<"ResPenPct">["penType"][],
-): ModOfType<"ResPenPct">[] => {
-  return mods.filter((m) => penTypes.includes(m.penType));
-};
-
-interface CalculatePenetrationInput {
-  dmg: DmgRanges | NumDmgValues;
-  mods: Mod[];
-  config: Configuration;
-  ignoreArmor: boolean;
-}
-
-function calculatePenetration(
-  input: CalculatePenetrationInput & { dmg: DmgRanges },
-): DmgRanges;
-function calculatePenetration(
-  input: CalculatePenetrationInput & { dmg: NumDmgValues },
-): NumDmgValues;
-function calculatePenetration(
-  input: CalculatePenetrationInput,
-): DmgRanges | NumDmgValues {
-  const { dmg, mods, config, ignoreArmor } = input;
-  const enemyRes = calculateEnemyRes(mods, config);
-  const elePenMods = filterMod(mods, "ResPenPct");
-  const coldPenMods = filterPenMods(elePenMods, ["all", "elemental", "cold"]);
-  const lightningPenMods = filterPenMods(elePenMods, [
-    "all",
-    "elemental",
-    "lightning",
-  ]);
-  const firePenMods = filterPenMods(elePenMods, ["all", "elemental", "fire"]);
-  const erosionPenMods = filterPenMods(elePenMods, ["all", "erosion"]);
-  const enemyColdResMult =
-    1 - enemyRes.cold / 100 + sumByValue(coldPenMods) / 100;
-  const enemyLightningResMult =
-    1 - enemyRes.lightning / 100 + sumByValue(lightningPenMods) / 100;
-  const enemyFireResMult =
-    1 - enemyRes.fire / 100 + sumByValue(firePenMods) / 100;
-  const enemyErosionResMult =
-    1 - enemyRes.erosion / 100 + sumByValue(erosionPenMods) / 100;
-
-  const enemyArmorDmgMitigation = ignoreArmor
-    ? { physical: 0, nonPhysical: 0 }
-    : calculateEnemyArmorDmgMitigation(calculateEnemyArmor(config));
-  const totalArmorPenPct = ignoreArmor
-    ? 0
-    : sumByValue(filterMod(mods, "ArmorPenPct")) / 100;
-  const enemyArmorPhysMult =
-    1 - enemyArmorDmgMitigation.physical + totalArmorPenPct;
-  const enemyArmorNonPhysMult =
-    1 - enemyArmorDmgMitigation.nonPhysical + totalArmorPenPct;
-
-  const applyPen = <T extends DmgRange | number | undefined>(
-    value: T,
-    mult: number,
-  ): T => {
-    if (value === undefined) return undefined as T;
-    return multValue(value, mult) as T;
-  };
-
-  const phys = applyPen(dmg.physical, enemyArmorPhysMult);
-  const cold = applyPen(dmg.cold, enemyColdResMult * enemyArmorNonPhysMult);
-  const lightning = applyPen(
-    dmg.lightning,
-    enemyLightningResMult * enemyArmorNonPhysMult,
-  );
-  const fire = applyPen(dmg.fire, enemyFireResMult * enemyArmorNonPhysMult);
-  const erosion = applyPen(
-    dmg.erosion,
-    enemyErosionResMult * enemyArmorNonPhysMult,
-  );
-
-  return { physical: phys, cold, lightning, fire, erosion } as
-    | DmgRanges
-    | NumDmgValues;
-}
-
-const calculateAtkHit = (
-  gearDmg: GearDmg,
-  flatDmg: DmgRanges,
-  mods: Mod[],
-  skill: BaseActiveSkill,
-  level: number,
-  config: Configuration,
-): SkillHitOverview | undefined => {
-  const skillWeaponDR = match(skill.name as ActiveSkillName)
-    .with("Frost Spike", () => {
-      return multDRs(
-        gearDmg.mainHand,
-        (getLevelOffenseValue(skill, "WeaponAtkDmgPct", level) as number) / 100,
-      );
-    })
-    .with("[Test] Simple Attack", () => {
-      return gearDmg.mainHand;
-    })
-    .otherwise(() => {
-      // either it's unimplemented, not an attack
-      return;
-    });
-  if (skillWeaponDR === undefined) return;
-  const skillFlatDR = multDRs(
-    flatDmg,
-    (getLevelOffenseValue(skill, "AddedDmgEffPct", level) as number) / 100,
-  );
-  const skillBaseDmg = addDRs(skillWeaponDR, skillFlatDR);
-
-  // Apply % bonuses to each pool, considering conversion history
-  const addSpellTag =
-    skill.tags.includes("Attack") &&
-    findMod(mods, "SpellDmgBonusAppliesToAtkDmg") !== undefined;
-
-  const baseDmgModTypes: DmgModType[] = addSpellTag
-    ? [...dmgModTypesForSkill(skill), "spell"]
-    : dmgModTypesForSkill(skill);
-
-  // Damage conversion happens after flat damage, before % bonuses
-  const dmgPools = convertDmg(skillBaseDmg, mods);
-  const { physical, cold, lightning, fire, erosion } = applyDmgBonusesAndPen({
-    dmgPools,
-    mods,
-    baseDmgModTypes,
-    config,
-    ignoreArmor: false,
-  });
-
-  const total = {
-    min: physical.min + cold.min + lightning.min + fire.min + erosion.min,
-    max: physical.max + cold.max + lightning.max + fire.max + erosion.max,
-  };
-  const totalAvg = (total.min + total.max) / 2;
-
-  return {
-    base: {
-      physical: physical,
-      cold: cold,
-      lightning: lightning,
-      fire: fire,
-      erosion: erosion,
-      total: total,
-    },
-    avg: totalAvg,
-  };
-};
-
-export interface OffenseInput {
-  loadout: Loadout;
-  configuration: Configuration;
-}
-
-export interface OffenseResults {
-  skills: Partial<Record<ImplementedActiveSkillName, OffenseSummary>>;
-  resourcePool: ResourcePool;
-  defenses: Defenses;
-}
-
-interface DerivedCtx {
-  hasHasten: boolean;
-  hasBlasphemer: boolean;
-}
-
-const resolveDerivedCtx = (mods: Mod[]): DerivedCtx => {
-  const hasHasten = findMod(mods, "HasHasten") !== undefined;
-  const hasBlasphemer = findMod(mods, "Blasphemer") !== undefined;
-  return { hasHasten, hasBlasphemer };
-};
-
-const hasPactspirit = (name: PactspiritName, loadout: Loadout): boolean => {
-  return (
-    loadout.pactspiritPage.slot1?.pactspiritName === name ||
-    loadout.pactspiritPage.slot2?.pactspiritName === name ||
-    loadout.pactspiritPage.slot3?.pactspiritName === name
-  );
-};
-
-const isHero = (name: HeroName, loadout: Loadout): boolean => {
-  return loadout.heroPage.selectedHero === name;
-};
-
-const enemyCcd = (config: Configuration) => {
-  // todo: update with all cc
-  return config.enemyParalyzed || config.enemyFrostbittenEnabled;
-};
-
-const filterModsByCond = (
-  mods: Mod[],
-  loadout: Loadout,
-  config: Configuration,
-  derivedCtx: DerivedCtx,
-): Mod[] => {
-  return mods.filter((m) => {
-    if (m.cond === undefined) return true;
-    return match(m.cond)
-      .with("enemy_frostbitten", () => config.enemyFrostbittenEnabled)
-      .with(
-        "realm_of_mercury",
-        () =>
-          loadout.heroPage.selectedHero ===
-            "Lightbringer Rosa: Unsullied Blade (#2)" &&
-          config.realmOfMercuryEnabled,
-      )
-      .with("has_focus_blessing", () => config.hasFocusBlessing)
-      .with("has_agility_blessing", () => config.hasAgilityBlessing)
-      .with("has_tenacity_blessing", () => config.hasTenacityBlessing)
-      .with("enemy_has_desecration", () => config.enemyHasDesecration)
-      .with("enemy_paralyzed", () => config.enemyParalyzed)
-      .with("has_full_mana", () => config.hasFullMana)
-      .with("target_enemy_is_elite", () => config.targetEnemyIsElite)
-      .with("target_enemy_is_nearby", () => config.targetEnemyIsNearby)
-      .with(
-        "target_enemy_is_in_proximity",
-        () => config.targetEnemyIsInProximity,
-      )
-      .with("has_blocked_recently", () => config.hasBlockedRecently)
-      .with("has_elites_nearby", () => config.hasElitesNearby)
-      .with("enemy_has_ailment", () => config.enemyHasAilment)
-      .with("has_hasten", () => derivedCtx.hasHasten)
-      .with("has_crit_recently", () => config.hasCritRecently)
-      .with("has_blur", () => config.hasBlur)
-      .with("blur_ended_recently", () => config.blurEndedRecently)
-      .with("channeling", () => config.channeling)
-      .with("sages_insight_fire", () => config.sagesInsightFireActivated)
-      .with("sages_insight_cold", () => config.sagesInsightColdActivated)
-      .with(
-        "sages_insight_lightning",
-        () => config.sagesInsightLightningActivated,
-      )
-      .with("sages_insight_erosion", () => config.sagesInsightErosionActivated)
-      .with("at_max_channeled_stacks", () => true)
-      .with("enemy_at_max_affliction", () => calcAfflictionPts(config) === 100)
-      .with("enemy_is_cursed", () => {
-        // assume enemy is cursed if we have an enabled curse skill
-        return (
-          listActiveSkillSlots(loadout)
-            .filter((s) => s.enabled && s.skillName !== undefined)
-            .map((s) => findActiveSkill(s.skillName as ActiveSkillName))
-            .find((s) => s.tags.includes("Curse")) !== undefined
-        );
-      })
-      .with(
-        "have_both_sealed_mana_and_life",
-        () =>
-          (config.sealedManaPct ?? 0) > 0 && (config.sealedLifePct ?? 0) > 0,
-      )
-      .with(
-        // todo: there's gotta be a better way to handle this, right?
-        "equipped_in_left_ring_slot",
-        () => m.src?.startsWith("Gear#leftRing") ?? false,
-      )
-      .with(
-        "equipped_in_right_ring_slot",
-        () => m.src?.startsWith("Gear#rightRing") ?? false,
-      )
-      .with("has_portrait_of_a_fallen_saintess_pactspirit", () =>
-        hasPactspirit("Portrait of a Fallen Saintess", loadout),
-      )
-      .with(
-        "enemy_has_desecration_and_cc",
-        () => config.enemyHasDesecration && enemyCcd(config),
-      )
-      .exhaustive();
-  });
-};
-
-const condThresholdSatisfied = (
-  actualValue: number,
-  condThreshold: ConditionThreshold,
-): boolean => {
-  const { value: condValue, comparator } = condThreshold;
-  return match(comparator)
-    .with("lt", () => actualValue < condValue)
-    .with("lte", () => actualValue <= condValue)
-    .with("eq", () => actualValue === condValue)
-    .with("gt", () => actualValue > condValue)
-    .with("gte", () => actualValue >= condValue)
-    .exhaustive();
-};
-
-const filterModsByCondThreshold = (
-  mods: Mod[],
-  config: Configuration,
-): Mod[] => {
-  return mods.filter((m) => {
-    if (m.condThreshold === undefined) return true;
-    const condThreshold = m.condThreshold;
-    return match(condThreshold.target)
-      .with("num_enemies_nearby", () =>
-        condThresholdSatisfied(config.numEnemiesNearby, condThreshold),
-      )
-      .with("num_enemies_affected_by_warcry", () =>
-        condThresholdSatisfied(
-          config.numEnemiesAffectedByWarcry,
-          condThreshold,
-        ),
-      )
-      .exhaustive();
-  });
-};
-
-// TODO: latent bug - mods with BOTH `cond` AND `per` would be handled incorrectly:
-// - filterModsByFrostbittenCond adds them un-normalized
-// - normalizeStackables adds them normalized (ignoring the condition)
-// Result: mod appears twice, or included when condition isn't met.
-// Currently no mods have both properties, but this should be fixed if any are added.
-const normalizeStackables = (
-  prenormalizedMods: Mod[],
-  stackable: Stackable,
-  stacks: number,
-): Mod[] => {
-  return prenormalizedMods
-    .filter(
-      (mod) =>
-        "per" in mod &&
-        mod.per !== undefined &&
-        mod.per.stackable === stackable,
-    )
-    .map((mod) => normalizeStackable(mod, stackable, stacks))
-    .filter((mod) => mod !== undefined);
-};
-
-const hasValue = (mod: Mod): mod is ModWithValue => "value" in mod;
-
-const normalizeStackable = <T extends Mod>(
-  mod: T,
-  stackable: Stackable,
-  stacks: number,
-): T | undefined => {
-  if (
-    !("per" in mod) ||
-    mod.per === undefined ||
-    mod.per.stackable !== stackable
-  ) {
-    return undefined;
-  }
-
-  if (!hasValue(mod)) {
-    return undefined;
-  }
-
-  const div = mod.per.amt || 1;
-  const stackCount = Math.min(stacks / div, mod.per.limit ?? Infinity);
-
-  let newModValue: number | DmgRange;
-  if (mod.per.multiplicative === true && typeof mod.value === "number") {
-    newModValue = ((1 + mod.value / 100) ** stackCount - 1) * 100;
-  } else {
-    newModValue = multValue(mod.value, stackCount);
-  }
-
-  if (typeof newModValue === "number" && mod.per.valueLimit !== undefined) {
-    return {
-      ...mod,
-      value: Math.min(newModValue, mod.per.valueLimit),
-    } as T;
-  } else {
-    return {
-      ...mod,
-      value: newModValue,
-    } as T;
-  }
-};
+// === Stats Types and Calculations ===
 
 interface Stats {
   str: number;
@@ -1161,16 +107,197 @@ interface Stats {
   int: number;
 }
 
-// returns mods that don't need normalization
-// excludes mods with `per` or that need replacement (like CoreTalent mods)
-const filterOutPerMods = (mods: Mod[]): Mod[] => {
-  const staticMods = mods.filter((m) => {
-    const hasPer = "per" in m && m.per !== undefined;
-    const isCoreTalent = m.type === "CoreTalent";
-    return !(hasPer || isCoreTalent);
-  });
-  return staticMods;
+// todo: very basic stat calculation, will definitely need to handle things like pct, per, and conditionals
+const calculateStats = (mods: Mod[]): Stats => {
+  const statMods = filterMods(mods, "Stat");
+  const statPctMods = filterMods(mods, "StatPct");
+  const calcFinalStat = (statType: StatType): number => {
+    const flat = sumByValue(
+      statMods.filter(
+        (m) => m.statModType === statType || m.statModType === "all",
+      ),
+    );
+    const mult =
+      1 +
+      sumByValue(
+        statPctMods.filter(
+          (m) => m.statModType === statType || m.statModType === "all",
+        ),
+      ) /
+        100;
+    return flat * mult;
+  };
+  return {
+    str: calcFinalStat("str"),
+    dex: calcFinalStat("dex"),
+    int: calcFinalStat("int"),
+  };
 };
+
+const calculateTotalMainStats = (
+  skill: BaseActiveSkill | BasePassiveSkill,
+  stats: Stats,
+): number => {
+  const mainStats = skill.mainStats ?? [];
+  let totalMainStats = 0;
+  for (const mainStatType of mainStats) {
+    totalMainStats += stats[mainStatType];
+  }
+  return totalMainStats;
+};
+
+// === Resource Pool Types ===
+
+export interface ResourcePool {
+  stats: Stats;
+  maxLife: number;
+  maxMana: number;
+  mercuryPts?: number;
+  focusBlessings: number;
+  maxFocusBlessings: number;
+  agilityBlessings: number;
+  maxAgilityBlessings: number;
+  tenacityBlessings: number;
+  maxTenacityBlessings: number;
+  desecration?: number;
+  additionalMaxChanneledStacks: number;
+  hasFervor: boolean;
+  fervorPts: number;
+}
+
+// === Defense Types ===
+
+export interface Resistance {
+  max: number;
+  potential: number;
+  actual: number;
+}
+
+export interface Defenses {
+  coldRes: Resistance;
+  lightningRes: Resistance;
+  fireRes: Resistance;
+  erosionRes: Resistance;
+}
+
+// === Blessing Calculations ===
+
+const calcNumFocus = (maxFocus: number, config: Configuration): number => {
+  if (config.focusBlessings !== undefined) {
+    return config.focusBlessings;
+  }
+  return maxFocus;
+};
+
+const calcNumAgility = (maxAgility: number, config: Configuration): number => {
+  if (config.agilityBlessings !== undefined) {
+    return config.agilityBlessings;
+  }
+  return maxAgility;
+};
+
+const calcNumTenacity = (
+  maxTenacity: number,
+  config: Configuration,
+): number => {
+  if (config.tenacityBlessings !== undefined) {
+    return config.tenacityBlessings;
+  }
+  return maxTenacity;
+};
+
+// === Affliction and Torment ===
+
+const calcAfflictionPts = (config: Configuration): number => {
+  return config.afflictionPts ?? 100;
+};
+
+const calculateAffliction = (mods: Mod[], config: Configuration): Mod[] => {
+  if (config.enemyHasAffliction !== true) {
+    return [];
+  }
+  const afflictionPts = calcAfflictionPts(config);
+  const afflictionEffMult = calculateEffMultiplier(
+    filterMods(mods, "AfflictionEffectPct"),
+  );
+  const afflictionValue = afflictionPts * afflictionEffMult;
+  return [
+    {
+      type: "DmgPct",
+      value: afflictionValue,
+      dmgModType: "damage_over_time",
+      addn: true,
+      isEnemyDebuff: true,
+      src: "Additional Damage over Time from Affliction",
+    },
+  ];
+};
+
+const calculateTorment = (config: Configuration): Mod[] => {
+  const tormentMod: Mod = {
+    type: "DmgPct",
+    value: 5,
+    dmgModType: "damage_over_time",
+    addn: true,
+    per: { stackable: "torment", limit: 3 },
+    src: "Additional Damage over Time from Torment (5% per stack)",
+  };
+  return normalizeStackables([tormentMod], "torment", config.tormentStacks);
+};
+
+// === Fervor ===
+
+const calculateFervorCritRateMod = (
+  mods: Mod[],
+  resourcePool: ResourcePool,
+): Mod => {
+  const fervorEffMult = calculateEffMultiplier(
+    filterMods(mods, "FervorEffPct"),
+  );
+  const critRatePerPoint = 2 * fervorEffMult;
+  const critRateFromFervor = resourcePool.fervorPts * critRatePerPoint;
+
+  return {
+    type: "CritRatingPct",
+    value: critRateFromFervor,
+    modType: "global",
+    src: "fervor",
+  };
+};
+
+const calculateWillpower = (normalizedMods: Mod[]): number => {
+  return findMod(normalizedMods, "MaxWillpowerStacks")?.value || 0;
+};
+
+// === Hero Trait Mods ===
+
+const calculateHeroTraitMods = (loadout: Loadout): Mod[] => {
+  const { traits, memorySlots } = loadout.heroPage;
+
+  const mods: Mod[] = [];
+  // Primary traits with their associated memories
+  // Secondary traits (for dual-trait heroes) share the same memory slots
+  const traitToMemory = [
+    { trait: traits.level1, memory: undefined },
+    { trait: traits.level45, memory: memorySlots.slot45 },
+    { trait: traits.level45b, memory: memorySlots.slot45 },
+    { trait: traits.level60, memory: memorySlots.slot60 },
+    { trait: traits.level60b, memory: memorySlots.slot60 },
+    { trait: traits.level75, memory: memorySlots.slot75 },
+    { trait: traits.level75b, memory: memorySlots.slot75 },
+  ];
+  for (const { trait, memory } of traitToMemory) {
+    if (trait !== undefined) {
+      const memoryMods = collectModsFromAffixes(memory?.affixes ?? []);
+      const addedLevel = findMod(memoryMods, "HeroTraitLevel")?.value ?? 0;
+      const level = 3 + addedLevel;
+      mods.push(...getHeroTraitMods(trait.name, level));
+    }
+  }
+  return mods;
+};
+
+// === Implicit Mods ===
 
 // includes any mods that always apply, but don't come from loadout, like damage from stats, non-skill buffs, etc
 const calculateImplicitMods = (): Mod[] => {
@@ -1280,6 +407,34 @@ const calculateImplicitMods = (): Mod[] => {
       cond: "has_hasten",
       src: "Hasten",
     },
+    // Infiltrations
+    {
+      type: "DmgPct",
+      value: 13,
+      addn: true,
+      dmgModType: "cold",
+      cond: "enemy_has_cold_infiltration",
+      isEnemyDebuff: true,
+      src: "Cold Infiltration",
+    },
+    {
+      type: "DmgPct",
+      value: 13,
+      addn: true,
+      dmgModType: "lightning",
+      cond: "enemy_has_lightning_infiltration",
+      isEnemyDebuff: true,
+      src: "Lightning Infiltration",
+    },
+    {
+      type: "DmgPct",
+      value: 13,
+      addn: true,
+      dmgModType: "fire",
+      cond: "enemy_has_fire_infiltration",
+      isEnemyDebuff: true,
+      src: "Fire Infiltration",
+    },
     // Pactspirit: Portrait of a Fallen Saintess
     {
       type: "DmgPct",
@@ -1293,57 +448,294 @@ const calculateImplicitMods = (): Mod[] => {
   ];
 };
 
-const calculateHeroTraitMods = (loadout: Loadout): Mod[] => {
-  const { traits, memorySlots } = loadout.heroPage;
+interface BaseHitOverview {
+  // Damage ranges of a single skill hit, not including crit
+  base: {
+    physical: DmgRange;
+    cold: DmgRange;
+    lightning: DmgRange;
+    fire: DmgRange;
+    erosion: DmgRange;
+    total: DmgRange;
+  };
+  // Average damage of a single skill hit, not including crit
+  avg: number;
+}
 
-  const mods = [];
-  // Primary traits with their associated memories
-  // Secondary traits (for dual-trait heroes) share the same memory slots
-  const traitToMemory = [
-    { trait: traits.level1, memory: undefined },
-    { trait: traits.level45, memory: memorySlots.slot45 },
-    { trait: traits.level45b, memory: memorySlots.slot45 },
-    { trait: traits.level60, memory: memorySlots.slot60 },
-    { trait: traits.level60b, memory: memorySlots.slot60 },
-    { trait: traits.level75, memory: memorySlots.slot75 },
-    { trait: traits.level75b, memory: memorySlots.slot75 },
-  ];
-  for (const { trait, memory } of traitToMemory) {
-    if (trait !== undefined) {
-      const memoryMods = collectModsFromAffixes(memory?.affixes ?? []);
-      const addedLevel = findMod(memoryMods, "HeroTraitLevel")?.value ?? 0;
-      const level = 3 + addedLevel;
-      mods.push(...getHeroTraitMods(trait.name, level));
-    }
+const calcBaseHitOverview = (
+  dmgRanges: DmgRanges,
+  derivedCtx: DerivedCtx,
+): BaseHitOverview => {
+  const { physical, cold, lightning, fire, erosion } = dmgRanges;
+  const min = physical.min + cold.min + lightning.min + fire.min + erosion.min;
+  const max = physical.max + cold.max + lightning.max + fire.max + erosion.max;
+  const total = { min, max };
+  let avg: number;
+  if (derivedCtx.luckyDmg) {
+    avg = (min + 2 * max) / 3;
+  } else {
+    avg = (min + max) / 2;
   }
-  return mods;
+  return { base: { physical, cold, lightning, fire, erosion, total }, avg };
 };
 
-// todo: very basic stat calculation, will definitely need to handle things like pct, per, and conditionals
-const calculateStats = (mods: Mod[]): Stats => {
-  const statMods = filterMod(mods, "Stat");
-  const statPctMods = filterMod(mods, "StatPct");
-  const calcFinalStat = (statType: StatType): number => {
-    const flat = sumByValue(
-      statMods.filter(
-        (m) => m.statModType === statType || m.statModType === "all",
-      ),
+const getLevelOffense = <T extends SkillOffenseType>(
+  skill: BaseActiveSkill,
+  skillOffenseType: T,
+  level: number,
+): Extract<SkillOffense, { type: T }> | undefined => {
+  const skillMods = getActiveSkillMods(skill.name as ActiveSkillName, level);
+  if (skillMods.offense === undefined) {
+    console.error(`Skill "${skill.name}" has no levelOffense data`);
+    return undefined;
+  }
+  const offense = skillMods.offense.find((o) => o.type === skillOffenseType);
+  if (offense === undefined) {
+    console.error(
+      `Skill "${skill.name}" has no ${skillOffenseType} in levelOffense`,
     );
-    const mult =
-      1 +
-      sumByValue(
-        statPctMods.filter(
-          (m) => m.statModType === statType || m.statModType === "all",
-        ),
-      ) /
-        100;
-    return flat * mult;
-  };
+    return undefined;
+  }
+  return offense as Extract<SkillOffense, { type: T }>;
+};
+
+const getLevelOffenseValue = (
+  skill: BaseActiveSkill,
+  skillOffenseType: SkillOffenseType,
+  level: number,
+): number | DmgRange | undefined => {
+  return getLevelOffense(skill, skillOffenseType, level)?.value ?? undefined;
+};
+
+const calculateAddnDmgFromShadows = (
+  numShadowHits: number,
+): ModT<"DmgPct"> | undefined => {
+  if (numShadowHits <= 0) return;
+  if (numShadowHits === 1) {
+    return {
+      type: "DmgPct",
+      addn: true,
+      value: 100, // 100% additional damage (doubles the hit)
+      dmgModType: "global",
+      src: `Shadow Strike: ${numShadowHits} hits`,
+    };
+  }
+  const falloffCoefficient = 0.7;
+
+  // Each hit deals (1 - falloff)^i of original, where i is 0-indexed
+  // Geometric series: dmgValue * (1 + r + r^2 + ... + r^(n-1)) = dmgValue * (1 - r^n) / (1 - r)
+  const retainedRatio = 1 - falloffCoefficient;
+  const geometricSum =
+    (1 - retainedRatio ** numShadowHits) / falloffCoefficient;
+
   return {
-    str: calcFinalStat("str"),
-    dex: calcFinalStat("dex"),
-    int: calcFinalStat("int"),
+    type: "DmgPct",
+    addn: true,
+    value: geometricSum * 100, // Convert to whole percentage
+    dmgModType: "global",
+    src: `Shadow Strike: ${numShadowHits} hits`,
   };
+};
+
+interface SkillHitOverview extends BaseHitOverview {}
+
+const calculateAtkHit = (
+  gearDmg: GearDmg,
+  flatDmg: DmgRanges,
+  mods: Mod[],
+  skill: BaseActiveSkill,
+  level: number,
+  derivedCtx: DerivedCtx,
+  config: Configuration,
+): SkillHitOverview | undefined => {
+  const skillWeaponDR = match(skill.name as ActiveSkillName)
+    .with("Frost Spike", () => {
+      const weaponAtkDmgPct = getLevelOffenseValue(
+        skill,
+        "WeaponAtkDmgPct",
+        level,
+      );
+      if (typeof weaponAtkDmgPct !== "number") {
+        return undefined;
+      }
+      return multDRs(gearDmg.mainHand, weaponAtkDmgPct / 100);
+    })
+    .with("[Test] Simple Attack", () => {
+      return gearDmg.mainHand;
+    })
+    .otherwise(() => {
+      // either it's unimplemented, not an attack
+      return;
+    });
+  if (skillWeaponDR === undefined) {
+    return;
+  }
+  const addedDmgEffPct = getLevelOffenseValue(skill, "AddedDmgEffPct", level);
+  if (typeof addedDmgEffPct !== "number") {
+    return undefined;
+  }
+  const skillFlatDR = multDRs(flatDmg, addedDmgEffPct / 100);
+  const skillBaseDmg = addDRs(skillWeaponDR, skillFlatDR);
+
+  // Apply % bonuses to each pool, considering conversion history
+  const addSpellTag =
+    skill.tags.includes("Attack") &&
+    findMod(mods, "SpellDmgBonusAppliesToAtkDmg") !== undefined;
+
+  const baseDmgModTypes: DmgModType[] = addSpellTag
+    ? [...dmgModTypesForSkill(skill), "spell"]
+    : dmgModTypesForSkill(skill);
+
+  // Damage conversion happens after flat damage, before % bonuses
+  const dmgPools = convertDmg(skillBaseDmg, mods);
+  const finalDmgRanges = applyDmgBonusesAndPen({
+    dmgPools,
+    mods,
+    baseDmgModTypes,
+    config,
+    ignoreArmor: false,
+  });
+  return calcBaseHitOverview(finalDmgRanges, derivedCtx);
+};
+
+export interface OffenseInput {
+  loadout: Loadout;
+  configuration: Configuration;
+}
+
+export interface OffenseResults {
+  skills: Partial<Record<ImplementedActiveSkillName, OffenseSummary>>;
+  resourcePool: ResourcePool;
+  defenses: Defenses;
+}
+
+interface DerivedCtx {
+  hasHasten: boolean;
+  hasBlasphemer: boolean;
+  hero?: HeroName;
+  luckyDmg: boolean;
+}
+
+const resolveDerivedCtx = (loadout: Loadout, mods: Mod[]): DerivedCtx => {
+  const hasHasten = findMod(mods, "HasHasten") !== undefined;
+  const hasBlasphemer = findMod(mods, "Blasphemer") !== undefined;
+  const luckyDmg = findMod(mods, "LuckyDmg") !== undefined;
+  const hero = loadout.heroPage.selectedHero;
+  return { hasHasten, hasBlasphemer, luckyDmg, hero };
+};
+
+const hasPactspirit = (name: PactspiritName, loadout: Loadout): boolean => {
+  return (
+    loadout.pactspiritPage.slot1?.pactspiritName === name ||
+    loadout.pactspiritPage.slot2?.pactspiritName === name ||
+    loadout.pactspiritPage.slot3?.pactspiritName === name
+  );
+};
+
+const isHero = (name: HeroName, loadout: Loadout): boolean => {
+  return loadout.heroPage.selectedHero === name;
+};
+
+const enemyCcd = (config: Configuration) => {
+  // todo: update with all cc
+  return config.enemyParalyzed || config.enemyFrostbittenEnabled;
+};
+
+const filterModsByCond = (
+  mods: Mod[],
+  loadout: Loadout,
+  config: Configuration,
+  derivedCtx: DerivedCtx,
+): Mod[] => {
+  return mods.filter((m) => {
+    if (m.cond === undefined) return true;
+    return match(m.cond)
+      .with("enemy_frostbitten", () => config.enemyFrostbittenEnabled)
+      .with(
+        "realm_of_mercury",
+        () =>
+          loadout.heroPage.selectedHero ===
+            "Lightbringer Rosa: Unsullied Blade (#2)" &&
+          config.realmOfMercuryEnabled,
+      )
+      .with("has_focus_blessing", () => config.hasFocusBlessing)
+      .with("has_agility_blessing", () => config.hasAgilityBlessing)
+      .with("has_tenacity_blessing", () => config.hasTenacityBlessing)
+      .with("enemy_has_desecration", () => config.enemyHasDesecration)
+      .with("enemy_paralyzed", () => config.enemyParalyzed)
+      .with("has_full_mana", () => config.hasFullMana)
+      .with("target_enemy_is_elite", () => config.targetEnemyIsElite)
+      .with("target_enemy_is_nearby", () => config.targetEnemyIsNearby)
+      .with(
+        "target_enemy_is_in_proximity",
+        () => config.targetEnemyIsInProximity,
+      )
+      .with("has_blocked_recently", () => config.hasBlockedRecently)
+      .with("has_elites_nearby", () => config.hasElitesNearby)
+      .with("enemy_has_ailment", () => config.enemyHasAilment)
+      .with("has_hasten", () => derivedCtx.hasHasten)
+      .with("has_crit_recently", () => config.hasCritRecently)
+      .with("has_blur", () => config.hasBlur)
+      .with("blur_ended_recently", () => config.blurEndedRecently)
+      .with("channeling", () => config.channeling)
+      .with("sages_insight_fire", () => config.sagesInsightFireActivated)
+      .with("sages_insight_cold", () => config.sagesInsightColdActivated)
+      .with(
+        "sages_insight_lightning",
+        () => config.sagesInsightLightningActivated,
+      )
+      .with("sages_insight_erosion", () => config.sagesInsightErosionActivated)
+      .with("at_max_channeled_stacks", () => true)
+      .with("enemy_at_max_affliction", () => calcAfflictionPts(config) === 100)
+      .with("enemy_is_cursed", () => {
+        // assume enemy is cursed if we have an enabled curse skill
+        return (
+          listActiveSkillSlots(loadout)
+            .filter((s) => s.enabled && s.skillName !== undefined)
+            .map((s) => findActiveSkill(s.skillName as ActiveSkillName))
+            .find((s) => s.tags.includes("Curse")) !== undefined
+        );
+      })
+      .with(
+        "have_both_sealed_mana_and_life",
+        () =>
+          (config.sealedManaPct ?? 0) > 0 && (config.sealedLifePct ?? 0) > 0,
+      )
+      .with(
+        // todo: there's gotta be a better way to handle this, right?
+        "equipped_in_left_ring_slot",
+        () => m.src?.startsWith("Gear#leftRing") ?? false,
+      )
+      .with(
+        "equipped_in_right_ring_slot",
+        () => m.src?.startsWith("Gear#rightRing") ?? false,
+      )
+      .with("has_portrait_of_a_fallen_saintess_pactspirit", () =>
+        hasPactspirit("Portrait of a Fallen Saintess", loadout),
+      )
+      .with(
+        "enemy_has_desecration_and_cc",
+        () => config.enemyHasDesecration && enemyCcd(config),
+      )
+      .with(
+        "enemy_has_cold_infiltration",
+        () => config.targetEnemyHasColdInfiltration,
+      )
+      .with(
+        "enemy_has_lightning_infiltration",
+        () => config.targetEnemyHasLightningInfiltration,
+      )
+      .with(
+        "enemy_has_fire_infiltration",
+        () => config.targetEnemyHasFireInfiltration,
+      )
+      .with(
+        "target_enemy_frozen_recently",
+        () => config.targetEnemyFrozenRecently,
+      )
+      .with("has_squidnova", () => config.hasSquidnova)
+      .exhaustive();
+  });
 };
 
 const listActiveSkillSlots = (loadout: Loadout): SkillSlot[] => {
@@ -1645,38 +1037,6 @@ const resolvePerSkillMods = (
   };
 };
 
-const calculateFervorCritRateMod = (
-  mods: Mod[],
-  resourcePool: ResourcePool,
-): Mod => {
-  const fervorEffMult = calculateEffMultiplier(filterMod(mods, "FervorEffPct"));
-  const critRatePerPoint = 2 * fervorEffMult;
-  const critRateFromFervor = resourcePool.fervorPts * critRatePerPoint;
-
-  return {
-    type: "CritRatingPct",
-    value: critRateFromFervor,
-    modType: "global",
-    src: "fervor",
-  };
-};
-
-const calculateWillpower = (normalizedMods: Mod[]) => {
-  return findMod(normalizedMods, "MaxWillpowerStacks")?.value || 0;
-};
-
-const calculateTotalMainStats = (
-  skill: BaseActiveSkill | BasePassiveSkill,
-  stats: Stats,
-) => {
-  const mainStats = skill.mainStats ?? [];
-  let totalMainStats = 0;
-  for (const mainStatType of mainStats) {
-    totalMainStats += stats[mainStatType];
-  }
-  return totalMainStats;
-};
-
 interface EnemyFrostbittenCtx {
   enabled: boolean;
   points: number;
@@ -1692,7 +1052,7 @@ const calculateEnemyFrostbitten = (
 };
 
 const calculateNumShadowHits = (mods: Mod[], config: Configuration): number => {
-  const shadowQuantMods = filterMod(mods, "ShadowQuant");
+  const shadowQuantMods = filterMods(mods, "ShadowQuant");
   const shadowQuant = R.sumBy(shadowQuantMods, (m) => m.value);
   return config.numShadowHits ?? shadowQuant;
 };
@@ -1704,51 +1064,9 @@ const calculateMercuryPts = (
   if (!isHero("Lightbringer Rosa: Unsullied Blade (#2)", loadout)) {
     return undefined;
   }
-  const mercuryPtMods = filterMod(mods, "MaxMercuryPtsPct");
+  const mercuryPtMods = filterMods(mods, "MaxMercuryPtsPct");
   const mult = calculateEffMultiplier(mercuryPtMods);
   return 100 * mult;
-};
-
-interface EnemyRes {
-  cold: number;
-  lightning: number;
-  fire: number;
-  erosion: number;
-}
-
-const calculateEnemyRes = (mods: Mod[], config: Configuration): EnemyRes => {
-  const enemyResMods = filterMod(mods, "EnemyRes");
-  const sumEnemyResMods = (resTypes: ResType[]) => {
-    return sumByValue(enemyResMods.filter((m) => resTypes.includes(m.resType)));
-  };
-  return {
-    cold: (config.enemyColdRes ?? 40) + sumEnemyResMods(["cold", "elemental"]),
-    lightning:
-      (config.enemyLightningRes ?? 40) +
-      sumEnemyResMods(["lightning", "elemental"]),
-    fire: (config.enemyFireRes ?? 40) + sumEnemyResMods(["fire", "elemental"]),
-    erosion: (config.enemyErosionRes ?? 30) + sumEnemyResMods(["erosion"]),
-  };
-};
-
-const calculateEnemyArmor = (config: Configuration): number => {
-  // default to max possible enemy armor, equivalent to 50% dmg reduction
-  return config.enemyArmor ?? 27273;
-};
-
-// decimal percentages representing how much to reduce dmg by
-// e.g. .7 reduction means that a hit will do 30% of its original value
-interface ArmorDmgMitigation {
-  physical: number;
-  nonPhysical: number;
-}
-
-const calculateEnemyArmorDmgMitigation = (
-  armor: number,
-): ArmorDmgMitigation => {
-  const physical = armor / (0.9 * armor + 30000);
-  const nonPhysical = physical * 0.6;
-  return { physical, nonPhysical };
 };
 
 const resolveBuffSkillEffMults = (
@@ -1786,27 +1104,13 @@ const resolveBuffSkillEffMults = (
     ...normalizeStackables(prenormMods, "cruelty_buff", crueltyBuffStacks),
   );
 
-  const skillEffMods = filterMod(mods, "SkillEffPct");
+  const skillEffMods = filterMods(mods, "SkillEffPct");
   const skillEffMult = calculateEffMultiplier(skillEffMods);
-  const allAuraEffMods = filterMod(mods, "AuraEffPct");
+  const allAuraEffMods = filterMods(mods, "AuraEffPct");
   const auraEffMult = calculateEffMultiplier(allAuraEffMods);
-  const curseEffMult = calculateEffMultiplier(filterMod(mods, "CurseEffPct"));
+  const curseEffMult = calculateEffMultiplier(filterMods(mods, "CurseEffPct"));
 
   return { skillEffMult, auraEffMult, curseEffMult };
-};
-
-const calcNumFocus = (maxFocus: number, config: Configuration): number => {
-  if (config.focusBlessings !== undefined) {
-    return config.focusBlessings;
-  }
-  return maxFocus;
-};
-
-const calcNumAgility = (maxAgility: number, config: Configuration): number => {
-  if (config.agilityBlessings !== undefined) {
-    return config.agilityBlessings;
-  }
-  return maxAgility;
 };
 
 const calcMaxBlessings = (
@@ -1820,22 +1124,12 @@ const calcMaxBlessings = (
     tenacity: "MaxTenacityBlessing",
   } as const;
   const modType = blessingToModType[blessingType];
-  const additionalMaxBlessings = sumByValue(filterMod(mods, modType));
+  const additionalMaxBlessings = sumByValue(filterMods(mods, modType));
   if (derivedCtx.hasBlasphemer) {
     return Math.max(4 - additionalMaxBlessings, 0);
   } else {
     return 4 + additionalMaxBlessings;
   }
-};
-
-const calcNumTenacity = (
-  maxTenacity: number,
-  config: Configuration,
-): number => {
-  if (config.tenacityBlessings !== undefined) {
-    return config.tenacityBlessings;
-  }
-  return maxTenacity;
 };
 
 const calcDesecration = (
@@ -1845,52 +1139,15 @@ const calcDesecration = (
   if (!derivedCtx.hasBlasphemer) {
     return undefined;
   }
-  const addedFocus = sumByValue(filterMod(mods, "MaxFocusBlessing"));
-  const addedAgility = sumByValue(filterMod(mods, "MaxAgilityBlessing"));
-  const addedTenacity = sumByValue(filterMod(mods, "MaxTenacityBlessing"));
+  const addedFocus = sumByValue(filterMods(mods, "MaxFocusBlessing"));
+  const addedAgility = sumByValue(filterMods(mods, "MaxAgilityBlessing"));
+  const addedTenacity = sumByValue(filterMods(mods, "MaxTenacityBlessing"));
   return (
     3 +
     Math.min(addedFocus, 4) +
     Math.min(addedAgility, 4) +
     Math.min(addedTenacity, 4)
   );
-};
-
-const calcAfflictionPts = (config: Configuration): number => {
-  return config.afflictionPts ?? 100;
-};
-
-const calculateAffliction = (mods: Mod[], config: Configuration): Mod[] => {
-  if (config.enemyHasAffliction !== true) {
-    return [];
-  }
-  const afflictionPts = calcAfflictionPts(config);
-  const afflictionEffMult = calculateEffMultiplier(
-    filterMod(mods, "AfflictionEffectPct"),
-  );
-  const afflictionValue = afflictionPts * afflictionEffMult;
-  return [
-    {
-      type: "DmgPct",
-      value: afflictionValue,
-      dmgModType: "damage_over_time",
-      addn: true,
-      isEnemyDebuff: true,
-      src: "Additional Damage over Time from Affliction",
-    },
-  ];
-};
-
-const calculateTorment = (config: Configuration): Mod[] => {
-  const tormentMod: Mod = {
-    type: "DmgPct",
-    value: 5,
-    dmgModType: "damage_over_time",
-    addn: true,
-    per: { stackable: "torment", limit: 3 },
-    src: "Additional Damage over Time from Torment (5% per stack)",
-  };
-  return normalizeStackables([tormentMod], "torment", config.tormentStacks);
 };
 
 const calculateAddedSkillLevels = (
@@ -1912,7 +1169,7 @@ const calculateAddedSkillLevels = (
   );
 
   let addedSkillLevels = 0;
-  for (const mod of filterMod(mods, "SkillLevel")) {
+  for (const mod of filterMods(mods, "SkillLevel")) {
     const matches = match(mod.skillLevelType)
       .with(
         "main",
@@ -1923,6 +1180,7 @@ const calculateAddedSkillLevels = (
       .with("persistent", () => skill.tags.includes("Persistent"))
       .with("erosion", () => skill.tags.includes("Erosion"))
       .with("spell", () => skill.tags.includes("Spell"))
+      .with("lightning", () => skill.tags.includes("Lightning"))
       .with("all", () => true)
       .exhaustive();
     if (matches) {
@@ -1936,9 +1194,7 @@ const calculateAddedSkillLevels = (
  * every level from 21-30 is +10% additional damage, stacking multiplicately
  * every level from 31+ is +8% additional damage, stacking multiplicatively
  */
-const calculateSkillLevelDmgMods = (
-  skillLevel: number,
-): ModOfType<"DmgPct">[] => {
+const calculateSkillLevelDmgMods = (skillLevel: number): ModT<"DmgPct">[] => {
   if (skillLevel <= 20) {
     return [];
   }
@@ -1974,18 +1230,36 @@ const calculateSkillLevelDmgMods = (
   ];
 };
 
-// resolves mods, replacing core talents, removing unmatched conditions,
-//   and normalizing per mods
+const calcChainLightningInstances = (
+  mods: Mod[],
+  config: Configuration,
+  jumps: number,
+): number => {
+  if (!modExists(mods, "ChainLightningWebOfLightning")) {
+    return 1;
+  }
+  if (config.chainLightningInstancesOnTarget !== undefined) {
+    return Math.max(1, config.chainLightningInstancesOnTarget);
+  }
+  return 1 + jumps;
+};
+
+interface DerivedOffenseCtx {
+  maxSpellBurst: number;
+  movementSpeedBonusPct: number;
+  mods: Mod[];
+}
+
+// resolves mods, removing unmatched conditions, and normalizing per mods
 const resolveModsForOffenseSkill = (
   prenormModsFromParam: Mod[],
   skill: BaseActiveSkill | BasePassiveSkill,
   skillLevel: number,
   resourcePool: ResourcePool,
-  defenses: Defenses,
   loadout: Loadout,
   config: Configuration,
   derivedCtx: DerivedCtx,
-): Mod[] => {
+): DerivedOffenseCtx => {
   const {
     stats,
     maxMana,
@@ -2010,12 +1284,95 @@ const resolveModsForOffenseSkill = (
   const totalMainStats = calculateTotalMainStats(skill, stats);
   mods.push(...normalizeStackables(prenormMods, "main_stat", totalMainStats));
 
+  const highestStat = Math.max(stats.dex, stats.int, stats.str);
+  mods.push(...normalizeStackables(prenormMods, "highest_stat", highestStat));
+
+  const sumStats = stats.dex + stats.int + stats.str;
+  mods.push(...normalizeStackables(prenormMods, "stat", sumStats));
+
+  if (config.targetEnemyHasWhimsySignal) {
+    const whimsySignalEffMult = calculateEffMultiplier(
+      filterMods(mods, "WhimsySignalEffPct"),
+    );
+    const whimsySignalDmgPctVal = 30 * whimsySignalEffMult;
+    mods.push({
+      type: "DmgPct",
+      value: whimsySignalDmgPctVal,
+      addn: true,
+      dmgModType: "spell",
+      isEnemyDebuff: true,
+      src: "Whimsy Signal",
+    });
+  }
+
+  const movementSpeedBonusPct =
+    (calculateEffMultiplier(filterMods(mods, "MovementSpeedPct")) - 1) * 100;
   mods.push(
     ...normalizeStackables(
       prenormMods,
       "movement_speed_bonus_pct",
-      defenses.movementSpeedBonusPct,
+      movementSpeedBonusPct,
     ),
+  );
+
+  // squidnova
+  if (config.hasSquidnova) {
+    const squidNovaEffMult = calculateEffMultiplier(
+      filterMods(mods, "SquidnovaEffPct"),
+    );
+    const squidNovaDmgPctValue = 16 * squidNovaEffMult;
+    mods.push({
+      type: "DmgPct",
+      value: squidNovaDmgPctValue,
+      dmgModType: "hit",
+      addn: true,
+      src: "Squidnova",
+    });
+  }
+
+  const jumps = sumByValue(filterMods(mods, "Jump"));
+  mods.push(...normalizeStackables(prenormMods, "jump", jumps));
+
+  // chain lightning
+  const chainLightningInstances = calcChainLightningInstances(
+    mods,
+    config,
+    jumps,
+  );
+
+  const chainLightningMerge = findMod(mods, "ChainLightningMerge");
+  if (chainLightningMerge !== undefined) {
+    mods.push({
+      type: "DmgPct",
+      value:
+        (chainLightningInstances - 1) *
+        (100 - chainLightningMerge.shotgunFalloffCoefficient),
+      addn: true,
+      dmgModType: "global",
+      src: "Chain Lightning: Merge (Noble)",
+    });
+  }
+
+  // frail - additionally increases spell damage taken by 15%
+  if (config.targetEnemyHasFrail) {
+    const frailEffMult = calculateEffMultiplier(
+      filterMods(mods, "FrailEffPct"),
+    );
+    const frailSpellDmgPctValue = 15 * frailEffMult;
+    mods.push({
+      type: "DmgPct",
+      value: frailSpellDmgPctValue,
+      dmgModType: "spell",
+      addn: true,
+      isEnemyDebuff: true,
+      src: "Frail",
+    });
+  }
+
+  // must happen after movement_speed_bonus_pct normalization
+  const maxSpellBurst = sumByValue(filterMods(mods, "MaxSpellBurst"));
+  mods.push(
+    ...normalizeStackables(prenormMods, "max_spell_burst", maxSpellBurst),
   );
 
   mods.push(
@@ -2043,7 +1400,7 @@ const resolveModsForOffenseSkill = (
   mods.push(...calculateTorment(config));
   mods.push(...calculateAffliction(mods, config));
 
-  const repentanceStacks = 4 + sumByValue(filterMod(mods, "MaxRepentance"));
+  const repentanceStacks = 4 + sumByValue(filterMods(mods, "MaxRepentance"));
   mods.push(
     ...normalizeStackables(prenormMods, "repentance", repentanceStacks),
   );
@@ -2064,6 +1421,22 @@ const resolveModsForOffenseSkill = (
     ...normalizeStackables(prenormMods, "desecration", desecration ?? 0),
   );
 
+  mods.push(
+    ...normalizeStackables(
+      prenormMods,
+      "has_hit_enemy_with_elemental_dmg_recently",
+      config.hasHitEnemyWithElementalDmgRecently,
+    ),
+  );
+
+  mods.push(
+    ...normalizeStackables(
+      prenormMods,
+      "num_spell_skills_used_recently",
+      config.numSpellSkillsUsedRecently,
+    ),
+  );
+
   const willpowerStacks = calculateWillpower(prenormMods);
   mods.push(...normalizeStackables(prenormMods, "willpower", willpowerStacks));
 
@@ -2076,7 +1449,7 @@ const resolveModsForOffenseSkill = (
   const maxProjectiles = findMod(mods, "MaxProjectile")?.value;
   const projectiles = Math.trunc(
     Math.min(
-      sumByValue(filterMod(mods, "Projectile")),
+      sumByValue(filterMods(mods, "Projectile")),
       maxProjectiles ?? Infinity,
     ),
   );
@@ -2093,7 +1466,7 @@ const resolveModsForOffenseSkill = (
     const numShadowHits = calculateNumShadowHits(mods, config);
     const dmgFromShadowMod = calculateAddnDmgFromShadows(numShadowHits);
     if (dmgFromShadowMod !== undefined) {
-      const shadowDmgPctMods = filterMod(mods, "ShadowDmgPct");
+      const shadowDmgPctMods = filterMods(mods, "ShadowDmgPct");
       const shadowDmgMult = calculateEffMultiplier(shadowDmgPctMods);
       mods.push({
         ...multModValue(dmgFromShadowMod, shadowDmgMult),
@@ -2135,25 +1508,8 @@ const resolveModsForOffenseSkill = (
     ),
   );
 
-  return mods;
+  return { mods, maxSpellBurst, movementSpeedBonusPct };
 };
-
-export interface ResourcePool {
-  stats: Stats;
-  maxLife: number;
-  maxMana: number;
-  mercuryPts?: number;
-  focusBlessings: number;
-  maxFocusBlessings: number;
-  agilityBlessings: number;
-  maxAgilityBlessings: number;
-  tenacityBlessings: number;
-  maxTenacityBlessings: number;
-  desecration?: number;
-  additionalMaxChanneledStacks: number;
-  hasFervor: boolean;
-  fervorPts: number;
-}
 
 const calculateResourcePool = (
   paramMods: Mod[],
@@ -2175,12 +1531,12 @@ const calculateResourcePool = (
   mods.push(...normalizeStackables(prenormMods, "dex", stats.dex));
   mods.push(...normalizeStackables(prenormMods, "int", stats.int));
 
-  const maxLifeFromMods = sumByValue(filterMod(mods, "MaxLife"));
-  const maxLifeMult = calculateEffMultiplier(filterMod(mods, "MaxLifePct"));
+  const maxLifeFromMods = sumByValue(filterMods(mods, "MaxLife"));
+  const maxLifeMult = calculateEffMultiplier(filterMods(mods, "MaxLifePct"));
   const maxLife = (50 + config.level * 13 + maxLifeFromMods) * maxLifeMult;
 
-  const maxManaFromMods = sumByValue(filterMod(mods, "MaxMana"));
-  const maxManaMult = calculateEffMultiplier(filterMod(mods, "MaxManaPct"));
+  const maxManaFromMods = sumByValue(filterMods(mods, "MaxMana"));
+  const maxManaMult = calculateEffMultiplier(filterMods(mods, "MaxManaPct"));
   const maxMana = (40 + config.level * 5 + maxManaFromMods) * maxManaMult;
 
   mods.push(...normalizeStackables(prenormMods, "max_mana", maxMana));
@@ -2199,7 +1555,7 @@ const calculateResourcePool = (
   const desecration = calcDesecration(mods, derivedCtx);
 
   const additionalMaxChanneledStacks = Math.round(
-    sumByValue(filterMod(mods, "MaxChannel")),
+    sumByValue(filterMods(mods, "MaxChannel")),
   );
 
   const haveFervor = findMod(mods, "HaveFervor") !== undefined;
@@ -2225,22 +1581,6 @@ const calculateResourcePool = (
   };
 };
 
-export interface Resistance {
-  max: number;
-  potential: number;
-  actual: number;
-}
-
-export interface Defenses {
-  coldRes: Resistance;
-  lightningRes: Resistance;
-  fireRes: Resistance;
-  erosionRes: Resistance;
-  // TODO: this needs to be moved into offense summary instead, since some main
-  //   skills like mind control lower your movement speed
-  movementSpeedBonusPct: number;
-}
-
 export const calculateDefenses = (
   paramMods: Mod[],
   loadout: Loadout,
@@ -2253,10 +1593,10 @@ export const calculateDefenses = (
   );
   const mods = filterOutPerMods(prenormMods);
 
-  const maxResMods = filterMod(mods, "MaxResistancePct");
-  const resMods = filterMod(mods, "ResistancePct");
+  const maxResMods = filterMods(mods, "MaxResistancePct");
+  const resMods = filterMods(mods, "ResistancePct");
 
-  type ResMod = ModOfType<"MaxResistancePct"> | ModOfType<"ResistancePct">;
+  type ResMod = ModT<"MaxResistancePct"> | ModT<"ResistancePct">;
   const sumResMods = <T extends ResMod>(
     mods: T[],
     resTypes: ResType[],
@@ -2271,15 +1611,11 @@ export const calculateDefenses = (
     return { max, potential, actual };
   };
 
-  const movementSpeedBonusPct =
-    (calculateEffMultiplier(filterMod(mods, "MovementSpeedPct")) - 1) * 100;
-
   return {
     coldRes: calcRes(["cold", "elemental"]),
     lightningRes: calcRes(["lightning", "elemental"]),
     fireRes: calcRes(["fire", "elemental"]),
     erosionRes: calcRes(["erosion"]),
-    movementSpeedBonusPct,
   };
 };
 
@@ -2337,7 +1673,7 @@ const calcAvgPersistentDps = (
 
   const duration =
     offense.duration *
-    calculateEffMultiplier(filterMod(mods, "SkillEffDurationPct"));
+    calculateEffMultiplier(filterMods(mods, "SkillEffDurationPct"));
 
   return {
     base: { physical, cold, lightning, fire, erosion },
@@ -2373,12 +1709,12 @@ const calcTotalReapDps = (
   const dotDuration = persistentDpsSummary.duration;
   const dotDps = persistentDpsSummary.total;
   const reapDurationMult = calculateEffMultiplier(
-    filterMod(mods, "ReapDurationPct"),
+    filterMods(mods, "ReapDurationPct"),
   );
-  const reapCdrMult = calculateEffMultiplier(filterMod(mods, "ReapCdrPct"));
+  const reapCdrMult = calculateEffMultiplier(filterMods(mods, "ReapCdrPct"));
   const reapPurificationPct =
-    sumByValue(filterMod(mods, "ReapPurificationPct")) / 100;
-  const reaps = filterMod(mods, "Reap").map((m) => {
+    sumByValue(filterMods(mods, "ReapPurificationPct")) / 100;
+  const reaps = filterMods(mods, "Reap").map((m) => {
     const duration = Math.min(m.duration * reapDurationMult, dotDuration);
     const rawCooldown = m.cooldown / reapCdrMult;
     const reapsPerSecond = calcReapsPerSecond(rawCooldown);
@@ -2414,6 +1750,7 @@ const calcAvgAttackDps = (
   loadout: Loadout,
   perSkillContext: PerSkillModContext,
   skillLevel: number,
+  derivedCtx: DerivedCtx,
   config: Configuration,
 ): OffenseAttackDpsSummary | undefined => {
   const skill = perSkillContext.skill;
@@ -2425,6 +1762,7 @@ const calcAvgAttackDps = (
     mods,
     skill,
     skillLevel,
+    derivedCtx,
     config,
   );
   if (skillHit === undefined) return;
@@ -2466,6 +1804,7 @@ const calcSpellHit = (
   mods: Mod[],
   skill: BaseActiveSkill,
   level: number,
+  derivedCtx: DerivedCtx,
   config: Configuration,
 ): CalcSpellHitOutput | undefined => {
   const implementedSpells: ActiveSkillName[] = [
@@ -2483,40 +1822,25 @@ const calcSpellHit = (
     ...emptyDmgRanges(),
     [dmgType]: skillSpellDR,
   };
-  const skillFlatDRs = multDRs(
-    flatDmg,
-    (getLevelOffenseValue(skill, "AddedDmgEffPct", level) as number) / 100,
-  );
+
+  const addedDmgEffPct = getLevelOffenseValue(skill, "AddedDmgEffPct", level);
+  if (typeof addedDmgEffPct !== "number") {
+    return undefined;
+  }
+  const skillFlatDRs = multDRs(flatDmg, addedDmgEffPct / 100);
   const skillBaseDR = addDRs(skillSpellDRs, skillFlatDRs);
   const baseDmgModTypes = dmgModTypesForSkill(skill);
 
   const dmgPools = convertDmg(skillBaseDR, mods);
-  const { physical, cold, lightning, fire, erosion } = applyDmgBonusesAndPen({
+  const finalDmgRanges = applyDmgBonusesAndPen({
     dmgPools,
     mods,
     baseDmgModTypes,
     config,
     ignoreArmor: false,
   });
-
-  const total = {
-    min: physical.min + cold.min + lightning.min + fire.min + erosion.min,
-    max: physical.max + cold.max + lightning.max + fire.max + erosion.max,
-  };
-  const totalAvg = (total.min + total.max) / 2;
-
-  return {
-    base: {
-      physical: physical,
-      cold: cold,
-      lightning: lightning,
-      fire: fire,
-      erosion: erosion,
-      total: total,
-    },
-    avg: totalAvg,
-    castTime,
-  };
+  const baseHitOverview = calcBaseHitOverview(finalDmgRanges, derivedCtx);
+  return { ...baseHitOverview, castTime };
 };
 
 export interface OffenseSpellDpsSummary {
@@ -2532,17 +1856,25 @@ const calcAvgSpellDps = (
   _loadout: Loadout,
   perSkillContext: PerSkillModContext,
   skillLevel: number,
+  derivedCtx: DerivedCtx,
   config: Configuration,
 ): OffenseSpellDpsSummary | undefined => {
   const skill = perSkillContext.skill;
   const flatDmg = calculateFlatDmg(mods, "spell");
-  const spellHit = calcSpellHit(flatDmg, mods, skill, skillLevel, config);
+  const spellHit = calcSpellHit(
+    flatDmg,
+    mods,
+    skill,
+    skillLevel,
+    derivedCtx,
+    config,
+  );
   if (spellHit === undefined) {
     return undefined;
   }
   const { avg, castTime } = spellHit;
 
-  const cspdMult = calculateEffMultiplier(filterMod(mods, "CspdPct"));
+  const cspdMult = calculateEffMultiplier(filterMods(mods, "CspdPct"));
   const cspd = (1 / castTime) * cspdMult;
   const critChance = calculateCritChance(mods, skill);
   const critDmgMult = calculateCritDmg(mods, skill);
@@ -2561,26 +1893,83 @@ const calcAvgSpellDps = (
   };
 };
 
-interface OffenseSpellBurstDpsSummary {
+export interface OffenseSpellBurstDpsSummary {
   burstsPerSec: number;
   maxSpellBurst: number;
-  dps: number;
+  avgDps: number;
+  ingenuityOverload?: {
+    avgDps: number;
+    interval: number;
+  };
 }
 
 const calcAvgSpellBurstDps = (
   mods: Mod[],
   avgHit: number,
+  maxSpellBurst: number,
+  derivedCtx: DerivedCtx,
 ): OffenseSpellBurstDpsSummary => {
+  const playSafe = findMod(mods, "PlaySafe");
   const baseBurstsPerSec = 0.5;
-  const burstsPerSecMult = calculateEffMultiplier(
-    filterMod(mods, "SpellBurstChargeSpeedPct"),
-  );
+  const chargeSpeedMods = [
+    ...filterMods(mods, "SpellBurstChargeSpeedPct"),
+    ...(playSafe !== undefined
+      ? filterMods(mods, "CspdPct").map((m) =>
+          multModValue(m, playSafe.value / 100),
+        )
+      : []),
+  ];
+  const burstsPerSecMult = calculateEffMultiplier(chargeSpeedMods);
   const burstsPerSec = baseBurstsPerSec * burstsPerSecMult;
-  const maxSpellBurst = sumByValue(filterMod(mods, "MaxSpellBurst"));
+  const spellBurstDmgMult = calculateAddn(
+    filterMods(mods, "SpellBurstAdditionalDmgPct").map((m) => m.value),
+  );
 
-  const dps = burstsPerSec * maxSpellBurst * avgHit;
+  if (derivedCtx.hero !== bing2) {
+    const avgDps = burstsPerSec * maxSpellBurst * avgHit * spellBurstDmgMult;
+    return { burstsPerSec, maxSpellBurst, avgDps };
+  }
 
-  return { burstsPerSec, maxSpellBurst, dps };
+  // Everything after this is bing2 specific
+
+  // Bing2 Ingenuity Overload calculation:
+  // - Whimsy Essence accumulates over time and on each Spell Burst
+  // - At 100 Whimsy Essence, it resets and grants 25 Ingenuity Essence
+  // - At 100 Ingenuity Essence, it resets and triggers Ingenuity Overload
+  const baseWhimsyEssencePerSec = 20;
+  const whimsyEssenceOnBurst = sumByValue(
+    filterMods(mods, "RestoreWhimsyEssenceOnSpellBurst"),
+  );
+  const whimsyEssenceRecoverSpeedMult = calculateEffMultiplier(
+    filterMods(mods, "WhimsyEssenceRecoverySpeedPct"),
+  );
+
+  // Burst gains can overshoot 100 and waste essence. Assuming uniform
+  // position in cycle when burst occurs: efficiency ≈ 1 - W/200
+  const burstEfficiency = 1 - whimsyEssenceOnBurst / 200;
+  const whimsyEssencePerSec =
+    baseWhimsyEssencePerSec * whimsyEssenceRecoverSpeedMult +
+    whimsyEssenceOnBurst * burstsPerSec * burstEfficiency;
+
+  // 100 Whimsy → 25 Ingenuity, 100 Ingenuity → 1 Overload
+  // So 400 Whimsy Essence = 1 Ingenuity Overload
+  const ingenuityOverloadPerSec = whimsyEssencePerSec / 400;
+
+  const normalBurstsPerSec = burstsPerSec - 0.5 * ingenuityOverloadPerSec;
+  const normalAvgDps =
+    normalBurstsPerSec * maxSpellBurst * avgHit * spellBurstDmgMult;
+  // overload triggers +200% additional max spell burst
+  const overloadAvgDps =
+    ingenuityOverloadPerSec * (3 * maxSpellBurst) * avgHit * spellBurstDmgMult;
+  return {
+    burstsPerSec,
+    maxSpellBurst,
+    avgDps: normalAvgDps,
+    ingenuityOverload: {
+      avgDps: overloadAvgDps,
+      interval: 1 / ingenuityOverloadPerSec,
+    },
+  };
 };
 
 // Calculates offense for all enabled implemented skills
@@ -2591,7 +1980,7 @@ export const calculateOffense = (input: OffenseInput): OffenseResults => {
     ...calculateHeroTraitMods(loadout),
   ];
 
-  const derivedCtx = resolveDerivedCtx(loadoutMods);
+  const derivedCtx = resolveDerivedCtx(loadout, loadoutMods);
   const resourcePool = calculateResourcePool(
     loadoutMods,
     loadout,
@@ -2640,22 +2029,23 @@ export const calculateOffense = (input: OffenseInput): OffenseResults => {
         derivedCtx,
       );
 
-    const mods = resolveModsForOffenseSkill(
-      [...unresolvedLoadoutAndBuffMods, ...perSkillContext.mods],
-      perSkillContext.skill,
-      skillLevel,
-      resourcePool,
-      defenses,
-      loadout,
-      config,
-      derivedCtx,
-    );
+    const { mods, maxSpellBurst, movementSpeedBonusPct } =
+      resolveModsForOffenseSkill(
+        [...unresolvedLoadoutAndBuffMods, ...perSkillContext.mods],
+        perSkillContext.skill,
+        skillLevel,
+        resourcePool,
+        loadout,
+        config,
+        derivedCtx,
+      );
 
     const attackHitSummary = calcAvgAttackDps(
       mods,
       loadout,
       perSkillContext,
       skillLevel,
+      derivedCtx,
       config,
     );
 
@@ -2664,12 +2054,18 @@ export const calculateOffense = (input: OffenseInput): OffenseResults => {
       loadout,
       perSkillContext,
       skillLevel,
+      derivedCtx,
       config,
     );
 
     const spellBurstDpsSummary =
       spellDpsSummary !== undefined
-        ? calcAvgSpellBurstDps(mods, spellDpsSummary.avgHitWithCrit)
+        ? calcAvgSpellBurstDps(
+            mods,
+            spellDpsSummary.avgHitWithCrit,
+            maxSpellBurst,
+            derivedCtx,
+          )
         : undefined;
 
     const persistentDpsSummary = calcAvgPersistentDps({
@@ -2688,6 +2084,8 @@ export const calculateOffense = (input: OffenseInput): OffenseResults => {
     const totalDps =
       (attackHitSummary?.avgDps ?? 0) +
       (spellDpsSummary?.avgDps ?? 0) +
+      (spellBurstDpsSummary?.avgDps ?? 0) +
+      (spellBurstDpsSummary?.ingenuityOverload?.avgDps ?? 0) +
       (persistentDpsSummary?.total ?? 0) +
       (totalReapDpsSummary?.totalReapDps ?? 0);
 
@@ -2698,6 +2096,7 @@ export const calculateOffense = (input: OffenseInput): OffenseResults => {
       persistentDpsSummary,
       totalReapDpsSummary,
       totalDps,
+      movementSpeedBonusPct,
       resolvedMods: mods,
     };
   }

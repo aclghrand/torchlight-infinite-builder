@@ -18,7 +18,7 @@ Support mod parsers convert raw support skill affix strings (e.g., `"+15% additi
 
 | Purpose | File Path |
 |---------|-----------|
-| Support mod parsers | `src/tli/skills/support_mod_parsers.ts` |
+| Support mod templates | `src/tli/skills/support-mod-templates.ts` |
 | Mod type definitions | `src/tli/mod.ts` |
 | SupportMod type | `src/tli/core.ts` |
 | Template/spec helpers | `src/tli/mod_parser/` |
@@ -30,7 +30,7 @@ Support mod parsers convert raw support skill affix strings (e.g., `"+15% additi
 
 Look in `src/tli/mod.ts` under `ModDefinitions`. If the mod type doesn't exist, add it first (see `adding-mod-parsers` skill).
 
-### 2. Add Template in `support_mod_parsers.ts`
+### 2. Add Template in `support-mod-templates.ts`
 
 Templates use the same DSL as the main mod parser:
 
@@ -95,7 +95,29 @@ t("{value:dec%} additional attack and cast speed for the supported skill")
   ]),
 ```
 
-### 5. Verify
+### 5. Add a Test
+
+Add a test case to `src/tli/skills/support-mod-templates.test.ts` using the example input string given to you:
+
+```typescript
+test("parse <skill name> <description of what it parses>", () => {
+  const result = parseSupportAffixes([
+    "<exact input string from the skill data>",
+  ]);
+  expect(result).toEqual([
+    [
+      {
+        mod: {
+          type: "<ModType>",
+          // ... expected mod properties
+        },
+      },
+    ],
+  ]);
+});
+```
+
+### 6. Verify
 
 Run tests to ensure parsing works:
 ```bash
@@ -267,7 +289,7 @@ Applied to skill calculations
 
 | Aspect | Main Mod Parser | Support Mod Parser |
 |--------|-----------------|-------------------|
-| File | `src/tli/mod_parser/templates.ts` | `src/tli/skills/support_mod_parsers.ts` |
+| File | `src/tli/mod_parser/templates.ts` | `src/tli/skills/support-mod-templates.ts` |
 | Source | Gear affixes, talents, etc. | Support skill affixes only |
 | Output | `Mod[]` | `SupportMod[]` (wrapped in `{ mod }`) |
 | Usage | `parseMod()` | `parseSupportAffixes()` |

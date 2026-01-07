@@ -1,4 +1,4 @@
-import type { Mod, ModOfType } from "../mod";
+import type { Mod, ModT } from "../mod";
 
 // Runtime captures type (used internally by parser)
 export interface RuntimeCaptures {
@@ -20,7 +20,7 @@ export interface CompiledTemplate {
 // Output specification for a single mod
 export interface SingleOutput<TModType extends keyof ModTypeMap> {
   type: TModType;
-  mod: (captures: RuntimeCaptures) => Omit<ModOfType<TModType>, "type">;
+  mod: (captures: RuntimeCaptures) => Omit<ModT<TModType>, "type">;
 }
 
 // Output specification for multi-mod templates (loosely typed return)
@@ -53,7 +53,7 @@ export interface TemplateBuilder<
   // Output single mod - mapper receives typed captures
   output<TModType extends keyof ModTypeMap>(
     modType: TModType,
-    mapper?: (captures: TCaptures) => Omit<ModOfType<TModType>, "type">,
+    mapper?: (captures: TCaptures) => Omit<ModT<TModType>, "type">,
   ): ModParser;
 
   // Output multiple mods from same template
@@ -66,6 +66,6 @@ export interface MultiTemplateBuilder<
 > {
   output<TModType extends keyof ModTypeMap>(
     modType: TModType,
-    mapper?: (captures: TCaptures) => Omit<ModOfType<TModType>, "type">,
+    mapper?: (captures: TCaptures) => Omit<ModT<TModType>, "type">,
   ): ModParser;
 }

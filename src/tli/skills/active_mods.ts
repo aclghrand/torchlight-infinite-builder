@@ -1,3 +1,4 @@
+import { clamp } from "remeda";
 import { ActiveSkills } from "@/src/data/skill/active";
 import type {
   ActiveSkillName,
@@ -14,7 +15,7 @@ export const getActiveSkillMods = (
   skillName: ActiveSkillName,
   level: number,
 ): { offense?: SkillOffense[]; mods?: Mod[]; buffMods?: Mod[] } => {
-  const clampedLevel = Math.min(level, 40);
+  const clampedLevel = clamp(level, { min: 1, max: 40 });
   const factory = activeSkillModFactories[skillName];
   if (factory === undefined) {
     // Skill has no level-scaling mods
@@ -26,7 +27,8 @@ export const getActiveSkillMods = (
     | BaseActiveSkill
     | undefined;
   if (skill === undefined) {
-    throw new Error(`Active skill "${skillName}" not found`);
+    console.error(`Active skill "${skillName}" not found`);
+    return {};
   }
 
   const levelValues = skill.levelValues;

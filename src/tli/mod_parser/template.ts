@@ -1,4 +1,4 @@
-import type { Mod, ModOfType } from "../mod";
+import type { Mod, ModT } from "../mod";
 import { compileTemplate, validateEnum } from "./compiler";
 import type { ParseTemplate } from "./template-types";
 import type {
@@ -20,7 +20,7 @@ export const spec = <
   TCaptures extends object = RuntimeCaptures,
 >(
   type: TModType,
-  mod: (captures: TCaptures) => Omit<ModOfType<TModType>, "type">,
+  mod: (captures: TCaptures) => Omit<ModT<TModType>, "type">,
 ): MultiOutput<TCaptures> => ({
   type,
   mod: mod as MultiOutput<TCaptures>["mod"],
@@ -40,7 +40,7 @@ const createParser = <TModType extends keyof ModTypeMap>(
   compiled: CompiledTemplate,
   modType: TModType,
   mapper:
-    | ((captures: RuntimeCaptures) => Omit<ModOfType<TModType>, "type">)
+    | ((captures: RuntimeCaptures) => Omit<ModT<TModType>, "type">)
     | undefined,
   config: BuilderConfig,
 ): ModParser => ({

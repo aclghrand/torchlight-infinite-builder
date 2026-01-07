@@ -68,7 +68,7 @@ src/tli/                 # Game engine (pure TypeScript, no React)
 │   ├── active_mods.ts         # Active skill mod application
 │   ├── passive_factories.ts   # Passive skill mod factories
 │   ├── passive_mods.ts        # Passive skill mod application
-│   ├── support_mod_parsers.ts # Support skill mod parser (template → regex)
+│   ├── support-mod-templates.ts # Support skill mod templates (template → regex)
 │   └── is-implemented.ts      # Skill implementation status checks
 ├── hero/                # Hero-related logic
 │   └── hero_trait_mods.ts
@@ -111,7 +111,9 @@ HTML sources from TLIDB are also cached in a gitignore'd directory: `.garbage`
 - Percentages are represented as percentage points, e.g. 25% is equivalent to 25
 - Only add comments that explain complex logic or non-obvious decisions
 - ALWAYS: Run `pnpm test`, `pnpm typecheck`, and `pnpm check` before finalizing changes
-- When using git, assume there is no remote—work locally only
+- NEVER throw exceptions in any code that is used by the frontend. Instead, find a reasonable default, and console.error the issue.
+  - This ESPECIALLY includes any calculations like damage calculations, or loading save data into loadout, as the app cannot function without these
+- For scripts in src/scripts, fail early instead of trying to infer intent
 
 ## Data Flow
 
@@ -124,6 +126,7 @@ Results (DPS, stats)
 ```
 
 Two formats coexist:
+
 - **App layer**: Raw strings in SaveData (e.g., `"+10% fire damage"`)
 - **Engine layer**: Parsed `Mod` objects in `/src/tli/`
 
@@ -144,16 +147,19 @@ Two formats coexist:
    - Note: `talentsUIStore` only holds prism/inverse image crafting state (tree slot is in URL)
 
 **Key patterns:**
+
 ```typescript
 // Use functional updaters for immutability
 builderActions.updateSaveData((current) => ({
   ...current,
-  itemsList: [...current.itemsList, newItem]
+  itemsList: [...current.itemsList, newItem],
 }));
 
 // Access via hooks, not direct store access
-const loadout = useLoadout();  // Parsed data (memoized)
-const { currentSaveId } = useBuilderState(s => ({ currentSaveId: s.currentSaveId }));
+const loadout = useLoadout(); // Parsed data (memoized)
+const { currentSaveId } = useBuilderState((s) => ({
+  currentSaveId: s.currentSaveId,
+}));
 ```
 
 ## SaveData Structure
@@ -177,25 +183,26 @@ SaveData {
 ```
 
 **Factory functions:**
+
 ```typescript
-createEmptySaveData()          // Blank SaveData
-createEmptyHeroPage()          // Blank HeroPage
-createEmptyPactspiritSlot()    // Blank PactspiritSlot
-generateItemId()               // crypto.randomUUID()
+createEmptySaveData(); // Blank SaveData
+createEmptyHeroPage(); // Blank HeroPage
+createEmptyPactspiritSlot(); // Blank PactspiritSlot
+generateItemId(); // crypto.randomUUID()
 ```
 
 ## Key Files by Task
 
-| Task | Key Files |
-|------|-----------|
-| Add mod type | `src/tli/mod.ts` → `mod_parser/templates.ts` → `calcs/offense.ts` → test |
-| Add skill | `src/tli/calcs/skill_confs.ts` (skill configurations) |
-| Add skill mods | `src/tli/skills/` (active, passive, or support mods/factories) - use `/implementing-game-skill-parsers` skill |
-| Add support skill mods | `src/tli/skills/support_mod_parsers.ts` - uses template-based parsing |
-| Add utility helper | Create `src/lib/{feature}-utils.ts` |
-| Update talent trees | `pnpm exec tsx src/scripts/generate_talent_tree_data.ts` |
-| Regenerate affixes | `pnpm exec tsx src/scripts/generate_gear_affix_data.ts` |
-| Regenerate skills | `pnpm exec tsx src/scripts/generate_skill_data.ts` |
+| Task                   | Key Files                                                                                                     |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------- |
+| Add mod type           | `src/tli/mod.ts` → `mod_parser/templates.ts` → `calcs/offense.ts` → test                                      |
+| Add skill              | `src/tli/calcs/skill_confs.ts` (skill configurations)                                                         |
+| Add skill mods         | `src/tli/skills/` (active, passive, or support mods/factories) - use `/implementing-game-skill-parsers` skill |
+| Add support skill mods | `src/tli/skills/support-mod-templates.ts` - uses template-based parsing                                       |
+| Add utility helper     | Create `src/lib/{feature}-utils.ts`                                                                           |
+| Update talent trees    | `pnpm exec tsx src/scripts/generate_talent_tree_data.ts`                                                      |
+| Regenerate affixes     | `pnpm exec tsx src/scripts/generate_gear_affix_data.ts`                                                       |
+| Regenerate skills      | `pnpm exec tsx src/scripts/generate_skill_data.ts`                                                            |
 
 ## Code Generation Pattern
 
@@ -234,17 +241,18 @@ For UI work, read [docs/claude/ui-development.md](docs/claude/ui-development.md)
 
 Guided workflows for common tasks (invoke with `/skill-name`):
 
-| Skill | Use For |
-|-------|---------|
-| `/adding-mod-parsers` | Adding new mod parsers (template → Mod objects) |
-| `/implementing-game-skill-parsers` | Adding active/passive skill data parsers |
+| Skill                              | Use For                                                 |
+| ---------------------------------- | ------------------------------------------------------- |
+| `/adding-mod-parsers`              | Adding new mod parsers (template → Mod objects)         |
+| `/adding-support-mod-parsers`      | Adding new support mod parsers (template → Mod objects) |
+| `/implementing-game-skill-parsers` | Adding active/passive skill data parsers                |
 
 ## Gotchas
 
-* **Store exports are restricted** - `builderStore/index.ts` only exports hooks/actions, not the internal store. This prevents accidental mutations.
+- **Store exports are restricted** - `builderStore/index.ts` only exports hooks/actions, not the internal store. This prevents accidental mutations.
 
-* **Build codes are shareable** - Compressed JSON (fflate) + base64url encoding. Version field allows future migrations.
+- **Build codes are shareable** - Compressed JSON (fflate) + base64url encoding. Version field allows future migrations.
 
-* **No backwards compatibility** - Changing SaveData schema invalidates old builds. Users lose old saves.
+- **No backwards compatibility** - Changing SaveData schema invalidates old builds. Users lose old saves.
 
-* **Two data formats** - Raw strings in app layer, parsed Mods in engine layer. `loadSave()` in `src/tli/storage/load-save.ts` bridges them.
+- **Two data formats** - Raw strings in app layer, parsed Mods in engine layer. `loadSave()` in `src/tli/storage/load-save.ts` bridges them.

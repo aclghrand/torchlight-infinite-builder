@@ -527,6 +527,66 @@ test("parse additional attack critical strike damage", () => {
   ]);
 });
 
+test("parse physical skill critical strike damage", () => {
+  const result = parseMod("+26% Physical Skill Critical Strike Damage");
+  expect(result).toEqual([
+    {
+      type: "CritDmgPct",
+      value: 26,
+      modType: "physical_skill",
+      addn: false,
+    },
+  ]);
+});
+
+test("parse cold skill critical strike damage", () => {
+  const result = parseMod("+26% Cold Skill Critical Strike Damage");
+  expect(result).toEqual([
+    {
+      type: "CritDmgPct",
+      value: 26,
+      modType: "cold_skill",
+      addn: false,
+    },
+  ]);
+});
+
+test("parse lightning skill critical strike damage", () => {
+  const result = parseMod("+26% Lightning Skill Critical Strike Damage");
+  expect(result).toEqual([
+    {
+      type: "CritDmgPct",
+      value: 26,
+      modType: "lightning_skill",
+      addn: false,
+    },
+  ]);
+});
+
+test("parse fire skill critical strike damage", () => {
+  const result = parseMod("+26% Fire Skill Critical Strike Damage");
+  expect(result).toEqual([
+    {
+      type: "CritDmgPct",
+      value: 26,
+      modType: "fire_skill",
+      addn: false,
+    },
+  ]);
+});
+
+test("parse erosion skill critical strike damage", () => {
+  const result = parseMod("+26% Erosion Skill Critical Strike Damage");
+  expect(result).toEqual([
+    {
+      type: "CritDmgPct",
+      value: 26,
+      modType: "erosion_skill",
+      addn: false,
+    },
+  ]);
+});
+
 test("parse crit damage with decimal percentage", () => {
   const result = parseMod("+12.5% Critical Strike Damage");
   expect(result).toEqual([
@@ -535,6 +595,36 @@ test("parse crit damage with decimal percentage", () => {
       value: 12.5,
       modType: "global",
       addn: false,
+    },
+  ]);
+});
+
+test("parse spell critical strike damage per stack of focus blessing owned", () => {
+  const result = parseMod(
+    "+5% Spell Critical Strike Damage per stack of Focus Blessing owned",
+  );
+  expect(result).toEqual([
+    {
+      type: "CritDmgPct",
+      value: 5,
+      modType: "spell",
+      addn: false,
+      per: { stackable: "focus_blessing" },
+    },
+  ]);
+});
+
+test("parse critical strike damage per spell skill used recently with stack limit", () => {
+  const result = parseMod(
+    "For each Spell Skill used recently, +4% Critical Strike Damage, stacking up to 12 time(s)",
+  );
+  expect(result).toEqual([
+    {
+      type: "CritDmgPct",
+      value: 4,
+      modType: "global",
+      addn: false,
+      per: { stackable: "num_spell_skills_used_recently", limit: 12 },
     },
   ]);
 });
@@ -654,13 +744,77 @@ test("parse attack and cast speed when at full mana", () => {
   ]);
 });
 
+test("parse additional cast speed if you have dealt a critical strike recently", () => {
+  const result = parseMod(
+    "+6% additional Cast Speed if you have dealt a Critical Strike recently",
+  );
+  expect(result).toEqual([
+    {
+      type: "CspdPct",
+      value: 6,
+      addn: true,
+      cond: "has_crit_recently",
+    },
+  ]);
+});
+
 test("parse basic minion attack and cast speed", () => {
   const result = parseMod("+6% minion attack and cast speed");
   expect(result).toEqual([
     {
-      type: "MinionAspdAndCspdPct",
+      type: "MinionAspdPct",
       value: 6,
       addn: false,
+    },
+    {
+      type: "MinionCspdPct",
+      value: 6,
+      addn: false,
+    },
+  ]);
+});
+
+test("parse minion attack speed", () => {
+  const result = parseMod("+10% Minion Attack Speed");
+  expect(result).toEqual([
+    {
+      type: "MinionAspdPct",
+      value: 10,
+      addn: false,
+    },
+  ]);
+});
+
+test("parse minion cast speed", () => {
+  const result = parseMod("+34% Minion Cast Speed");
+  expect(result).toEqual([
+    {
+      type: "MinionCspdPct",
+      value: 34,
+      addn: false,
+    },
+  ]);
+});
+
+test("parse projectile critical strike rating", () => {
+  const result = parseMod("+30% Projectile Critical Strike Rating");
+  expect(result).toEqual([
+    {
+      type: "CritRatingPct",
+      value: 30,
+      modType: "projectile",
+    },
+  ]);
+});
+
+test("parse minion lightning damage", () => {
+  const result = parseMod("+18% Minion Lightning Damage");
+  expect(result).toEqual([
+    {
+      type: "MinionDmgPct",
+      value: 18,
+      addn: false,
+      minionDmgModType: "lightning",
     },
   ]);
 });
@@ -696,6 +850,16 @@ test("parse max life", () => {
   ]);
 });
 
+test("parse flat max life", () => {
+  const result = parseMod("+151 Max Life");
+  expect(result).toEqual([
+    {
+      type: "MaxLife",
+      value: 151,
+    },
+  ]);
+});
+
 test("parse max energy shield", () => {
   const result = parseMod("+3% Max Energy Shield");
   expect(result).toEqual([
@@ -703,6 +867,16 @@ test("parse max energy shield", () => {
       type: "MaxEnergyShieldPct",
       value: 3,
       addn: false,
+    },
+  ]);
+});
+
+test("parse flat signed max energy shield", () => {
+  const result = parseMod("+1 Max Energy Shield");
+  expect(result).toEqual([
+    {
+      type: "MaxEnergyShield",
+      value: 1,
     },
   ]);
 });
@@ -973,6 +1147,17 @@ test("parse cold penetration", () => {
   ]);
 });
 
+test("parse unsigned cold penetration", () => {
+  const result = parseMod("4.5% Cold Penetration");
+  expect(result).toEqual([
+    {
+      type: "ResPenPct",
+      value: 4.5,
+      penType: "cold",
+    },
+  ]);
+});
+
 test("parse lightning penetration", () => {
   const result = parseMod("+12% Lightning Penetration");
   expect(result).toEqual([
@@ -1024,6 +1209,53 @@ test("parse elemental and erosion resistance penetration", () => {
       type: "ResPenPct",
       value: 23,
       penType: "all",
+    },
+  ]);
+});
+
+test("parse damage penetrates elemental resistance", () => {
+  const result = parseMod("Damage Penetrates 2% Elemental Resistance");
+  expect(result).toEqual([
+    {
+      type: "ResPenPct",
+      value: 2,
+      penType: "elemental",
+    },
+  ]);
+});
+
+test("parse elemental resistance penetration with stackable (when hitting)", () => {
+  const result = parseMod(
+    "+1% Elemental Resistance Penetration when hitting an enemy with Elemental Damage, stacking up to 4 times",
+  );
+  expect(result).toEqual([
+    {
+      type: "ResPenPct",
+      value: 1,
+      penType: "elemental",
+      per: {
+        stackable: "has_hit_enemy_with_elemental_dmg_recently",
+        amt: 1,
+        limit: 4,
+      },
+    },
+  ]);
+});
+
+test("parse elemental resistance penetration with stackable (every time)", () => {
+  const result = parseMod(
+    "1.5% Elemental Resistance Penetration every time you hit an enemy with Elemental Damage recently. Stacks up to 4 times",
+  );
+  expect(result).toEqual([
+    {
+      type: "ResPenPct",
+      value: 1.5,
+      penType: "elemental",
+      per: {
+        stackable: "has_hit_enemy_with_elemental_dmg_recently",
+        amt: 1,
+        limit: 4,
+      },
     },
   ]);
 });
@@ -1240,6 +1472,21 @@ test("parse spell damage per mana consumed recently with value limit", () => {
   ]);
 });
 
+test("parse additional spell damage per max spell burst stack", () => {
+  const result = parseMod(
+    "For every stack of Max Spell Burst, +6% additional Spell Damage, up to +24% additional Spell Damage",
+  );
+  expect(result).toEqual([
+    {
+      type: "DmgPct",
+      value: 6,
+      dmgModType: "spell",
+      addn: true,
+      per: { stackable: "max_spell_burst", valueLimit: 24 },
+    },
+  ]);
+});
+
 test("parse critical strike rating and damage combined", () => {
   const result = parseMod(
     "+5% Critical Strike Rating and Critical Strike Damage",
@@ -1385,6 +1632,121 @@ test("parse max spell burst", () => {
   ]);
 });
 
+test("parse max spell burst with movement speed condition", () => {
+  const result = parseMod(
+    "+1 Max Spell Burst when Movement Speed is not higher than 200% of base",
+  );
+  expect(result).toEqual([
+    {
+      type: "MaxSpellBurst",
+      value: 1,
+    },
+  ]);
+});
+
+test("parse spell burst charge speed with additional", () => {
+  const result = parseMod("-20% additional Spell Burst Charge Speed");
+  expect(result).toEqual([
+    {
+      type: "SpellBurstChargeSpeedPct",
+      value: -20,
+      addn: true,
+    },
+  ]);
+});
+
+test("parse spell burst charge speed without additional", () => {
+  const result = parseMod("-20% Spell Burst Charge Speed");
+  expect(result).toEqual([
+    {
+      type: "SpellBurstChargeSpeedPct",
+      value: -20,
+      addn: false,
+    },
+  ]);
+});
+
+test("parse play safe cast speed to spell burst", () => {
+  const result = parseMod(
+    "100% of the bonuses and additional bonuses to Cast Speed is also applied to Spell Burst Charge Speed",
+  );
+  expect(result).toEqual([
+    {
+      type: "PlaySafe",
+      value: 100,
+    },
+  ]);
+});
+
+test("parse max spell burst when having squidnova", () => {
+  const result = parseMod("+1 to Max Spell Burst when having Squidnova");
+  expect(result).toEqual([
+    {
+      type: "MaxSpellBurst",
+      value: 1,
+      cond: "has_squidnova",
+    },
+  ]);
+});
+
+test("parse generates squidnova", () => {
+  const result = parseMod(
+    "Activating Spell Burst with at least 6 stack(s) of Max Spell Burst grants 1 stack of Squidnova",
+  );
+  expect(result).toEqual([
+    {
+      type: "GeneratesSquidnova",
+    },
+  ]);
+});
+
+test("parse squidnova effect", () => {
+  const result = parseMod("+50% Squidnova Effect");
+  expect(result).toEqual([
+    {
+      type: "SquidnovaEffPct",
+      value: 50,
+    },
+  ]);
+});
+
+test("parse additional spell damage when having squidnova", () => {
+  const result = parseMod("+8% additional Spell Damage when having Squidnova");
+  expect(result).toEqual([
+    {
+      type: "DmgPct",
+      value: 8,
+      dmgModType: "spell",
+      addn: true,
+      cond: "has_squidnova",
+    },
+  ]);
+});
+
+test("parse additional elemental damage dealt by spell skills", () => {
+  const result = parseMod(
+    "+14% additional Elemental Damage dealt by Spell Skills",
+  );
+  expect(result).toEqual([
+    {
+      type: "ElementalSpellDmgPct",
+      value: 14,
+      addn: true,
+    },
+  ]);
+});
+
+test("parse elemental damage dealt by spell skills (non-additional)", () => {
+  const result = parseMod("+20% Elemental Damage dealt by Spell Skills");
+  expect(result).toEqual([
+    {
+      type: "ElementalSpellDmgPct",
+      value: 20,
+      addn: false,
+    },
+  ]);
+});
+
 test("parse max channeled stacks", () => {
   const result = parseMod("Max Channeled Stacks +1");
   expect(result).toEqual([
@@ -1484,6 +1846,20 @@ test("parse additional movement speed", () => {
   ]);
 });
 
+test("parse movement speed per max spell burst stack", () => {
+  const result = parseMod(
+    "+5% Movement Speed per stack of Max Spell Burst, up to +28%",
+  );
+  expect(result).toEqual([
+    {
+      type: "MovementSpeedPct",
+      value: 5,
+      addn: false,
+      per: { stackable: "max_spell_burst", valueLimit: 28 },
+    },
+  ]);
+});
+
 test("parse support skill level", () => {
   const result = parseMod("+7 Support Skill Level");
   expect(result).toEqual([
@@ -1546,6 +1922,17 @@ test("parse spell skill level", () => {
       type: "SkillLevel",
       value: 1,
       skillLevelType: "spell",
+    },
+  ]);
+});
+
+test("parse lightning skill level", () => {
+  const result = parseMod("+2 Lightning Skill Level");
+  expect(result).toEqual([
+    {
+      type: "SkillLevel",
+      value: 2,
+      skillLevelType: "lightning",
     },
   ]);
 });
@@ -1945,6 +2332,28 @@ test("parse skill effect duration", () => {
   ]);
 });
 
+test("parse unsigned sealed mana compensation", () => {
+  const result = parseMod("4.5% Sealed Mana Compensation");
+  expect(result).toEqual([
+    {
+      type: "SealedManaCompPct",
+      value: 4.5,
+      addn: false,
+    },
+  ]);
+});
+
+test("parse signed sealed mana compensation", () => {
+  const result = parseMod("+9% Sealed Mana Compensation");
+  expect(result).toEqual([
+    {
+      type: "SealedManaCompPct",
+      value: 9,
+      addn: false,
+    },
+  ]);
+});
+
 test("parse chance to gain blur when reaping", () => {
   const result = parseMod("+5% chance to gain Blur when Reaping");
   expect(result).toEqual([
@@ -1957,12 +2366,7 @@ test("parse chance to gain blur when reaping", () => {
 
 test("parse gains focus blessing when reaping", () => {
   const result = parseMod("Gains 1 stack(s) of Focus Blessing when Reaping");
-  expect(result).toEqual([
-    {
-      type: "GeneratesFocusBlessing",
-      value: 1,
-    },
-  ]);
+  expect(result).toEqual([{ type: "GeneratesFocusBlessing" }]);
 });
 
 test("parse gains repentance when gaining any blessing", () => {
@@ -2012,5 +2416,272 @@ test("parse armor and evasion", () => {
   expect(result).toEqual([
     { type: "Armor", value: 685 },
     { type: "Evasion", value: 685 },
+  ]);
+});
+
+test("parse additional damage taken by enemies frozen by you recently", () => {
+  const result = parseMod(
+    "+10% additional damage taken by enemies Frozen by you recently",
+  );
+  expect(result).toEqual([
+    {
+      type: "DmgPct",
+      value: 10,
+      dmgModType: "global",
+      addn: true,
+      isEnemyDebuff: true,
+      cond: "target_enemy_frozen_recently",
+    },
+  ]);
+});
+
+test("parse inflicts cold infiltration", () => {
+  const result = parseMod(
+    "Inflicts Cold Infiltration when dealing damage to Frozen enemies",
+  );
+  expect(result).toEqual([
+    {
+      type: "InflictsInfiltration",
+      infiltrationType: "cold",
+    },
+  ]);
+});
+
+test("parse chance to inflict frostbite", () => {
+  const result = parseMod("+18% chance to inflict Frostbite");
+  expect(result).toEqual([
+    {
+      type: "InflictFrostbitePct",
+      value: 18,
+    },
+  ]);
+});
+
+test("parse freeze duration", () => {
+  const result = parseMod("+36% Freeze Duration");
+  expect(result).toEqual([
+    {
+      type: "FreezeDurationPct",
+      value: 36,
+    },
+  ]);
+});
+
+test("parse gear armor", () => {
+  const result = parseMod("+274 Gear Armor");
+  expect(result).toEqual([
+    {
+      type: "GearArmor",
+      value: 274,
+    },
+  ]);
+});
+
+test("parse energy shield charge speed", () => {
+  const result = parseMod("+4% Energy Shield Charge Speed");
+  expect(result).toEqual([
+    {
+      type: "EnergyShieldChargeSpeedPct",
+      value: 4,
+    },
+  ]);
+});
+
+test("parse unsigned movement speed", () => {
+  const result = parseMod("7.5% Movement Speed");
+  expect(result).toEqual([
+    {
+      type: "MovementSpeedPct",
+      value: 7.5,
+      addn: false,
+    },
+  ]);
+});
+
+test("parse elemental resistance per stats", () => {
+  const result = parseMod("+1% Elemental Resistance per 40 stats");
+  expect(result).toEqual([
+    {
+      type: "ResistancePct",
+      value: 1,
+      resType: "elemental",
+      per: { stackable: "stat", amt: 40 },
+    },
+  ]);
+});
+
+test("parse damage per highest stat", () => {
+  const result = parseMod("+1% damage per 20 of the highest stat");
+  expect(result).toEqual([
+    {
+      type: "DmgPct",
+      value: 1,
+      dmgModType: "global",
+      addn: false,
+      per: { stackable: "highest_stat", amt: 20 },
+    },
+  ]);
+});
+
+test("parse generates spell aggression on defeat", () => {
+  const result = parseMod("25% chance to gain Spell Aggression on defeat");
+  expect(result).toEqual([
+    {
+      type: "GeneratesSpellAggression",
+    },
+  ]);
+});
+
+test("parse skill cost", () => {
+  const result = parseMod("-4 Skill Cost");
+  expect(result).toEqual([
+    {
+      type: "SkillCost",
+      value: -4,
+    },
+  ]);
+});
+
+test("parse focus blessing duration", () => {
+  const result = parseMod("+30% Focus Blessing Duration");
+  expect(result).toEqual([
+    {
+      type: "FocusBlessingDurationPct",
+      value: 30,
+    },
+  ]);
+});
+
+test("parse minion critical strike damage", () => {
+  const result = parseMod("+15% Minion Critical Strike Damage");
+  expect(result).toEqual([
+    {
+      type: "MinionCritDmgPct",
+      value: 15,
+      addn: false,
+    },
+  ]);
+});
+
+test("parse minion cold penetration", () => {
+  const result = parseMod("4.5% Cold Penetration for Minions");
+  expect(result).toEqual([
+    {
+      type: "MinionResPenPct",
+      value: 4.5,
+      penType: "cold",
+    },
+  ]);
+});
+
+test("parse inflicts frail on spell hit", () => {
+  const result = parseMod("Inflicts Frail on Spell hit");
+  expect(result).toEqual([
+    {
+      type: "InflictFrail",
+    },
+  ]);
+});
+
+test("parse lucky damage with spell burst consumption", () => {
+  const result = parseMod(
+    "Damage becomes Lucky and at least 4 stack(s) of Spell Burst Charge is consumed when Spell Burst is activated",
+  );
+  expect(result).toEqual([
+    {
+      type: "LuckyDmg",
+    },
+  ]);
+});
+
+test("parse additional cold damage per stack of focus blessing", () => {
+  const result = parseMod(
+    "+13% additional Cold Damage for every stack of Focus Blessing",
+  );
+  expect(result).toEqual([
+    {
+      type: "DmgPct",
+      value: 13,
+      dmgModType: "cold",
+      addn: true,
+      per: { stackable: "focus_blessing" },
+    },
+  ]);
+});
+
+test("parse additional spell damage per stack of focus blessing owned", () => {
+  const result = parseMod(
+    "+3% additional Spell Damage per stack of Focus Blessing owned",
+  );
+  expect(result).toEqual([
+    {
+      type: "DmgPct",
+      value: 3,
+      dmgModType: "spell",
+      addn: true,
+      per: { stackable: "focus_blessing" },
+    },
+  ]);
+});
+
+test("parse blessing duration (all types)", () => {
+  const result = parseMod("+30% Blessing Duration");
+  expect(result).toEqual([
+    {
+      type: "FocusBlessingDurationPct",
+      value: 30,
+    },
+    {
+      type: "AgilityBlessingDurationPct",
+      value: 30,
+    },
+    {
+      type: "TenacityBlessingDurationPct",
+      value: 30,
+    },
+  ]);
+});
+
+test("parse spell damage when having focus blessing", () => {
+  const result = parseMod("+30% Spell Damage when having Focus Blessing");
+  expect(result).toEqual([
+    {
+      type: "DmgPct",
+      value: 30,
+      dmgModType: "spell",
+      addn: false,
+      cond: "has_focus_blessing",
+    },
+  ]);
+});
+
+test("parse generates focus blessing when activating spell burst", () => {
+  const result = parseMod(
+    "Gains 1 stack(s) of Focus Blessing when activating Spell Burst",
+  );
+  expect(result).toEqual([{ type: "GeneratesFocusBlessing" }]);
+});
+
+test("parse cast speed when focus blessing is active", () => {
+  const result = parseMod("+12% Cast Speed when Focus Blessing is active");
+  expect(result).toEqual([
+    {
+      type: "CspdPct",
+      value: 12,
+      addn: false,
+      cond: "has_focus_blessing",
+    },
+  ]);
+});
+
+test("parse additional hit damage for skills cast by spell burst", () => {
+  const result = parseMod(
+    "+36% additional Hit Damage for skills cast by Spell Burst",
+  );
+  expect(result).toEqual([
+    {
+      type: "SpellBurstAdditionalDmgPct",
+      value: 36,
+    },
   ]);
 });

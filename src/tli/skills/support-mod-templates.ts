@@ -95,6 +95,13 @@ const allSupportParsers = [
       addn: true,
     }),
   ),
+  t(
+    "{value:dec%} additional {dmgType:DmgModType} damage for the supported skill",
+  ).output("DmgPct", (c) => ({
+    value: c.value,
+    dmgModType: c.dmgType,
+    addn: true,
+  })),
   t("{value:+dec%} additional ailment damage for the supported skill").output(
     "DmgPct",
     (c) => ({
@@ -139,6 +146,18 @@ const allSupportParsers = [
       addn: false,
     }),
   ),
+  t("{value:+dec%} cast speed for the supported skill").output(
+    "CspdPct",
+    (c) => ({
+      value: c.value,
+      addn: false,
+    }),
+  ),
+  t(
+    "{value:+dec%} additional hit damage for skills cast by spell burst when spell burst is activated by the supported skill",
+  ).output("SpellBurstAdditionalDmgPct", (c) => ({
+    value: c.value,
+  })),
   t(
     "{value:+dec%} additional attack and cast speed for the supported skill",
   ).outputMany([
@@ -195,6 +214,9 @@ const allSupportParsers = [
       value: c.value,
     }),
   ),
+  t("{value:+int} jumps for the supported skill").output("Jump", (c) => ({
+    value: c.value,
+  })),
   t("stacks up to {value:int} time(s)").output("MaxWillpowerStacks", (c) => ({
     value: c.value,
   })),
@@ -223,6 +245,12 @@ const allSupportParsers = [
       cond: "enemy_is_cursed" as const,
     }),
   ),
+  t(
+    "when the supported skill deals damage to a cursed target, there is a {value:+dec%} chance to paralyze it",
+  ).output("InflictParalysisPct", (c) => ({
+    value: c.value,
+    cond: "enemy_is_cursed" as const,
+  })),
   t("the supported skill cannot inflict wilt").output("CannotInflictWilt"),
   t(
     "every {_:int} time\\(s\\) the supported skill is used, gains a barrier if there's no barrier. interval: {_:int} s",
@@ -253,6 +281,29 @@ const allSupportParsers = [
     dmgModType: GLOBAL,
     addn: true,
     per: { stackable: "unused_mind_control_link" as const },
+  })),
+  t(
+    "converts {value:int%} of the supported skill's {from:DmgChunkType} damage to {to:DmgChunkType} damage",
+  ).output("ConvertDmgPct", (c) => ({
+    value: c.value,
+    from: c.from,
+    to: c.to,
+  })),
+  t(
+    "{value:dec%} additional damage for the supported skill for every stack of focus blessing, stacking up to {limit:int} times",
+  ).output("DmgPct", (c) => ({
+    value: c.value,
+    dmgModType: GLOBAL,
+    addn: true,
+    per: { stackable: "focus_blessing" as const, limit: c.limit },
+  })),
+  t(
+    "for every 1 jump, the supported skill releases 1 additional chain lightning \\(does not target the same enemy\\). each chain lightning can only jump 1 time\\(s\\)",
+  ).output("ChainLightningWebOfLightning"),
+  t(
+    "multiple chain lightnings released by the supported skill can target the same enemy, but will prioritize different enemies. the shotgun effect falloff coefficient of the supported skill is {value:int}%",
+  ).output("ChainLightningMerge", (c) => ({
+    shotgunFalloffCoefficient: c.value,
   })),
 ];
 

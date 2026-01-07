@@ -93,6 +93,13 @@ export const PassiveSkills = [
       "Activates the Aura, you and allies within a certain area gain the following buff:\n15% additional Lightning Damage.",
       "Activates the Aura, you and allies within a certain area gain the following buff:\n+34% additional Lightning Damage",
     ],
+    levelValues: {
+      lightningDmgPct: [
+        15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32,
+        33, 34, 35, 35.5, 36, 36.5, 37, 37.5, 38, 38.5, 39, 39.5, 40, 40.5, 41,
+        41.5, 42, 42.5, 43, 43.5, 44, 44.5,
+      ],
+    },
   },
   {
     type: "Passive",
@@ -156,6 +163,13 @@ export const PassiveSkills = [
       "Activates the Aura, and enemies within 12m gain the following debuff:\n18% additional Cold Damage taken.",
       "Activates the Aura, and enemies within 12m gain the following debuff:\n+37% additional Cold Damage against enemies affected by the skill",
     ],
+    levelValues: {
+      coldDmgPct: [
+        18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35,
+        36, 37, 38, 38.5, 39, 39.5, 40, 40.5, 41, 41.5, 42, 42.5, 43, 43.5, 44,
+        44.5, 45, 45.5, 46, 46.5, 47, 47.5,
+      ],
+    },
   },
   {
     type: "Passive",
@@ -342,6 +356,13 @@ export const PassiveSkills = [
       "Activates the Aura, and enemies within 12m gain the following debuff:\n25% additional Cold Damage taken.",
       "Activates the Aura, and enemies within 12m gain the following debuff:\n+44% additional Cold Damage against enemies affected by the skill",
     ],
+    levelValues: {
+      coldDmgPct: [
+        25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
+        43, 44, 45, 45.5, 46, 46.5, 47, 47.5, 48, 48.5, 49, 49.5, 50, 50.5, 51,
+        51.5, 52, 52.5, 53, 53.5, 54, 54.5,
+      ],
+    },
   },
   {
     type: "Passive",
@@ -558,6 +579,17 @@ export const PassiveSkills = [
       "Thunder Magus:\nBase Skill: Lightning Star.\nEmpower Skill: Thundercloud Surge.\nEnhanced Skill: Thunderlight Arrow.\nUltimate: Lightning Surge.",
     ],
     mainStats: ["dex", "int"],
+    levelValues: {
+      aspdAndCspdPct: [
+        6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+        6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+      ],
+      dmgPct: [
+        2.5, 2.75, 3, 3.25, 3.5, 3.75, 4, 4.25, 4.5, 4.75, 5, 5.25, 5.5, 5.75,
+        6, 6.25, 6.5, 6.75, 7, 7.25, 7.5, 7.75, 8, 8.25, 8.5, 8.75, 9, 9.25,
+        9.5, 9.75, 10, 10.25, 10.5, 10.75, 11, 11.25, 11.5, 11.75, 12, 12.25,
+      ],
+    },
   },
   {
     type: "Passive",

@@ -471,6 +471,31 @@ export const ConfigurationTab: React.FC<ConfigurationTabProps> = ({
             className="h-4 w-4 rounded border-zinc-600 bg-zinc-800 accent-amber-500"
           />
 
+          <label className="text-right text-zinc-50">
+            Target Enemy Has Frail
+          </label>
+          <input
+            type="checkbox"
+            checked={config.targetEnemyHasFrail}
+            onChange={(e) =>
+              onUpdate({ targetEnemyHasFrail: e.target.checked })
+            }
+            className="h-4 w-4 rounded border-zinc-600 bg-zinc-800 accent-amber-500"
+          />
+
+          <label className="text-right text-zinc-50">
+            Target Enemy Has Whimsy Signal
+            <InfoTooltip text="Debuff from Bing2 hero trait" />
+          </label>
+          <input
+            type="checkbox"
+            checked={config.targetEnemyHasWhimsySignal}
+            onChange={(e) =>
+              onUpdate({ targetEnemyHasWhimsySignal: e.target.checked })
+            }
+            className="h-4 w-4 rounded border-zinc-600 bg-zinc-800 accent-amber-500"
+          />
+
           <label className="text-right text-zinc-50">Enemies Nearby</label>
           <NumberInput
             value={config.numEnemiesNearby}
@@ -655,6 +680,108 @@ export const ConfigurationTab: React.FC<ConfigurationTabProps> = ({
             value={config.numMindControlLinksUsed}
             onChange={(v) => onUpdate({ numMindControlLinksUsed: v })}
             min={0}
+          />
+
+          <label className="text-right text-zinc-50">Has Squidnova</label>
+          <input
+            type="checkbox"
+            checked={config.hasSquidnova}
+            onChange={(e) => onUpdate({ hasSquidnova: e.target.checked })}
+            className="h-4 w-4 rounded border-zinc-600 bg-zinc-800 accent-amber-500"
+          />
+
+          <label className="text-right text-zinc-50">
+            Target Enemy Is Frozen
+          </label>
+          <input
+            type="checkbox"
+            checked={config.targetEnemyIsFrozen}
+            onChange={(e) =>
+              onUpdate({ targetEnemyIsFrozen: e.target.checked })
+            }
+            className="h-4 w-4 rounded border-zinc-600 bg-zinc-800 accent-amber-500"
+          />
+
+          <label className="text-right text-zinc-50">
+            Target Enemy Frozen Recently
+          </label>
+          <input
+            type="checkbox"
+            checked={config.targetEnemyFrozenRecently}
+            onChange={(e) =>
+              onUpdate({ targetEnemyFrozenRecently: e.target.checked })
+            }
+            className="h-4 w-4 rounded border-zinc-600 bg-zinc-800 accent-amber-500"
+          />
+
+          <label className="text-right text-zinc-50">
+            Target Enemy Has Cold Infiltration
+          </label>
+          <input
+            type="checkbox"
+            checked={config.targetEnemyHasColdInfiltration}
+            onChange={(e) =>
+              onUpdate({ targetEnemyHasColdInfiltration: e.target.checked })
+            }
+            className="h-4 w-4 rounded border-zinc-600 bg-zinc-800 accent-amber-500"
+          />
+
+          <label className="text-right text-zinc-50">
+            Target Enemy Has Lightning Infiltration
+          </label>
+          <input
+            type="checkbox"
+            checked={config.targetEnemyHasLightningInfiltration}
+            onChange={(e) =>
+              onUpdate({
+                targetEnemyHasLightningInfiltration: e.target.checked,
+              })
+            }
+            className="h-4 w-4 rounded border-zinc-600 bg-zinc-800 accent-amber-500"
+          />
+
+          <label className="text-right text-zinc-50">
+            Target Enemy Has Fire Infiltration
+          </label>
+          <input
+            type="checkbox"
+            checked={config.targetEnemyHasFireInfiltration}
+            onChange={(e) =>
+              onUpdate({ targetEnemyHasFireInfiltration: e.target.checked })
+            }
+            className="h-4 w-4 rounded border-zinc-600 bg-zinc-800 accent-amber-500"
+          />
+
+          <label className="text-right text-zinc-50">
+            Hit Enemy With Elemental Dmg Recently
+            <InfoTooltip text="Number of times you've hit enemy with elemental damage recently. Defaults to 0." />
+          </label>
+          <NumberInput
+            value={config.hasHitEnemyWithElementalDmgRecently}
+            onChange={(v) =>
+              onUpdate({ hasHitEnemyWithElementalDmgRecently: v ?? 0 })
+            }
+            min={0}
+          />
+
+          <label className="text-right text-zinc-50">
+            Spell Skills Used Recently
+            <InfoTooltip text="Number of spell skills used recently. Defaults to 0." />
+          </label>
+          <NumberInput
+            value={config.numSpellSkillsUsedRecently}
+            onChange={(v) => onUpdate({ numSpellSkillsUsedRecently: v ?? 0 })}
+            min={0}
+          />
+
+          <label className="text-right text-zinc-50">
+            Chain Lightning Instances on Target
+            <InfoTooltip text="Number of Chain Lightning instances hitting the target. Defaults to max." />
+          </label>
+          <NumberInput
+            value={config.chainLightningInstancesOnTarget}
+            onChange={(v) => onUpdate({ chainLightningInstancesOnTarget: v })}
+            min={1}
           />
         </div>
       </div>

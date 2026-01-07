@@ -3,6 +3,8 @@ import type { ImplementedActiveSkillName } from "@/src/data/skill/types";
 import {
   calculateOffense,
   type OffenseInput,
+  type OffenseSpellBurstDpsSummary,
+  type OffenseSpellDpsSummary,
   type PersistentDpsSummary,
   type Resistance,
   type TotalReapDpsSummary,
@@ -21,29 +23,46 @@ const formatRes = (res: Resistance): string => {
   return `${res.actual}%`;
 };
 
+const StatLine = ({
+  label,
+  value,
+  highlight,
+  color,
+}: {
+  label: string;
+  value: string | number;
+  highlight?: boolean;
+  color?: string;
+}): React.ReactNode => {
+  const valueClass =
+    highlight === true
+      ? "text-amber-400 font-bold"
+      : (color ?? "text-zinc-200");
+  return (
+    <div className="flex justify-between text-sm">
+      <span className="text-zinc-400">{label}:</span>
+      <span className={valueClass}>{value}</span>
+    </div>
+  );
+};
+
 const PersistentDpsSection = ({
   summary,
 }: {
   summary: PersistentDpsSummary;
 }): React.ReactNode => {
   return (
-    <div className="mt-4 space-y-3">
-      <div className="text-xs font-medium text-zinc-400">Persistent Damage</div>
-
-      <div className="rounded bg-zinc-800 p-3">
-        <div className="text-xs text-zinc-400">Persistent DPS</div>
-        <div className="text-xl font-bold text-amber-400">
-          {formatStatValue.dps(summary.total)}
-        </div>
-      </div>
-
-      <div className="rounded bg-zinc-800 p-3">
-        <div className="text-xs text-zinc-400">Duration</div>
-        <div className="text-lg font-semibold text-zinc-50">
-          {formatStatValue.duration(summary.duration)}
-        </div>
-      </div>
-    </div>
+    <>
+      <StatLine
+        label="Persistent DPS"
+        value={formatStatValue.dps(summary.total)}
+        highlight
+      />
+      <StatLine
+        label="Duration"
+        value={formatStatValue.duration(summary.duration)}
+      />
+    </>
   );
 };
 
@@ -53,30 +72,88 @@ const ReapDpsSection = ({
   summary: TotalReapDpsSummary;
 }): React.ReactNode => {
   return (
-    <div className="mt-4 space-y-3">
-      <div className="text-xs font-medium text-zinc-400">Reap Damage</div>
+    <>
+      <StatLine
+        label="Total Reap DPS"
+        value={formatStatValue.dps(summary.totalReapDps)}
+        highlight
+      />
+      <StatLine
+        label="Duration Bonus"
+        value={formatStatValue.pct(summary.reapDurationBonusPct)}
+      />
+      <StatLine
+        label="CDR Bonus"
+        value={formatStatValue.pct(summary.reapCdrBonusPct)}
+      />
+    </>
+  );
+};
 
-      <div className="rounded bg-zinc-800 p-3">
-        <div className="text-xs text-zinc-400">Total Reap DPS</div>
-        <div className="text-xl font-bold text-amber-400">
-          {formatStatValue.dps(summary.totalReapDps)}
-        </div>
-      </div>
+const SpellDpsSection = ({
+  summary,
+}: {
+  summary: OffenseSpellDpsSummary;
+}): React.ReactNode => {
+  return (
+    <>
+      <StatLine
+        label="Spell DPS"
+        value={formatStatValue.dps(summary.avgDps)}
+        highlight
+      />
+      <StatLine
+        label="Avg Hit (crit)"
+        value={formatStatValue.damage(summary.avgHitWithCrit)}
+      />
+      <StatLine
+        label="Crit Chance"
+        value={formatStatValue.percentage(summary.critChance)}
+      />
+      <StatLine
+        label="Crit Multiplier"
+        value={formatStatValue.multiplier(summary.critDmgMult)}
+      />
+      <StatLine
+        label="Casts/sec"
+        value={formatStatValue.aps(summary.castsPerSec)}
+      />
+    </>
+  );
+};
 
-      <div className="rounded bg-zinc-800 p-3">
-        <div className="text-xs text-zinc-400">Duration Bonus</div>
-        <div className="text-lg font-semibold text-zinc-50">
-          {formatStatValue.pct(summary.reapDurationBonusPct)}
-        </div>
-      </div>
-
-      <div className="rounded bg-zinc-800 p-3">
-        <div className="text-xs text-zinc-400">CDR Bonus</div>
-        <div className="text-lg font-semibold text-zinc-50">
-          {formatStatValue.pct(summary.reapCdrBonusPct)}
-        </div>
-      </div>
-    </div>
+const SpellBurstDpsSection = ({
+  summary,
+}: {
+  summary: OffenseSpellBurstDpsSummary;
+}): React.ReactNode => {
+  return (
+    <>
+      <StatLine
+        label="Burst DPS"
+        value={formatStatValue.dps(summary.avgDps)}
+        highlight
+      />
+      <StatLine label="Bursts/sec" value={summary.burstsPerSec.toFixed(2)} />
+      <StatLine
+        label="Max Spell Burst"
+        value={formatStatValue.integer(summary.maxSpellBurst)}
+      />
+      {summary.ingenuityOverload !== undefined && (
+        <>
+          <StatLine
+            label="Overload DPS"
+            value={formatStatValue.dps(summary.ingenuityOverload.avgDps)}
+            color="text-teal-400"
+          />
+          <StatLine
+            label="Overload Interval"
+            value={formatStatValue.duration(summary.ingenuityOverload.interval)}
+            color="text-teal-400"
+          />
+        </>
+      )}
+    </>
   );
 };
 
@@ -97,181 +174,172 @@ export const StatsPanel = (): React.ReactNode => {
   }, [loadout, configuration]);
 
   const { skills, resourcePool, defenses } = offenseResults;
-  const offenseSummary = selectedSkill ? skills[selectedSkill] : undefined;
+  const offenseSummary =
+    selectedSkill !== undefined ? skills[selectedSkill] : undefined;
+
+  const hasDamageStats =
+    offenseSummary?.attackDpsSummary !== undefined ||
+    offenseSummary?.spellDpsSummary !== undefined ||
+    offenseSummary?.spellBurstDpsSummary !== undefined ||
+    offenseSummary?.persistentDpsSummary !== undefined ||
+    offenseSummary?.totalReapDpsSummary !== undefined;
 
   return (
     <div className="sticky top-6 max-h-[calc(100vh-6rem)] overflow-y-auto rounded-lg border border-zinc-700 bg-zinc-900 p-4">
-      <h3 className="mb-4 text-lg font-semibold text-zinc-50">Stats Summary</h3>
+      <h3 className="mb-3 text-lg font-semibold text-zinc-50">Stats Summary</h3>
 
-      <div className="mb-4 space-y-2">
-        <div className="text-xs font-medium text-zinc-400">Resource Pool</div>
-        <div className="grid grid-cols-3 gap-2">
-          <div className="rounded bg-zinc-800 p-2 text-center">
-            <div className="text-xs text-zinc-500">STR</div>
-            <div className="font-medium text-zinc-50">
-              {formatStatValue.integer(resourcePool.stats.str)}
-            </div>
-          </div>
-          <div className="rounded bg-zinc-800 p-2 text-center">
-            <div className="text-xs text-zinc-500">DEX</div>
-            <div className="font-medium text-zinc-50">
-              {formatStatValue.integer(resourcePool.stats.dex)}
-            </div>
-          </div>
-          <div className="rounded bg-zinc-800 p-2 text-center">
-            <div className="text-xs text-zinc-500">INT</div>
-            <div className="font-medium text-zinc-50">
-              {formatStatValue.integer(resourcePool.stats.int)}
-            </div>
-          </div>
-        </div>
-        <div className="grid grid-cols-3 gap-2">
-          <div className="rounded bg-zinc-800 p-2">
-            <div className="text-xs text-zinc-500">Max Life</div>
-            <div className="font-medium text-red-400">
-              {formatStatValue.integer(resourcePool.maxLife)}
-            </div>
-          </div>
-          <div className="rounded bg-zinc-800 p-2">
-            <div className="text-xs text-zinc-500">Max Mana</div>
-            <div className="font-medium text-blue-400">
-              {formatStatValue.integer(resourcePool.maxMana)}
-            </div>
-          </div>
-          {resourcePool.mercuryPts !== undefined && (
-            <div className="rounded bg-zinc-800 p-2">
-              <div className="text-xs text-zinc-500">Mercury</div>
-              <div className="font-medium text-purple-400">
-                {formatStatValue.integer(resourcePool.mercuryPts)}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
+      <div className="space-y-0.5">
+        {hasDamageStats && offenseSummary !== undefined ? (
+          <>
+            <StatLine label="Skill" value={selectedSkill ?? ""} />
+            <StatLine
+              label="Total DPS"
+              value={formatStatValue.dps(offenseSummary.totalDps)}
+              highlight
+            />
 
-      <div className="mb-4 space-y-2">
-        <div className="text-xs font-medium text-zinc-400">Resistances</div>
-        <div className="grid grid-cols-2 gap-2">
-          <div className="rounded bg-zinc-800 p-2">
-            <div className="text-xs text-zinc-500">Cold</div>
-            <div className="font-medium text-cyan-400">
-              {formatRes(defenses.coldRes)}
-            </div>
-          </div>
-          <div className="rounded bg-zinc-800 p-2">
-            <div className="text-xs text-zinc-500">Lightning</div>
-            <div className="font-medium text-yellow-400">
-              {formatRes(defenses.lightningRes)}
-            </div>
-          </div>
-          <div className="rounded bg-zinc-800 p-2">
-            <div className="text-xs text-zinc-500">Fire</div>
-            <div className="font-medium text-orange-400">
-              {formatRes(defenses.fireRes)}
-            </div>
-          </div>
-          <div className="rounded bg-zinc-800 p-2">
-            <div className="text-xs text-zinc-500">Erosion</div>
-            <div className="font-medium text-fuchsia-400">
-              {formatRes(defenses.erosionRes)}
-            </div>
-          </div>
-        </div>
-        <div className="rounded bg-zinc-800 p-2">
-          <div className="text-xs text-zinc-500">Movement Speed</div>
-          <div className="font-medium text-green-400">
-            {formatStatValue.pct(defenses.movementSpeedBonusPct)}
-          </div>
-        </div>
-      </div>
-
-      {offenseSummary?.attackDpsSummary !== undefined ||
-      offenseSummary?.persistentDpsSummary !== undefined ||
-      offenseSummary?.totalReapDpsSummary !== undefined ? (
-        <>
-          <div className="mb-4 rounded bg-zinc-800 px-3 py-2">
-            <div className="text-xs text-zinc-400">Selected Skill</div>
-            <div className="font-medium text-zinc-50">{selectedSkill}</div>
-          </div>
-
-          <div className="mb-4 rounded border border-amber-500/30 bg-zinc-800 p-3">
-            <div className="text-xs text-zinc-400">Total DPS</div>
-            <div className="text-2xl font-bold text-amber-400">
-              {formatStatValue.dps(offenseSummary.totalDps)}
-            </div>
-          </div>
-
-          {offenseSummary.attackDpsSummary !== undefined && (
-            <div className="space-y-3">
-              <div className="rounded bg-zinc-800 p-3">
-                <div className="text-xs text-zinc-400">Average DPS</div>
-                <div className="text-xl font-bold text-amber-400">
-                  {formatStatValue.dps(offenseSummary.attackDpsSummary.avgDps)}
-                </div>
-              </div>
-
-              <div className="rounded bg-zinc-800 p-3">
-                <div className="text-xs text-zinc-400">Avg Hit (no crit)</div>
-                <div className="text-lg font-semibold text-zinc-50">
-                  {formatStatValue.damage(
+            {offenseSummary.attackDpsSummary !== undefined && (
+              <>
+                <StatLine
+                  label="Average DPS"
+                  value={formatStatValue.dps(
+                    offenseSummary.attackDpsSummary.avgDps,
+                  )}
+                  highlight
+                />
+                <StatLine
+                  label="Avg Hit"
+                  value={formatStatValue.damage(
                     offenseSummary.attackDpsSummary.avgHit,
                   )}
-                </div>
-              </div>
-
-              <div className="rounded bg-zinc-800 p-3">
-                <div className="text-xs text-zinc-400">Avg Hit (with crit)</div>
-                <div className="text-lg font-semibold text-zinc-50">
-                  {formatStatValue.damage(
+                />
+                <StatLine
+                  label="Avg Hit (crit)"
+                  value={formatStatValue.damage(
                     offenseSummary.attackDpsSummary.avgHitWithCrit,
                   )}
-                </div>
-              </div>
-
-              <div className="rounded bg-zinc-800 p-3">
-                <div className="text-xs text-zinc-400">Crit Chance</div>
-                <div className="text-lg font-semibold text-zinc-50">
-                  {formatStatValue.percentage(
+                />
+                <StatLine
+                  label="Crit Chance"
+                  value={formatStatValue.percentage(
                     offenseSummary.attackDpsSummary.critChance,
                   )}
-                </div>
-              </div>
-
-              <div className="rounded bg-zinc-800 p-3">
-                <div className="text-xs text-zinc-400">Crit Multiplier</div>
-                <div className="text-lg font-semibold text-zinc-50">
-                  {formatStatValue.multiplier(
+                />
+                <StatLine
+                  label="Crit Multiplier"
+                  value={formatStatValue.multiplier(
                     offenseSummary.attackDpsSummary.critDmgMult,
                   )}
-                </div>
-              </div>
+                />
+                <StatLine
+                  label="Attack Speed"
+                  value={formatStatValue.aps(
+                    offenseSummary.attackDpsSummary.aspd,
+                  )}
+                />
+              </>
+            )}
 
-              <div className="rounded bg-zinc-800 p-3">
-                <div className="text-xs text-zinc-400">Attack Speed</div>
-                <div className="text-lg font-semibold text-zinc-50">
-                  {formatStatValue.aps(offenseSummary.attackDpsSummary.aspd)}
-                </div>
-              </div>
-            </div>
-          )}
+            {offenseSummary.spellDpsSummary !== undefined && (
+              <SpellDpsSection summary={offenseSummary.spellDpsSummary} />
+            )}
 
-          {offenseSummary.persistentDpsSummary !== undefined && (
-            <PersistentDpsSection
-              summary={offenseSummary.persistentDpsSummary}
+            {offenseSummary.spellBurstDpsSummary !== undefined && (
+              <>
+                <div className="h-2" />
+                <SpellBurstDpsSection
+                  summary={offenseSummary.spellBurstDpsSummary}
+                />
+              </>
+            )}
+
+            {offenseSummary.persistentDpsSummary !== undefined && (
+              <>
+                <div className="h-2" />
+                <PersistentDpsSection
+                  summary={offenseSummary.persistentDpsSummary}
+                />
+              </>
+            )}
+
+            {offenseSummary.totalReapDpsSummary !== undefined && (
+              <>
+                <div className="h-2" />
+                <ReapDpsSection summary={offenseSummary.totalReapDpsSummary} />
+              </>
+            )}
+
+            <div className="h-2" />
+            <StatLine
+              label="Movement Speed"
+              value={formatStatValue.pct(offenseSummary.movementSpeedBonusPct)}
+              color="text-green-400"
             />
-          )}
 
-          {offenseSummary.totalReapDpsSummary !== undefined && (
-            <ReapDpsSection summary={offenseSummary.totalReapDpsSummary} />
-          )}
-        </>
-      ) : (
-        <div className="text-center">
-          <p className="text-sm text-zinc-400">
-            Select an active skill in the Calculations tab to view stats.
+            <div className="h-2" />
+          </>
+        ) : (
+          <p className="mb-3 text-sm text-zinc-400">
+            Select an active skill in the Calculations tab to view damage stats.
           </p>
-        </div>
-      )}
+        )}
+
+        <StatLine
+          label="STR"
+          value={formatStatValue.integer(resourcePool.stats.str)}
+        />
+        <StatLine
+          label="DEX"
+          value={formatStatValue.integer(resourcePool.stats.dex)}
+        />
+        <StatLine
+          label="INT"
+          value={formatStatValue.integer(resourcePool.stats.int)}
+        />
+
+        <div className="h-2" />
+
+        <StatLine
+          label="Max Life"
+          value={formatStatValue.integer(resourcePool.maxLife)}
+          color="text-red-400"
+        />
+        <StatLine
+          label="Max Mana"
+          value={formatStatValue.integer(resourcePool.maxMana)}
+          color="text-blue-400"
+        />
+        {resourcePool.mercuryPts !== undefined && (
+          <StatLine
+            label="Mercury"
+            value={formatStatValue.integer(resourcePool.mercuryPts)}
+            color="text-purple-400"
+          />
+        )}
+
+        <div className="h-2" />
+
+        <StatLine
+          label="Cold Res"
+          value={formatRes(defenses.coldRes)}
+          color="text-cyan-400"
+        />
+        <StatLine
+          label="Lightning Res"
+          value={formatRes(defenses.lightningRes)}
+          color="text-yellow-400"
+        />
+        <StatLine
+          label="Fire Res"
+          value={formatRes(defenses.fireRes)}
+          color="text-orange-400"
+        />
+        <StatLine
+          label="Erosion Res"
+          value={formatRes(defenses.erosionRes)}
+          color="text-fuchsia-400"
+        />
+      </div>
     </div>
   );
 };

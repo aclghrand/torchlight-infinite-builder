@@ -1,6 +1,5 @@
 import type React from "react";
 import { ModNotImplementedIcon } from "@/src/components/ui/ModNotImplementedIcon";
-import { getPrismReplacedCoreTalent } from "@/src/lib/prism-utils";
 import type { TreeSlot } from "@/src/lib/types";
 import { useTalentTree } from "@/src/stores/builderStore";
 import type { PlacedPrism } from "@/src/tli/core";
@@ -36,8 +35,8 @@ export const PrismCoreTalentEffect: React.FC<PrismCoreTalentEffectProps> = ({
   // Check for "Adds" effect (rare prisms) - from parsed loadout
   const additionalAffix = tree?.additionalCoreTalentPrismAffix;
 
-  // Check for "Replaces" effect (legendary prisms)
-  const replacedTalent = getPrismReplacedCoreTalent(placedPrism.prism);
+  // Check for "Replaces" effect (legendary prisms) - from parsed loadout
+  const replacedTalent = tree?.replacementPrismCoreTalent;
 
   // Display "Adds" effect
   if (additionalAffix !== undefined) {

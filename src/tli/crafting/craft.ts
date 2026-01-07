@@ -1,3 +1,5 @@
+import { clamp } from "remeda";
+
 export type ValueRange = { min: number; max: number };
 
 const getDecimalPlaces = (numStr: string): number => {
@@ -11,9 +13,10 @@ const interpolateValue = (
   decimalPlaces: number,
 ): string => {
   if (percentage < 0 || percentage > 100) {
-    throw new Error(`Percentage must be 0-100, got ${percentage}`);
+    console.error(`Percentage must be 0-100, got ${percentage}`);
   }
-  const value = range.min + (range.max - range.min) * (percentage / 100);
+  const clampedPercentage = clamp(percentage, { min: 0, max: 100 });
+  const value = range.min + (range.max - range.min) * (clampedPercentage / 100);
   if (decimalPlaces === 0) {
     return Math.round(value).toString();
   }

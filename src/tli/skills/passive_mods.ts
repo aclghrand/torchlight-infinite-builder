@@ -1,3 +1,4 @@
+import { clamp } from "remeda";
 import { PassiveSkills } from "@/src/data/skill/passive";
 import type {
   BasePassiveSkill,
@@ -13,6 +14,7 @@ export const getPassiveSkillMods = (
   skillName: PassiveSkillName,
   level: number,
 ): { mods?: Mod[]; buffMods?: Mod[] } => {
+  const clampedLevel = clamp(level, { min: 1, max: 40 });
   const factory = passiveSkillModFactories[skillName];
   if (factory === undefined) {
     // Skill has no level-scaling mods
@@ -24,7 +26,8 @@ export const getPassiveSkillMods = (
     | BasePassiveSkill
     | undefined;
   if (skill === undefined) {
-    throw new Error(`Passive skill "${skillName}" not found`);
+    console.error(`Passive skill "${skillName}" not found`);
+    return {};
   }
 
   const levelValues = skill.levelValues;
@@ -32,5 +35,5 @@ export const getPassiveSkillMods = (
     return {};
   }
 
-  return factory(level, levelValues);
+  return factory(clampedLevel, levelValues);
 };

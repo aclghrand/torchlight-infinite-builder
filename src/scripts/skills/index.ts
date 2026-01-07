@@ -1,5 +1,6 @@
 import {
   arcaneCircleParser,
+  bitingColdParser,
   bullsRageParser,
   chainLightningParser,
   chargingWarcryParser,
@@ -9,15 +10,20 @@ import {
   iceBondParser,
   manaBoilParser,
   mindControlParser,
+  timidParser,
 } from "./active_parsers";
 import {
   corrosionFocusParser,
   deepPainParser,
+  electricConversionParser,
   erosionAmplificationParser,
+  frigidDomainParser,
   preciseCrueltyParser,
   preciseDeepPainParser,
   preciseErosionAmplificationParser,
+  preciseFrigidDomainParser,
   spellAmplificationParser,
+  summonThunderMagusParser,
 } from "./passive_parsers";
 import type { SkillCategory, SkillParserEntry } from "./types";
 
@@ -109,6 +115,36 @@ export const SKILL_PARSERS: SkillParserEntry[] = [
     skillName: "Chain Lightning",
     categories: ["active"],
     parser: chainLightningParser,
+  },
+  {
+    skillName: "Biting Cold",
+    categories: ["active"],
+    parser: bitingColdParser,
+  },
+  {
+    skillName: "Timid",
+    categories: ["active"],
+    parser: timidParser,
+  },
+  {
+    skillName: "Electric Conversion",
+    categories: ["passive"],
+    parser: electricConversionParser,
+  },
+  {
+    skillName: "Frigid Domain",
+    categories: ["passive"],
+    parser: frigidDomainParser,
+  },
+  {
+    skillName: "Precise: Frigid Domain",
+    categories: ["passive"],
+    parser: preciseFrigidDomainParser,
+  },
+  {
+    skillName: "Summon Thunder Magus",
+    categories: ["passive"],
+    parser: summonThunderMagusParser,
   },
 ];
 

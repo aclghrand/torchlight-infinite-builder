@@ -183,3 +183,92 @@ export const erosionAmplificationParser: SupportLevelParser = (input) => {
 
   return { erosionDmgPct };
 };
+
+export const electricConversionParser: SupportLevelParser = (input) => {
+  const { skillName, progressionTable } = input;
+
+  const descriptCol = findColumn(progressionTable, "descript", skillName);
+  const lightningDmgPct: Record<number, number> = {};
+
+  for (const [levelStr, text] of Object.entries(descriptCol.rows)) {
+    const level = Number(levelStr);
+
+    // Match "+15% additional Lightning Damage" or "35.5% additional Lightning Damage"
+    const dmgMatch = template("{value:dec%} additional lightning damage").match(
+      text,
+      skillName,
+    );
+    lightningDmgPct[level] = dmgMatch.value;
+  }
+
+  validateAllLevels(lightningDmgPct, skillName);
+
+  return { lightningDmgPct };
+};
+
+export const frigidDomainParser: SupportLevelParser = (input) => {
+  const { skillName, progressionTable } = input;
+
+  const descriptCol = findColumn(progressionTable, "descript", skillName);
+  const coldDmgPct: Record<number, number> = {};
+
+  for (const [levelStr, text] of Object.entries(descriptCol.rows)) {
+    const level = Number(levelStr);
+
+    // Match "+18% additional Cold Damage against enemies" or "38.5% additional Cold Damage against enemies"
+    const dmgMatch = template(
+      "{value:dec%} additional cold damage against enemies",
+    ).match(text, skillName);
+    coldDmgPct[level] = dmgMatch.value;
+  }
+
+  validateAllLevels(coldDmgPct, skillName);
+
+  return { coldDmgPct };
+};
+
+export const preciseFrigidDomainParser: SupportLevelParser = (input) => {
+  const { skillName, progressionTable } = input;
+
+  const descriptCol = findColumn(progressionTable, "descript", skillName);
+  const coldDmgPct: Record<number, number> = {};
+
+  for (const [levelStr, text] of Object.entries(descriptCol.rows)) {
+    const level = Number(levelStr);
+
+    // Match "+25% additional Cold Damage against enemies" or "54.5% additional Cold Damage against enemies"
+    const dmgMatch = template(
+      "{value:dec%} additional cold damage against enemies",
+    ).match(text, skillName);
+    coldDmgPct[level] = dmgMatch.value;
+  }
+
+  validateAllLevels(coldDmgPct, skillName);
+
+  return { coldDmgPct };
+};
+
+export const summonThunderMagusParser: SupportLevelParser = (input) => {
+  const { skillName, progressionTable } = input;
+
+  const descriptCol = findColumn(progressionTable, "descript", skillName);
+  const dmgPct: Record<number, number> = {};
+
+  for (const [levelStr, text] of Object.entries(descriptCol.rows)) {
+    const level = Number(levelStr);
+
+    // Match "2.5% additional damage to the summoner" or "+3% additional damage to the summoner"
+    const dmgMatch = template(
+      "{value:dec%} additional damage to the summoner",
+    ).match(text, skillName);
+    dmgPct[level] = dmgMatch.value;
+  }
+
+  validateAllLevels(dmgPct, skillName);
+
+  return {
+    // Attack and Cast Speed is constant at 6%
+    aspdAndCspdPct: createConstantLevels(6),
+    dmgPct,
+  };
+};

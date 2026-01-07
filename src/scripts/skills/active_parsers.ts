@@ -301,20 +301,28 @@ export const corruptionParser: SupportLevelParser = (input) => {
 
   const descriptCol = findColumn(progressionTable, "descript", skillName);
   const dmgPct: Record<number, number> = {};
+  const inflictWiltPct: Record<number, number> = {};
 
   for (const [levelStr, text] of Object.entries(descriptCol.rows)) {
     const level = Number(levelStr);
-    // Match "+20% additional Erosion Damage" or "40.5% additional Erosion Damage"
-    const match = template("{value:dec%} additional erosion damage").match(
+    // Match "+20% additional Erosion Damage taken" or "40.5% additional Erosion Damage taken"
+    const dmgMatch = template(
+      "{value:dec%} additional erosion damage taken",
+    ).match(text, skillName);
+    dmgPct[level] = dmgMatch.value;
+
+    // Match "+10% chance to Wilt" or "10.5% chance to Wilt"
+    const wiltMatch = template("{value:dec%} chance to wilt").match(
       text,
       skillName,
     );
-    dmgPct[level] = match.value;
+    inflictWiltPct[level] = wiltMatch.value;
   }
 
   validateAllLevels(dmgPct, skillName);
+  validateAllLevels(inflictWiltPct, skillName);
 
-  return { dmgPct };
+  return { dmgPct, inflictWiltPct };
 };
 
 export const manaBoilParser: SupportLevelParser = (input) => {
@@ -443,4 +451,53 @@ export const chainLightningParser: SupportLevelParser = (input) => {
     castTime: createConstantLevels(0.65),
     jump: createConstantLevels(jump),
   };
+};
+
+export const bitingColdParser: SupportLevelParser = (input) => {
+  const { skillName, progressionTable } = input;
+
+  const descriptCol = findColumn(progressionTable, "descript", skillName);
+  const dmgPct: Record<number, number> = {};
+  const inflictFrostbitePct: Record<number, number> = {};
+
+  for (const [levelStr, text] of Object.entries(descriptCol.rows)) {
+    const level = Number(levelStr);
+    // Match "+39% additional Cold Damage taken" or "49.5% additional Cold Damage taken"
+    const dmgMatch = template(
+      "{value:dec%} additional cold damage taken",
+    ).match(text, skillName);
+    dmgPct[level] = dmgMatch.value;
+
+    // Match "+19% chance to be Frostbitten" or "19.5% chance to be Frostbitten"
+    const frostbiteMatch = template(
+      "{value:dec%} chance to be frostbitten",
+    ).match(text, skillName);
+    inflictFrostbitePct[level] = frostbiteMatch.value;
+  }
+
+  validateAllLevels(dmgPct, skillName);
+  validateAllLevels(inflictFrostbitePct, skillName);
+
+  return { dmgPct, inflictFrostbitePct };
+};
+
+export const timidParser: SupportLevelParser = (input) => {
+  const { skillName, progressionTable } = input;
+
+  const descriptCol = findColumn(progressionTable, "descript", skillName);
+  const dmgPct: Record<number, number> = {};
+
+  for (const [levelStr, text] of Object.entries(descriptCol.rows)) {
+    const level = Number(levelStr);
+    // Match "+20% additional Hit Damage taken" or "49.5% additional Hit Damage taken"
+    const match = template("{value:dec%} additional hit damage taken").match(
+      text,
+      skillName,
+    );
+    dmgPct[level] = match.value;
+  }
+
+  validateAllLevels(dmgPct, skillName);
+
+  return { dmgPct };
 };

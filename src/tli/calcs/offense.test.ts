@@ -1,12 +1,13 @@
 import { describe, expect, test } from "vitest";
 import type { ImplementedActiveSkillName } from "../../data/skill";
-import type {
-  Affix,
-  AffixLine,
-  Configuration,
-  DmgRange,
-  Loadout,
-  SupportAffix,
+import {
+  type Affix,
+  type AffixLine,
+  type Configuration,
+  DEFAULT_CONFIGURATION,
+  type DmgRange,
+  type Loadout,
+  type SupportAffix,
 } from "../core";
 import type { Mod } from "../mod";
 import { buildSupportSkillAffixes } from "../storage/load-save";
@@ -21,54 +22,19 @@ import type { OffenseSkillName } from "./skill_confs";
 
 type DmgPctMod = Extract<Mod, { type: "DmgPct" }>;
 
+// Test-specific defaults: override some values for easier testing
+// (e.g., set resistances to 0 so tests don't need to account for defaults)
 const createDefaultConfiguration = (): Configuration => ({
-  level: 95,
-  fervorEnabled: false,
-  fervorPoints: undefined,
-  enemyFrostbittenEnabled: false,
-  enemyFrostbittenPoints: undefined,
+  ...DEFAULT_CONFIGURATION,
   crueltyBuffStacks: undefined,
-  numShadowHits: undefined,
-  manaConsumedRecently: undefined,
-  sealedManaPct: undefined,
-  sealedLifePct: undefined,
-  realmOfMercuryEnabled: false,
-  baptismOfPurityEnabled: false,
   focusBlessings: 0,
-  hasFocusBlessing: false,
   agilityBlessings: 0,
-  hasAgilityBlessing: false,
   tenacityBlessings: 0,
-  hasTenacityBlessing: false,
   enemyColdRes: 0,
   enemyLightningRes: 0,
   enemyFireRes: 0,
   enemyErosionRes: 0,
   enemyArmor: 0,
-  enemyParalyzed: false,
-  hasFullMana: false,
-  targetEnemyIsElite: false,
-  targetEnemyIsNearby: false,
-  targetEnemyIsInProximity: false,
-  numEnemiesNearby: 0,
-  numEnemiesAffectedByWarcry: 0,
-  hasBlockedRecently: false,
-  hasElitesNearby: false,
-  enemyHasAilment: false,
-  hasCritRecently: false,
-  channeling: false,
-  channeledStacks: undefined,
-  sagesInsightFireActivated: false,
-  sagesInsightColdActivated: false,
-  sagesInsightLightningActivated: false,
-  sagesInsightErosionActivated: false,
-  enemyHasAffliction: false,
-  afflictionPts: undefined,
-  enemyHasDesecration: false,
-  tormentStacks: 0,
-  hasBlur: false,
-  blurEndedRecently: false,
-  numMindControlLinksUsed: undefined,
 });
 
 // Helper to create Affix objects from mods for tests
@@ -2378,53 +2344,8 @@ describe("resolveBuffSkillMods", () => {
     const results = calculateOffense({
       loadout,
       configuration: {
-        level: 95,
-        fervorEnabled: false,
-        fervorPoints: 0,
+        ...createDefaultConfiguration(),
         enemyFrostbittenEnabled: false,
-        enemyFrostbittenPoints: 0,
-        crueltyBuffStacks: 40,
-        numShadowHits: undefined,
-        manaConsumedRecently: undefined,
-        sealedManaPct: undefined,
-        sealedLifePct: undefined,
-        realmOfMercuryEnabled: false,
-        baptismOfPurityEnabled: false,
-        focusBlessings: 0,
-        hasFocusBlessing: false,
-        agilityBlessings: 0,
-        hasAgilityBlessing: false,
-        tenacityBlessings: 0,
-        hasTenacityBlessing: false,
-        enemyColdRes: undefined,
-        enemyLightningRes: undefined,
-        enemyFireRes: undefined,
-        enemyErosionRes: undefined,
-        enemyArmor: undefined,
-        enemyParalyzed: false,
-        hasFullMana: false,
-        targetEnemyIsElite: false,
-        targetEnemyIsNearby: false,
-        targetEnemyIsInProximity: false,
-        numEnemiesNearby: 0,
-        numEnemiesAffectedByWarcry: 0,
-        hasBlockedRecently: false,
-        hasElitesNearby: false,
-        enemyHasAilment: false,
-        hasCritRecently: false,
-        channeling: false,
-        channeledStacks: undefined,
-        sagesInsightFireActivated: false,
-        sagesInsightColdActivated: false,
-        sagesInsightLightningActivated: false,
-        sagesInsightErosionActivated: false,
-        enemyHasAffliction: false,
-        afflictionPts: undefined,
-        enemyHasDesecration: false,
-        tormentStacks: 0,
-        hasBlur: false,
-        blurEndedRecently: false,
-        numMindControlLinksUsed: undefined,
       },
     });
     const actual = results.skills["[Test] Simple Attack"];
@@ -4330,7 +4251,6 @@ describe("resistance calculations", () => {
       lightningRes: { max: 60, potential: 0, actual: 0 },
       fireRes: { max: 60, potential: 0, actual: 0 },
       erosionRes: { max: 60, potential: 0, actual: 0 },
-      movementSpeedBonusPct: 0,
     });
   });
 
@@ -4700,7 +4620,10 @@ describe("spell burst", () => {
   const skillName = "[Test] Simple Spell" as const;
   const baseCritMult = 1.025;
 
-  const createSpellBurstInput = (mods: AffixLine[], config?: Configuration) => ({
+  const createSpellBurstInput = (
+    mods: AffixLine[],
+    config?: Configuration,
+  ) => ({
     loadout: initLoadout({
       gearPage: { equippedGear: {}, inventory: [] },
       customAffixLines: mods,
@@ -4721,7 +4644,7 @@ describe("spell burst", () => {
     expect(skill?.spellBurstDpsSummary).toBeDefined();
     expect(skill?.spellBurstDpsSummary?.maxSpellBurst).toBe(3);
     expect(skill?.spellBurstDpsSummary?.burstsPerSec).toBeCloseTo(0.5);
-    expect(skill?.spellBurstDpsSummary?.dps).toBeCloseTo(
+    expect(skill?.spellBurstDpsSummary?.avgDps).toBeCloseTo(
       0.5 * 3 * 100 * baseCritMult,
     );
   });
@@ -4741,7 +4664,7 @@ describe("spell burst", () => {
     const skill = results.skills[skillName];
     expect(skill?.spellBurstDpsSummary).toBeDefined();
     expect(skill?.spellBurstDpsSummary?.burstsPerSec).toBeCloseTo(1);
-    expect(skill?.spellBurstDpsSummary?.dps).toBeCloseTo(
+    expect(skill?.spellBurstDpsSummary?.avgDps).toBeCloseTo(
       1 * 3 * 100 * baseCritMult,
     );
   });
@@ -4756,7 +4679,45 @@ describe("spell burst", () => {
     const skill = results.skills[skillName];
     expect(skill?.spellBurstDpsSummary).toBeDefined();
     expect(skill?.spellBurstDpsSummary?.maxSpellBurst).toBe(0);
-    expect(skill?.spellBurstDpsSummary?.dps).toBe(0);
+    expect(skill?.spellBurstDpsSummary?.avgDps).toBe(0);
+  });
+
+  test("PlaySafe applies cast speed bonus to spell burst charge speed", () => {
+    // PlaySafe: 100% of cast speed bonus applies to spell burst charge speed
+    // CspdPct = 50%, PlaySafe = 100% → effective charge speed = 50%
+    // burstsPerSec = 0.5 * (100 + 50) / 100 = 0.75
+    const input = createSpellBurstInput(
+      affixLines([
+        { type: "MaxSpellBurst", value: 3 },
+        { type: "CspdPct", value: 50, addn: false },
+        { type: "PlaySafe", value: 100 },
+      ]),
+    );
+    const results = calculateOffense(input);
+    const skill = results.skills[skillName];
+    expect(skill?.spellBurstDpsSummary).toBeDefined();
+    expect(skill?.spellBurstDpsSummary?.burstsPerSec).toBeCloseTo(0.75);
+    expect(skill?.spellBurstDpsSummary?.avgDps).toBeCloseTo(
+      0.75 * 3 * 100 * baseCritMult,
+    );
+  });
+
+  test("cast speed does not affect spell burst charge speed without PlaySafe", () => {
+    // Without PlaySafe, CspdPct should not affect spell burst charge speed
+    // burstsPerSec should remain at base 0.5
+    const input = createSpellBurstInput(
+      affixLines([
+        { type: "MaxSpellBurst", value: 3 },
+        { type: "CspdPct", value: 50, addn: false },
+      ]),
+    );
+    const results = calculateOffense(input);
+    const skill = results.skills[skillName];
+    expect(skill?.spellBurstDpsSummary).toBeDefined();
+    expect(skill?.spellBurstDpsSummary?.burstsPerSec).toBeCloseTo(0.5);
+    expect(skill?.spellBurstDpsSummary?.avgDps).toBeCloseTo(
+      0.5 * 3 * 100 * baseCritMult,
+    );
   });
 });
 
@@ -5159,5 +5120,52 @@ describe("desecration mechanics", () => {
     expect(resultsWithoutBlasphemer.resourcePool.maxFocusBlessings).toBe(6);
     expect(resultsWithBlasphemer.resourcePool.desecration).toBe(5); // 3 base + 2 from focus
     expect(resultsWithoutBlasphemer.resourcePool.desecration).toBeUndefined();
+  });
+});
+
+describe("lucky damage", () => {
+  const skillName = "[Test] Simple Attack" as const;
+
+  const createLuckyDmgInput = (
+    dmgRange: { min: number; max: number },
+    luckyDmg: boolean,
+  ) => ({
+    loadout: initLoadout({
+      gearPage: { equippedGear: {}, inventory: [] },
+      customAffixLines: affixLines([
+        { type: "FlatDmgToAtks", value: dmgRange, dmgType: "physical" },
+        ...(luckyDmg ? [{ type: "LuckyDmg" as const }] : []),
+      ]),
+      skillPage: simpleAttackSkillPage(),
+    }),
+    configuration: defaultConfiguration,
+  });
+
+  test("lucky damage calculates average as (min + 2*max) / 3", () => {
+    // Lucky damage: best of two rolls
+    // min: 1095, max: 1643
+    // Expected: (1095 + 2*1643) / 3 = 4381 / 3 ≈ 1460.3
+    const input = createLuckyDmgInput({ min: 1095, max: 1643 }, true);
+    const results = calculateOffense(input);
+    const actual = results.skills[skillName];
+    expect(actual?.attackDpsSummary?.avgHit).toBeCloseTo(1460.3, 1);
+  });
+
+  test("lucky damage with wide range", () => {
+    // min: 63, max: 1198
+    // Expected: (63 + 2*1198) / 3 = 2459 / 3 ≈ 819.7
+    const input = createLuckyDmgInput({ min: 63, max: 1198 }, true);
+    const results = calculateOffense(input);
+    const actual = results.skills[skillName];
+    expect(actual?.attackDpsSummary?.avgHit).toBeCloseTo(819.7, 1);
+  });
+
+  test("without lucky damage, average is (min + max) / 2", () => {
+    // Same range as first test, but without lucky damage
+    // Expected: (1095 + 1643) / 2 = 1369
+    const input = createLuckyDmgInput({ min: 1095, max: 1643 }, false);
+    const results = calculateOffense(input);
+    const actual = results.skills[skillName];
+    expect(actual?.attackDpsSummary?.avgHit).toBeCloseTo(1369, 1);
   });
 });

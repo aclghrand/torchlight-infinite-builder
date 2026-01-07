@@ -75,18 +75,18 @@ describe("craft", () => {
     expect(craft(affix, 100)).toBe("+7% Armor Pen<>+7% Armor Pen for Minions");
   });
 
-  test("throws error for percentage < 0", () => {
+  test("clamps percentage < 0 to min value", () => {
     const affix = {
       craftableAffix: "+(17-24)% Speed",
     };
-    expect(() => craft(affix, -1)).toThrow("Percentage must be 0-100");
+    expect(craft(affix, -1)).toBe("+17% Speed");
   });
 
-  test("throws error for percentage > 100", () => {
+  test("clamps percentage > 100 to max value", () => {
     const affix = {
       craftableAffix: "+(17-24)% Speed",
     };
-    expect(() => craft(affix, 101)).toThrow("Percentage must be 0-100");
+    expect(craft(affix, 101)).toBe("+24% Speed");
   });
 
   test("rounding edge case at 25%", () => {

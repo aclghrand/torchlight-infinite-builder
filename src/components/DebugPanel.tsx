@@ -7,7 +7,7 @@ import type { SaveData } from "@/src/lib/save-data";
 import { getAllAffixes } from "@/src/tli/calcs/affix-collectors";
 import type { Loadout } from "@/src/tli/core";
 
-type DebugView = "saveData" | "loadout" | "unparseable" | "affixes";
+export type DebugView = "saveData" | "loadout" | "unparseable" | "affixes";
 
 // Find all paths in the JSON tree that contain or lead to matches
 const findMatchingPaths = (data: unknown, searchTerm: string): Set<string> => {
@@ -267,30 +267,37 @@ const JsonNode: React.FC<JsonNodeProps> = ({
   );
 };
 
+export const DEBUG_PANEL_MIN_HEIGHT = 100;
+export const DEBUG_PANEL_MAX_HEIGHT = 800;
+export const DEBUG_PANEL_DEFAULT_HEIGHT = 400;
+export const DEBUG_PANEL_HEADER_HEIGHT = 52; // Header + resize handle
+
 interface DebugPanelProps {
   saveData: SaveData;
   loadout: Loadout;
   debugPanelExpanded: boolean;
   setDebugPanelExpanded: (expanded: boolean) => void;
+  panelHeight: number;
+  setPanelHeight: (height: number) => void;
+  view: DebugView;
+  setView: (view: DebugView) => void;
   onClose: () => void;
   onSaveDataChange: (newSaveData: SaveData) => void;
 }
-
-const MIN_HEIGHT = 100;
-const MAX_HEIGHT = 800;
-const DEFAULT_HEIGHT = 400;
 
 export const DebugPanel: React.FC<DebugPanelProps> = ({
   saveData,
   loadout,
   debugPanelExpanded,
   setDebugPanelExpanded,
+  panelHeight,
+  setPanelHeight,
+  view,
+  setView,
   onClose,
   onSaveDataChange,
 }) => {
-  const [view, setView] = useState<DebugView>("saveData");
   const [searchTerm, setSearchTerm] = useState("");
-  const [panelHeight, setPanelHeight] = useState(DEFAULT_HEIGHT);
   const [editMode, setEditMode] = useState(false);
   const [editText, setEditText] = useState("");
   const [parseError, setParseError] = useState<string | undefined>(undefined);
@@ -348,8 +355,8 @@ export const DebugPanel: React.FC<DebugPanelProps> = ({
       if (!isResizing.current) return;
       const delta = startY.current - e.clientY;
       const newHeight = Math.min(
-        MAX_HEIGHT,
-        Math.max(MIN_HEIGHT, startHeight.current + delta),
+        DEBUG_PANEL_MAX_HEIGHT,
+        Math.max(DEBUG_PANEL_MIN_HEIGHT, startHeight.current + delta),
       );
       setPanelHeight(newHeight);
     };
@@ -366,7 +373,7 @@ export const DebugPanel: React.FC<DebugPanelProps> = ({
       document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseup", handleMouseUp);
     };
-  }, []);
+  }, [setPanelHeight]);
 
   const currentData = view === "saveData" ? saveData : loadout;
   const loadoutAffixes = useMemo(() => getAllAffixes(loadout), [loadout]);
@@ -399,19 +406,12 @@ export const DebugPanel: React.FC<DebugPanelProps> = ({
   };
   const title = getTitle();
 
-  const cycleView = (): void => {
-    if (view === "saveData") setView("loadout");
-    else if (view === "loadout") setView("unparseable");
-    else if (view === "unparseable") setView("affixes");
-    else setView("saveData");
-  };
-
-  const getViewButtonText = (): string => {
-    if (view === "saveData") return "View Parsed";
-    if (view === "loadout") return "View Unimplemented";
-    if (view === "unparseable") return "View Affixes";
-    return "View Raw";
-  };
+  const tabs: { key: DebugView; label: string }[] = [
+    { key: "saveData", label: "Raw" },
+    { key: "loadout", label: "Parsed" },
+    { key: "unparseable", label: `Issues (${totalIssues})` },
+    { key: "affixes", label: `Affixes (${loadoutAffixLines.length})` },
+  ];
 
   const matchingPaths = useMemo(() => {
     if (searchTerm === "") return undefined;
@@ -500,14 +500,22 @@ export const DebugPanel: React.FC<DebugPanelProps> = ({
             </>
           ) : (
             <>
-              <button
-                type="button"
-                onClick={cycleView}
-                className="px-3 py-1 bg-zinc-700 hover:bg-zinc-600 text-zinc-50 text-sm rounded transition-colors"
-                title="Cycle between SaveData, Loadout, and Unparseable views"
-              >
-                {getViewButtonText()}
-              </button>
+              <div className="flex rounded overflow-hidden border border-zinc-700">
+                {tabs.map((tab) => (
+                  <button
+                    key={tab.key}
+                    type="button"
+                    onClick={() => setView(tab.key)}
+                    className={`px-3 py-1 text-sm transition-colors ${
+                      view === tab.key
+                        ? "bg-amber-500 text-zinc-950"
+                        : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-50"
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
               {view === "saveData" && (
                 <button
                   type="button"

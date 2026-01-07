@@ -177,6 +177,33 @@ export const activeSkillModFactories: Partial<
       {
         type: "InflictWiltPct",
         isEnemyDebuff: true,
+        value: v(vals.inflictWiltPct, l),
+      },
+    ],
+  }),
+  "Biting Cold": (l, vals) => ({
+    buffMods: [
+      {
+        type: "DmgPct",
+        dmgModType: "cold",
+        addn: true,
+        isEnemyDebuff: true,
+        value: v(vals.dmgPct, l),
+      },
+      {
+        type: "InflictFrostbitePct",
+        isEnemyDebuff: true,
+        value: v(vals.inflictFrostbitePct, l),
+      },
+    ],
+  }),
+  Timid: (l, vals) => ({
+    buffMods: [
+      {
+        type: "DmgPct",
+        dmgModType: "hit",
+        addn: true,
+        isEnemyDebuff: true,
         value: v(vals.dmgPct, l),
       },
     ],

@@ -20,7 +20,10 @@ import {
   getTargetAreaPositions,
   reflectPosition,
 } from "@/src/lib/inverse-image-utils";
-import { extractCoreTalentAddedEffect } from "@/src/lib/prism-utils";
+import {
+  extractCoreTalentAddedEffect,
+  extractReplacedCoreTalentName,
+} from "@/src/lib/prism-utils";
 import type {
   SaveData,
   BaseSupportSkillSlot as SaveDataBaseSupportSkillSlot,
@@ -76,7 +79,7 @@ import type {
   TalentTrees,
 } from "../core";
 import { parseMod } from "../mod_parser/index";
-import { parseSupportAffixes } from "../skills/support_mod_parsers";
+import { parseSupportAffixes } from "../skills/support-mod-templates";
 import {
   convertAffixTextToAffix,
   getPrismAffixesForNode,
@@ -342,6 +345,11 @@ const convertTalentTree = (
       ? extractCoreTalentAddedEffect(placedPrism.prism.baseAffix)
       : undefined;
 
+  const replacementPrismCoreTalent =
+    placedPrism && placedPrism.treeSlot === treeSlot
+      ? extractReplacedCoreTalentName(placedPrism.prism.baseAffix)
+      : undefined;
+
   return {
     name: tree.name,
     nodes,
@@ -353,6 +361,7 @@ const convertTalentTree = (
       additionalCoreTalentPrismAffixText !== undefined
         ? convertAffix(additionalCoreTalentPrismAffixText, src)
         : undefined,
+    replacementPrismCoreTalent,
   };
 };
 

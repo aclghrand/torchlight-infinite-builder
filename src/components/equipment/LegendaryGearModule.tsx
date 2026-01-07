@@ -142,16 +142,19 @@ export const LegendaryGearModule: React.FC<LegendaryGearModuleProps> = ({
   const handleSaveToInventory = () => {
     if (selectedLegendary === undefined) return;
 
-    const legendary_affixes = affixStates.map((state, i) => {
+    const legendary_affixes: string[] = [];
+    for (let i = 0; i < affixStates.length; i++) {
+      const state = affixStates[i];
       const affix = state.isCorrupted
         ? selectedLegendary.corruptionAffixes[i]
         : selectedLegendary.normalAffixes[i];
       const affixString = getAffixString(affix, state);
       if (affixString === undefined) {
-        throw new Error(`Unselected choice at index ${i}`);
+        console.error(`Unselected choice at index ${i}, cannot save item`);
+        return;
       }
-      return craftAffix(affixString, state.percentage);
-    });
+      legendary_affixes.push(craftAffix(affixString, state.percentage));
+    }
 
     const blend_affix =
       isBelt && selectedBlendIndex !== undefined

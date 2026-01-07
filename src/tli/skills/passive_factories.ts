@@ -96,4 +96,56 @@ export const passiveSkillModFactories: Partial<
       },
     ],
   }),
+  "Electric Conversion": (l, vals) => ({
+    buffMods: [
+      {
+        type: "DmgPct",
+        value: v(vals.lightningDmgPct, l),
+        addn: true,
+        dmgModType: "lightning",
+      },
+    ],
+  }),
+  "Frigid Domain": (l, vals) => ({
+    buffMods: [
+      {
+        type: "DmgPct",
+        value: v(vals.coldDmgPct, l),
+        addn: true,
+        dmgModType: "cold",
+        isEnemyDebuff: true,
+      },
+    ],
+  }),
+  "Precise: Frigid Domain": (l, vals) => ({
+    buffMods: [
+      {
+        type: "DmgPct",
+        value: v(vals.coldDmgPct, l),
+        addn: true,
+        dmgModType: "cold",
+        isEnemyDebuff: true,
+      },
+    ],
+  }),
+  "Summon Thunder Magus": (l, vals) => ({
+    buffMods: [
+      {
+        type: "AspdPct",
+        value: v(vals.aspdAndCspdPct, l),
+        addn: true,
+      },
+      {
+        type: "CspdPct",
+        value: v(vals.aspdAndCspdPct, l),
+        addn: true,
+      },
+      {
+        type: "DmgPct",
+        value: v(vals.dmgPct, l),
+        addn: true,
+        dmgModType: "global",
+      },
+    ],
+  }),
 };
