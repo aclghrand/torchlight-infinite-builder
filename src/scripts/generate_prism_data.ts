@@ -20,11 +20,28 @@ const extractPrismData = (html: string): Prism[] => {
       return;
     }
 
+    const affixTd = $(tds[2]);
     const item: Prism = {
       type: $(tds[0]).text().trim(),
       rarity: $(tds[1]).text().trim(),
-      affix: cleanEffectText($(tds[2]).html() || ""),
+      affix: cleanEffectText(affixTd.html() || ""),
     };
+
+    // Extract replacement core talent if present
+    const tooltipSpan = affixTd.find("span.tooltip");
+    if (
+      tooltipSpan.length > 0 &&
+      item.affix.includes("Replaces the Core Talent")
+    ) {
+      const name = tooltipSpan.text().trim();
+      const rawAffix = tooltipSpan.attr("data-title") || "";
+      if (name !== "" && rawAffix !== "") {
+        item.replacementCoreTalent = {
+          name,
+          affix: cleanEffectText(rawAffix),
+        };
+      }
+    }
 
     items.push(item);
   });

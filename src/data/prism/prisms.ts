@@ -78,132 +78,240 @@ export const Prisms: readonly Prism[] = [
     rarity: "",
     affix:
       "Replaces the Core Talent on the God of Might/God of War/God of Machines Advanced Talent Panel with One For All",
+    replacementCoreTalent: {
+      name: "One For All",
+      affix:
+        "Gains Cold, Lightning, and Erosion Resistance equal to 30% of Fire Resistance",
+    },
   },
   {
     type: "Base Affix",
     rarity: "",
     affix:
       "Replaces the Core Talent on the God of Might/God of War/God of Machines Advanced Talent Panel with Unwavering Fortress",
+    replacementCoreTalent: {
+      name: "Unwavering Fortress",
+      affix:
+        "Gains Defense equal to 7% of Armor and absorbs 100% of Non-True Damage taken every 10s. Defense is refreshed when gained again\nMax Life is fixed at 100\nYour Evasion and Max Energy Shield are fixed at 0",
+    },
   },
   {
     type: "Base Affix",
     rarity: "",
     affix:
       "Replaces the Core Talent on the God of Might/Goddess of Deception/God of Machines Advanced Talent Panel with Commander's Gambit",
+    replacementCoreTalent: {
+      name: "Commander's Gambit",
+      affix:
+        "+300% additional Synthetic Troop Minion Damage when having more than 3 different types of Synthetic Troop Minions\nMax Minion In Map of Non-Main Synthetic Troop Skill is fixed at 1",
+    },
   },
   {
     type: "Base Affix",
     rarity: "",
     affix:
       "Replaces the Core Talent on the God of Might/Goddess of Deception/God of Machines Advanced Talent Panel with Dark Advance",
+    replacementCoreTalent: {
+      name: "Dark Advance",
+      affix:
+        "Moves in the target direction when casting Dark Gate\n+3 Max Charges for Dark Gate\n+50% additional Cooldown Recovery Speed for Dark Gate\n+50% additional Minion Damage if a Dark Gate has been cast recently",
+    },
   },
   {
     type: "Base Affix",
     rarity: "",
     affix:
       "Replaces the Core Talent on the God of Might/Goddess of Hunting/God of War Advanced Talent Panel with Adaptive Defense",
+    replacementCoreTalent: {
+      name: "Adaptive Defense",
+      affix:
+        "Attack and Spell Evade Chances are fixed at the Block Ratio\nThe Block Ratio Upper limit is fixed at 60%\n-40% Attack and Spell Block Chance",
+    },
   },
   {
     type: "Base Affix",
     rarity: "",
     affix:
       "Replaces the Core Talent on the God of Might/Goddess of Hunting/God of War Advanced Talent Panel with Juggernaut",
+    replacementCoreTalent: {
+      name: "Juggernaut",
+      affix:
+        "Reduces 10% Armor and 2% Elemental and Erosion Resistance for enemies on Critical Strike for 8s. Stacks up to 10 time(s)\n+25% additional damage upon landing a Critical Strike on an enemy with 0 Armor",
+    },
   },
   {
     type: "Base Affix",
     rarity: "",
     affix:
       "Replaces the Core Talent on the God of Might/Goddess of Hunting/God of War Advanced Talent Panel with Unstoppable Force",
+    replacementCoreTalent: {
+      name: "Unstoppable Force",
+      affix:
+        "When a Combo Finisher is in Multistrike, it is guaranteed to deal damage equal to the Max Multistrike Count",
+    },
   },
   {
     type: "Base Affix",
     rarity: "",
     affix:
       "Replaces the Core Talent on the God of Might/Goddess of Hunting/Goddess of Knowledge/God of War/Goddess of Deception/God of Machines Advanced Talent Panel with Effortless Command",
+    replacementCoreTalent: {
+      name: "Effortless Command",
+      affix: "+1000 Max Energy",
+    },
   },
   {
     type: "Base Affix",
     rarity: "",
     affix:
       "Replaces the Core Talent on the God of Might/Goddess of Hunting/Goddess of Knowledge/God of War/Goddess of Deception/God of Machines Advanced Talent Panel with Tainted Flesh",
+    replacementCoreTalent: {
+      name: "Tainted Flesh",
+      affix:
+        "Converts 100% of Physical Damage and Elemental Damage taken to Erosion Damage\n-70% additional Erosion Resistance",
+    },
   },
   {
     type: "Base Affix",
     rarity: "",
     affix:
       "Replaces the Core Talent on the God of Might/Goddess of Hunting/Goddess of Knowledge/God of War/Goddess of Deception/God of Machines Advanced Talent Panel with Crushing Blast",
+    replacementCoreTalent: {
+      name: "Crushing Blast",
+      affix:
+        "Enemies have a 25% chance to explode when defeated by Attacks or Spells, dealing Secondary Physical Damage equal to 25% of their Max Life to enemies within a 5m radius\n+50% additional damage when there are only Elites within 10m",
+    },
   },
   {
     type: "Base Affix",
     rarity: "",
     affix:
       "Replaces the Core Talent on the God of Might/Goddess of Hunting/Goddess of Knowledge/God of War/Goddess of Deception/God of Machines Advanced Talent Panel with Miraculous Touch",
+    replacementCoreTalent: {
+      name: "Miraculous Touch",
+      affix:
+        "Triggers Miraculous Gain when casting a Restoration Skill\nRestoration Skills gain 4 Charging Progress every second",
+    },
   },
   {
     type: "Base Affix",
     rarity: "",
     affix:
       "Replaces the Core Talent on the God of Might/Goddess of Knowledge/Goddess of Deception Advanced Talent Panel with Self-Delusion",
+    replacementCoreTalent: {
+      name: "Self-Delusion",
+      affix:
+        "+15% additional Erosion Damage to an enemy for each type of Crowd Control Effect they are under\nCrowd Control Effects inflicted are reflected back onto you",
+    },
   },
   {
     type: "Base Affix",
     rarity: "",
     affix:
       "Replaces the Core Talent on the God of Might/Goddess of Knowledge/Goddess of Deception Advanced Talent Panel with Main-Hand Weapon's Damage to Spells\nAdds 100% of Main-Hand Weapon's Critical Strike Rating to the Base Critical Strike Rating of Spell Skills\nYou cannot deal Ailment Damage\">Towering Presence",
+    replacementCoreTalent: {
+      name: "Towering Presence",
+      affix:
+        "Adds 100% of Main-Hand Weapon's Damage to Spells\nAdds 100% of Main-Hand Weapon's Critical Strike Rating to the Base Critical Strike Rating of Spell Skills\nYou cannot deal Ailment Damage",
+    },
   },
   {
     type: "Base Affix",
     rarity: "",
     affix:
       "Replaces the Core Talent on the Goddess of Hunting/God of War/Goddess of Deception Advanced Talent Panel with Fortune's Flip",
+    replacementCoreTalent: {
+      name: "Fortune's Flip",
+      affix:
+        "Lucky Damage\nLucky Critical Strike\nLucky Evading\nTriggering Non-Main Skills has a 100% chance to lose Lucky Damage, Lucky Critical Strike, and Lucky Evading for 4s",
+    },
   },
   {
     type: "Base Affix",
     rarity: "",
     affix:
       "Replaces the Core Talent on the Goddess of Hunting/God of War/Goddess of Deception Advanced Talent Panel with Sweeping Fury",
+    replacementCoreTalent: {
+      name: "Sweeping Fury",
+      affix:
+        "On hit, Main Ranged Horizontal Projectile Skills have a 100% chance to cast an additional Main Skill, whose projectiles fire in a ring and deal -50% additional damage. Interval: 0.03s. Does not affect Sentry Skills, Vertical Skills, and Channeled Skills.\nProjectile Quantity upper limit: 5\n+2 Horizontal Projectile Penetration(s)",
+    },
   },
   {
     type: "Base Affix",
     rarity: "",
     affix:
       "Replaces the Core Talent on the Goddess of Hunting/Goddess of Deception/God of Machines Advanced Talent Panel with Circle of Life",
+    replacementCoreTalent: {
+      name: "Circle of Life",
+      affix:
+        "Gains Growth equal to 50% of the nearest Spirit Magus every 1s, and Growth gains Return Speed equal to Command\nFor every 10 Growth, +1% additional damage for Spirit Magi, +0.1% additional Physique and +0.5% Skill Area for yourself",
+    },
   },
   {
     type: "Base Affix",
     rarity: "",
     affix:
       "Replaces the Core Talent on the Goddess of Hunting/Goddess of Knowledge/God of War Advanced Talent Panel with Spell Ripple",
+    replacementCoreTalent: {
+      name: "Spell Ripple",
+      affix:
+        "Spell Skills on hit have a 50% chance to spawn a Pulse, dealing True Damage equal to 100% of Hit Damage. Interval: 0.03s",
+    },
   },
   {
     type: "Base Affix",
     rarity: "",
     affix:
       "Replaces the Core Talent on the Goddess of Hunting/Goddess of Knowledge/Goddess of Deception Advanced Talent Panel with Keen Intellect",
+    replacementCoreTalent: {
+      name: "Keen Intellect",
+      affix:
+        "Gains different buffs based on the number of different Spell Skills equipped: For every Spell Skill equipped, +5% additional Spell Damage\nFor every Empower Skill equipped, +12% additional Hit Damage (multiplies) for skills cast by Spell Burst\nFor every Curse Skill equipped, +5% Elemental and Erosion Resistance Penetration and +5% Armor DMG Mitigation Penetration\nFor every Defensive Skill equipped, +15% additional Max Mana (multiplies)\nFor every Mobility Skill equipped, +12% additional Cast Speed (multiplies)",
+    },
   },
   {
     type: "Base Affix",
     rarity: "",
     affix:
       "Replaces the Core Talent on the Goddess of Hunting/Goddess of Knowledge/Goddess of Deception Advanced Talent Panel with Hare's Agility",
+    replacementCoreTalent: {
+      name: "Hare's Agility",
+      affix:
+        "Resets Mobility Skill Cooldown on defeat. Interval: 1s\n+25% additional damage for the next Main Skill after casting a Mobility Skill",
+    },
   },
   {
     type: "Base Affix",
     rarity: "",
     affix:
       "Replaces the Core Talent on the Goddess of Knowledge/God of War/Goddess of Deception Advanced Talent Panel with Escalating Affliction",
+    replacementCoreTalent: {
+      name: "Escalating Affliction",
+      affix:
+        "Changes the effect of each point of Affliction to: +0.1% - +4% additional Damage Over Time taken. Refreshes every 1s and is affected by Lucky Damage bonuses\n70% of the bonuses and additional bonuses for Max Damage is also applied to Damage Over Time\n-20% additional Hit Damage",
+    },
   },
   {
     type: "Base Affix",
     rarity: "",
     affix:
       "Replaces the Core Talent on the Goddess of Knowledge/God of War/Goddess of Deception Advanced Talent Panel with Unmatched Valor",
+    replacementCoreTalent: {
+      name: "Unmatched Valor",
+      affix: "Has Fervor\nHas 150 point(s) of fixed Fervor Rating",
+    },
   },
   {
     type: "Base Affix",
     rarity: "",
     affix:
       "Replaces the Core Talent on the Goddess of Knowledge/God of War/Goddess of Deception Advanced Talent Panel with Guaranteed Reaping",
+    replacementCoreTalent: {
+      name: "Guaranteed Reaping",
+      affix:
+        "When dealing Damage Over Time, if the Spell Burst reaches max charges, all charges will be consumed. Reaps 0.9s of Damage Over Time once for each Spell Burst charge consumed. Interval: 0.15s\nThis effect's Reaping causes an explosion, dealing equal damage to enemies within a 6m radius\n-60% additional Wilt Duration",
+    },
   },
   {
     type: "Prism Gauge",
