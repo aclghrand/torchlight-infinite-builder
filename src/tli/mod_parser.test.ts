@@ -2743,3 +2743,60 @@ test("parse numbed effect", () => {
     },
   ]);
 });
+
+test("parse numbed chance", () => {
+  const result = parseMod("+36% Numbed chance");
+  expect(result).toEqual([
+    {
+      type: "NumbedChancePct",
+      value: 36,
+    },
+  ]);
+});
+
+test("parse mana regen with focus blessing condition", () => {
+  const result = parseMod(
+    "Regenerates 0.4% Mana per second when Focus Blessing is active",
+  );
+  expect(result).toEqual([
+    {
+      type: "ManaRegenPerSecPct",
+      value: 0.4,
+      cond: "has_focus_blessing",
+    },
+  ]);
+});
+
+test("parse standalone damage taken from cursed enemies", () => {
+  const result = parseMod("-2% additional damage taken from Cursed enemies");
+  expect(result).toEqual([
+    {
+      type: "DmgTakenPct",
+      value: -2,
+      cond: "enemy_is_cursed",
+    },
+  ]);
+});
+
+test("parse additional skill cost", () => {
+  const result = parseMod("+25% additional Skill Cost");
+  expect(result).toEqual([
+    {
+      type: "SkillCostPct",
+      value: 25,
+      addn: true,
+    },
+  ]);
+});
+
+test("parse lucky damage against numbed enemies", () => {
+  const result = parseMod(
+    "You and Minions deal Lucky Damage against Numbed enemies",
+  );
+  expect(result).toEqual([
+    {
+      type: "LuckyDmg",
+      cond: "enemy_numbed",
+    },
+  ]);
+});

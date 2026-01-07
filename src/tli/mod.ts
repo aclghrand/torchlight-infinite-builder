@@ -171,6 +171,7 @@ export type Condition =
   | "enemy_has_lightning_infiltration"
   | "enemy_has_fire_infiltration"
   | "target_enemy_frozen_recently"
+  | "enemy_numbed"
   // pactspirits
   | "has_portrait_of_a_fallen_saintess_pactspirit"
   | "has_squidnova";
@@ -319,6 +320,7 @@ interface ModDefinitions {
   MaxLifePct: { value: number; addn: boolean };
   MaxMana: { value: number };
   MaxManaPct: { value: number; addn: boolean };
+  ManaRegenPerSecPct: { value: number };
   MercuryBaptismDmgPct: { value: number };
   MaxMercuryPtsPct: { value: number };
   MaxFocusBlessing: { value: number };
@@ -343,6 +345,7 @@ interface ModDefinitions {
   GearBaseCritRating: { value: number };
   GearBaseAttackSpeed: { value: number };
   SkillCost: { value: number };
+  SkillCostPct: { value: number; addn?: boolean };
   // infiltrations
   InflictsInfiltration: { infiltrationType: InfiltrationType };
   // ailments
@@ -353,6 +356,7 @@ interface ModDefinitions {
   FreezeDurationPct: { value: number };
   InflictFrail: object;
   NumbedEffPct: { value: number };
+  NumbedChancePct: { value: number };
   // skill-specific
   MindControlMaxLink: { value: number };
   InitialMaxChannel: { value: number };

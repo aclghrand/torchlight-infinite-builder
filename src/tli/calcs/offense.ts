@@ -735,6 +735,7 @@ const filterModsByCond = (
           offhand === "Shield (STR)"
         );
       })
+      .with("enemy_numbed", () => config.enemyNumbed)
       .exhaustive();
   });
 };

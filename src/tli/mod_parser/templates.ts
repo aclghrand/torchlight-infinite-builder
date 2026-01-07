@@ -770,4 +770,25 @@ export const allParsers = [
   })),
   // Numbed effect
   t("{value:+dec%} numbed effect").output("NumbedEffPct", (c) => ({ value: c.value })),
+  // Numbed chance
+  t("{value:+dec%} numbed chance").output("NumbedChancePct", (c) => ({ value: c.value })),
+  // Mana regen with focus blessing
+  t("regenerates {value:dec%} mana per second when focus blessing is active").output("ManaRegenPerSecPct", (c) => ({
+    value: c.value,
+    cond: HAS_FOCUS_BLESSING,
+  })),
+  // Damage taken from cursed enemies (standalone)
+  t("{value:+int%} additional damage taken from cursed enemies").output("DmgTakenPct", (c) => ({
+    value: c.value,
+    cond: ENEMY_IS_CURSED,
+  })),
+  // Additional skill cost
+  t("{value:+dec%} additional skill cost").output("SkillCostPct", (c) => ({
+    value: c.value,
+    addn: true,
+  })),
+  // Lucky damage against numbed enemies
+  t("you and minions deal lucky damage against numbed enemies").output("LuckyDmg", () => ({
+    cond: "enemy_numbed" as const,
+  })),
 ];
