@@ -196,8 +196,10 @@ export const EditGearModal = ({
 
   const handleDeleteBaseAffix = useCallback((index: number) => {
     setBaseAffixes((prev) => {
+      // Remove the slot and shift remaining up, add empty slot at end
       const updated = [...prev];
-      updated[index] = createNewSlot();
+      updated.splice(index, 1);
+      updated.push(createNewSlot());
       return updated;
     });
   }, []);
@@ -216,16 +218,20 @@ export const EditGearModal = ({
 
   const handleDeletePrefix = useCallback((index: number) => {
     setPrefixes((prev) => {
+      // Remove the slot and shift remaining up, add empty slot at end
       const updated = [...prev];
-      updated[index] = createNewSlot();
+      updated.splice(index, 1);
+      updated.push(createNewSlot());
       return updated;
     });
   }, []);
 
   const handleDeleteSuffix = useCallback((index: number) => {
     setSuffixes((prev) => {
+      // Remove the slot and shift remaining up, add empty slot at end
       const updated = [...prev];
-      updated[index] = createNewSlot();
+      updated.splice(index, 1);
+      updated.push(createNewSlot());
       return updated;
     });
   }, []);
@@ -262,8 +268,10 @@ export const EditGearModal = ({
 
   const handleClearBaseAffix = useCallback((slotIndex: number) => {
     setBaseAffixes((prev) => {
+      // Remove the slot and shift remaining up, add empty slot at end
       const updated = [...prev];
-      updated[slotIndex] = createNewSlot();
+      updated.splice(slotIndex, 1);
+      updated.push(createNewSlot());
       return updated;
     });
   }, []);
@@ -326,8 +334,10 @@ export const EditGearModal = ({
 
   const handleClearPrefix = useCallback((slotIndex: number) => {
     setPrefixes((prev) => {
+      // Remove the slot and shift remaining up, add empty slot at end
       const updated = [...prev];
-      updated[slotIndex] = createNewSlot();
+      updated.splice(slotIndex, 1);
+      updated.push(createNewSlot());
       return updated;
     });
   }, []);
@@ -355,8 +365,10 @@ export const EditGearModal = ({
 
   const handleClearSuffix = useCallback((slotIndex: number) => {
     setSuffixes((prev) => {
+      // Remove the slot and shift remaining up, add empty slot at end
       const updated = [...prev];
-      updated[slotIndex] = createNewSlot();
+      updated.splice(slotIndex, 1);
+      updated.push(createNewSlot());
       return updated;
     });
   }, []);
