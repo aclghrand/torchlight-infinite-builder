@@ -2685,3 +2685,16 @@ test("parse additional hit damage for skills cast by spell burst", () => {
     },
   ]);
 });
+
+test("parse spell ripple", () => {
+  const result = parseMod(
+    "Spell Skills on hit have a 50% chance to spawn a Pulse, dealing True Damage equal to 100% of Hit Damage. Interval: 0.03s",
+  );
+  expect(result).toEqual([
+    {
+      type: "SpellRipple",
+      chancePct: 50,
+      pctOfHitDmg: 100,
+    },
+  ]);
+});

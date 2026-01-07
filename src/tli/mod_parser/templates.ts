@@ -729,6 +729,12 @@ export const allParsers = [
   t("inflicts cold infiltration when dealing damage to frozen enemies").output("InflictsInfiltration", () => ({
     infiltrationType: "cold" as const,
   })),
+  t(
+    "spell skills on hit have a {chancePct:dec%} chance to spawn a pulse, dealing true damage equal to {pctOfHitDmg:dec%} of hit damage. interval: {interval:dec}s",
+  ).output("SpellRipple", (c) => ({
+    chancePct: c.chancePct,
+    pctOfHitDmg: c.pctOfHitDmg,
+  })),
   t("{value:+int%} all resistance when the enemy has max affliction").outputMany([
     spec("EnemyRes", (c) => ({
       value: c.value,

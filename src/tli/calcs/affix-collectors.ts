@@ -40,6 +40,9 @@ export const getTalentAffixes = (talentPage: TalentPage): Affix[] => {
     if (tree?.additionalCoreTalentPrismAffix) {
       affixes.push(tree.additionalCoreTalentPrismAffix);
     }
+    if (tree?.replacementPrismCoreTalent !== undefined) {
+      affixes.push(tree.replacementPrismCoreTalent);
+    }
     if (tree?.nodes) {
       for (const node of tree.nodes) {
         if (node.points > 0) {
