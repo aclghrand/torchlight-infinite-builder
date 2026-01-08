@@ -194,10 +194,7 @@ export const passiveSkillModFactories: Partial<
   }),
   "Precise: Swiftness": (l, vals) => ({
     buffMods: [
-      {
-        type: "MovementSpeedPct",
-        value: v(vals.movementSpeedPct, l),
-      },
+      { type: "MovementSpeedPct", value: v(vals.movementSpeedPct, l) },
     ],
   }),
 };
