@@ -1961,7 +1961,7 @@ const calcWeaponAttack = (
   if (skillHit === undefined) return;
 
   const avgHit = skillHit.avg + extraJoinedForceAvgHitDmg;
-  const aspd = calculateAspd(weapon, mods);
+  const aspd = calculateAspd(weapon, mods, skill);
   const critChance = calculateCritChance(mods, skill);
   const avgHitWithCrit =
     avgHit * critChance * critDmgMult + avgHit * (1 - critChance);

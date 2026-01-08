@@ -5,6 +5,7 @@ import {
   chainLightningParser,
   chargingWarcryParser,
   corruptionParser,
+  electrocuteParser,
   entangledPainParser,
   frostSpikeParser,
   iceBondParser,
@@ -24,8 +25,10 @@ import {
   preciseDeepPainParser,
   preciseElectricConversionParser,
   preciseErosionAmplificationParser,
+  preciseFearlessParser,
   preciseFrigidDomainParser,
   preciseSpellAmplificationParser,
+  preciseSwiftnessParser,
   spellAmplificationParser,
   summonFireMagusParser,
   summonThunderMagusParser,
@@ -151,6 +154,21 @@ export const SKILL_PARSERS: SkillParserEntry[] = [
     skillName: "Thunder Spike",
     categories: ["active"],
     parser: thunderSpikeParser,
+  },
+  {
+    skillName: "Electrocute",
+    categories: ["active"],
+    parser: electrocuteParser,
+  },
+  {
+    skillName: "Precise: Fearless",
+    categories: ["passive"],
+    parser: preciseFearlessParser,
+  },
+  {
+    skillName: "Precise: Swiftness",
+    categories: ["passive"],
+    parser: preciseSwiftnessParser,
   },
 ];
 

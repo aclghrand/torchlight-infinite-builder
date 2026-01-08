@@ -331,3 +331,59 @@ export const preciseSpellAmplificationParser: SupportLevelParser = (input) => {
 
   return { spellDmgPct };
 };
+
+export const preciseFearlessParser: SupportLevelParser = (input) => {
+  const { skillName, progressionTable } = input;
+
+  const descriptCol = findColumn(progressionTable, "descript", skillName);
+  const meleeCritRatingPct: Record<number, number> = {};
+  const meleeDmgPct: Record<number, number> = {};
+
+  for (const [levelStr, text] of Object.entries(descriptCol.rows)) {
+    const level = Number(levelStr);
+
+    // Match "+60% Critical Strike Rating for Melee Skills" or "80.5% Critical Strike Rating for Melee Skills"
+    const critMatch = template(
+      "{value:dec%} critical strike rating for melee",
+    ).match(text, skillName);
+    meleeCritRatingPct[level] = critMatch.value;
+
+    // Match "+10% additional Melee Skill Damage" or "30.5% additional Melee Skill Damage"
+    const dmgMatch = template(
+      "{value:dec%} additional melee skill damage",
+    ).match(text, skillName);
+    meleeDmgPct[level] = dmgMatch.value;
+  }
+
+  validateAllLevels(meleeCritRatingPct, skillName);
+  validateAllLevels(meleeDmgPct, skillName);
+
+  // Melee Attack Speed is constant at 8%
+  return {
+    meleeCritRatingPct,
+    meleeDmgPct,
+    meleeAspdPct: createConstantLevels(8),
+  };
+};
+
+export const preciseSwiftnessParser: SupportLevelParser = (input) => {
+  const { skillName, progressionTable } = input;
+
+  const descriptCol = findColumn(progressionTable, "descript", skillName);
+  const movementSpeedPct: Record<number, number> = {};
+
+  for (const [levelStr, text] of Object.entries(descriptCol.rows)) {
+    const level = Number(levelStr);
+
+    // Match "+11% Movement Speed" or "20.5% Movement Speed"
+    const match = template("{value:dec%} movement speed").match(
+      text,
+      skillName,
+    );
+    movementSpeedPct[level] = match.value;
+  }
+
+  validateAllLevels(movementSpeedPct, skillName);
+
+  return { movementSpeedPct };
+};

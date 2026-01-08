@@ -261,4 +261,16 @@ export const activeSkillModFactories: Partial<
       },
     ],
   }),
+  Electrocute: (l, vals) => ({
+    buffMods: [
+      {
+        type: "DmgPct",
+        value: v(vals.lightningDmgPct, l),
+        addn: true,
+        dmgModType: "lightning",
+        isEnemyDebuff: true,
+      },
+      { type: "InflictNumbed" },
+    ],
+  }),
 };

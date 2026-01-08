@@ -575,3 +575,24 @@ export const thunderSpikeParser: SupportLevelParser = (input) => {
 
   return { weaponAtkDmgPct, addedDmgEffPct };
 };
+
+export const electrocuteParser: SupportLevelParser = (input) => {
+  const { skillName, progressionTable } = input;
+
+  const descriptCol = findColumn(progressionTable, "descript", skillName);
+  const lightningDmgPct: Record<number, number> = {};
+
+  for (const [levelStr, text] of Object.entries(descriptCol.rows)) {
+    const level = Number(levelStr);
+
+    // Match "+20% additional Lightning Damage taken" or "40.5% additional Lightning Damage taken"
+    const dmgMatch = template(
+      "{value:dec%} additional lightning damage taken",
+    ).match(text, skillName);
+    lightningDmgPct[level] = dmgMatch.value;
+  }
+
+  validateAllLevels(lightningDmgPct, skillName);
+
+  return { lightningDmgPct };
+};

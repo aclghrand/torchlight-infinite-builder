@@ -7,7 +7,7 @@ import type {
   DmgModType,
 } from "../constants";
 import type { Configuration, DmgRange, Gear } from "../core";
-import type { DmgChunkType, Mod, ModT, ResType } from "../mod";
+import type { AspdModType, DmgChunkType, Mod, ModT, ResType } from "../mod";
 import { getGearAffixes } from "./affix-collectors";
 import {
   calcEffMult,
@@ -686,6 +686,9 @@ export const calculateCritChance = (
   if (skill.tags.includes("Projectile")) {
     modTypes.push("projectile");
   }
+  if (skill.tags.includes("Melee")) {
+    modTypes.push("melee");
+  }
 
   const addedFlatCritRating = sumByValue(
     filterMods(allMods, "FlatCritRating").filter((m) =>
@@ -746,17 +749,22 @@ export const calculateDoubleDmgMult = (mods: Mod[]): number => {
 
 // === Attack Speed ===
 
-export const calculateAspd = (weapon: Gear, allMods: Mod[]): number => {
+export const calculateAspd = (
+  weapon: Gear,
+  allMods: Mod[],
+  skill: BaseActiveSkill,
+): number => {
+  const modTypes: AspdModType[] = [];
+  if (skill.tags.includes("Melee")) {
+    modTypes.push("melee");
+  }
   const gearAspd = calculateGearAspd(weapon, allMods);
-  const aspdPctMods = filterMods(allMods, "AspdPct");
-  const inc = calculateInc(
-    aspdPctMods.filter((m) => !m.addn).map((v) => v.value),
+  const aspdMods = filterMods(allMods, "AspdPct").filter(
+    (m) => m.aspdModType === undefined || modTypes.includes(m.aspdModType),
   );
-  const addn = calculateAddn(
-    aspdPctMods.filter((m) => m.addn).map((v) => v.value),
-  );
+  const mult = calcEffMult(aspdMods);
 
-  return gearAspd * (1 + inc) * addn;
+  return gearAspd * mult;
 };
 
 export const calculateExtraOffenseMults = (

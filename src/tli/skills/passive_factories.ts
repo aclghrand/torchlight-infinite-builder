@@ -171,4 +171,33 @@ export const passiveSkillModFactories: Partial<
       },
     ],
   }),
+  "Precise: Fearless": (l, vals) => ({
+    buffMods: [
+      {
+        type: "CritRatingPct",
+        value: v(vals.meleeCritRatingPct, l),
+        modType: "melee",
+      },
+      {
+        type: "DmgPct",
+        value: v(vals.meleeDmgPct, l),
+        addn: true,
+        dmgModType: "melee",
+      },
+      {
+        type: "AspdPct",
+        value: v(vals.meleeAspdPct, l),
+        addn: false,
+        aspdModType: "melee",
+      },
+    ],
+  }),
+  "Precise: Swiftness": (l, vals) => ({
+    buffMods: [
+      {
+        type: "MovementSpeedPct",
+        value: v(vals.movementSpeedPct, l),
+      },
+    ],
+  }),
 };

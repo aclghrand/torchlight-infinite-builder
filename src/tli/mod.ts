@@ -54,6 +54,10 @@ export const SkillAreaModTypes = ["global", "curse"];
 
 export type SkillAreaModType = (typeof SkillAreaModTypes)[number];
 
+export const AspdModTypes = ["melee"] as const;
+
+export type AspdModType = (typeof AspdModTypes)[number];
+
 export const SkillLevelTypes = [
   "main",
   "support",
@@ -222,7 +226,7 @@ interface ModDefinitions {
     modType: CritDmgModType;
     isEnemyDebuff?: boolean;
   };
-  AspdPct: { value: number; addn: boolean };
+  AspdPct: { value: number; addn: boolean; aspdModType?: AspdModType };
   CspdPct: { value: number; addn: boolean };
   // minions
   MinionDmgPct: {
