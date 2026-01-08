@@ -848,6 +848,14 @@ export const ConfigurationTab: React.FC<ConfigurationTabProps> = ({
             className="h-4 w-4 rounded border-zinc-600 bg-zinc-800 accent-amber-500"
           />
 
+          <label className="text-right text-zinc-50">Has Moved Recently</label>
+          <input
+            type="checkbox"
+            checked={config.hasMovedRecently}
+            onChange={(e) => onUpdate({ hasMovedRecently: e.target.checked })}
+            className="h-4 w-4 rounded border-zinc-600 bg-zinc-800 accent-amber-500"
+          />
+
           <label className="text-right text-zinc-50">Cast Curse Recently</label>
           <input
             type="checkbox"

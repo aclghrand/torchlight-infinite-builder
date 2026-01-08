@@ -31,6 +31,7 @@ const MOVEMENT_SPEED_BONUS_PCT = "movement_speed_bonus_pct" as const;
 const HAS_HIT_ENEMY_WITH_ELEMENTAL_DMG_RECENTLY = "has_hit_enemy_with_elemental_dmg_recently" as const;
 const NUM_SPELL_SKILLS_USED_RECENTLY = "num_spell_skills_used_recently" as const;
 const HAS_USED_MOBILITY_SKILL_RECENTLY = "has_used_mobility_skill_recently" as const;
+const HAS_MOVED_RECENTLY = "has_moved_recently" as const;
 
 export const allParsers = [
   t("{dmgValue:+dec%} additional damage; {minionValue:+dec%} additional minion damage").outputMany([
