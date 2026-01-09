@@ -1,3 +1,4 @@
+import { I18nProvider } from "@lingui/react";
 import {
   createRootRoute,
   HeadContent,
@@ -5,11 +6,12 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { Analytics } from "@vercel/analytics/react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import "@fontsource-variable/geist";
 import "@fontsource-variable/geist-mono";
 import "../globals.css";
 import { DisclaimerModal } from "@/src/components/modals/DisclaimerModal";
+import { getStoredLocale, i18n, loadLocale } from "@/src/lib/i18n";
 
 function AnalyticsOnce(): React.ReactNode {
   const hasSentRef = useRef(false);
@@ -42,14 +44,21 @@ export const Route = createRootRoute({
 });
 
 function RootLayout(): React.ReactNode {
+  useEffect(() => {
+    const locale = getStoredLocale();
+    loadLocale(locale);
+  }, []);
+
   return (
     <html lang="en" className="dark" style={{ colorScheme: "dark" }}>
       <head>
         <HeadContent />
       </head>
       <body className="antialiased">
-        <Outlet />
-        <DisclaimerModal />
+        <I18nProvider i18n={i18n}>
+          <Outlet />
+          <DisclaimerModal />
+        </I18nProvider>
         <AnalyticsOnce />
         <Scripts />
       </body>

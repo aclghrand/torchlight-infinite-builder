@@ -47,3 +47,6 @@ src/routeTree.gen.ts
 .wrangler
 
 .garbage
+
+# lingui compiled files
+src/locales/**/*.ts
