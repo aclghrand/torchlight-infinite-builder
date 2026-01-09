@@ -200,6 +200,15 @@ export const CoreTalentMods: Record<CoreTalentName, Affix> = {
     affixLines: [
       {
         text: "+30% additional damage if you have recently moved more than 5 m",
+        mods: [
+          {
+            type: "DmgPct",
+            value: 30,
+            dmgModType: "global",
+            addn: true,
+            cond: "has_moved_recently",
+          },
+        ],
       },
     ],
   },
@@ -307,6 +316,7 @@ export const CoreTalentMods: Record<CoreTalentName, Affix> = {
     affixLines: [
       {
         text: "Changes the base effect of Numbed to: +11% additional Lightning Damage taken",
+        mods: [{ type: "Conductive", value: 11 }],
       },
     ],
   },
@@ -740,7 +750,10 @@ export const CoreTalentMods: Record<CoreTalentName, Affix> = {
   },
   "Automatic Upgrade": {
     affixLines: [
-      { text: "Gains a stack of Fortitude when using a Melee Skill" },
+      {
+        text: "Gains a stack of Fortitude when using a Melee Skill",
+        mods: [{ type: "GeneratesFortitude" }],
+      },
       { text: "+4% additional damage per 1 stack(s) of Fortitude" },
     ],
   },

@@ -1381,20 +1381,33 @@ const pushWhimsy = (mods: Mod[], config: Configuration): void => {
 const pushNumbed = (mods: Mod[], config: Configuration): void => {
   if (!config.enemyNumbed) return;
 
-  const numbedStacks = R.clamp(config.enemyNumbedStacks ?? 10, {
-    min: 0,
-    max: 10,
-  });
+  const numbedStacks = config.enemyNumbedStacks ?? 10;
   const numbedEffMult = calcEffMult(mods, "NumbedEffPct");
-  const baseNumbedValPerStack = 5;
-  const numbedVal = baseNumbedValPerStack * numbedEffMult * numbedStacks;
-  mods.push({
-    type: "DmgPct",
-    value: numbedVal,
-    dmgModType: "global",
-    addn: true,
-    src: "Numbed",
-  });
+
+  const conductive = findMod(mods, "Conductive");
+  if (conductive === undefined) {
+    const baseNumbedValPerStack = 5;
+    const numbedVal = baseNumbedValPerStack * numbedEffMult * numbedStacks;
+    mods.push({
+      type: "DmgPct",
+      value: numbedVal,
+      dmgModType: "global",
+      addn: true,
+      isEnemyDebuff: true,
+      src: "Numbed",
+    });
+  } else {
+    const baseNumbedValPerStack = 11;
+    const numbedVal = baseNumbedValPerStack * numbedEffMult * numbedStacks;
+    mods.push({
+      type: "DmgPct",
+      value: numbedVal,
+      dmgModType: "lightning",
+      addn: true,
+      isEnemyDebuff: true,
+      src: "Numbed:Conductive",
+    });
+  }
 };
 
 const pushSquidnova = (mods: Mod[], config: Configuration): void => {

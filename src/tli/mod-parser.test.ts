@@ -2238,3 +2238,10 @@ test("parse inflicts lightning infiltration on critical strike", () => {
     { type: "InflictsInfiltration", infiltrationType: "lightning" },
   ]);
 });
+
+test("parse conductive", () => {
+  const result = parseMod(
+    "Changes the base effect of Numbed to: +11% additional Lightning Damage taken",
+  );
+  expect(result).toEqual([{ type: "Conductive", value: 11 }]);
+});

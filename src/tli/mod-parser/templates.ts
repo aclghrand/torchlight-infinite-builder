@@ -1334,4 +1334,8 @@ export const allParsers = [
   t(
     "adds {value:dec%} of the damage of the off-hand weapon to the final damage of the main-hand weapon",
   ).output("JoinedForceAddOffhandToMainhandPct", (c) => ({ value: c.value })),
+  // Conductive - changes Numbed to provide additional Lightning Damage taken
+  t(
+    "changes the base effect of numbed to: {value:+dec%} additional lightning damage taken",
+  ).output("Conductive", (c) => ({ value: c.value })),
 ];

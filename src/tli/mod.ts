@@ -409,6 +409,7 @@ interface ModDefinitions {
   SpellRipple: { chancePct: number; pctOfHitDmg: number };
   JoinedForceDisableOffhand: object;
   JoinedForceAddOffhandToMainhandPct: { value: number };
+  Conductive: { value: number };
   // hero-specific mods
   Blasphemer: object;
   // bing2
