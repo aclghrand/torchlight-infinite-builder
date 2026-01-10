@@ -8,6 +8,38 @@ const heroTraitModFactories: Partial<Record<HeroTraitName, ModFactory>> = {
   "Wind Stalker": () => [
     { type: "MovementSpeedPct", value: 20 },
     { type: "WindStalker" },
+    { type: "GeneratesStalker" },
+  ],
+  "Have Fun": (i) => [
+    { type: "MainSkillSupportedBy", skillName: "Multistrike", level: 10 },
+    { type: "AspdPct", addn: true, value: [2, 6, 12, 18, 24][i] },
+  ],
+  "Cat's Vision": (i) => [
+    {
+      type: "MaxStalker",
+      value: 1,
+      per: { stackable: "num_max_multistrikes_recently", limit: 3 },
+    },
+    {
+      type: "DmgPct",
+      dmgModType: "global",
+      addn: true,
+      value: [-4, 2, 8, 14, 20][i],
+    },
+  ],
+  "Cat's Punches": (i) => [
+    { type: "GeneratesStalker" },
+    {
+      type: "InitialMultistrikeCount",
+      value: 1,
+      per: { stackable: "stalker", amt: 3 },
+    },
+    {
+      type: "DmgPct",
+      dmgModType: "global",
+      addn: true,
+      value: [-18, -12, -6, 0, 6][i],
+    },
   ],
   // Escapist Bing: Creative Genius (#2)
   "Creative Genius": () => [{ type: "MaxSpellBurst", value: 1 }],

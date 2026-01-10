@@ -897,6 +897,16 @@ export const ConfigurationTab: React.FC<ConfigurationTabProps> = ({
             onChange={(e) => onUpdate({ hasSpellAggression: e.target.checked })}
             className="h-4 w-4 rounded border-zinc-600 bg-zinc-800 accent-amber-500"
           />
+
+          <label className="text-right text-zinc-50">
+            Max Multistrikes Recently
+            <InfoTooltip text="Maximum number of multistrikes triggered recently. Defaults to 0." />
+          </label>
+          <NumberInput
+            value={config.numMaxMultistrikesRecently}
+            onChange={(v) => onUpdate({ numMaxMultistrikesRecently: v ?? 0 })}
+            min={0}
+          />
         </div>
       </div>
     </div>

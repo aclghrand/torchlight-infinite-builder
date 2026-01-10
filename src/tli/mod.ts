@@ -115,6 +115,7 @@ export type Stackable =
   | "has_hit_enemy_with_elemental_dmg_recently"
   | "num_spell_skills_used_recently"
   | "num_unique_weapon_types_equipped"
+  | "num_max_multistrikes_recently"
   // max channel stacks beyond initial skill channel stacks
   | "additional_max_channel_stack"
   | "channel_stack"
@@ -122,6 +123,8 @@ export type Stackable =
   | "mind_control_link"
   | "unused_mind_control_link"
   | "arcane_circle_stack"
+  // hero-specific
+  | "stalker"
   // pactspirit-specific
   | "repentance";
 
@@ -308,6 +311,10 @@ interface ModDefinitions {
   ReapCdrPct: { value: number; addn?: boolean };
   MultistrikeChancePct: { value: number };
   MultistrikeIncDmgPct: { value: number };
+  // initial multistrike count, e.g. if there's 3 of this, first strike will
+  // get bonuses as if it's the 4th hit instead of the 1st
+  // TODO: IMPLEMENT THIS
+  InitialMultistrikeCount: { value: number };
   ConvertDmgPct: { from: DmgChunkType; to: DmgChunkType; value: number };
   AddsDmgAsPct: { from: DmgChunkType; to: DmgChunkType; value: number };
   MaxWillpowerStacks: { value: number };
@@ -376,6 +383,7 @@ interface ModDefinitions {
   AttackAggressionEffPct: { value: number };
   GeneratesSpellAggression: object;
   SpellAggressionEffPct: { value: number };
+  // TODO: IMPLEMENT THIS
   MainSkillSupportedBy: { skillName: string; level: number };
   // infiltrations
   InflictsInfiltration: { infiltrationType: InfiltrationType };
@@ -426,6 +434,8 @@ interface ModDefinitions {
   RestoreWhimsyEssenceOnSpellBurst: { value: number };
   // erika1
   WindStalker: object;
+  GeneratesStalker: object;
+  MaxStalker: { value: number };
   // pactspirit stuff
   SquidnovaEffPct: { value: number };
   GeneratesSquidnova: object;

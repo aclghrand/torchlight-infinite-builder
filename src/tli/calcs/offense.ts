@@ -1626,19 +1626,27 @@ const pushMainStatDmgPct = (mods: Mod[], totalMainStats: number): void => {
   });
 };
 
-const pushErika1 = (mods: Mod[], config: Configuration): void => {
-  if (modExists(mods, "WindStalker")) {
-    const stacks = config.stalkerStacks ?? 3;
-    // This assumes that the player's multistrike chance is >= 100%
-    // Therefore, it's an overestimation if not. However, if your
-    // multistrike is below, 100%, why tf are you using e1
-    mods.push({
-      type: "DmgPct",
-      dmgModType: "global",
-      addn: true,
-      value: 13 * stacks,
-    });
+const pushErika1 = (
+  mods: Mod[],
+  prenormMods: Mod[],
+  config: Configuration,
+): void => {
+  if (!modExists(mods, "WindStalker")) {
+    return;
   }
+  const addedMaxStacks = sumByValue(filterMods(mods, "MaxStalker"));
+  const defaultStacks = 3 + addedMaxStacks;
+  const stacks = config.stalkerStacks ?? defaultStacks;
+  // This assumes that the player's multistrike chance is >= 100%
+  // Therefore, it's an overestimation if not. However, if your
+  // multistrike is below, 100%, why tf are you using e1
+  mods.push({
+    type: "DmgPct",
+    dmgModType: "global",
+    addn: true,
+    value: 13 * stacks,
+  });
+  normalizeStackables(prenormMods, "stalker", stacks);
 };
 
 interface DerivedOffenseCtx {
@@ -1691,9 +1699,10 @@ const resolveModsForOffenseSkill = (
   normalize("main_stat", totalMainStats);
   normalize("highest_stat", highestStat);
   normalize("stat", sumStats);
-  pushNormalizedStackable(mods, prenormMods, "str", stats.str);
-  pushNormalizedStackable(mods, prenormMods, "dex", stats.dex);
-  pushNormalizedStackable(mods, prenormMods, "int", stats.int);
+  normalize("str", stats.str);
+  normalize("dex", stats.dex);
+  normalize("int", stats.int);
+  normalize("num_max_multistrikes_recently", config.numMaxMultistrikesRecently);
   const { mainHand, offHand } = loadout.gearPage.equippedGear;
   normalize(
     "num_unique_weapon_types_equipped",
@@ -1809,7 +1818,7 @@ const resolveModsForOffenseSkill = (
   );
 
   // miust happen before multistrike
-  pushErika1(mods, config);
+  pushErika1(mods, prenormMods, config);
 
   // Must happen after any multistrike chance normalization
   // must happen after erika1
