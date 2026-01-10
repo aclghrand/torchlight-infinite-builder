@@ -11,6 +11,11 @@ const localeMessages: Record<Locale, typeof enMessages> = {
 
 export const defaultLocale: Locale = "en";
 
+export const SUPPORTED_LOCALES = [
+  { locale: "en" as const, name: "English" },
+  { locale: "zh" as const, name: "简体中文" },
+] as const;
+
 export const loadLocale = (locale: Locale): void => {
   i18n.load(locale, localeMessages[locale]);
   i18n.activate(locale);

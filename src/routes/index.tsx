@@ -4,7 +4,12 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ImportModal } from "../components/modals/ImportModal";
 import { decodeBuildCode } from "../lib/build-code";
-import { getStoredLocale } from "../lib/i18n";
+import {
+  getStoredLocale,
+  type Locale,
+  SUPPORTED_LOCALES,
+  setStoredLocale,
+} from "../lib/i18n";
 import {
   deleteSaveData,
   generateSaveId,
@@ -311,6 +316,19 @@ function SavesPage(): React.ReactNode {
           <span className="rounded-full bg-amber-500/20 px-2 py-0.5 text-xs font-medium text-amber-400 border border-amber-500/30">
             Pre-Alpha
           </span>
+          <div className="ml-auto flex items-center gap-2">
+            <select
+              value={getStoredLocale()}
+              onChange={(e) => setStoredLocale(e.target.value as Locale)}
+              className="px-3 py-1.5 bg-zinc-800 text-zinc-50 rounded-lg border border-zinc-700 text-sm focus:outline-none focus:border-amber-500"
+            >
+              {SUPPORTED_LOCALES.map((item) => (
+                <option key={item.locale} value={item.locale}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
         <div className="mb-6 p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg">
