@@ -10,7 +10,7 @@ import { DEFAULT_QUALITY } from "@/src/lib/constants";
 import type { Gear as SaveDataGear } from "@/src/lib/save-data";
 import { type Gear, getAffixText } from "@/src/tli/core";
 import { craft } from "@/src/tli/crafting/craft";
-import type { BaseGearAffix } from "@/src/tli/gear_data_types";
+import type { BaseGearAffix } from "@/src/tli/gear-data-types";
 import { Modal, ModalActions, ModalButton } from "../ui/Modal";
 import { AffixSlotComponent } from "./AffixSlotComponent";
 import { ExistingAffixDisplay } from "./ExistingAffixDisplay";
@@ -544,10 +544,7 @@ export const EditGearModal = ({
         slotIndex={slotIndex}
         affixType={affixType}
         affixes={affixes}
-        selection={{
-          affixIndex: slot.affixIndex,
-          percentage: slot.percentage,
-        }}
+        selection={{ affixIndex: slot.affixIndex, percentage: slot.percentage }}
         onAffixSelect={onSelect}
         onSliderChange={onSliderChange}
         onClear={onClear}

@@ -25,13 +25,13 @@ Skill data generation follows a **parser-factory-generation** pattern:
 
 | Purpose | File Path |
 |---------|-----------|
-| Active factories | `src/tli/skills/active_factories.ts` |
-| Passive factories | `src/tli/skills/passive_factories.ts` |
+| Active factories | `src/tli/skills/active-factories.ts` |
+| Passive factories | `src/tli/skills/passive-factories.ts` |
 | Factory types & helpers | `src/tli/skills/types.ts` |
-| Active parsers | `src/scripts/skills/active_parsers.ts` |
-| Passive parsers | `src/scripts/skills/passive_parsers.ts` |
+| Active parsers | `src/scripts/skills/active-parsers.ts` |
+| Passive parsers | `src/scripts/skills/passive-parsers.ts` |
 | Parser registry | `src/scripts/skills/index.ts` |
-| Generation script | `src/scripts/generate_skill_data.ts` |
+| Generation script | `src/scripts/generate-skill-data.ts` |
 | HTML data sources | `.garbage/tlidb/skill/{category}/{Skill_Name}.html` |
 
 **Categories:** `active`, `passive`, `activation_medium`
@@ -46,7 +46,7 @@ Skill data generation follows a **parser-factory-generation** pattern:
 
 ### 2. Define Factory (structure + key names)
 ```typescript
-// In active_factories.ts or passive_factories.ts
+// In active-factories.ts or passive-factories.ts
 import { v } from "./types";
 
 "Ice Bond": (l, vals) => ({
@@ -74,8 +74,8 @@ The `v(arr, level)` helper safely accesses `arr[level - 1]` with bounds checking
 
 ### 3. Create Parser (extract values for those keys)
 ```typescript
-// In active_parsers.ts or passive_parsers.ts
-import { findColumn, validateAllLevels } from "./progression_table";
+// In active-parsers.ts or passive-parsers.ts
+import { findColumn, validateAllLevels } from "./progression-table";
 import { template } from "./template-compiler";
 import type { SupportLevelParser } from "./types";
 import { createConstantLevels } from "./utils";
@@ -185,7 +185,7 @@ levelValues: {
 | Using HTML regex on clean text | Input is already `.text().trim()` - no HTML tags |
 | Parser key doesn't match factory key | Keys must match exactly: `vals.dmgPct` needs parser to return `{ dmgPct: ... }` |
 | Forgetting parser registration | Add to SKILL_PARSERS array in `index.ts` |
-| Missing factory | Must add factory in `*_factories.ts` for mods to be applied at runtime |
+| Missing factory | Must add factory in `*-factories.ts` for mods to be applied at runtime |
 | `findColumn` substring collision | "damage" matches "Effectiveness of added damage" first - use exact matching (see below) |
 | Missing levels 21-40 | Many skills only have data for levels 1-20; fill 21-40 with level 20 values |
 

@@ -3,8 +3,8 @@ import type {
   BaseSkill,
   PassiveSkillName,
 } from "@/src/data/skill/types";
-import { activeSkillModFactories } from "./active_factories";
-import { passiveSkillModFactories } from "./passive_factories";
+import { activeSkillModFactories } from "./active-factories";
+import { passiveSkillModFactories } from "./passive-factories";
 
 /**
  * Check if a skill has a factory implementation.

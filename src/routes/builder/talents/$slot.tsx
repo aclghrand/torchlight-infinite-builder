@@ -14,7 +14,7 @@ import {
   GOD_GODDESS_TREES,
   isGodGoddessTree,
   PROFESSION_TREES,
-} from "@/src/tli/talent_tree";
+} from "@/src/tli/talent-tree";
 import { CoreTalentSelector } from "../../../components/talents/CoreTalentSelector";
 import { InverseImageSection } from "../../../components/talents/InverseImageSection";
 import { PrismCoreTalentEffect } from "../../../components/talents/PrismCoreTalentEffect";
@@ -29,6 +29,7 @@ import {
 } from "../../../lib/types";
 import {
   useBuilderActions,
+  useConfiguration,
   useLoadout,
   useTalentTree,
 } from "../../../stores/builderStore";
@@ -97,6 +98,9 @@ function TalentsSlotPage(): React.ReactNode {
 
   // Get the current talent tree from loadout
   const currentTalentTree = useTalentTree(activeTreeSlot);
+
+  // Get configuration for total available points
+  const configuration = useConfiguration();
 
   // Derived values from loadout
   const placedPrism = loadout.talentPage.talentTrees.placedPrism;
@@ -283,12 +287,25 @@ function TalentsSlotPage(): React.ReactNode {
     ? currentTalentTree.nodes.reduce((sum, node) => sum + node.points, 0)
     : 0;
 
+  // Calculate total points used across all trees
+  const totalPointsUsed = (
+    ["tree1", "tree2", "tree3", "tree4"] as const
+  ).reduce((sum, treeSlot) => {
+    const tree = loadout.talentPage.talentTrees[treeSlot];
+    return sum + (tree ? tree.nodes.reduce((s, n) => s + n.points, 0) : 0);
+  }, 0);
+  const totalPointsAvailable = configuration.level + 13;
+  const isOverAllocated = totalPointsUsed > totalPointsAvailable;
+
   return (
     <>
       <div>
         <div className="mb-6">
           <h2 className="mb-4 text-xl font-semibold text-zinc-50">
-            Tree Slots
+            Tree Slots{" "}
+            <span className={isOverAllocated ? "text-red-500" : ""}>
+              ({totalPointsUsed}/{totalPointsAvailable})
+            </span>
           </h2>
           <div className="grid grid-cols-4 gap-2">
             {(["tree1", "tree2", "tree3", "tree4"] as const).map((treeSlot) => {

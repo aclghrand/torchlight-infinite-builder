@@ -1,4 +1,4 @@
-import type { EquipmentSlot, EquipmentType } from "@/src/tli/gear_data_types";
+import type { EquipmentSlot, EquipmentType } from "@/src/tli/gear-data-types";
 
 export interface LegendaryAffixChoice {
   choiceDescriptor: string;

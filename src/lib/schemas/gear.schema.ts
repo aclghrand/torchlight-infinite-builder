@@ -61,9 +61,6 @@ export const GearPageSchema = z
     equippedGear: EquippedGearSchema,
     inventory: z.array(GearSchema).catch([]),
   })
-  .catch({
-    equippedGear: EMPTY_EQUIPPED_GEAR,
-    inventory: [],
-  });
+  .catch({ equippedGear: EMPTY_EQUIPPED_GEAR, inventory: [] });
 
 export type GearPage = z.infer<typeof GearPageSchema>;

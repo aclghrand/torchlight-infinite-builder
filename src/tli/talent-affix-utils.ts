@@ -2,10 +2,10 @@ import {
   type TalentNodeData,
   TalentTrees,
   type TreeName,
-} from "@/src/data/talent_tree";
+} from "@/src/data/talent-tree";
 import type { PlacedPrism as SaveDataPlacedPrism } from "@/src/lib/save-data";
 import type { Affix, AffixLine } from "./core";
-import { parseMod } from "./mod_parser/index";
+import { parseMod } from "./mod-parser/index";
 
 export type TreeSlot = "tree1" | "tree2" | "tree3" | "tree4";
 
@@ -31,16 +31,10 @@ export const convertAffixTextToAffix = (
   const lines = affixText.split(/\n/);
   const affixLines: AffixLine[] = lines.map((lineText) => {
     const mods = parseMod(lineText);
-    return {
-      text: lineText,
-      mods: mods?.map((mod) => ({ ...mod, src })),
-    };
+    return { text: lineText, mods: mods?.map((mod) => ({ ...mod, src })) };
   });
 
-  return {
-    affixLines,
-    src,
-  };
+  return { affixLines, src };
 };
 
 // Scale numeric values in affix text by a multiplier
@@ -108,10 +102,7 @@ const parseRareGaugeAffix = (affix: string): ParsedGaugeAffix | undefined => {
     Micro: "micro",
   };
 
-  return {
-    targetType: typeMapping[match[1]],
-    bonusText: match[2].trim(),
-  };
+  return { targetType: typeMapping[match[1]], bonusText: match[2].trim() };
 };
 
 // Get positions affected by a prism (8 surrounding nodes in 3x3 area)

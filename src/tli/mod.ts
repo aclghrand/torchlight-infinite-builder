@@ -54,10 +54,19 @@ export const SkillAreaModTypes = ["global", "curse"];
 
 export type SkillAreaModType = (typeof SkillAreaModTypes)[number];
 
+export const AspdModTypes = ["melee"] as const;
+
+export type AspdModType = (typeof AspdModTypes)[number];
+
+export const DoubleDmgModTypes = ["attack"] as const;
+
+export type DoubleDmgModType = (typeof DoubleDmgModTypes)[number];
+
 export const SkillLevelTypes = [
   "main",
   "support",
   "active",
+  "attack",
   "persistent",
   "erosion",
   "spell",
@@ -76,6 +85,9 @@ export type Stackable =
   | "main_stat"
   | "stat"
   | "highest_stat"
+  | "str"
+  | "dex"
+  | "int"
   | "frostbite_rating"
   | "projectile"
   | "jump"
@@ -97,13 +109,12 @@ export type Stackable =
   | "desecration"
   | "torment"
   | "num_enemies_affected_by_warcry"
-  | "str"
-  | "dex"
-  | "int"
   | "level"
   | "max_spell_burst"
+  | "spell_burst_charge_speed_bonus_pct"
   | "has_hit_enemy_with_elemental_dmg_recently"
   | "num_spell_skills_used_recently"
+  | "num_unique_weapon_types_equipped"
   // max channel stacks beyond initial skill channel stacks
   | "additional_max_channel_stack"
   | "channel_stack"
@@ -137,6 +148,8 @@ export interface PerStackable {
 
 export type Condition =
   | "holding_shield"
+  | "is_dual_wielding"
+  | "has_one_handed_weapon"
   | "enemy_frostbitten"
   | "realm_of_mercury"
   | "has_focus_blessing"
@@ -171,11 +184,16 @@ export type Condition =
   | "enemy_has_lightning_infiltration"
   | "enemy_has_fire_infiltration"
   | "target_enemy_frozen_recently"
+  | "enemy_numbed"
+  | "has_used_mobility_skill_recently"
+  | "has_moved_recently"
+  | "has_cast_curse_recently"
   // pactspirits
   | "has_portrait_of_a_fallen_saintess_pactspirit"
   | "has_squidnova";
 
 export type ConditionThresholdTarget =
+  | "enemy_numbed_stacks"
   | "num_enemies_nearby"
   | "num_enemies_affected_by_warcry";
 
@@ -205,16 +223,20 @@ interface ModDefinitions {
     addn: boolean;
     isEnemyDebuff?: boolean;
   };
-  ElementalSpellDmgPct: {
-    value: number;
-    addn: boolean;
-  };
+  AddnMaxDmgPct: { value: number; addn: true; dmgType?: DmgChunkType };
+  AddnMinDmgPct: { value: number; addn: true; dmgType?: DmgChunkType };
+  ElementalSpellDmgPct: { value: number; addn: boolean };
   FlatDmgToAtks: { value: DmgRange; dmgType: DmgChunkType };
   FlatDmgToSpells: { value: DmgRange; dmgType: DmgChunkType };
   FlatCritRating: { value: number; modType: CritRatingModType };
   CritRatingPct: { value: number; modType: CritRatingModType };
-  CritDmgPct: { value: number; addn: boolean; modType: CritDmgModType };
-  AspdPct: { value: number; addn: boolean };
+  CritDmgPct: {
+    value: number;
+    addn: boolean;
+    modType: CritDmgModType;
+    isEnemyDebuff?: boolean;
+  };
+  AspdPct: { value: number; addn: boolean; aspdModType?: AspdModType };
   CspdPct: { value: number; addn: boolean };
   // minions
   MinionDmgPct: {
@@ -222,15 +244,17 @@ interface ModDefinitions {
     addn?: boolean;
     minionDmgModType?: MinionDmgModType;
   };
+  AddnMaxMinionDmgPct: { value: number };
   MinionAspdPct: { value: number; addn: boolean };
   MinionCspdPct: { value: number; addn: boolean };
   MinionCritRatingPct: { value: number; addn?: boolean };
   MinionCritDmgPct: { value: number; addn?: boolean };
   MinionResPenPct: { value: number; penType: ResPenType };
+  MinionArmorPenPct: { value: number };
   // end minions
   ProjectileSpeedPct: { value: number; addn?: boolean };
   ProjectileSizePct: { value: number };
-  DoubleDmgChancePct: { value: number };
+  DoubleDmgChancePct: { value: number; doubleDmgModType?: DoubleDmgModType };
   Stat: { value: number; statModType: StatModType };
   StatPct: { value: number; statModType: StatModType };
   HaveFervor: object;
@@ -242,6 +266,7 @@ interface ModDefinitions {
   SweepSlashDmg: { value: number; addn: boolean };
   AddnMainHandDmgPct: { value: number };
   GearAspdPct: { value: number };
+  GearCritRatingPct: { value: number };
   FlatGearDmg: {
     value: DmgRange;
     modType:
@@ -282,6 +307,7 @@ interface ModDefinitions {
   ReapDurationPct: { value: number };
   ReapCdrPct: { value: number; addn?: boolean };
   MultistrikeChancePct: { value: number };
+  MultistrikeIncDmgPct: { value: number };
   ConvertDmgPct: { from: DmgChunkType; to: DmgChunkType; value: number };
   AddsDmgAsPct: { from: DmgChunkType; to: DmgChunkType; value: number };
   MaxWillpowerStacks: { value: number };
@@ -294,7 +320,7 @@ interface ModDefinitions {
   MaxProjectile: { value: number; override?: boolean };
   MaxSpellBurst: { value: number };
   SpellBurstChargeSpeedPct: { value: number; addn?: boolean };
-  SpellBurstAdditionalDmgPct: { value: number };
+  SpellBurstAdditionalDmgPct: { value: number; addn: true };
   PlaySafe: { value: number };
   SkillAreaPct: {
     value: number;
@@ -305,6 +331,7 @@ interface ModDefinitions {
   SkillEffPct: { value: number; addn?: boolean };
   AuraEffPct: { value: number; addn?: boolean; unscalable?: boolean };
   FocusBuffEffPct: { value: number; addn?: boolean };
+  SpiritMagusOriginEffPct: { value: number; addn?: boolean };
   CurseEffPct: { value: number; addn?: boolean };
   CurseDurationPct: { value: number };
   SealedManaCompPct: { value: number; addn?: boolean };
@@ -319,6 +346,7 @@ interface ModDefinitions {
   MaxLifePct: { value: number; addn: boolean };
   MaxMana: { value: number };
   MaxManaPct: { value: number; addn: boolean };
+  ManaRegenPerSecPct: { value: number };
   MercuryBaptismDmgPct: { value: number };
   MaxMercuryPtsPct: { value: number };
   MaxFocusBlessing: { value: number };
@@ -330,11 +358,11 @@ interface ModDefinitions {
   GeneratesFocusBlessing: object;
   GeneratesAgilityBlessing: object;
   GeneratesTenacityBlessing: object;
+  GeneratesFortitude: object;
   MaxChannel: { value: number };
   GeneratesBarrier: object;
   GeneratesTorment: object;
   GeneratesBlur: { value: number };
-  GeneratesSpellAggression: object;
   MaxRepentance: { value: number };
   GeneratesRepentance: { value: number };
   SkillLevel: { value: number; skillLevelType: SkillLevelType };
@@ -343,8 +371,18 @@ interface ModDefinitions {
   GearBaseCritRating: { value: number };
   GearBaseAttackSpeed: { value: number };
   SkillCost: { value: number };
+  SkillCostPct: { value: number; addn?: boolean };
+  GeneratesAttackAggression: object;
+  AttackAggressionEffPct: { value: number };
+  GeneratesSpellAggression: object;
+  SpellAggressionEffPct: { value: number };
   // infiltrations
   InflictsInfiltration: { infiltrationType: InfiltrationType };
+  InfiltrationEffPct: {
+    value: number;
+    infiltrationType: InfiltrationType;
+    addn?: boolean;
+  };
   // ailments
   InflictWiltPct: { value: number; isEnemyDebuff?: boolean };
   BaseWiltFlatDmg: { value: number };
@@ -352,6 +390,14 @@ interface ModDefinitions {
   InflictParalysisPct: { value: number };
   FreezeDurationPct: { value: number };
   InflictFrail: object;
+  InflictNumbed: object;
+  NumbedEffPct: { value: number };
+  NumbedChancePct: { value: number };
+  InflictTrauma: object;
+  TraumaDmgPct: { value: number };
+  // non-ailment debuffs
+  InflictsMark: object;
+  MarkEffPct: { value: number };
   // skill-specific
   MindControlMaxLink: { value: number };
   InitialMaxChannel: { value: number };
@@ -366,6 +412,11 @@ interface ModDefinitions {
   // core talent specific
   ReapPurificationPct: { value: number };
   SpellRipple: { chancePct: number; pctOfHitDmg: number };
+  JoinedForceDisableOffhand: object;
+  JoinedForceAddOffhandToMainhandPct: { value: number };
+  Conductive: { value: number };
+  TradeoffDexGteStrAspdPct: { value: number };
+  TradeoffStrGteDexDmgPct: { value: number };
   // hero-specific mods
   Blasphemer: object;
   // bing2
@@ -375,6 +426,8 @@ interface ModDefinitions {
   // pactspirit stuff
   SquidnovaEffPct: { value: number };
   GeneratesSquidnova: object;
+  // legendary gear
+  DisableMainStatDmg: object;
 }
 
 // Generate the Mod union type from ModDefinitions

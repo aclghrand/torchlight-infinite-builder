@@ -15,9 +15,7 @@ export type HeroMemory = z.infer<typeof BaseHeroMemorySchema>;
 export const HeroMemorySchema = BaseHeroMemorySchema;
 
 // Hero trait
-const BaseHeroTraitSchema = z.object({
-  name: z.string(),
-});
+const BaseHeroTraitSchema = z.object({ name: z.string() });
 
 export type HeroTrait = z.infer<typeof BaseHeroTraitSchema>;
 export const HeroTraitSchema = BaseHeroTraitSchema;

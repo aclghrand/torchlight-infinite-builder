@@ -1,3 +1,5 @@
+import { useLingui } from "@lingui/react";
+import { Trans } from "@lingui/react/macro";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ImportModal } from "../components/modals/ImportModal";
@@ -14,9 +16,7 @@ import {
 } from "../lib/saves";
 import { createEmptySaveData } from "../lib/storage";
 
-export const Route = createFileRoute("/")({
-  component: SavesPage,
-});
+export const Route = createFileRoute("/")({ component: SavesPage });
 
 const formatDate = (timestamp: number): string => {
   return new Date(timestamp).toLocaleDateString("en-US", {
@@ -166,6 +166,7 @@ const SaveCard: React.FC<SaveCardProps> = ({
 
 function SavesPage(): React.ReactNode {
   const navigate = useNavigate();
+  const { i18n } = useLingui();
   const [savesIndex, setSavesIndex] = useState<SavesIndex>({
     currentSaveId: undefined,
     saves: [],
@@ -178,6 +179,9 @@ function SavesPage(): React.ReactNode {
     const index = loadSavesIndex();
     setSavesIndex(index);
   }, []);
+
+  // Force re-render when locale changes
+  void i18n.locale;
 
   const handleOpenSave = (saveId: string): void => {
     navigate({ to: "/builder", search: { id: saveId } });
@@ -319,7 +323,7 @@ function SavesPage(): React.ReactNode {
 
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-semibold text-zinc-50">
-            Your Builds ({savesIndex.saves.length})
+            <Trans>My Builds</Trans> ({savesIndex.saves.length})
           </h2>
           <div className="flex items-center gap-3">
             <button

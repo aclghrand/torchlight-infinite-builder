@@ -69,15 +69,9 @@ export const EMPTY_SAVE_DATA: SaveData = {
       placedPrism: undefined,
       placedInverseImage: undefined,
     },
-    inventory: {
-      prismList: [],
-      inverseImageList: [],
-    },
+    inventory: { prismList: [], inverseImageList: [] },
   },
-  skillPage: {
-    activeSkills: {},
-    passiveSkills: {},
-  },
+  skillPage: { activeSkills: {}, passiveSkills: {} },
   heroPage: {
     selectedHero: undefined,
     traits: {
@@ -86,11 +80,7 @@ export const EMPTY_SAVE_DATA: SaveData = {
       level60: undefined,
       level75: undefined,
     },
-    memorySlots: {
-      slot45: undefined,
-      slot60: undefined,
-      slot75: undefined,
-    },
+    memorySlots: { slot45: undefined, slot60: undefined, slot75: undefined },
     memoryInventory: [],
   },
   pactspiritPage: {
@@ -98,14 +88,9 @@ export const EMPTY_SAVE_DATA: SaveData = {
     slot2: emptyPactspiritSlot,
     slot3: emptyPactspiritSlot,
   },
-  divinityPage: {
-    placedSlates: [],
-    inventory: [],
-  },
+  divinityPage: { placedSlates: [], inventory: [] },
   configurationPage: DEFAULT_CONFIGURATION,
-  calculationsPage: {
-    selectedSkillName: undefined,
-  },
+  calculationsPage: { selectedSkillName: undefined },
 };
 
 // Parse and validate SaveData, returning EMPTY_SAVE_DATA on failure

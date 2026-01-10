@@ -184,10 +184,7 @@ export const SupportSkillSelector: React.FC<SupportSkillSelectorProps> = ({
     );
 
     const opts: SearchableSelectOption<string>[] = filteredSkills.map(
-      (skill) => ({
-        value: skill.name,
-        label: skill.name,
-      }),
+      (skill) => ({ value: skill.name, label: skill.name }),
     );
 
     if (mainSkill === undefined) {

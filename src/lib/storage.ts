@@ -27,11 +27,7 @@ export const createEmptyHeroPage = (): HeroPage => ({
     level75: undefined,
     level75b: undefined,
   },
-  memorySlots: {
-    slot45: undefined,
-    slot60: undefined,
-    slot75: undefined,
-  },
+  memorySlots: { slot45: undefined, slot60: undefined, slot75: undefined },
   memoryInventory: [],
 });
 
@@ -150,16 +146,10 @@ export const saveDebugPanelTabToStorage = (tab: string): void => {
 };
 
 export const createEmptySaveData = (): SaveData => ({
-  equipmentPage: {
-    equippedGear: {},
-    inventory: [],
-  },
+  equipmentPage: { equippedGear: {}, inventory: [] },
   talentPage: {
     talentTrees: {},
-    inventory: {
-      prismList: [],
-      inverseImageList: [],
-    },
+    inventory: { prismList: [], inverseImageList: [] },
   },
   skillPage: createEmptySkillPage(),
   heroPage: createEmptyHeroPage(),

@@ -326,173 +326,49 @@
       "tree1": {
         "name": "Goddess_of_Knowledge",
         "allocatedNodes": [
-          {
-            "x": 0,
-            "y": 2,
-            "points": 3
-          },
-          {
-            "x": 1,
-            "y": 3,
-            "points": 3
-          },
-          {
-            "x": 2,
-            "y": 3,
-            "points": 3
-          },
-          {
-            "x": 3,
-            "y": 3,
-            "points": 3
-          },
-          {
-            "x": 4,
-            "y": 3,
-            "points": 3
-          },
-          {
-            "x": 5,
-            "y": 3,
-            "points": 3
-          },
-          {
-            "x": 6,
-            "y": 3,
-            "points": 1
-          },
-          {
-            "x": 5,
-            "y": 0,
-            "points": 3
-          },
-          {
-            "x": 6,
-            "y": 0,
-            "points": 3
-          }
+          { "x": 0, "y": 2, "points": 3 },
+          { "x": 1, "y": 3, "points": 3 },
+          { "x": 2, "y": 3, "points": 3 },
+          { "x": 3, "y": 3, "points": 3 },
+          { "x": 4, "y": 3, "points": 3 },
+          { "x": 5, "y": 3, "points": 3 },
+          { "x": 6, "y": 3, "points": 1 },
+          { "x": 5, "y": 0, "points": 3 },
+          { "x": 6, "y": 0, "points": 3 }
         ],
         "selectedCoreTalents": ["Peculiar Vibe", "Winter"]
       },
       "tree2": {
         "name": "Arcanist",
         "allocatedNodes": [
-          {
-            "x": 0,
-            "y": 4,
-            "points": 3
-          },
-          {
-            "x": 1,
-            "y": 4,
-            "points": 3
-          },
-          {
-            "x": 1,
-            "y": 3,
-            "points": 3
-          },
-          {
-            "x": 2,
-            "y": 3,
-            "points": 3
-          },
-          {
-            "x": 3,
-            "y": 1,
-            "points": 3
-          },
-          {
-            "x": 4,
-            "y": 0,
-            "points": 1
-          },
-          {
-            "x": 4,
-            "y": 1,
-            "points": 1
-          },
-          {
-            "x": 4,
-            "y": 2,
-            "points": 3
-          },
-          {
-            "x": 5,
-            "y": 0,
-            "points": 3
-          },
-          {
-            "x": 6,
-            "y": 0,
-            "points": 1
-          },
-          {
-            "x": 5,
-            "y": 4,
-            "points": 3
-          },
-          {
-            "x": 6,
-            "y": 4,
-            "points": 1
-          }
+          { "x": 0, "y": 4, "points": 3 },
+          { "x": 1, "y": 4, "points": 3 },
+          { "x": 1, "y": 3, "points": 3 },
+          { "x": 2, "y": 3, "points": 3 },
+          { "x": 3, "y": 1, "points": 3 },
+          { "x": 4, "y": 0, "points": 1 },
+          { "x": 4, "y": 1, "points": 1 },
+          { "x": 4, "y": 2, "points": 3 },
+          { "x": 5, "y": 0, "points": 3 },
+          { "x": 6, "y": 0, "points": 1 },
+          { "x": 5, "y": 4, "points": 3 },
+          { "x": 6, "y": 4, "points": 1 }
         ],
         "selectedCoreTalents": ["Mana"]
       },
       "tree3": {
         "name": "Prophet",
         "allocatedNodes": [
-          {
-            "x": 0,
-            "y": 2,
-            "points": 3
-          },
-          {
-            "x": 1,
-            "y": 1,
-            "points": 3
-          },
-          {
-            "x": 2,
-            "y": 1,
-            "points": 3
-          },
-          {
-            "x": 2,
-            "y": 2,
-            "points": 3
-          },
-          {
-            "x": 1,
-            "y": 3,
-            "points": 3
-          },
-          {
-            "x": 2,
-            "y": 3,
-            "points": 2
-          },
-          {
-            "x": 4,
-            "y": 2,
-            "points": 3
-          },
-          {
-            "x": 5,
-            "y": 2,
-            "points": 3
-          },
-          {
-            "x": 5,
-            "y": 3,
-            "points": 3
-          },
-          {
-            "x": 6,
-            "y": 3,
-            "points": 1
-          }
+          { "x": 0, "y": 2, "points": 3 },
+          { "x": 1, "y": 1, "points": 3 },
+          { "x": 2, "y": 1, "points": 3 },
+          { "x": 2, "y": 2, "points": 3 },
+          { "x": 1, "y": 3, "points": 3 },
+          { "x": 2, "y": 3, "points": 2 },
+          { "x": 4, "y": 2, "points": 3 },
+          { "x": 5, "y": 2, "points": 3 },
+          { "x": 5, "y": 3, "points": 3 },
+          { "x": 6, "y": 3, "points": 1 }
         ],
         "selectedCoreTalents": ["Extreme Coldness"]
       },
@@ -504,39 +380,12 @@
           "legendaryTalentEffect": 28
         },
         "treeSlot": "tree2",
-        "position": {
-          "x": 5,
-          "y": 3
-        },
+        "position": { "x": 5, "y": 3 },
         "reflectedAllocatedNodes": [
-          {
-            "x": 0,
-            "y": 0,
-            "sourceX": 6,
-            "sourceY": 4,
-            "points": 1
-          },
-          {
-            "x": 0,
-            "y": 1,
-            "sourceX": 6,
-            "sourceY": 3,
-            "points": 1
-          },
-          {
-            "x": 1,
-            "y": 0,
-            "sourceX": 5,
-            "sourceY": 4,
-            "points": 1
-          },
-          {
-            "x": 2,
-            "y": 2,
-            "sourceX": 4,
-            "sourceY": 2,
-            "points": 3
-          }
+          { "x": 0, "y": 0, "sourceX": 6, "sourceY": 4, "points": 1 },
+          { "x": 0, "y": 1, "sourceX": 6, "sourceY": 3, "points": 1 },
+          { "x": 1, "y": 0, "sourceX": 5, "sourceY": 4, "points": 1 },
+          { "x": 2, "y": 2, "sourceX": 4, "sourceY": 2, "points": 3 }
         ]
       },
       "placedPrism": {
@@ -550,72 +399,26 @@
           ]
         },
         "treeSlot": "tree3",
-        "position": {
-          "x": 1,
-          "y": 2
-        }
+        "position": { "x": 1, "y": 2 }
       },
       "tree4": {
         "name": "Sentinel",
         "allocatedNodes": [
-          {
-            "x": 0,
-            "y": 4,
-            "points": 3
-          },
-          {
-            "x": 1,
-            "y": 3,
-            "points": 3
-          },
-          {
-            "x": 1,
-            "y": 1,
-            "points": 3
-          },
-          {
-            "x": 2,
-            "y": 1,
-            "points": 3
-          },
-          {
-            "x": 2,
-            "y": 3,
-            "points": 3
-          },
-          {
-            "x": 4,
-            "y": 0,
-            "points": 3
-          },
-          {
-            "x": 5,
-            "y": 0,
-            "points": 1
-          },
-          {
-            "x": 5,
-            "y": 3,
-            "points": 3
-          },
-          {
-            "x": 6,
-            "y": 3,
-            "points": 1
-          },
-          {
-            "x": 1,
-            "y": 4,
-            "points": 1
-          }
+          { "x": 0, "y": 4, "points": 3 },
+          { "x": 1, "y": 3, "points": 3 },
+          { "x": 1, "y": 1, "points": 3 },
+          { "x": 2, "y": 1, "points": 3 },
+          { "x": 2, "y": 3, "points": 3 },
+          { "x": 4, "y": 0, "points": 3 },
+          { "x": 5, "y": 0, "points": 1 },
+          { "x": 5, "y": 3, "points": 3 },
+          { "x": 6, "y": 3, "points": 1 },
+          { "x": 1, "y": 4, "points": 1 }
         ],
         "selectedCoreTalents": ["Defensiveness"]
       }
     },
-    "inventory": {
-      "prismList": [],
-      "inverseImageList": []
-    }
+    "inventory": { "prismList": [], "inverseImageList": [] }
   },
   "skillPage": {
     "activeSkills": {
@@ -627,18 +430,9 @@
             "skillType": "activation_medium",
             "name": "Activation Medium: Still Attack"
           },
-          "2": {
-            "skillType": "support",
-            "name": "Haunt"
-          },
-          "3": {
-            "skillType": "support",
-            "name": "Steamroll"
-          },
-          "4": {
-            "skillType": "support",
-            "name": "Quick Decision"
-          },
+          "2": { "skillType": "support", "name": "Haunt" },
+          "3": { "skillType": "support", "name": "Steamroll" },
+          "4": { "skillType": "support", "name": "Quick Decision" },
           "5": {
             "skillType": "support",
             "name": "Critical Strike Damage Increase"
@@ -654,18 +448,9 @@
             "skillType": "activation_medium",
             "name": "Activation Medium: Elite"
           },
-          "2": {
-            "skillType": "support",
-            "name": "Well-Fought Battle"
-          },
-          "3": {
-            "skillType": "support",
-            "name": "Mass Effect"
-          },
-          "4": {
-            "skillType": "support",
-            "name": "Cooldown Reduction"
-          }
+          "2": { "skillType": "support", "name": "Well-Fought Battle" },
+          "3": { "skillType": "support", "name": "Mass Effect" },
+          "4": { "skillType": "support", "name": "Cooldown Reduction" }
         },
         "level": 20
       },
@@ -677,14 +462,8 @@
             "skillType": "activation_medium",
             "name": "Activation Medium: Sentry"
           },
-          "2": {
-            "skillType": "support",
-            "name": "Mass Effect"
-          },
-          "3": {
-            "skillType": "support",
-            "name": "Well-Fought Battle"
-          }
+          "2": { "skillType": "support", "name": "Mass Effect" },
+          "3": { "skillType": "support", "name": "Well-Fought Battle" }
         },
         "level": 20
       },
@@ -696,22 +475,10 @@
             "skillType": "activation_medium",
             "name": "Activation Medium: Elite"
           },
-          "2": {
-            "skillType": "support",
-            "name": "Concentration Warcry"
-          },
-          "3": {
-            "skillType": "support",
-            "name": "Extended Duration"
-          },
-          "4": {
-            "skillType": "support",
-            "name": "Cooldown Reduction"
-          },
-          "5": {
-            "skillType": "support",
-            "name": "Increased Area"
-          }
+          "2": { "skillType": "support", "name": "Concentration Warcry" },
+          "3": { "skillType": "support", "name": "Extended Duration" },
+          "4": { "skillType": "support", "name": "Cooldown Reduction" },
+          "5": { "skillType": "support", "name": "Increased Area" }
         },
         "level": 20
       }
@@ -721,18 +488,9 @@
         "skillName": "Precise: Cruelty",
         "enabled": true,
         "supportSkills": {
-          "1": {
-            "skillType": "support",
-            "name": "Seal Conversion"
-          },
-          "2": {
-            "skillType": "support",
-            "name": "Restrain"
-          },
-          "3": {
-            "skillType": "support",
-            "name": "Precise: Malleable"
-          }
+          "1": { "skillType": "support", "name": "Seal Conversion" },
+          "2": { "skillType": "support", "name": "Restrain" },
+          "3": { "skillType": "support", "name": "Precise: Malleable" }
         },
         "level": 20
       }
@@ -741,18 +499,10 @@
   "heroPage": {
     "selectedHero": "Lightbringer Rosa: Unsullied Blade (#2)",
     "traits": {
-      "level1": {
-        "name": "Unsullied Blade"
-      },
-      "level45": {
-        "name": "Baptism of Purity"
-      },
-      "level60": {
-        "name": "Cleanse Filth"
-      },
-      "level75": {
-        "name": "Utmost Devotion"
-      }
+      "level1": { "name": "Unsullied Blade" },
+      "level45": { "name": "Baptism of Purity" },
+      "level60": { "name": "Cleanse Filth" },
+      "level75": { "name": "Utmost Devotion" }
     },
     "memorySlots": {
       "slot45": {
@@ -948,66 +698,39 @@
     "placedSlates": [
       {
         "slateId": "a010ffaa-8310-4fed-ba07-b87f046a9bb2",
-        "position": {
-          "row": 2,
-          "col": 2
-        }
+        "position": { "row": 2, "col": 2 }
       },
       {
         "slateId": "306b516d-d804-48a2-8b90-95548a56bfb5",
-        "position": {
-          "row": 1,
-          "col": 1
-        }
+        "position": { "row": 1, "col": 1 }
       },
       {
         "slateId": "79ad33b0-187f-450b-a643-cf7e6b527d78",
-        "position": {
-          "row": 1,
-          "col": 4
-        }
+        "position": { "row": 1, "col": 4 }
       },
       {
         "slateId": "1f01042e-5f92-497a-9c4c-2dc31866d453",
-        "position": {
-          "row": 0,
-          "col": 3
-        }
+        "position": { "row": 0, "col": 3 }
       },
       {
         "slateId": "90cf2cfc-b7a0-421a-a890-4fda5372b53f",
-        "position": {
-          "row": 0,
-          "col": 2
-        }
+        "position": { "row": 0, "col": 2 }
       },
       {
         "slateId": "5c4cffd6-c0f8-463d-bf59-39bbf5e3deb2",
-        "position": {
-          "row": 1,
-          "col": 3
-        }
+        "position": { "row": 1, "col": 3 }
       },
       {
         "slateId": "9f062878-e0e6-490b-8203-4de75215a620",
-        "position": {
-          "row": 2,
-          "col": 0
-        }
+        "position": { "row": 2, "col": 0 }
       },
       {
         "slateId": "4e2abec3-a830-421c-87a0-7bf43766ed81",
-        "position": {
-          "row": 3,
-          "col": 1
-        }
+        "position": { "row": 3, "col": 1 }
       },
       {
         "slateId": "089a8e43-f7c2-452a-bc92-8c68c931a904",
-        "position": {
-          "row": 3,
-          "col": 2
-        }
+        "position": { "row": 3, "col": 2 }
       }
     ],
     "inventory": [
@@ -1180,7 +903,5 @@
       "+31.2% additional damage"
     ]
   },
-  "calculationsPage": {
-    "selectedSkillName": "Frost Spike"
-  }
+  "calculationsPage": { "selectedSkillName": "Frost Spike" }
 }

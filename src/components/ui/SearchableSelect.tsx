@@ -118,10 +118,7 @@ export const SearchableSelect = <T extends string | number>({
 
     if (groups) {
       return groups
-        .map((g) => ({
-          ...g,
-          options: g.options.filter(filterFn),
-        }))
+        .map((g) => ({ ...g, options: g.options.filter(filterFn) }))
         .filter((g) => g.options.length > 0);
     }
     return options.filter(filterFn);

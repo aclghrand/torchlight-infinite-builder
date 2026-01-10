@@ -5,6 +5,7 @@ import { loadSave } from "../../storage/load-save";
 import { calculateOffense } from "../offense";
 import bing2Golden from "./bing-2-golden-1.json";
 import bing2Golden2 from "./bing-2-golden-2.json";
+import bing2Golden3 from "./bing-2-golden-3.json";
 import mcTheaGolden from "./mc-thea-3-golden-1.json";
 import rosaGolden from "./rosa-2-golden.json";
 
@@ -23,7 +24,8 @@ describe("offense golden tests", () => {
 
     const avgDps = frostSpike.attackDpsSummary?.avgDps;
     // With projectile damage from frostbite: trunc(100/35) = 2 projectiles × 8% = 16% additional damage
-    const expectedDps = 16.04e12; // ~16.04 trillion (with 40% enemy res default)
+    // Build has 32% multistrike chance from Pactspirit rings, which adds 6.4% attack speed
+    const expectedDps = 16.39e12; // ~16.39 trillion (with 40% enemy res default)
     const tolerance = 0.01; // 1% tolerance
 
     expect(avgDps).toBeGreaterThan(expectedDps * (1 - tolerance));
@@ -151,32 +153,32 @@ describe("offense golden tests", () => {
 
     const tolerance = 0.01; // 1% tolerance
 
-    // Spell DPS: ~1.16 billion
+    // Spell DPS: ~1.17 billion (Spirit Magus origin effect now correctly scaled)
     const spellDps = chainLightning.spellDpsSummary?.avgDps;
-    const expectedSpellDps = 1.16e9;
+    const expectedSpellDps = 1.17e9;
     expect(spellDps).toBeGreaterThan(expectedSpellDps * (1 - tolerance));
     expect(spellDps).toBeLessThan(expectedSpellDps * (1 + tolerance));
 
-    // Spell Burst DPS: ~6.13 billion (dedupe: Beacon only counts once even if on gear + talents)
+    // Spell Burst DPS: ~6.20 billion (dedupe: Beacon only counts once even if on gear + talents)
     const spellBurstDps = chainLightning.spellBurstDpsSummary?.avgDps;
-    const expectedSpellBurstDps = 6.13e9;
+    const expectedSpellBurstDps = 6.2e9;
     expect(spellBurstDps).toBeGreaterThan(
       expectedSpellBurstDps * (1 - tolerance),
     );
     expect(spellBurstDps).toBeLessThan(expectedSpellBurstDps * (1 + tolerance));
 
-    // Ingenuity Overload DPS: ~1.02 billion (dedupe: Beacon only counts once)
+    // Ingenuity Overload DPS: ~1.03 billion (dedupe: Beacon only counts once)
     const ingenuityDps =
       chainLightning.spellBurstDpsSummary?.ingenuityOverload?.avgDps;
-    const expectedIngenuityDps = 1.02e9;
+    const expectedIngenuityDps = 1.03e9;
     expect(ingenuityDps).toBeGreaterThan(
       expectedIngenuityDps * (1 - tolerance),
     );
     expect(ingenuityDps).toBeLessThan(expectedIngenuityDps * (1 + tolerance));
 
-    // Total DPS: ~8.31 billion (dedupe: Beacon only counts once)
+    // Total DPS: ~8.40 billion (dedupe: Beacon only counts once)
     const totalDps = chainLightning.totalDps;
-    const expectedTotalDps = 8.31e9;
+    const expectedTotalDps = 8.4e9;
     expect(totalDps).toBeGreaterThan(expectedTotalDps * (1 - tolerance));
     expect(totalDps).toBeLessThan(expectedTotalDps * (1 + tolerance));
 
@@ -186,5 +188,56 @@ describe("offense golden tests", () => {
     expect(lightningRes).toEqual({ max: 60, potential: 61, actual: 60 });
     expect(fireRes).toEqual({ max: 60, potential: 60, actual: 60 });
     expect(erosionRes).toEqual({ max: 60, potential: 63, actual: 60 });
+  });
+
+  it("bing-2-golden-3: Chain Lightning should calculate expected spell/burst DPS values", () => {
+    const saveData = bing2Golden3 as unknown as SaveData;
+    const loadout = loadSave(saveData);
+    const config = saveData.configurationPage as Configuration;
+
+    const results = calculateOffense({ loadout, configuration: config });
+
+    const chainLightning = results.skills["Chain Lightning"];
+    if (chainLightning === undefined) {
+      throw new Error("Chain Lightning skill not found in results");
+    }
+
+    const tolerance = 0.01; // 1% tolerance
+
+    // Spell DPS: ~34.38 billion
+    const spellDps = chainLightning.spellDpsSummary?.avgDps;
+    const expectedSpellDps = 34.38e9;
+    expect(spellDps).toBeGreaterThan(expectedSpellDps * (1 - tolerance));
+    expect(spellDps).toBeLessThan(expectedSpellDps * (1 + tolerance));
+
+    // Spell Burst DPS: ~1.04 trillion
+    const spellBurstDps = chainLightning.spellBurstDpsSummary?.avgDps;
+    const expectedSpellBurstDps = 1.04e12;
+    expect(spellBurstDps).toBeGreaterThan(
+      expectedSpellBurstDps * (1 - tolerance),
+    );
+    expect(spellBurstDps).toBeLessThan(expectedSpellBurstDps * (1 + tolerance));
+
+    // Ingenuity Overload DPS: ~189.43 billion
+    const ingenuityDps =
+      chainLightning.spellBurstDpsSummary?.ingenuityOverload?.avgDps;
+    const expectedIngenuityDps = 189.43e9;
+    expect(ingenuityDps).toBeGreaterThan(
+      expectedIngenuityDps * (1 - tolerance),
+    );
+    expect(ingenuityDps).toBeLessThan(expectedIngenuityDps * (1 + tolerance));
+
+    // Total DPS: ~1.27 trillion
+    const totalDps = chainLightning.totalDps;
+    const expectedTotalDps = 1.27e12;
+    expect(totalDps).toBeGreaterThan(expectedTotalDps * (1 - tolerance));
+    expect(totalDps).toBeLessThan(expectedTotalDps * (1 + tolerance));
+
+    // Resistance checks (erosion-focused build with 90% max erosion res)
+    const { coldRes, lightningRes, fireRes, erosionRes } = results.defenses;
+    expect(coldRes).toEqual({ max: 60, potential: 9, actual: 9 });
+    expect(lightningRes).toEqual({ max: 60, potential: 9, actual: 9 });
+    expect(fireRes).toEqual({ max: 60, potential: 9, actual: 9 });
+    expect(erosionRes).toEqual({ max: 90, potential: 275, actual: 90 });
   });
 });

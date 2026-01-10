@@ -25,6 +25,7 @@ export const CRIT_RATING_MOD_TYPES = [
   "attack",
   "spell",
   "projectile",
+  "melee",
 ] as const;
 
 export type CritRatingModType = (typeof CRIT_RATING_MOD_TYPES)[number];

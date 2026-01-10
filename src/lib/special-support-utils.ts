@@ -30,10 +30,7 @@ export const parseTierRange = (text: string): TierRange | undefined => {
   // Match patterns like (16-18) or (16–18) with optional decimals
   const match = text.match(TIER_RANGE_PATTERN);
   if (match === null) return undefined;
-  return {
-    min: parseFloat(match[1]),
-    max: parseFloat(match[2]),
-  };
+  return { min: parseFloat(match[1]), max: parseFloat(match[2]) };
 };
 
 /**

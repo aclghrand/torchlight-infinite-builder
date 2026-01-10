@@ -21,7 +21,7 @@ Support mod parsers convert raw support skill affix strings (e.g., `"+15% additi
 | Support mod templates | `src/tli/skills/support-mod-templates.ts` |
 | Mod type definitions | `src/tli/mod.ts` |
 | SupportMod type | `src/tli/core.ts` |
-| Template/spec helpers | `src/tli/mod_parser/` |
+| Template/spec helpers | `src/tli/mod-parser/` |
 | Calculation handlers | `src/tli/calcs/offense.ts` |
 
 ## Implementation Checklist
@@ -289,7 +289,7 @@ Applied to skill calculations
 
 | Aspect | Main Mod Parser | Support Mod Parser |
 |--------|-----------------|-------------------|
-| File | `src/tli/mod_parser/templates.ts` | `src/tli/skills/support-mod-templates.ts` |
+| File | `src/tli/mod-parser/templates.ts` | `src/tli/skills/support-mod-templates.ts` |
 | Source | Gear affixes, talents, etc. | Support skill affixes only |
 | Output | `Mod[]` | `SupportMod[]` (wrapped in `{ mod }`) |
 | Usage | `parseMod()` | `parseSupportAffixes()` |

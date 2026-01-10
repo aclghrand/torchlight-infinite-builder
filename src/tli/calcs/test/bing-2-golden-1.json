@@ -282,229 +282,65 @@
       "tree1": {
         "name": "Goddess_of_Knowledge",
         "allocatedNodes": [
-          {
-            "x": 0,
-            "y": 2,
-            "points": 3
-          },
-          {
-            "x": 1,
-            "y": 1,
-            "points": 3
-          },
-          {
-            "x": 2,
-            "y": 1,
-            "points": 3
-          },
-          {
-            "x": 2,
-            "y": 0,
-            "points": 3
-          },
-          {
-            "x": 3,
-            "y": 0,
-            "points": 1
-          },
-          {
-            "x": 2,
-            "y": 2,
-            "points": 3
-          },
-          {
-            "x": 3,
-            "y": 2,
-            "points": 3
-          },
-          {
-            "x": 5,
-            "y": 3,
-            "points": 3
-          },
-          {
-            "x": 6,
-            "y": 3,
-            "points": 1
-          },
-          {
-            "x": 5,
-            "y": 1,
-            "points": 3
-          },
-          {
-            "x": 6,
-            "y": 1,
-            "points": 1
-          }
+          { "x": 0, "y": 2, "points": 3 },
+          { "x": 1, "y": 1, "points": 3 },
+          { "x": 2, "y": 1, "points": 3 },
+          { "x": 2, "y": 0, "points": 3 },
+          { "x": 3, "y": 0, "points": 1 },
+          { "x": 2, "y": 2, "points": 3 },
+          { "x": 3, "y": 2, "points": 3 },
+          { "x": 5, "y": 3, "points": 3 },
+          { "x": 6, "y": 3, "points": 1 },
+          { "x": 5, "y": 1, "points": 3 },
+          { "x": 6, "y": 1, "points": 1 }
         ],
         "selectedCoreTalents": ["Beacon", "Winter"]
       },
       "tree2": {
         "name": "Magister",
         "allocatedNodes": [
-          {
-            "x": 0,
-            "y": 0,
-            "points": 3
-          },
-          {
-            "x": 1,
-            "y": 0,
-            "points": 3
-          },
-          {
-            "x": 2,
-            "y": 0,
-            "points": 3
-          },
-          {
-            "x": 3,
-            "y": 0,
-            "points": 3
-          },
-          {
-            "x": 4,
-            "y": 0,
-            "points": 3
-          },
-          {
-            "x": 5,
-            "y": 0,
-            "points": 3
-          },
-          {
-            "x": 6,
-            "y": 0,
-            "points": 1
-          },
-          {
-            "x": 5,
-            "y": 3,
-            "points": 3
-          },
-          {
-            "x": 6,
-            "y": 3,
-            "points": 1
-          },
-          {
-            "x": 6,
-            "y": 1,
-            "points": 1
-          }
+          { "x": 0, "y": 0, "points": 3 },
+          { "x": 1, "y": 0, "points": 3 },
+          { "x": 2, "y": 0, "points": 3 },
+          { "x": 3, "y": 0, "points": 3 },
+          { "x": 4, "y": 0, "points": 3 },
+          { "x": 5, "y": 0, "points": 3 },
+          { "x": 6, "y": 0, "points": 1 },
+          { "x": 5, "y": 3, "points": 3 },
+          { "x": 6, "y": 3, "points": 1 },
+          { "x": 6, "y": 1, "points": 1 }
         ],
         "selectedCoreTalents": ["Play Safe"]
       },
       "tree3": {
         "name": "Prophet",
         "allocatedNodes": [
-          {
-            "x": 0,
-            "y": 0,
-            "points": 3
-          },
-          {
-            "x": 1,
-            "y": 0,
-            "points": 3
-          },
-          {
-            "x": 2,
-            "y": 0,
-            "points": 3
-          },
-          {
-            "x": 3,
-            "y": 0,
-            "points": 3
-          },
-          {
-            "x": 4,
-            "y": 0,
-            "points": 3
-          },
-          {
-            "x": 5,
-            "y": 0,
-            "points": 3
-          },
-          {
-            "x": 6,
-            "y": 0,
-            "points": 1
-          },
-          {
-            "x": 3,
-            "y": 4,
-            "points": 3
-          },
-          {
-            "x": 4,
-            "y": 4,
-            "points": 1
-          },
-          {
-            "x": 0,
-            "y": 2,
-            "points": 1
-          }
+          { "x": 0, "y": 0, "points": 3 },
+          { "x": 1, "y": 0, "points": 3 },
+          { "x": 2, "y": 0, "points": 3 },
+          { "x": 3, "y": 0, "points": 3 },
+          { "x": 4, "y": 0, "points": 3 },
+          { "x": 5, "y": 0, "points": 3 },
+          { "x": 6, "y": 0, "points": 1 },
+          { "x": 3, "y": 4, "points": 3 },
+          { "x": 4, "y": 4, "points": 1 },
+          { "x": 0, "y": 2, "points": 1 }
         ],
         "selectedCoreTalents": ["Frostbitten"]
       },
       "tree4": {
         "name": "Lich",
         "allocatedNodes": [
-          {
-            "x": 0,
-            "y": 2,
-            "points": 3
-          },
-          {
-            "x": 1,
-            "y": 3,
-            "points": 3
-          },
-          {
-            "x": 2,
-            "y": 3,
-            "points": 3
-          },
-          {
-            "x": 1,
-            "y": 2,
-            "points": 3
-          },
-          {
-            "x": 4,
-            "y": 4,
-            "points": 3
-          },
-          {
-            "x": 5,
-            "y": 4,
-            "points": 3
-          },
-          {
-            "x": 6,
-            "y": 4,
-            "points": 1
-          },
-          {
-            "x": 4,
-            "y": 0,
-            "points": 3
-          },
-          {
-            "x": 5,
-            "y": 0,
-            "points": 3
-          },
-          {
-            "x": 6,
-            "y": 0,
-            "points": 1
-          }
+          { "x": 0, "y": 2, "points": 3 },
+          { "x": 1, "y": 3, "points": 3 },
+          { "x": 2, "y": 3, "points": 3 },
+          { "x": 1, "y": 2, "points": 3 },
+          { "x": 4, "y": 4, "points": 3 },
+          { "x": 5, "y": 4, "points": 3 },
+          { "x": 6, "y": 4, "points": 1 },
+          { "x": 4, "y": 0, "points": 3 },
+          { "x": 5, "y": 0, "points": 3 },
+          { "x": 6, "y": 0, "points": 1 }
         ],
         "selectedCoreTalents": ["Off The Beaten Track"]
       },
@@ -519,10 +355,7 @@
           ]
         },
         "treeSlot": "tree2",
-        "position": {
-          "x": 5,
-          "y": 1
-        }
+        "position": { "x": 5, "y": 1 }
       }
     },
     "inventory": {
@@ -546,26 +379,14 @@
         "skillName": "Chain Lightning",
         "enabled": true,
         "supportSkills": {
-          "1": {
-            "skillType": "support",
-            "name": "Jump",
-            "level": 20
-          },
-          "2": {
-            "skillType": "support",
-            "name": "Control Spell",
-            "level": 20
-          },
+          "1": { "skillType": "support", "name": "Jump", "level": 20 },
+          "2": { "skillType": "support", "name": "Control Spell", "level": 20 },
           "3": {
             "skillType": "support",
             "name": "Lightning to Cold",
             "level": 20
           },
-          "4": {
-            "skillType": "support",
-            "name": "Psychic Burst",
-            "level": 20
-          },
+          "4": { "skillType": "support", "name": "Psychic Burst", "level": 20 },
           "5": {
             "skillType": "support",
             "name": "Electric Overload",
@@ -577,11 +398,7 @@
         "skillName": "Mana Boil",
         "enabled": true,
         "supportSkills": {
-          "1": {
-            "skillType": "support",
-            "name": "Preparation",
-            "level": 20
-          },
+          "1": { "skillType": "support", "name": "Preparation", "level": 20 },
           "2": {
             "skillType": "support",
             "name": "Well-Fought Battle",
@@ -614,16 +431,8 @@
         "skillName": "Frigid Transmission",
         "enabled": true,
         "supportSkills": {
-          "1": {
-            "skillType": "support",
-            "name": "Magic Dash",
-            "level": 20
-          },
-          "2": {
-            "skillType": "support",
-            "name": "Periodic Burst",
-            "level": 20
-          }
+          "1": { "skillType": "support", "name": "Magic Dash", "level": 20 },
+          "2": { "skillType": "support", "name": "Periodic Burst", "level": 20 }
         }
       },
       "5": {
@@ -658,16 +467,8 @@
             "name": "Aura Amplification",
             "level": 20
           },
-          "2": {
-            "skillType": "support",
-            "name": "Restrain",
-            "level": 20
-          },
-          "3": {
-            "skillType": "support",
-            "name": "Increased Area",
-            "level": 20
-          }
+          "2": { "skillType": "support", "name": "Restrain", "level": 20 },
+          "3": { "skillType": "support", "name": "Increased Area", "level": 20 }
         }
       },
       "2": {
@@ -679,16 +480,8 @@
             "name": "Aura Amplification",
             "level": 20
           },
-          "2": {
-            "skillType": "support",
-            "name": "Restrain",
-            "level": 20
-          },
-          "3": {
-            "skillType": "support",
-            "name": "Increased Area",
-            "level": 20
-          }
+          "2": { "skillType": "support", "name": "Restrain", "level": 20 },
+          "3": { "skillType": "support", "name": "Increased Area", "level": 20 }
         }
       },
       "3": {
@@ -700,32 +493,16 @@
             "name": "Aura Amplification",
             "level": 20
           },
-          "2": {
-            "skillType": "support",
-            "name": "Restrain",
-            "level": 20
-          },
-          "3": {
-            "skillType": "support",
-            "name": "Increased Area",
-            "level": 20
-          }
+          "2": { "skillType": "support", "name": "Restrain", "level": 20 },
+          "3": { "skillType": "support", "name": "Increased Area", "level": 20 }
         }
       },
       "4": {
         "skillName": "Summon Thunder Magus",
         "enabled": true,
         "supportSkills": {
-          "1": {
-            "skillType": "support",
-            "name": "Restrain",
-            "level": 20
-          },
-          "2": {
-            "skillType": "support",
-            "name": "Grudge",
-            "level": 20
-          },
+          "1": { "skillType": "support", "name": "Restrain", "level": 20 },
+          "2": { "skillType": "support", "name": "Grudge", "level": 20 },
           "3": {
             "skillType": "support",
             "name": "Seal Conversion",
@@ -738,27 +515,13 @@
   "heroPage": {
     "selectedHero": "Escapist Bing: Creative Genius (#2)",
     "traits": {
-      "level1": {
-        "name": "Creative Genius"
-      },
-      "level45": {
-        "name": "Inspiration Overflow"
-      },
-      "level45b": {
-        "name": "Super Sonic Protocol"
-      },
-      "level60": {
-        "name": "Mind Domain"
-      },
-      "level60b": {
-        "name": "Auto-Ingenuity Program"
-      },
-      "level75": {
-        "name": "Brainstorm"
-      },
-      "level75b": {
-        "name": "Hyper-Resonance Hypothesis"
-      }
+      "level1": { "name": "Creative Genius" },
+      "level45": { "name": "Inspiration Overflow" },
+      "level45b": { "name": "Super Sonic Protocol" },
+      "level60": { "name": "Mind Domain" },
+      "level60b": { "name": "Auto-Ingenuity Program" },
+      "level75": { "name": "Brainstorm" },
+      "level75b": { "name": "Hyper-Resonance Hypothesis" }
     },
     "memorySlots": {
       "slot45": {
@@ -858,45 +621,27 @@
     "placedSlates": [
       {
         "slateId": "740b7178-4969-4d71-bab2-44712d5408b0",
-        "position": {
-          "row": 0,
-          "col": 1
-        }
+        "position": { "row": 0, "col": 1 }
       },
       {
         "slateId": "155219af-fe4b-4047-b87f-70c8aecbdece",
-        "position": {
-          "row": 3,
-          "col": 1
-        }
+        "position": { "row": 3, "col": 1 }
       },
       {
         "slateId": "4981cd5f-43ec-42c5-b266-8cd5088b6526",
-        "position": {
-          "row": 1,
-          "col": 4
-        }
+        "position": { "row": 1, "col": 4 }
       },
       {
         "slateId": "133ef3bb-9b9d-4b20-8895-801912d2d595",
-        "position": {
-          "row": 2,
-          "col": 0
-        }
+        "position": { "row": 2, "col": 0 }
       },
       {
         "slateId": "9872a645-59e1-4cad-b6b2-59bdbaa6625f",
-        "position": {
-          "row": 3,
-          "col": 3
-        }
+        "position": { "row": 3, "col": 3 }
       },
       {
         "slateId": "4d56fc82-d466-42ef-aaf4-e75b3f4d0590",
-        "position": {
-          "row": 1,
-          "col": 2
-        }
+        "position": { "row": 1, "col": 2 }
       }
     ],
     "inventory": [
@@ -1043,7 +788,5 @@
     "realmOfMercuryEnabled": false,
     "baptismOfPurityEnabled": false
   },
-  "calculationsPage": {
-    "selectedSkillName": "Chain Lightning"
-  }
+  "calculationsPage": { "selectedSkillName": "Chain Lightning" }
 }

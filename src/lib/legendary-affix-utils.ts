@@ -1,4 +1,4 @@
-import { CoreTalents } from "@/src/data/core_talent/core_talents";
+import { CoreTalents } from "@/src/data/core-talent/core-talents";
 import { Talents } from "@/src/data/talent/talents";
 import type { DivinityAffixType } from "@/src/tli/core";
 

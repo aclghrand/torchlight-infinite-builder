@@ -1,3 +1,4 @@
+import { I18nProvider } from "@lingui/react";
 import {
   createRootRoute,
   HeadContent,
@@ -10,6 +11,7 @@ import "@fontsource-variable/geist";
 import "@fontsource-variable/geist-mono";
 import "../globals.css";
 import { DisclaimerModal } from "@/src/components/modals/DisclaimerModal";
+import { i18n } from "@/src/lib/i18n";
 
 function AnalyticsOnce(): React.ReactNode {
   const hasSentRef = useRef(false);
@@ -48,8 +50,10 @@ function RootLayout(): React.ReactNode {
         <HeadContent />
       </head>
       <body className="antialiased">
-        <Outlet />
-        <DisclaimerModal />
+        <I18nProvider i18n={i18n}>
+          <Outlet />
+          <DisclaimerModal />
+        </I18nProvider>
         <AnalyticsOnce />
         <Scripts />
       </body>

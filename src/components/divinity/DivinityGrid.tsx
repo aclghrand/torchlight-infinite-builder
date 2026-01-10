@@ -364,10 +364,7 @@ export const DivinityGrid: React.FC<DivinityGridProps> = ({
       const blockY = (placement.position.row - DISPLAY_ROW_START) * CELL_SIZE;
 
       // Store offset from cursor to block's top-left
-      setDragOffset({
-        x: cursorX - blockX,
-        y: cursorY - blockY,
-      });
+      setDragOffset({ x: cursorX - blockX, y: cursorY - blockY });
 
       // Set initial drag position
       setDragPosition({ x: cursorX, y: cursorY });

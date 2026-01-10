@@ -1,0 +1,1322 @@
+{
+  "equipmentPage": {
+    "equippedGear": {
+      "helmet": {
+        "id": "f10f9a23-070a-4fa1-9b6f-7a935911d128",
+        "equipmentType": "Helmet (INT)",
+        "rarity": "legendary",
+        "legendaryName": "Solid River",
+        "baseStats": "+146 gear Energy Shield",
+        "legendary_affixes": [
+          "+300 gear Energy Shield",
+          "For every +75% Spell Burst Charge Speed, +19% additional Hit Damage for skills cast by Spell Burst, up to +80%",
+          "When Burst Charge Recovery Speed is at least 300% of the base value, reaching the Max Spell Burst Charge triggers the Main Skill on the nearest enemy within 25m and attempts to activate the Main Spell Skill's Spell Burst\n-30% Movement Speed",
+          "Restores 10% of Lost Life and Energy Shield when activating Spell Burst"
+        ]
+      },
+      "chest": {
+        "id": "12166e99-fbaf-41b0-8f49-e9a7ca3c70cd",
+        "equipmentType": "Chest Armor (INT)",
+        "baseStats": "+10 gear Energy Shield",
+        "base_affixes": [
+          "+8% Elemental and Erosion Resistance Penetration\n+8% Elemental and Erosion Resistance Penetration for Minions",
+          "+7% Armor DMG Mitigation Penetration\n+7% Armor DMG Mitigation Penetration for Minions"
+        ],
+        "prefixes": [
+          "You can cast 1 additional Curses",
+          "+52 Dexterity",
+          "+55% damage"
+        ],
+        "suffixes": [
+          "+97 Attack and Spell Critical Strike Rating",
+          "Inflicts Cold Infiltration when dealing damage. Interval for each enemy: 1 s\nWhen Minions deal damage, inflicts Cold Infiltration. Interval for each enemy: 1 s\n+11% Cold Infiltration Effect",
+          "+34% Erosion Resistance"
+        ]
+      },
+      "neck": {
+        "id": "e8bafff2-53cf-45f0-9744-f1e5cce697ac",
+        "equipmentType": "Necklace",
+        "baseStats": "+24 Dexterity",
+        "base_affixes": [
+          "Triggers Lv. 20 Biting Cold Curse upon inflicting damage. Cooldown: 0.2 s"
+        ],
+        "prefixes": [
+          "+1 Max Spell Burst",
+          "Gains Spell Aggression when casting a Spell Skill\n+22% Spell Aggression Effect",
+          "+333 Max Energy Shield"
+        ],
+        "suffixes": [
+          "+1% damage per 12 stats",
+          "100% chance to gain a Barrier for every 5 m you move",
+          "+32% Erosion Resistance"
+        ]
+      },
+      "gloves": {
+        "id": "7d99d70d-8491-4a40-9b45-1c30f5d37810",
+        "equipmentType": "Gloves (INT)",
+        "rarity": "legendary",
+        "legendaryName": "Israfel's Laws",
+        "baseStats": "+120 gear Energy Shield",
+        "legendary_affixes": [
+          "+374 gear Energy Shield",
+          "+25% Blessing Duration",
+          "+18% additional Cold Damage for every stack of Focus Blessing",
+          "+4% Critical Strike Damage per stack of Focus Blessing owned"
+        ]
+      },
+      "belt": {
+        "id": "abc1b755-3f80-4c4b-a2b5-8199be1cea65",
+        "equipmentType": "Belt",
+        "baseStats": "+110 Max Energy Shield",
+        "base_affixes": ["+9% Erosion Resistance", "+11% Movement Speed"],
+        "prefixes": [
+          "+16% Defense",
+          "+54 Intelligence",
+          "+320 Max Energy Shield"
+        ],
+        "suffixes": [
+          "+28% Freeze Duration",
+          "+16% chance to deal Double Damage",
+          "+34% Erosion Resistance"
+        ],
+        "blend_affix": "+1 Max Spell Burst"
+      },
+      "boots": {
+        "id": "ba9daa42-5e92-4fff-a462-0ff979eca391",
+        "equipmentType": "Boots (INT)",
+        "baseStats": "+146 gear Energy Shield",
+        "base_affixes": ["+25% Movement Speed"],
+        "prefixes": [
+          "+29% Spell Burst Charge Speed\n+10% chance to immediately gain 1 stack(s) of Spell Burst Charge when using a skill. Interval: 0.03s",
+          "+264 gear Energy Shield",
+          "+50% gear Energy Shield"
+        ],
+        "suffixes": [
+          "Has Hasten\n+8% Attack Speed, Cast Speed, and Movement Speed when having Hasten",
+          "+48% Movement Speed",
+          "+33% Erosion Resistance"
+        ]
+      },
+      "leftRing": {
+        "id": "5508d58c-c63a-4322-b301-a437f44165fb",
+        "equipmentType": "Ring",
+        "baseStats": "+12% Erosion Resistance",
+        "prefixes": ["+60 Dexterity", "+58% damage", "+308 Max Energy Shield"],
+        "suffixes": [
+          "+26% Erosion Resistance",
+          "+56% Critical Strike Damage",
+          "+112% Critical Strike Rating"
+        ],
+        "sweet_dream_affix": "Triggers Lv. 20 Timid Curse upon inflicting damage. Cooldown: 0.2 s"
+      },
+      "rightRing": {
+        "id": "c6242b6a-e57e-497d-9af6-61ae7241a39d",
+        "equipmentType": "Ring",
+        "baseStats": "+11% Erosion Resistance",
+        "base_affixes": ["Max Focus Blessing Stacks +1"],
+        "prefixes": [
+          "+18% Elemental and Erosion Resistance Penetration",
+          "+45 Dexterity",
+          "+334 Max Energy Shield"
+        ],
+        "suffixes": [
+          "+22% chance to deal Double Damage",
+          "+93% Critical Strike Rating",
+          "+35% Erosion Resistance"
+        ]
+      },
+      "mainHand": {
+        "id": "814e3ec0-b5d7-4ffa-a21b-262f817a4a9b",
+        "equipmentType": "Wand",
+        "baseStats": "500 Critical Strike Rating\n1.2 Attack Speed\nAdds 32 - 32 Cold Damage to Spells",
+        "base_affixes": ["Max Focus Blessing Stacks +1"],
+        "prefixes": [
+          "+3 Spell Skill Level",
+          "+82 Intelligence",
+          "+2 Lightning Skill Level"
+        ],
+        "suffixes": [
+          "+66% additional Hit Damage for skills cast by Spell Burst",
+          "+31% Cast Speed\n+31% Minion Cast Speed",
+          "+39% Spell Burst Charge Speed"
+        ],
+        "sweet_dream_affix": "+7% Armor DMG Mitigation Penetration",
+        "tower_sequence_affix": "+8% all stats"
+      },
+      "offHand": {
+        "id": "58ec135a-48f1-45c8-b8fc-d7e5b908d35a",
+        "equipmentType": "Wand",
+        "baseStats": "500 Critical Strike Rating\n1.2 Attack Speed\nAdds 32 - 32 Cold Damage to Spells",
+        "base_affixes": ["Max Focus Blessing Stacks +1"],
+        "prefixes": [
+          "+3 Spell Skill Level",
+          "+72 Intelligence",
+          "+2 Lightning Skill Level"
+        ],
+        "suffixes": [
+          "+65% additional Hit Damage for skills cast by Spell Burst",
+          "+42% Spell Burst Charge Speed",
+          "+91% Elemental Damage"
+        ],
+        "sweet_dream_affix": "Max Focus Blessing Stacks +1",
+        "tower_sequence_affix": "+10% additional damage on Critical Strike"
+      }
+    },
+    "inventory": [
+      {
+        "id": "b08ffd98-1669-432f-8597-7f23746ddefa",
+        "equipmentType": "Helmet (INT)",
+        "rarity": "legendary",
+        "legendaryName": "Brainwave Emitter",
+        "baseStats": "+26 gear Energy Shield",
+        "legendary_affixes": [
+          "+30% Cast Speed",
+          "+1 Max Spell Burst",
+          "-20% additional Spell Burst Charge Speed"
+        ]
+      },
+      {
+        "id": "ee41d7ed-eb12-4c81-b9fd-890066faa63e",
+        "equipmentType": "Chest Armor (STR)",
+        "rarity": "legendary",
+        "legendaryName": "Void Embankment",
+        "baseStats": "+274 Gear Armor",
+        "legendary_affixes": [
+          "+1 Max Life",
+          "+1 Max Energy Shield",
+          "+1 Max Mana",
+          "+100 all stats",
+          "+1% Elemental Resistance per 40 stats"
+        ]
+      },
+      {
+        "id": "fd0478fa-a796-4a17-860d-ab708ccc2b2e",
+        "equipmentType": "Necklace",
+        "rarity": "legendary",
+        "legendaryName": "False God's Skin",
+        "baseStats": "",
+        "legendary_affixes": [
+          "+8% all stats",
+          "+3 Dexterity per 4 level(s)",
+          "+1% damage per 20 of the highest stat",
+          "+1% damage per 22 of the highest stat",
+          "+3 Intelligence per 4 level(s)"
+        ]
+      },
+      {
+        "id": "300358f1-a020-4e38-96fc-264ac3fd20ca",
+        "equipmentType": "Gloves (INT)",
+        "prefixes": [
+          "+144 gear Energy Shield",
+          "Adds 25 - 33 Fire Damage to Attacks and Spells",
+          "+33% damage"
+        ],
+        "suffixes": [
+          "+10% Fire Resistance",
+          "+42% Critical Strike Rating",
+          "+14% Lightning Resistance"
+        ]
+      },
+      {
+        "id": "0349b7bb-525c-46ec-98c9-c34e2ab64067",
+        "equipmentType": "Belt",
+        "prefixes": ["+24 Dexterity", "+151 Max Life", "+188 Max Life"],
+        "suffixes": [
+          "+14% Cold Resistance",
+          "+9% Lightning Resistance",
+          "+19% Fire Resistance"
+        ]
+      },
+      {
+        "id": "34766989-b700-4d31-a913-17bda34b311c",
+        "equipmentType": "Boots (INT)",
+        "rarity": "legendary",
+        "legendaryName": "Frozen Ripples",
+        "baseStats": "+146 gear Energy Shield",
+        "legendary_affixes": [
+          "+5% Movement Speed",
+          "+24% Cold Resistance",
+          "+5% Movement Speed per stack of Max Spell Burst, up to +28%",
+          "+1 Max Spell Burst when Movement Speed is not higher than 200% of base"
+        ]
+      },
+      {
+        "id": "ff956560-efac-4341-a628-fcc05b9b985f",
+        "equipmentType": "Ring",
+        "baseStats": "+11% Lightning Resistance",
+        "prefixes": [
+          "+42 Intelligence",
+          "Adds 26 - 34 Fire Damage to Attacks and Spells",
+          "+162 Max Energy Shield"
+        ],
+        "suffixes": [
+          "+11% Lightning Resistance",
+          "+11% Cold Resistance",
+          "+58% Critical Strike Rating"
+        ]
+      },
+      {
+        "id": "48d0cf08-8989-4d9e-883e-a9b74589baf2",
+        "equipmentType": "Ring",
+        "baseStats": "+9% Erosion Resistance",
+        "prefixes": [
+          "Adds 11 - 14 Fire Damage to Attacks and Spells",
+          "+25% damage",
+          "+24 Intelligence"
+        ],
+        "suffixes": [
+          "+11% Lightning Resistance",
+          "+11% Fire Resistance",
+          "+9% Cold Resistance"
+        ]
+      },
+      {
+        "id": "16502c60-a4e0-4dbe-b952-9337370dc9a0",
+        "equipmentType": "Wand",
+        "baseStats": "500 Critical Strike Rating\n1.2 Attack Speed\nAdds 32 - 32 Cold Damage to Spells",
+        "prefixes": [
+          "+2 Lightning Skill Level",
+          "+38 Dexterity",
+          "+69% Spell Damage"
+        ],
+        "suffixes": [
+          "+69% Elemental Damage",
+          "+50% Elemental Damage",
+          "+34% Cast Speed\n+34% Minion Cast Speed"
+        ],
+        "tower_sequence_affix": "+55 Spell Critical Strike Rating"
+      },
+      {
+        "id": "d46ba9a9-6a1d-4356-8ffd-96c4aa7e6c2f",
+        "equipmentType": "Wand",
+        "rarity": "legendary",
+        "legendaryName": "Shadow of Thunderlight's Fury",
+        "baseStats": "500 Critical Strike Rating\n1.2 Attack Speed\nAdds 10 - 10 Cold Damage to Spells",
+        "legendary_affixes": [
+          "+81% Spell Damage",
+          "+179% Critical Strike Rating",
+          "Adds 1 - 50 Lightning Damage to Spells",
+          "Damage becomes Lucky and at least 4 stack(s) of Spell Burst Charge is consumed when Spell Burst is activated"
+        ]
+      },
+      {
+        "id": "67a81904-f053-4be3-be46-fed167fbd144",
+        "equipmentType": "Helmet (INT)",
+        "baseStats": "+146 gear Energy Shield",
+        "prefixes": [
+          "+193 gear Energy Shield",
+          "+45% gear Energy Shield",
+          "+59 Dexterity"
+        ],
+        "suffixes": [
+          "+114% Critical Strike Rating",
+          "+17% Cold Resistance",
+          "+16% Lightning Resistance"
+        ]
+      },
+      {
+        "id": "97c749ef-9766-4300-8161-6e91618743ac",
+        "equipmentType": "Chest Armor (INT)",
+        "rarity": "legendary",
+        "legendaryName": "Shattered Moonlight",
+        "baseStats": "+170 gear Energy Shield",
+        "legendary_affixes": [
+          "+367 gear Energy Shield",
+          "Main Skill is supported by Lv. 13 Psychic Burst",
+          "Beacon",
+          "Unable to use Restoration Skills"
+        ]
+      },
+      {
+        "id": "2dc33afe-9992-41c6-875d-ca1f96495b43",
+        "equipmentType": "Necklace",
+        "rarity": "legendary",
+        "legendaryName": "False God's Skin",
+        "baseStats": "+8 Strength",
+        "legendary_affixes": [
+          "+13% all stats",
+          "+3 Dexterity per 4 level(s)",
+          "+1% damage per 20 of the highest stat",
+          "+1% damage per 22 of the highest stat",
+          "+3 Intelligence per 4 level(s)"
+        ]
+      },
+      {
+        "id": "8e143a9d-601f-4eea-85c9-e8a4dfccb734",
+        "equipmentType": "Gloves (INT)",
+        "rarity": "legendary",
+        "legendaryName": "Israfel's Laws",
+        "baseStats": "+120 gear Energy Shield",
+        "legendary_affixes": [
+          "+403 gear Energy Shield",
+          "+30% Blessing Duration",
+          "+13% additional Cold Damage for every stack of Focus Blessing",
+          "+4% Critical Strike Damage per stack of Focus Blessing owned"
+        ]
+      },
+      {
+        "id": "2efa5103-0bad-4a25-9bb4-94668e2b68c5",
+        "equipmentType": "Belt",
+        "baseStats": "+65 Max Life",
+        "prefixes": [
+          "+288 Max Energy Shield",
+          "+45 Intelligence",
+          "+43 Dexterity"
+        ],
+        "suffixes": [
+          "+24% Lightning Resistance",
+          "+25% Fire Resistance",
+          "+19% Cold Resistance"
+        ],
+        "blend_affix": "Winter"
+      },
+      {
+        "id": "3200eab0-7a32-4bf7-b7e5-6efb59f4e4be",
+        "equipmentType": "Boots (INT)",
+        "baseStats": "+146 gear Energy Shield",
+        "prefixes": [
+          "+52% damage",
+          "+280 gear Energy Shield",
+          "+1 Lightning Skill Level"
+        ],
+        "suffixes": [
+          "+37% Movement Speed",
+          "+25% Erosion Resistance",
+          "+119% Critical Strike Rating"
+        ]
+      },
+      {
+        "id": "5508d58c-c63a-4322-b301-a437f44165fb",
+        "equipmentType": "Ring",
+        "baseStats": "+12% Erosion Resistance",
+        "prefixes": ["+60 Dexterity", "+58% damage", "+308 Max Energy Shield"],
+        "suffixes": [
+          "+26% Erosion Resistance",
+          "+56% Critical Strike Damage",
+          "+112% Critical Strike Rating"
+        ],
+        "sweet_dream_affix": "Triggers Lv. 20 Timid Curse upon inflicting damage. Cooldown: 0.2 s"
+      },
+      {
+        "id": "5fa81ae6-a36e-4e27-82bf-e7949545b787",
+        "equipmentType": "Ring",
+        "baseStats": "+12% Fire Resistance",
+        "prefixes": [
+          "+57 Dexterity",
+          "Adds 6 - 96 Lightning Damage to Attacks and Spells",
+          "+222 Max Energy Shield"
+        ],
+        "suffixes": [
+          "+24% Cold Resistance",
+          "+23% Fire Resistance",
+          "+110% Critical Strike Rating"
+        ]
+      },
+      {
+        "id": "4f26718c-327c-45ba-8d5f-6cc481b11759",
+        "equipmentType": "Wand",
+        "baseStats": "500 Critical Strike Rating\n1.2 Attack Speed\nAdds 32 - 32 Cold Damage to Spells",
+        "prefixes": [
+          "+2 Lightning Skill Level",
+          "+89 Dexterity",
+          "Adds 8 - 143 Lightning Damage to Spells"
+        ],
+        "suffixes": [
+          "+41% Spell Burst Charge Speed",
+          "+92% Elemental Damage",
+          "+34% Cast Speed\n+34% Minion Cast Speed"
+        ],
+        "tower_sequence_affix": "+55 Spell Critical Strike Rating"
+      },
+      {
+        "id": "ebea823c-84f5-426b-ac0c-92cfde870215",
+        "equipmentType": "Wand",
+        "baseStats": "500 Critical Strike Rating\n1.2 Attack Speed\nAdds 32 - 32 Cold Damage to Spells",
+        "prefixes": [
+          "+2 Lightning Skill Level",
+          "+73 Dexterity",
+          "Adds 7 - 142 Lightning Damage to Spells"
+        ],
+        "suffixes": [
+          "+35% Cast Speed\n+35% Minion Cast Speed",
+          "+93% Elemental Damage",
+          "+41% Spell Burst Charge Speed"
+        ],
+        "tower_sequence_affix": "+55 Spell Critical Strike Rating"
+      },
+      {
+        "id": "f10f9a23-070a-4fa1-9b6f-7a935911d128",
+        "equipmentType": "Helmet (INT)",
+        "rarity": "legendary",
+        "legendaryName": "Solid River",
+        "baseStats": "+146 gear Energy Shield",
+        "legendary_affixes": [
+          "+300 gear Energy Shield",
+          "For every +75% Spell Burst Charge Speed, +19% additional Hit Damage for skills cast by Spell Burst, up to +80%",
+          "When Burst Charge Recovery Speed is at least 300% of the base value, reaching the Max Spell Burst Charge triggers the Main Skill on the nearest enemy within 25m and attempts to activate the Main Spell Skill's Spell Burst\n-30% Movement Speed",
+          "Restores 10% of Lost Life and Energy Shield when activating Spell Burst"
+        ]
+      },
+      {
+        "id": "12166e99-fbaf-41b0-8f49-e9a7ca3c70cd",
+        "equipmentType": "Chest Armor (INT)",
+        "baseStats": "+10 gear Energy Shield",
+        "base_affixes": [
+          "+8% Elemental and Erosion Resistance Penetration\n+8% Elemental and Erosion Resistance Penetration for Minions",
+          "+7% Armor DMG Mitigation Penetration\n+7% Armor DMG Mitigation Penetration for Minions"
+        ],
+        "prefixes": [
+          "You can cast 1 additional Curses",
+          "+52 Dexterity",
+          "+55% damage"
+        ],
+        "suffixes": [
+          "+97 Attack and Spell Critical Strike Rating",
+          "Inflicts Cold Infiltration when dealing damage. Interval for each enemy: 1 s\nWhen Minions deal damage, inflicts Cold Infiltration. Interval for each enemy: 1 s\n+11% Cold Infiltration Effect",
+          "+34% Erosion Resistance"
+        ]
+      },
+      {
+        "id": "e8bafff2-53cf-45f0-9744-f1e5cce697ac",
+        "equipmentType": "Necklace",
+        "baseStats": "+24 Dexterity",
+        "base_affixes": [
+          "Triggers Lv. 20 Biting Cold Curse upon inflicting damage. Cooldown: 0.2 s"
+        ],
+        "prefixes": [
+          "+1 Max Spell Burst",
+          "Gains Spell Aggression when casting a Spell Skill\n+22% Spell Aggression Effect",
+          "+333 Max Energy Shield"
+        ],
+        "suffixes": [
+          "+1% damage per 12 stats",
+          "100% chance to gain a Barrier for every 5 m you move",
+          "+32% Erosion Resistance"
+        ]
+      },
+      {
+        "id": "7d99d70d-8491-4a40-9b45-1c30f5d37810",
+        "equipmentType": "Gloves (INT)",
+        "rarity": "legendary",
+        "legendaryName": "Israfel's Laws",
+        "baseStats": "+120 gear Energy Shield",
+        "legendary_affixes": [
+          "+374 gear Energy Shield",
+          "+25% Blessing Duration",
+          "+18% additional Cold Damage for every stack of Focus Blessing",
+          "+4% Critical Strike Damage per stack of Focus Blessing owned"
+        ]
+      },
+      {
+        "id": "abc1b755-3f80-4c4b-a2b5-8199be1cea65",
+        "equipmentType": "Belt",
+        "baseStats": "+110 Max Energy Shield",
+        "base_affixes": ["+9% Erosion Resistance", "+11% Movement Speed"],
+        "prefixes": [
+          "+16% Defense",
+          "+54 Intelligence",
+          "+320 Max Energy Shield"
+        ],
+        "suffixes": [
+          "+28% Freeze Duration",
+          "+16% chance to deal Double Damage",
+          "+34% Erosion Resistance"
+        ],
+        "blend_affix": "+1 Max Spell Burst"
+      },
+      {
+        "id": "ba9daa42-5e92-4fff-a462-0ff979eca391",
+        "equipmentType": "Boots (INT)",
+        "baseStats": "+146 gear Energy Shield",
+        "base_affixes": ["+25% Movement Speed"],
+        "prefixes": [
+          "+29% Spell Burst Charge Speed\n+10% chance to immediately gain 1 stack(s) of Spell Burst Charge when using a skill. Interval: 0.03s",
+          "+264 gear Energy Shield",
+          "+50% gear Energy Shield"
+        ],
+        "suffixes": [
+          "Has Hasten\n+8% Attack Speed, Cast Speed, and Movement Speed when having Hasten",
+          "+48% Movement Speed",
+          "+33% Erosion Resistance"
+        ]
+      },
+      {
+        "id": "c6242b6a-e57e-497d-9af6-61ae7241a39d",
+        "equipmentType": "Ring",
+        "baseStats": "+11% Erosion Resistance",
+        "base_affixes": ["Max Focus Blessing Stacks +1"],
+        "prefixes": [
+          "+18% Elemental and Erosion Resistance Penetration",
+          "+45 Dexterity",
+          "+334 Max Energy Shield"
+        ],
+        "suffixes": [
+          "+22% chance to deal Double Damage",
+          "+93% Critical Strike Rating",
+          "+35% Erosion Resistance"
+        ]
+      },
+      {
+        "id": "814e3ec0-b5d7-4ffa-a21b-262f817a4a9b",
+        "equipmentType": "Wand",
+        "baseStats": "500 Critical Strike Rating\n1.2 Attack Speed\nAdds 32 - 32 Cold Damage to Spells",
+        "base_affixes": ["Max Focus Blessing Stacks +1"],
+        "prefixes": [
+          "+3 Spell Skill Level",
+          "+82 Intelligence",
+          "+2 Lightning Skill Level"
+        ],
+        "suffixes": [
+          "+66% additional Hit Damage for skills cast by Spell Burst",
+          "+31% Cast Speed\n+31% Minion Cast Speed",
+          "+39% Spell Burst Charge Speed"
+        ],
+        "sweet_dream_affix": "+7% Armor DMG Mitigation Penetration",
+        "tower_sequence_affix": "+8% all stats"
+      },
+      {
+        "id": "58ec135a-48f1-45c8-b8fc-d7e5b908d35a",
+        "equipmentType": "Wand",
+        "baseStats": "500 Critical Strike Rating\n1.2 Attack Speed\nAdds 32 - 32 Cold Damage to Spells",
+        "base_affixes": ["Max Focus Blessing Stacks +1"],
+        "prefixes": [
+          "+3 Spell Skill Level",
+          "+72 Intelligence",
+          "+2 Lightning Skill Level"
+        ],
+        "suffixes": [
+          "+65% additional Hit Damage for skills cast by Spell Burst",
+          "+42% Spell Burst Charge Speed",
+          "+91% Elemental Damage"
+        ],
+        "sweet_dream_affix": "Max Focus Blessing Stacks +1",
+        "tower_sequence_affix": "+10% additional damage on Critical Strike"
+      }
+    ]
+  },
+  "talentPage": {
+    "talentTrees": {
+      "tree1": {
+        "name": "Goddess_of_Knowledge",
+        "allocatedNodes": [
+          { "x": 0, "y": 2, "points": 3 },
+          { "x": 1, "y": 1, "points": 3 },
+          { "x": 2, "y": 1, "points": 3 },
+          { "x": 2, "y": 0, "points": 3 },
+          { "x": 5, "y": 3, "points": 3 },
+          { "x": 6, "y": 3, "points": 1 },
+          { "x": 5, "y": 1, "points": 3 },
+          { "x": 6, "y": 1, "points": 1 },
+          { "x": 3, "y": 0, "points": 3 },
+          { "x": 1, "y": 2, "points": 1 },
+          { "x": 5, "y": 0, "points": 3 },
+          { "x": 6, "y": 0, "points": 3 }
+        ],
+        "selectedCoreTalents": ["Peculiar Vibe", "Insight"]
+      },
+      "tree2": {
+        "name": "Magister",
+        "allocatedNodes": [
+          { "x": 0, "y": 0, "points": 3 },
+          { "x": 2, "y": 0, "points": 3 },
+          { "x": 3, "y": 0, "points": 3 },
+          { "x": 3, "y": 2, "points": 1 },
+          { "x": 4, "y": 0, "points": 3 },
+          { "x": 4, "y": 2, "points": 3 },
+          { "x": 5, "y": 0, "points": 3 },
+          { "x": 6, "y": 0, "points": 1 },
+          { "x": 6, "y": 1, "points": 1 },
+          { "x": 5, "y": 2, "points": 1 }
+        ],
+        "selectedCoreTalents": ["Play Safe"]
+      },
+      "tree3": {
+        "name": "Assassin",
+        "allocatedNodes": [
+          { "x": 0, "y": 2, "points": 3 },
+          { "x": 1, "y": 2, "points": 3 },
+          { "x": 2, "y": 0, "points": 3 },
+          { "x": 3, "y": 0, "points": 3 },
+          { "x": 4, "y": 0, "points": 3 },
+          { "x": 5, "y": 0, "points": 3 },
+          { "x": 6, "y": 0, "points": 1 },
+          { "x": 6, "y": 1, "points": 1 },
+          { "x": 5, "y": 4, "points": 3 },
+          { "x": 6, "y": 4, "points": 1 }
+        ],
+        "selectedCoreTalents": ["Queer Angle"]
+      },
+      "tree4": {
+        "name": "Steel_Vanguard",
+        "allocatedNodes": [
+          { "x": 0, "y": 2, "points": 3 },
+          { "x": 1, "y": 2, "points": 3 },
+          { "x": 1, "y": 1, "points": 3 },
+          { "x": 2, "y": 1, "points": 3 },
+          { "x": 1, "y": 3, "points": 3 },
+          { "x": 2, "y": 3, "points": 3 },
+          { "x": 5, "y": 1, "points": 3 },
+          { "x": 6, "y": 1, "points": 1 }
+        ],
+        "selectedCoreTalents": []
+      },
+      "placedPrism": {
+        "prism": {
+          "id": "000aad8c-b67f-4f8c-afa1-afc0080f0454",
+          "rarity": "legendary",
+          "baseAffix": "Replaces the Core Talent on the God of Might/Goddess of Hunting/Goddess of Knowledge/God of War/Goddess of Deception/God of Machines Advanced Talent Panel with Tainted Flesh",
+          "gaugeAffixes": [
+            "All Micro Talent within the area also gain: +5% Numbed chance, and 2.5% Numbed Effect",
+            "All Medium Talent within the area also gain: +1% Elemental and Erosion Resistance",
+            "Points can be allocated to all Medium Talent within the area 2 additional time(s)"
+          ]
+        },
+        "treeSlot": "tree4",
+        "position": { "x": 2, "y": 2 }
+      },
+      "placedInverseImage": {
+        "inverseImage": {
+          "id": "7c1813f2-df1e-4e0e-b4be-5c30cf679314",
+          "microTalentEffect": 98,
+          "mediumTalentEffect": -5,
+          "legendaryTalentEffect": 30
+        },
+        "treeSlot": "tree2",
+        "position": { "x": 5, "y": 1 },
+        "reflectedAllocatedNodes": [
+          { "x": 0, "y": 3, "sourceX": 6, "sourceY": 1, "points": 1 },
+          { "x": 0, "y": 4, "sourceX": 6, "sourceY": 0, "points": 1 },
+          { "x": 1, "y": 2, "sourceX": 5, "sourceY": 2, "points": 1 },
+          { "x": 2, "y": 2, "sourceX": 4, "sourceY": 2, "points": 3 },
+          { "x": 2, "y": 3, "sourceX": 4, "sourceY": 1, "points": 1 }
+        ]
+      }
+    },
+    "inventory": {
+      "prismList": [
+        {
+          "id": "6382c707-7f6b-4462-9db2-adf8f8288de2",
+          "rarity": "rare",
+          "baseAffix": "Adds an additional effect to the Core Talent on the God of Might/Goddess of Hunting/Goddess of Knowledge/God of War/Goddess of Deception/God of Machines Advanced Talent Panel:\nFor every stack of Max Spell Burst, +6% additional Spell Damage, up to +24% additional Spell Damage",
+          "gaugeAffixes": [
+            "All Micro Talent within the area also gain: +5 Intelligence",
+            "All Medium Talent within the area also gain: +6% Spell Damage"
+          ]
+        },
+        {
+          "id": "260f6cf5-6c25-4a6e-b81a-27e7ef1a91a7",
+          "rarity": "legendary",
+          "baseAffix": "Replaces the Core Talent on the Goddess of Hunting/Goddess of Knowledge/God of War Advanced Talent Panel with Spell Ripple",
+          "gaugeAffixes": [
+            "All Legendary Medium Talent within the area also gain: +8% Origin of Spirit Magus effect",
+            "All Micro Talent within the area also gain: +6% Critical Strike Damage\n+6% Minion Critical Strike Damage"
+          ]
+        },
+        {
+          "id": "000aad8c-b67f-4f8c-afa1-afc0080f0454",
+          "rarity": "legendary",
+          "baseAffix": "Replaces the Core Talent on the God of Might/Goddess of Hunting/Goddess of Knowledge/God of War/Goddess of Deception/God of Machines Advanced Talent Panel with Tainted Flesh",
+          "gaugeAffixes": [
+            "All Micro Talent within the area also gain: +5% Numbed chance, and 2.5% Numbed Effect",
+            "All Medium Talent within the area also gain: +1% Elemental and Erosion Resistance",
+            "Points can be allocated to all Medium Talent within the area 2 additional time(s)"
+          ]
+        }
+      ],
+      "inverseImageList": []
+    }
+  },
+  "skillPage": {
+    "activeSkills": {
+      "1": {
+        "skillName": "Chain Lightning",
+        "enabled": true,
+        "supportSkills": {
+          "1": { "skillType": "support", "name": "Jump", "level": 20 },
+          "2": {
+            "skillType": "support",
+            "name": "Lightning to Cold",
+            "level": 20
+          },
+          "3": {
+            "skillType": "magnificent_support",
+            "name": "Chain Lightning: Web of Lightning (Magnificent)",
+            "tier": 2,
+            "rank": 1,
+            "craftedAffix": "+16% additional damage for the supported skill",
+            "value": 16
+          },
+          "4": { "skillType": "support", "name": "Overload", "level": 20 },
+          "5": {
+            "skillType": "noble_support",
+            "name": "Chain Lightning: Merge (Noble)",
+            "tier": 2,
+            "rank": 1,
+            "craftedAffix": "-13% additional damage for the supported skill",
+            "value": -13
+          }
+        }
+      },
+      "2": {
+        "skillName": "Ice Bond",
+        "enabled": true,
+        "supportSkills": {
+          "1": {
+            "skillType": "activation_medium",
+            "name": "Activation Medium: Motionless",
+            "tier": 3,
+            "affixes": [
+              "Auto-used supported skills -15% additional damage",
+              "Automatically and continuously cast the supported skill at the nearest enemy within 25m while standing still"
+            ]
+          },
+          "2": {
+            "skillType": "support",
+            "name": "Well-Fought Battle",
+            "level": 20
+          }
+        }
+      },
+      "3": {
+        "skillName": "Thunder Spike",
+        "enabled": true,
+        "supportSkills": {
+          "1": {
+            "skillType": "activation_medium",
+            "name": "Activation Medium: Rhythm",
+            "tier": 3,
+            "affixes": [
+              "Triggers the supported skill on the closest enemy within 20m every 1.1s.",
+              "The next skill triggered by the supported skill +2% additional damage for every 1m of movement made during the trigger interval, up to +10%.",
+              "Manually used supported skills -80% additional damage"
+            ]
+          },
+          "2": { "skillType": "support", "name": "High Voltage", "level": 20 },
+          "3": {
+            "skillType": "magnificent_support",
+            "name": "Thunder Spike: Numb (Magnificent)",
+            "tier": 2,
+            "rank": 1,
+            "craftedAffix": "+3% additional damage for the supported skill",
+            "value": 0
+          },
+          "4": { "skillType": "support", "name": "Haunt", "level": 20 },
+          "5": {
+            "skillType": "noble_support",
+            "name": "Thunder Spike: Tremble (Noble)",
+            "tier": 2,
+            "rank": 1,
+            "craftedAffix": "The supported skill gains a buff on Critical Strike: +66% Numbed Effect for 2 s",
+            "value": 0
+          }
+        }
+      },
+      "4": {
+        "skillName": "Frigid Transmission",
+        "enabled": true,
+        "supportSkills": {
+          "1": { "skillType": "support", "name": "Magic Dash", "level": 20 },
+          "2": {
+            "skillType": "support",
+            "name": "Periodic Burst",
+            "level": 20
+          },
+          "3": { "skillType": "support", "name": "Quick Mobility", "level": 20 }
+        }
+      },
+      "5": {
+        "skillName": "Secret Origin Unleash",
+        "enabled": true,
+        "supportSkills": {
+          "1": {
+            "skillType": "activation_medium",
+            "name": "Activation Medium: Preparation",
+            "tier": 3,
+            "affixes": [
+              "Prepares the supported skill every 8 s",
+              "The supported skill -25% additional Cooldown Recovery Speed"
+            ]
+          },
+          "2": {
+            "skillType": "support",
+            "name": "Extended Duration",
+            "level": 20
+          },
+          "3": {
+            "skillType": "support",
+            "name": "Cooldown Reduction",
+            "level": 20
+          }
+        }
+      }
+    },
+    "passiveSkills": {
+      "1": {
+        "skillName": "Precise: Electric Conversion",
+        "enabled": true,
+        "supportSkills": {
+          "1": {
+            "skillType": "support",
+            "name": "Aura Amplification",
+            "level": 20
+          },
+          "2": { "skillType": "support", "name": "Restrain", "level": 20 }
+        }
+      },
+      "2": {
+        "skillName": "Precise: Spell Amplification",
+        "enabled": true,
+        "supportSkills": {
+          "1": {
+            "skillType": "support",
+            "name": "Aura Amplification",
+            "level": 20
+          },
+          "2": { "skillType": "support", "name": "Restrain", "level": 20 }
+        }
+      },
+      "3": {
+        "skillName": "Summon Fire Magus",
+        "enabled": true,
+        "supportSkills": {
+          "1": {
+            "skillType": "support",
+            "name": "Friend of Spirit Magi",
+            "level": 20
+          },
+          "2": { "skillType": "support", "name": "Restrain", "level": 20 },
+          "3": {
+            "skillType": "support",
+            "name": "Seal Conversion",
+            "level": 20
+          }
+        }
+      },
+      "4": {
+        "skillName": "Summon Thunder Magus",
+        "enabled": true,
+        "supportSkills": {
+          "1": { "skillType": "support", "name": "Restrain", "level": 20 },
+          "2": {
+            "skillType": "support",
+            "name": "Friend of Spirit Magi",
+            "level": 20
+          },
+          "3": {
+            "skillType": "support",
+            "name": "Seal Conversion",
+            "level": 20
+          }
+        }
+      }
+    }
+  },
+  "heroPage": {
+    "selectedHero": "Escapist Bing: Creative Genius (#2)",
+    "traits": {
+      "level1": { "name": "Creative Genius" },
+      "level45": { "name": "Inspiration Overflow" },
+      "level45b": { "name": "Super Sonic Protocol" },
+      "level60": { "name": "Mind Domain" },
+      "level60b": { "name": "Auto-Ingenuity Program" },
+      "level75": { "name": "Brainstorm" },
+      "level75b": { "name": "Hyper-Resonance Hypothesis" }
+    },
+    "memorySlots": {
+      "slot45": {
+        "id": "3d92a27c-22b4-455c-ae42-8bf90007da6c",
+        "memoryType": "Memory of Origin",
+        "baseStat": "+90 Intelligence",
+        "fixedAffixes": [
+          "+4% Max Erosion Resistance",
+          "+40% Critical Strike Rating"
+        ],
+        "randomAffixes": [
+          "+52% Lightning Skill Critical Strike Damage",
+          "+38% Spell Critical Strike Damage"
+        ]
+      },
+      "slot60": {
+        "id": "eb37d68b-10d7-496e-99f9-c4f74646a44d",
+        "memoryType": "Memory of Discipline",
+        "baseStat": "+525 Max Energy Shield",
+        "fixedAffixes": ["+4% Max Erosion Resistance", "+36% damage"],
+        "randomAffixes": [
+          "+31% Spell Critical Strike Damage",
+          "+60% Spell Critical Strike Rating"
+        ]
+      },
+      "slot75": {
+        "id": "da17608c-0d5a-49dd-a264-4fa529e26260",
+        "memoryType": "Memory of Progress",
+        "baseStat": "+30% Movement Speed",
+        "fixedAffixes": ["+4% Max Erosion Resistance", "+46% damage"],
+        "randomAffixes": [
+          "+45% Lightning Skill Critical Strike Damage",
+          "+15% Origin of Spirit Magus effect"
+        ]
+      }
+    },
+    "memoryInventory": [
+      {
+        "id": "3d92a27c-22b4-455c-ae42-8bf90007da6c",
+        "memoryType": "Memory of Origin",
+        "baseStat": "+90 Intelligence",
+        "fixedAffixes": [
+          "+4% Max Erosion Resistance",
+          "+40% Critical Strike Rating"
+        ],
+        "randomAffixes": [
+          "+52% Lightning Skill Critical Strike Damage",
+          "+38% Spell Critical Strike Damage"
+        ]
+      },
+      {
+        "id": "eb37d68b-10d7-496e-99f9-c4f74646a44d",
+        "memoryType": "Memory of Discipline",
+        "baseStat": "+525 Max Energy Shield",
+        "fixedAffixes": ["+4% Max Erosion Resistance", "+36% damage"],
+        "randomAffixes": [
+          "+31% Spell Critical Strike Damage",
+          "+60% Spell Critical Strike Rating"
+        ]
+      },
+      {
+        "id": "da17608c-0d5a-49dd-a264-4fa529e26260",
+        "memoryType": "Memory of Progress",
+        "baseStat": "+30% Movement Speed",
+        "fixedAffixes": ["+4% Max Erosion Resistance", "+46% damage"],
+        "randomAffixes": [
+          "+45% Lightning Skill Critical Strike Damage",
+          "+15% Origin of Spirit Magus effect"
+        ]
+      }
+    ]
+  },
+  "pactspiritPage": {
+    "slot1": {
+      "pactspiritName": "Squiddle",
+      "level": 6,
+      "rings": {
+        "innerRing1": {
+          "installedDestiny": {
+            "destinyName": "Max Erosion Resistance",
+            "destinyType": "Micro Fate",
+            "resolvedAffix": "+2% Max Erosion Resistance"
+          }
+        },
+        "innerRing2": {
+          "installedDestiny": {
+            "destinyName": "Max Erosion Resistance",
+            "destinyType": "Micro Fate",
+            "resolvedAffix": "+2% Max Erosion Resistance"
+          }
+        },
+        "innerRing3": {},
+        "innerRing4": {},
+        "innerRing5": {
+          "installedDestiny": {
+            "destinyName": "Max Erosion Resistance",
+            "destinyType": "Micro Fate",
+            "resolvedAffix": "+2% Max Erosion Resistance"
+          }
+        },
+        "innerRing6": {
+          "installedDestiny": {
+            "destinyName": "Max Erosion Resistance",
+            "destinyType": "Micro Fate",
+            "resolvedAffix": "+2% Max Erosion Resistance"
+          }
+        },
+        "midRing1": {},
+        "midRing2": {},
+        "midRing3": {}
+      }
+    },
+    "slot2": {
+      "pactspiritName": "Dreamweaver",
+      "level": 4,
+      "rings": {
+        "innerRing1": {},
+        "innerRing2": {
+          "installedDestiny": {
+            "destinyName": "Max Erosion Resistance",
+            "destinyType": "Micro Fate",
+            "resolvedAffix": "+2% Max Erosion Resistance"
+          }
+        },
+        "innerRing3": {},
+        "innerRing4": {},
+        "innerRing5": {
+          "installedDestiny": {
+            "destinyName": "Max Erosion Resistance",
+            "destinyType": "Micro Fate",
+            "resolvedAffix": "+2% Max Erosion Resistance"
+          }
+        },
+        "innerRing6": {
+          "installedDestiny": {
+            "destinyName": "Max Erosion Resistance",
+            "destinyType": "Micro Fate",
+            "resolvedAffix": "+2% Max Erosion Resistance"
+          }
+        },
+        "midRing1": {},
+        "midRing2": {},
+        "midRing3": {}
+      }
+    },
+    "slot3": {
+      "pactspiritName": "Poisoned Omen",
+      "level": 5,
+      "rings": {
+        "innerRing1": {
+          "installedDestiny": {
+            "destinyName": "Max Erosion Resistance",
+            "destinyType": "Micro Fate",
+            "resolvedAffix": "+2% Max Erosion Resistance"
+          }
+        },
+        "innerRing2": {
+          "installedDestiny": {
+            "destinyName": "Max Erosion Resistance",
+            "destinyType": "Micro Fate",
+            "resolvedAffix": "+2% Max Erosion Resistance"
+          }
+        },
+        "innerRing3": {},
+        "innerRing4": {},
+        "innerRing5": {},
+        "innerRing6": {},
+        "midRing1": {},
+        "midRing2": {},
+        "midRing3": {}
+      }
+    }
+  },
+  "divinityPage": {
+    "placedSlates": [
+      {
+        "slateId": "8119b4ec-0f40-4986-b636-2e7b084abba2",
+        "position": { "row": 3, "col": 2 }
+      },
+      {
+        "slateId": "becabb31-9606-43fc-9837-b0462603e4db",
+        "position": { "row": 2, "col": 5 }
+      },
+      {
+        "slateId": "622f05b4-9990-453d-8886-8d7dad13e74e",
+        "position": { "row": 1, "col": 3 }
+      },
+      {
+        "slateId": "a43b4023-00e7-4fe2-8f50-3bcaa833c4f0",
+        "position": { "row": 2, "col": 3 }
+      },
+      {
+        "slateId": "40488051-c620-44ea-924a-782236d0499b",
+        "position": { "row": 0, "col": 2 }
+      },
+      {
+        "slateId": "c680ccae-3ad8-4747-987c-13b54e2fea28",
+        "position": { "row": 1, "col": 0 }
+      },
+      {
+        "slateId": "511f795f-b754-4102-a101-1a71895c53f6",
+        "position": { "row": 3, "col": 0 }
+      },
+      {
+        "slateId": "d115d63e-2093-49f0-b8ab-cf8bc31b2eaf",
+        "position": { "row": 2, "col": 2 }
+      }
+    ],
+    "inventory": [
+      {
+        "id": "8119b4ec-0f40-4986-b636-2e7b084abba2",
+        "shape": "Pedigree",
+        "rotation": 0,
+        "flippedH": true,
+        "flippedV": false,
+        "affixes": [
+          "+15% Spell Critical Strike Rating",
+          "Inflicts Frail on Spell hit (Max Divinity Effect: 1)",
+          "Source",
+          "Bunch"
+        ],
+        "metaAffixes": [],
+        "isLegendary": true,
+        "legendaryName": "Pedigree of Gods"
+      },
+      {
+        "id": "becabb31-9606-43fc-9837-b0462603e4db",
+        "shape": "Vertical2",
+        "rotation": 0,
+        "flippedH": false,
+        "flippedV": false,
+        "affixes": [
+          "+12% Sentry Damage",
+          "+4% Deterioration Damage",
+          "+1 Jumps",
+          "8% of damage taken is transferred to a random Minion\nSpirit Magi -80% additional damage taken (Max Divinity Effect: 1)"
+        ],
+        "metaAffixes": [],
+        "isLegendary": true,
+        "legendaryName": "Fallen Starlight"
+      },
+      {
+        "id": "622f05b4-9990-453d-8886-8d7dad13e74e",
+        "shape": "Vertical2",
+        "rotation": 90,
+        "flippedH": false,
+        "flippedV": false,
+        "affixes": [
+          "1.5% Life Regain\n1.5% Energy Shield Regain",
+          "+4% Erosion Resistance",
+          "Upon dealing damage to a Cursed target, there is a +25% chance to Paralyze it",
+          "100% chance to gain Agility Blessing on Critical Strike (Max Divinity Effect: 1)"
+        ],
+        "metaAffixes": [],
+        "isLegendary": true,
+        "legendaryName": "Fallen Starlight"
+      },
+      {
+        "id": "a43b4023-00e7-4fe2-8f50-3bcaa833c4f0",
+        "shape": "Vertical2",
+        "rotation": 90,
+        "flippedH": false,
+        "flippedV": false,
+        "affixes": [
+          "+9% Spell Damage",
+          "+6% chance to inflict Trauma\n+8% Trauma Damage\n+10% chance for Minions to inflict Trauma",
+          "+10% chance to gain Blur when inflicting crowd control effects (Max Divinity Effect: 1)",
+          "+1 Lightning Skill Level"
+        ],
+        "metaAffixes": [],
+        "isLegendary": true,
+        "legendaryName": "Fallen Starlight"
+      },
+      {
+        "id": "40488051-c620-44ea-924a-782236d0499b",
+        "shape": "CornerL",
+        "rotation": 0,
+        "flippedH": false,
+        "flippedV": false,
+        "affixes": [
+          "+25% chance to Mark the enemy on Critical Strike\n+20% Mark effect (Max Divinity Effect: 1)",
+          "+1 Jumps"
+        ],
+        "metaAffixes": [],
+        "isLegendary": true,
+        "legendaryName": "A Corner of Divinity"
+      },
+      {
+        "id": "c680ccae-3ad8-4747-987c-13b54e2fea28",
+        "shape": "CornerL",
+        "rotation": 180,
+        "flippedH": false,
+        "flippedV": false,
+        "affixes": [
+          "+5% Spell Critical Strike Damage per stack of Focus Blessing owned (Max Divinity Effect: 1)",
+          "+10% additional damage for 4s after using Mobility Skills"
+        ],
+        "metaAffixes": [],
+        "isLegendary": true,
+        "legendaryName": "A Corner of Divinity"
+      },
+      {
+        "id": "511f795f-b754-4102-a101-1a71895c53f6",
+        "god": "Knowledge",
+        "shape": "T",
+        "rotation": 0,
+        "flippedH": false,
+        "flippedV": false,
+        "affixes": [
+          "Max Focus Blessing Stacks +1\nRegenerates 0.4% Mana per second when Focus Blessing is active (Max Divinity Effect: 1)",
+          "+1 Max Spell Burst (Max Divinity Effect: 1)",
+          "+6% Cast Speed\n-4 Skill Cost\n+5% Movement Speed",
+          "Max Focus Blessing Stacks +1 (Max Divinity Effect: 1)",
+          "+1 Spell Skill Level"
+        ],
+        "metaAffixes": []
+      },
+      {
+        "id": "d115d63e-2093-49f0-b8ab-cf8bc31b2eaf",
+        "shape": "Single",
+        "rotation": 0,
+        "flippedH": false,
+        "flippedV": false,
+        "affixes": [],
+        "metaAffixes": [
+          "Copies the last Talent on all adjacent slates. Unable to copy Core Talents."
+        ],
+        "isLegendary": true,
+        "legendaryName": "When Sparks Set the Prairie Ablaze"
+      }
+    ]
+  },
+  "configurationPage": {
+    "level": 95,
+    "fervorEnabled": false,
+    "enemyFrostbittenEnabled": true,
+    "enemyFrostbittenPoints": 100,
+    "crueltyBuffStacks": 40,
+    "sealedManaPct": 1,
+    "sealedLifePct": 1,
+    "hasFocusBlessing": true,
+    "hasAgilityBlessing": true,
+    "hasTenacityBlessing": false,
+    "hasFullMana": false,
+    "enemyParalyzed": true,
+    "enemyNumbed": true,
+    "targetEnemyIsElite": false,
+    "targetEnemyIsNearby": false,
+    "targetEnemyIsInProximity": false,
+    "targetEnemyHasFrail": true,
+    "targetEnemyHasWhimsySignal": true,
+    "targetEnemyMarked": true,
+    "targetEnemyIsCursed": true,
+    "numEnemiesNearby": 0,
+    "numEnemiesAffectedByWarcry": 0,
+    "hasBlockedRecently": false,
+    "hasElitesNearby": false,
+    "enemyHasAilment": false,
+    "hasCritRecently": true,
+    "channeling": false,
+    "sagesInsightFireActivated": false,
+    "sagesInsightColdActivated": false,
+    "sagesInsightLightningActivated": false,
+    "sagesInsightErosionActivated": false,
+    "enemyHasAffliction": false,
+    "enemyHasDesecration": false,
+    "tormentStacks": 0,
+    "hasBlur": false,
+    "blurEndedRecently": false,
+    "hasSquidnova": true,
+    "targetEnemyIsFrozen": false,
+    "targetEnemyFrozenRecently": true,
+    "targetEnemyHasColdInfiltration": true,
+    "targetEnemyHasLightningInfiltration": false,
+    "targetEnemyHasFireInfiltration": false,
+    "hasHitEnemyWithElementalDmgRecently": 4,
+    "numSpellSkillsUsedRecently": 12,
+    "hasUsedMobilitySkillRecently": true,
+    "hasCastCurseRecently": false,
+    "hasAttackAggression": false,
+    "hasSpellAggression": true,
+    "realmOfMercuryEnabled": false,
+    "baptismOfPurityEnabled": false,
+    "customAffixLines": [
+      "// shattered moonlight - psychic burst",
+      "+36% additional Hit Damage for skills cast by Spell Burst",
+      "-18% Cast Speed",
+      "// timid ring",
+      "+39% additional Hit Damage",
+      "// biting cold chest",
+      "+39% additional Cold Damage",
+      "// nightmare affix",
+      "Max Agility Blessing Stacks -1",
+      "// thunder spike: tremble",
+      "+66% numbed effect"
+    ]
+  },
+  "calculationsPage": { "selectedSkillName": "Chain Lightning" }
+}

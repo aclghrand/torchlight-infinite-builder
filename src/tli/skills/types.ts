@@ -32,11 +32,7 @@ export type SupportSkillModFactory = (
 export type ActiveSkillModFactory = (
   level: number,
   values: LevelValues,
-) => {
-  offense?: SkillOffense[];
-  mods?: Mod[];
-  buffMods?: Mod[];
-};
+) => { offense?: SkillOffense[]; mods?: Mod[]; buffMods?: Mod[] };
 
 /**
  * Factory function for passive skill mods.
@@ -45,10 +41,7 @@ export type ActiveSkillModFactory = (
 export type PassiveSkillModFactory = (
   level: number,
   values: LevelValues,
-) => {
-  mods?: Mod[];
-  buffMods?: Mod[];
-};
+) => { mods?: Mod[]; buffMods?: Mod[] };
 
 // ============================================
 // Magnificent Support Skill Types

@@ -59,10 +59,7 @@ export const parseRareGaugeAffix = (
     Micro: "micro",
   };
 
-  return {
-    targetType: typeMapping[match[1]],
-    bonusText: match[2].trim(),
-  };
+  return { targetType: typeMapping[match[1]], bonusText: match[2].trim() };
 };
 
 // Get positions affected by a prism (8 surrounding nodes in 3x3 area)

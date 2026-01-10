@@ -35,6 +35,8 @@ export const ConfigurationPageSchema = z
     targetEnemyIsInProximity: z.boolean().catch(d.targetEnemyIsInProximity),
     targetEnemyHasFrail: z.boolean().catch(d.targetEnemyHasFrail),
     targetEnemyHasWhimsySignal: z.boolean().catch(d.targetEnemyHasWhimsySignal),
+    targetEnemyMarked: z.boolean().catch(d.targetEnemyMarked),
+    targetEnemyIsCursed: z.boolean().optional().catch(d.targetEnemyIsCursed),
     numEnemiesNearby: z.number().catch(d.numEnemiesNearby),
     numEnemiesAffectedByWarcry: z.number().catch(d.numEnemiesAffectedByWarcry),
     hasBlockedRecently: z.boolean().catch(d.hasBlockedRecently),
@@ -43,6 +45,7 @@ export const ConfigurationPageSchema = z
     hasCritRecently: z.boolean().catch(d.hasCritRecently),
     channeling: z.boolean().catch(d.channeling),
     channeledStacks: z.number().optional().catch(d.channeledStacks),
+    stalkerStacks: z.number().optional().catch(d.stalkerStacks),
     sagesInsightFireActivated: z.boolean().catch(d.sagesInsightFireActivated),
     sagesInsightColdActivated: z.boolean().catch(d.sagesInsightColdActivated),
     sagesInsightLightningActivated: z
@@ -81,6 +84,13 @@ export const ConfigurationPageSchema = z
       .number()
       .optional()
       .catch(d.chainLightningInstancesOnTarget),
+    hasUsedMobilitySkillRecently: z
+      .boolean()
+      .catch(d.hasUsedMobilitySkillRecently),
+    hasMovedRecently: z.boolean().catch(d.hasMovedRecently),
+    hasCastCurseRecently: z.boolean().catch(d.hasCastCurseRecently),
+    hasAttackAggression: z.boolean().catch(d.hasAttackAggression),
+    hasSpellAggression: z.boolean().catch(d.hasSpellAggression),
     realmOfMercuryEnabled: z.boolean().catch(d.realmOfMercuryEnabled),
     baptismOfPurityEnabled: z.boolean().catch(d.baptismOfPurityEnabled),
     enemyColdRes: z.number().optional().catch(d.enemyColdRes),
@@ -96,11 +106,7 @@ export type ConfigurationPage = z.infer<typeof ConfigurationPageSchema>;
 
 // Calculations page
 export const CalculationsPageSchema = z
-  .object({
-    selectedSkillName: z.string().optional().catch(undefined),
-  })
-  .catch({
-    selectedSkillName: undefined,
-  });
+  .object({ selectedSkillName: z.string().optional().catch(undefined) })
+  .catch({ selectedSkillName: undefined });
 
 export type CalculationsPage = z.infer<typeof CalculationsPageSchema>;

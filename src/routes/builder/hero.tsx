@@ -3,9 +3,7 @@ import { HeroTab } from "../../components/hero/HeroTab";
 import type { HeroMemory, HeroMemorySlot } from "../../lib/save-data";
 import { useBuilderActions, useLoadout } from "../../stores/builderStore";
 
-export const Route = createFileRoute("/builder/hero")({
-  component: HeroPage,
-});
+export const Route = createFileRoute("/builder/hero")({ component: HeroPage });
 
 function HeroPage(): React.ReactNode {
   const loadout = useLoadout();

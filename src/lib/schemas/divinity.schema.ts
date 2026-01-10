@@ -44,9 +44,6 @@ export const DivinityPageSchema = z
     placedSlates: z.array(PlacedSlateSchema).catch([]),
     inventory: z.array(DivinitySlateSchema).catch([]),
   })
-  .catch({
-    placedSlates: [],
-    inventory: [],
-  });
+  .catch({ placedSlates: [], inventory: [] });
 
 export type DivinityPage = z.infer<typeof DivinityPageSchema>;

@@ -5,39 +5,28 @@
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
-    "indentWidth": 2
+    "indentWidth": 2,
+    "expand": "never"
   },
   "linter": {
     "enabled": true,
     "rules": {
       "recommended": true,
       "a11y": "off",
-      "suspicious": {
-        "noArrayIndexKey": "off"
-      }
+      "suspicious": { "noArrayIndexKey": "off" }
     }
   },
-  "javascript": {
-    "formatter": {}
-  },
-  "html": {
-    "formatter": {}
-  },
+  "javascript": { "formatter": {} },
+  "html": { "formatter": {} },
   "assist": {
     "enabled": true,
     "actions": { "source": { "organizeImports": "on" } }
   },
-  "css": {
-    "parser": {
-      "tailwindDirectives": true
-    }
-  },
+  "css": { "parser": { "tailwindDirectives": true } },
   "overrides": [
     {
       "includes": ["src/tli/mod_parser/templates.ts"],
-      "formatter": {
-        "lineWidth": 120
-      }
+      "formatter": { "lineWidth": 120 }
     }
   ]
 }

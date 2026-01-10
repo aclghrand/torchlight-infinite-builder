@@ -95,15 +95,14 @@ export const SupportSkillSelectedTooltipContent: React.FC<
       {displayAffixes.length > 0 ? (
         <div>
           {displayAffixes.map((affix, i) => {
-            const hasImplementedMod =
-              affix.mods !== undefined && affix.mods.length > 0;
+            const isImplemented = affix.mods !== undefined;
             return (
               <div
                 key={i}
                 className={i > 0 ? "mt-1 pt-1 border-t border-zinc-800" : ""}
               >
                 <div className="text-xs text-zinc-400">{affix.text}</div>
-                {!hasImplementedMod && (
+                {!isImplemented && (
                   <div className="text-xs text-red-500">
                     (Mod not supported in TOB yet)
                   </div>

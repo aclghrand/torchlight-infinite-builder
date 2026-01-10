@@ -4,9 +4,9 @@ Type-safe system for 5,625 gear affixes with value range interpolation.
 
 ## Structure
 
-**Location:** `src/tli/gear_affix_data/`
+**Location:** `src/data/gear-affix/`
 
-- **Generated files:** 250 equipment+affix type combinations (e.g., `boots_dex_prefix.ts`)
+- **Generated files:** 250 equipment+affix type combinations (e.g., `boots-dex-prefix.ts`)
 - **Types:** Discriminated union via `equipmentTypeKey`
 - **Source:** `data/crafting_data.json`
 
@@ -27,7 +27,8 @@ type GearAffix = BootsDexPrefixAffix | RingSuffixAffix | ... // 250 types
 ## Usage
 
 ```typescript
-import { craft, craftLines, ALL_GEAR_AFFIXES } from "@/tli/gear_affix_data";
+import { craft, craftLines } from "@/src/tli/crafting/craft";
+import { ALL_GEAR_AFFIXES } from "@/src/tli/all_affixes";
 
 craft(affix, 0); // Min roll
 craft(affix, 100); // Max roll

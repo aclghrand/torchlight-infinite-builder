@@ -19,10 +19,7 @@ export const HeroSelector = ({
       <SearchableSelect
         value={selectedHero}
         onChange={onHeroChange}
-        options={uniqueHeroes.map((hero) => ({
-          value: hero,
-          label: hero,
-        }))}
+        options={uniqueHeroes.map((hero) => ({ value: hero, label: hero }))}
         placeholder="Select a hero..."
         size="lg"
       />

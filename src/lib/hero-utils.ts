@@ -1,6 +1,6 @@
-import { HeroMemories } from "@/src/data/hero_memory/hero_memories";
-import { HeroTraits } from "@/src/data/hero_trait/hero_traits";
-import type { BaseHeroTrait } from "@/src/data/hero_trait/types";
+import { HeroMemories } from "@/src/data/hero-memory/hero-memories";
+import { HeroTraits } from "@/src/data/hero-trait/hero-traits";
+import type { BaseHeroTrait } from "@/src/data/hero-trait/types";
 import type { HeroMemory as LoadoutHeroMemory } from "@/src/tli/core";
 import type { HeroMemory, HeroMemorySlot, HeroMemoryType } from "./save-data";
 

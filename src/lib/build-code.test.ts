@@ -58,10 +58,7 @@ describe("build-code", () => {
 
   it("should encode and decode a loadout with talents", () => {
     const loadout: SaveData = {
-      equipmentPage: {
-        equippedGear: {},
-        inventory: [],
-      },
+      equipmentPage: { equippedGear: {}, inventory: [] },
       talentPage: {
         talentTrees: {
           tree1: {
@@ -111,10 +108,7 @@ describe("build-code", () => {
     };
 
     const loadout: SaveData = {
-      equipmentPage: {
-        equippedGear: {},
-        inventory: [],
-      },
+      equipmentPage: { equippedGear: {}, inventory: [] },
       talentPage: {
         talentTrees: {},
         inventory: { prismList: [], inverseImageList: [] },
@@ -157,11 +151,7 @@ describe("build-code", () => {
           },
         },
         inventory: [
-          {
-            id: "inv-1",
-            equipmentType: "Ring",
-            suffixes: ["+10% crit"],
-          },
+          { id: "inv-1", equipmentType: "Ring", suffixes: ["+10% crit"] },
         ],
       },
       talentPage: {

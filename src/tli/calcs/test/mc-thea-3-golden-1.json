@@ -312,137 +312,37 @@
       "tree1": {
         "name": "Goddess_of_Deception",
         "allocatedNodes": [
-          {
-            "x": 0,
-            "y": 2,
-            "points": 3
-          },
-          {
-            "x": 1,
-            "y": 2,
-            "points": 3
-          },
-          {
-            "x": 1,
-            "y": 1,
-            "points": 3
-          },
-          {
-            "x": 2,
-            "y": 1,
-            "points": 3
-          },
-          {
-            "x": 4,
-            "y": 0,
-            "points": 3
-          },
-          {
-            "x": 5,
-            "y": 0,
-            "points": 3
-          },
-          {
-            "x": 6,
-            "y": 0,
-            "points": 1
-          },
-          {
-            "x": 5,
-            "y": 4,
-            "points": 3
-          },
-          {
-            "x": 6,
-            "y": 4,
-            "points": 1
-          },
-          {
-            "x": 4,
-            "y": 2,
-            "points": 1
-          }
+          { "x": 0, "y": 2, "points": 3 },
+          { "x": 1, "y": 2, "points": 3 },
+          { "x": 1, "y": 1, "points": 3 },
+          { "x": 2, "y": 1, "points": 3 },
+          { "x": 4, "y": 0, "points": 3 },
+          { "x": 5, "y": 0, "points": 3 },
+          { "x": 6, "y": 0, "points": 1 },
+          { "x": 5, "y": 4, "points": 3 },
+          { "x": 6, "y": 4, "points": 1 },
+          { "x": 4, "y": 2, "points": 1 }
         ],
         "selectedCoreTalents": ["Affliction", "Subtle Impact"]
       },
       "tree2": {
         "name": "Psychic",
         "allocatedNodes": [
-          {
-            "x": 0,
-            "y": 2,
-            "points": 3
-          },
-          {
-            "x": 1,
-            "y": 2,
-            "points": 3
-          },
-          {
-            "x": 2,
-            "y": 4,
-            "points": 3
-          },
-          {
-            "x": 3,
-            "y": 4,
-            "points": 3
-          },
-          {
-            "x": 3,
-            "y": 3,
-            "points": 3
-          },
-          {
-            "x": 4,
-            "y": 3,
-            "points": 3
-          },
-          {
-            "x": 5,
-            "y": 3,
-            "points": 1
-          },
-          {
-            "x": 4,
-            "y": 4,
-            "points": 3
-          },
-          {
-            "x": 5,
-            "y": 4,
-            "points": 1
-          },
-          {
-            "x": 6,
-            "y": 2,
-            "points": 1
-          },
-          {
-            "x": 4,
-            "y": 0,
-            "points": 3
-          },
-          {
-            "x": 5,
-            "y": 0,
-            "points": 3
-          },
-          {
-            "x": 6,
-            "y": 0,
-            "points": 1
-          },
-          {
-            "x": 5,
-            "y": 1,
-            "points": 3
-          },
-          {
-            "x": 6,
-            "y": 1,
-            "points": 1
-          }
+          { "x": 0, "y": 2, "points": 3 },
+          { "x": 1, "y": 2, "points": 3 },
+          { "x": 2, "y": 4, "points": 3 },
+          { "x": 3, "y": 4, "points": 3 },
+          { "x": 3, "y": 3, "points": 3 },
+          { "x": 4, "y": 3, "points": 3 },
+          { "x": 5, "y": 3, "points": 1 },
+          { "x": 4, "y": 4, "points": 3 },
+          { "x": 5, "y": 4, "points": 1 },
+          { "x": 6, "y": 2, "points": 1 },
+          { "x": 4, "y": 0, "points": 3 },
+          { "x": 5, "y": 0, "points": 3 },
+          { "x": 6, "y": 0, "points": 1 },
+          { "x": 5, "y": 1, "points": 3 },
+          { "x": 6, "y": 1, "points": 1 }
         ],
         "selectedCoreTalents": ["Reap Purification"]
       },
@@ -457,54 +357,19 @@
           ]
         },
         "treeSlot": "tree2",
-        "position": {
-          "x": 5,
-          "y": 2
-        }
+        "position": { "x": 5, "y": 2 }
       },
       "tree3": {
         "name": "Elementalist",
         "allocatedNodes": [
-          {
-            "x": 0,
-            "y": 0,
-            "points": 3
-          },
-          {
-            "x": 1,
-            "y": 0,
-            "points": 2
-          },
-          {
-            "x": 4,
-            "y": 0,
-            "points": 3
-          },
-          {
-            "x": 5,
-            "y": 0,
-            "points": 3
-          },
-          {
-            "x": 6,
-            "y": 0,
-            "points": 1
-          },
-          {
-            "x": 4,
-            "y": 2,
-            "points": 3
-          },
-          {
-            "x": 5,
-            "y": 2,
-            "points": 3
-          },
-          {
-            "x": 5,
-            "y": 3,
-            "points": 1
-          }
+          { "x": 0, "y": 0, "points": 3 },
+          { "x": 1, "y": 0, "points": 2 },
+          { "x": 4, "y": 0, "points": 3 },
+          { "x": 5, "y": 0, "points": 3 },
+          { "x": 6, "y": 0, "points": 1 },
+          { "x": 4, "y": 2, "points": 3 },
+          { "x": 5, "y": 2, "points": 3 },
+          { "x": 5, "y": 3, "points": 1 }
         ],
         "selectedCoreTalents": ["Focus"]
       },
@@ -516,92 +381,27 @@
           "legendaryTalentEffect": -38
         },
         "treeSlot": "tree3",
-        "position": {
-          "x": 5,
-          "y": 1
-        },
+        "position": { "x": 5, "y": 1 },
         "reflectedAllocatedNodes": [
-          {
-            "x": 1,
-            "y": 2,
-            "sourceX": 5,
-            "sourceY": 2,
-            "points": 3
-          },
-          {
-            "x": 1,
-            "y": 4,
-            "sourceX": 5,
-            "sourceY": 0,
-            "points": 3
-          },
-          {
-            "x": 0,
-            "y": 4,
-            "sourceX": 6,
-            "sourceY": 0,
-            "points": 1
-          }
+          { "x": 1, "y": 2, "sourceX": 5, "sourceY": 2, "points": 3 },
+          { "x": 1, "y": 4, "sourceX": 5, "sourceY": 0, "points": 3 },
+          { "x": 0, "y": 4, "sourceX": 6, "sourceY": 0, "points": 1 }
         ]
       },
       "tree4": {
         "name": "Lich",
         "allocatedNodes": [
-          {
-            "x": 0,
-            "y": 2,
-            "points": 3
-          },
-          {
-            "x": 1,
-            "y": 1,
-            "points": 3
-          },
-          {
-            "x": 2,
-            "y": 1,
-            "points": 3
-          },
-          {
-            "x": 2,
-            "y": 2,
-            "points": 3
-          },
-          {
-            "x": 4,
-            "y": 2,
-            "points": 3
-          },
-          {
-            "x": 5,
-            "y": 2,
-            "points": 1
-          },
-          {
-            "x": 4,
-            "y": 0,
-            "points": 3
-          },
-          {
-            "x": 5,
-            "y": 0,
-            "points": 3
-          },
-          {
-            "x": 6,
-            "y": 0,
-            "points": 1
-          },
-          {
-            "x": 5,
-            "y": 3,
-            "points": 3
-          },
-          {
-            "x": 6,
-            "y": 3,
-            "points": 1
-          }
+          { "x": 0, "y": 2, "points": 3 },
+          { "x": 1, "y": 1, "points": 3 },
+          { "x": 2, "y": 1, "points": 3 },
+          { "x": 2, "y": 2, "points": 3 },
+          { "x": 4, "y": 2, "points": 3 },
+          { "x": 5, "y": 2, "points": 1 },
+          { "x": 4, "y": 0, "points": 3 },
+          { "x": 5, "y": 0, "points": 3 },
+          { "x": 6, "y": 0, "points": 1 },
+          { "x": 5, "y": 3, "points": 3 },
+          { "x": 6, "y": 3, "points": 1 }
         ],
         "selectedCoreTalents": ["Off The Beaten Track"]
       }
@@ -627,14 +427,8 @@
         "skillName": "Mind Control",
         "enabled": true,
         "supportSkills": {
-          "1": {
-            "skillType": "support",
-            "name": "Guard"
-          },
-          "2": {
-            "skillType": "support",
-            "name": "Cataclysm"
-          },
+          "1": { "skillType": "support", "name": "Guard" },
+          "2": { "skillType": "support", "name": "Cataclysm" },
           "3": {
             "skillType": "magnificent_support",
             "name": "Mind Control: Concentrate (Magnificent)",
@@ -643,60 +437,33 @@
             "craftedAffix": "+6.1% additional damage for this skill for every link less than maximum links",
             "value": 6.1
           },
-          "4": {
-            "skillType": "support",
-            "name": "Passivation"
-          },
-          "5": {
-            "skillType": "support",
-            "name": "Control Spell"
-          }
+          "4": { "skillType": "support", "name": "Passivation" },
+          "5": { "skillType": "support", "name": "Control Spell" }
         }
       },
       "2": {
         "skillName": "Blurry Steps",
         "enabled": true,
         "supportSkills": {
-          "1": {
-            "skillType": "support",
-            "name": "Extended Duration"
-          },
-          "2": {
-            "skillType": "support",
-            "name": "Well-Fought Battle"
-          },
-          "3": {
-            "skillType": "support",
-            "name": "Mass Effect"
-          }
+          "1": { "skillType": "support", "name": "Extended Duration" },
+          "2": { "skillType": "support", "name": "Well-Fought Battle" },
+          "3": { "skillType": "support", "name": "Mass Effect" }
         }
       },
       "3": {
         "skillName": "Entangled Pain",
         "enabled": true,
         "supportSkills": {
-          "1": {
-            "skillType": "support",
-            "name": "Preparation"
-          },
-          "2": {
-            "skillType": "support",
-            "name": "Terrain of Malice"
-          }
+          "1": { "skillType": "support", "name": "Preparation" },
+          "2": { "skillType": "support", "name": "Terrain of Malice" }
         }
       },
       "4": {
         "skillName": "Corruption",
         "enabled": true,
         "supportSkills": {
-          "1": {
-            "skillType": "support",
-            "name": "Preparation"
-          },
-          "2": {
-            "skillType": "support",
-            "name": "Terrain of Malice"
-          }
+          "1": { "skillType": "support", "name": "Preparation" },
+          "2": { "skillType": "support", "name": "Terrain of Malice" }
         }
       },
       "5": {
@@ -707,10 +474,7 @@
             "skillType": "activation_medium",
             "name": "Activation Medium: Instruction"
           },
-          "2": {
-            "skillType": "support",
-            "name": "Reaping Agony"
-          },
+          "2": { "skillType": "support", "name": "Reaping Agony" },
           "3": {
             "skillType": "magnificent_support",
             "name": "Shackles of Malice: Defile (Magnificent)",
@@ -719,10 +483,7 @@
             "craftedAffix": "+43% additional Curse Effect for the target for 4s",
             "value": 43
           },
-          "4": {
-            "skillType": "support",
-            "name": "Grudge"
-          }
+          "4": { "skillType": "support", "name": "Grudge" }
         }
       }
     },
@@ -731,68 +492,35 @@
         "skillName": "Corrosion Focus",
         "enabled": true,
         "supportSkills": {
-          "1": {
-            "skillType": "support",
-            "name": "Restrain"
-          },
-          "2": {
-            "skillType": "support",
-            "name": "Reaping Agony"
-          },
-          "3": {
-            "skillType": "support",
-            "name": "Focus Acceleration"
-          }
+          "1": { "skillType": "support", "name": "Restrain" },
+          "2": { "skillType": "support", "name": "Reaping Agony" },
+          "3": { "skillType": "support", "name": "Focus Acceleration" }
         }
       },
       "2": {
         "skillName": "Spell Amplification",
         "enabled": true,
         "supportSkills": {
-          "1": {
-            "skillType": "support",
-            "name": "Restrain"
-          },
-          "2": {
-            "skillType": "support",
-            "name": "Aura Amplification"
-          }
+          "1": { "skillType": "support", "name": "Restrain" },
+          "2": { "skillType": "support", "name": "Aura Amplification" }
         }
       },
       "3": {
         "skillName": "Precise: Deep Pain",
         "enabled": true,
         "supportSkills": {
-          "1": {
-            "skillType": "support",
-            "name": "Restrain"
-          },
-          "2": {
-            "skillType": "support",
-            "name": "Seal Conversion"
-          },
-          "3": {
-            "skillType": "support",
-            "name": "Aura Amplification"
-          },
-          "4": {
-            "skillType": "support",
-            "name": "Increased Area"
-          }
+          "1": { "skillType": "support", "name": "Restrain" },
+          "2": { "skillType": "support", "name": "Seal Conversion" },
+          "3": { "skillType": "support", "name": "Aura Amplification" },
+          "4": { "skillType": "support", "name": "Increased Area" }
         }
       },
       "4": {
         "skillName": "Precise: Erosion Amplification",
         "enabled": true,
         "supportSkills": {
-          "1": {
-            "skillType": "support",
-            "name": "Restrain"
-          },
-          "2": {
-            "skillType": "support",
-            "name": "Aura Amplification"
-          }
+          "1": { "skillType": "support", "name": "Restrain" },
+          "2": { "skillType": "support", "name": "Aura Amplification" }
         }
       }
     }
@@ -800,18 +528,10 @@
   "heroPage": {
     "selectedHero": "Oracle Thea: Blasphemer (#3)",
     "traits": {
-      "level1": {
-        "name": "Blasphemer"
-      },
-      "level45": {
-        "name": "Unholy Baptism"
-      },
-      "level60": {
-        "name": "Tarnished Sage"
-      },
-      "level75": {
-        "name": "Onset of Depravity"
-      }
+      "level1": { "name": "Blasphemer" },
+      "level45": { "name": "Unholy Baptism" },
+      "level60": { "name": "Tarnished Sage" },
+      "level75": { "name": "Onset of Depravity" }
     },
     "memorySlots": {
       "slot45": {
@@ -935,45 +655,27 @@
     "placedSlates": [
       {
         "slateId": "843e13ad-7727-4322-a180-21698006651d",
-        "position": {
-          "row": 3,
-          "col": 2
-        }
+        "position": { "row": 3, "col": 2 }
       },
       {
         "slateId": "c5db2c38-9efe-48f8-b94c-87eab6f872e7",
-        "position": {
-          "row": 3,
-          "col": 1
-        }
+        "position": { "row": 3, "col": 1 }
       },
       {
         "slateId": "8dc39eb8-4f5e-4c3a-955b-f3c1f09d9818",
-        "position": {
-          "row": 0,
-          "col": 3
-        }
+        "position": { "row": 0, "col": 3 }
       },
       {
         "slateId": "46ad0fa2-80f6-48ec-a415-2efa77de0932",
-        "position": {
-          "row": 1,
-          "col": 0
-        }
+        "position": { "row": 1, "col": 0 }
       },
       {
         "slateId": "cb6540c7-af41-48f5-b9df-cd1eb5d5050e",
-        "position": {
-          "row": 0,
-          "col": 2
-        }
+        "position": { "row": 0, "col": 2 }
       },
       {
         "slateId": "d8f0f368-29ae-48c5-996c-f951efa7c0b0",
-        "position": {
-          "row": 1,
-          "col": 4
-        }
+        "position": { "row": 1, "col": 4 }
       }
     ],
     "inventory": [
@@ -1119,7 +821,5 @@
       "Reaps 0.9 s of Damage Over Time when dealing Damage Over Time. The effect has a 4 s cooldown against the same target"
     ]
   },
-  "calculationsPage": {
-    "selectedSkillName": "Mind Control"
-  }
+  "calculationsPage": { "selectedSkillName": "Mind Control" }
 }

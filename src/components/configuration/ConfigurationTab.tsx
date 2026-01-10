@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import type { ConfigurationPage } from "../../lib/save-data";
-import { parseMod } from "../../tli/mod_parser";
+import { parseMod } from "../../tli/mod-parser";
 
 interface ConfigurationTabProps {
   config: ConfigurationPage;
@@ -161,6 +161,13 @@ export const ConfigurationTab: React.FC<ConfigurationTabProps> = ({
           Configure combat conditions and buff stacks for damage calculations.
         </p>
       </div>
+
+      <CustomAffixesSection
+        lines={config.customAffixLines ?? []}
+        onChange={(lines) =>
+          onUpdate({ customAffixLines: lines.length > 0 ? lines : undefined })
+        }
+      />
 
       <div className="rounded-lg border border-zinc-700 bg-zinc-900 p-6">
         <div className="grid w-fit grid-cols-[auto_auto] items-center gap-x-3 gap-y-2">
@@ -518,6 +525,29 @@ export const ConfigurationTab: React.FC<ConfigurationTabProps> = ({
             className="h-4 w-4 rounded border-zinc-600 bg-zinc-800 accent-amber-500"
           />
 
+          <label className="text-right text-zinc-50">Target Enemy Marked</label>
+          <input
+            type="checkbox"
+            checked={config.targetEnemyMarked}
+            onChange={(e) => onUpdate({ targetEnemyMarked: e.target.checked })}
+            className="h-4 w-4 rounded border-zinc-600 bg-zinc-800 accent-amber-500"
+          />
+
+          <label className="text-right text-zinc-50">
+            Target Enemy Is Cursed
+            <InfoTooltip text="Defaults to true if you have a curse skill" />
+          </label>
+          <input
+            type="checkbox"
+            checked={config.targetEnemyIsCursed ?? false}
+            onChange={(e) =>
+              onUpdate({
+                targetEnemyIsCursed: e.target.checked ? true : undefined,
+              })
+            }
+            className="h-4 w-4 rounded border-zinc-600 bg-zinc-800 accent-amber-500"
+          />
+
           <label className="text-right text-zinc-50">Enemies Nearby</label>
           <NumberInput
             value={config.numEnemiesNearby}
@@ -578,6 +608,16 @@ export const ConfigurationTab: React.FC<ConfigurationTabProps> = ({
             checked={config.channeling}
             onChange={(e) => onUpdate({ channeling: e.target.checked })}
             className="h-4 w-4 rounded border-zinc-600 bg-zinc-800 accent-amber-500"
+          />
+
+          <label className="text-right text-zinc-50">
+            Stalker Stacks
+            <InfoTooltip text="Cateye Erika: Wind Stalker stacks. Defaults to max." />
+          </label>
+          <NumberInput
+            value={config.stalkerStacks}
+            onChange={(v) => onUpdate({ stalkerStacks: v })}
+            min={0}
           />
 
           <label className="text-right text-zinc-50">
@@ -805,15 +845,60 @@ export const ConfigurationTab: React.FC<ConfigurationTabProps> = ({
             onChange={(v) => onUpdate({ chainLightningInstancesOnTarget: v })}
             min={1}
           />
+
+          <label className="text-right text-zinc-50">
+            Used Mobility Skill Recently
+          </label>
+          <input
+            type="checkbox"
+            checked={config.hasUsedMobilitySkillRecently}
+            onChange={(e) =>
+              onUpdate({ hasUsedMobilitySkillRecently: e.target.checked })
+            }
+            className="h-4 w-4 rounded border-zinc-600 bg-zinc-800 accent-amber-500"
+          />
+
+          <label className="text-right text-zinc-50">Has Moved Recently</label>
+          <input
+            type="checkbox"
+            checked={config.hasMovedRecently}
+            onChange={(e) => onUpdate({ hasMovedRecently: e.target.checked })}
+            className="h-4 w-4 rounded border-zinc-600 bg-zinc-800 accent-amber-500"
+          />
+
+          <label className="text-right text-zinc-50">Cast Curse Recently</label>
+          <input
+            type="checkbox"
+            checked={config.hasCastCurseRecently}
+            onChange={(e) =>
+              onUpdate({ hasCastCurseRecently: e.target.checked })
+            }
+            className="h-4 w-4 rounded border-zinc-600 bg-zinc-800 accent-amber-500"
+          />
+
+          <label className="text-right text-zinc-50">
+            Has Attack Aggression
+          </label>
+          <input
+            type="checkbox"
+            checked={config.hasAttackAggression}
+            onChange={(e) =>
+              onUpdate({ hasAttackAggression: e.target.checked })
+            }
+            className="h-4 w-4 rounded border-zinc-600 bg-zinc-800 accent-amber-500"
+          />
+
+          <label className="text-right text-zinc-50">
+            Has Spell Aggression
+          </label>
+          <input
+            type="checkbox"
+            checked={config.hasSpellAggression}
+            onChange={(e) => onUpdate({ hasSpellAggression: e.target.checked })}
+            className="h-4 w-4 rounded border-zinc-600 bg-zinc-800 accent-amber-500"
+          />
         </div>
       </div>
-
-      <CustomAffixesSection
-        lines={config.customAffixLines ?? []}
-        onChange={(lines) =>
-          onUpdate({ customAffixLines: lines.length > 0 ? lines : undefined })
-        }
-      />
     </div>
   );
 };

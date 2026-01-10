@@ -104,6 +104,9 @@ export const filterModsByCondThreshold = (
           condThreshold,
         ),
       )
+      .with("enemy_numbed_stacks", () =>
+        condThresholdSatisfied(config.enemyNumbedStacks ?? 10, condThreshold),
+      )
       .exhaustive();
   });
 };
@@ -159,15 +162,9 @@ export const normalizeStackable = <T extends Mod>(
   }
 
   if (typeof newModValue === "number" && mod.per.valueLimit !== undefined) {
-    return {
-      ...mod,
-      value: Math.min(newModValue, mod.per.valueLimit),
-    } as T;
+    return { ...mod, value: Math.min(newModValue, mod.per.valueLimit) } as T;
   } else {
-    return {
-      ...mod,
-      value: newModValue,
-    } as T;
+    return { ...mod, value: newModValue } as T;
   }
 };
 
@@ -175,4 +172,17 @@ export const normalizeStackable = <T extends Mod>(
 // excludes mods with `per`
 export const filterOutPerMods = (mods: Mod[]): Mod[] => {
   return mods.filter((m) => !("per" in m && m.per !== undefined));
+};
+
+// Normalize a single stackable and push to target array
+// Skips if value is undefined
+export const pushNormalizedStackable = (
+  targetMods: Mod[],
+  prenormMods: Mod[],
+  stackable: Stackable,
+  value: number | undefined,
+): void => {
+  if (value !== undefined) {
+    targetMods.push(...normalizeStackables(prenormMods, stackable, value));
+  }
 };

@@ -2,7 +2,7 @@
 
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import type { EquipmentType } from "@/src/tli/gear_data_types";
+import type { EquipmentType } from "@/src/tli/gear-data-types";
 import { DEFAULT_QUALITY } from "../lib/constants";
 import type { AffixSlotState, GearSlot } from "../lib/types";
 

@@ -273,10 +273,7 @@ export const ActivationMediumEditModal = ({
   exclusiveGroups.forEach((indices, groupName) => {
     exclusiveAffixesByGroup.push({
       groupName,
-      affixes: indices.map((idx) => ({
-        affix: tierAffixes[idx],
-        index: idx,
-      })),
+      affixes: indices.map((idx) => ({ affix: tierAffixes[idx], index: idx })),
     });
   });
 

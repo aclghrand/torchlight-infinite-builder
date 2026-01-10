@@ -1,4 +1,4 @@
-import type { HeroTraitName } from "@/src/data/hero_trait/types";
+import type { HeroTraitName } from "@/src/data/hero-trait/types";
 import {
   ActiveSkills,
   type BaseSkill,
@@ -11,7 +11,7 @@ import type {
   Loadout,
   SkillSlot,
 } from "@/src/tli/core";
-import { isHeroTraitImplemented } from "@/src/tli/hero/hero_trait_mods";
+import { isHeroTraitImplemented } from "@/src/tli/hero/hero-trait-mods";
 import { isSkillImplemented } from "@/src/tli/skills/is-implemented";
 
 export interface UnparseableAffix {

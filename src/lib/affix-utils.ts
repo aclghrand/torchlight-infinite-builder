@@ -1,5 +1,5 @@
-import { ALL_GEAR_AFFIXES } from "@/src/tli/all_affixes";
-import type { BaseGearAffix, EquipmentType } from "@/src/tli/gear_data_types";
+import { ALL_GEAR_AFFIXES } from "@/src/tli/all-affixes";
+import type { BaseGearAffix, EquipmentType } from "@/src/tli/gear-data-types";
 
 const FILTER_AFFIX_TYPES = [
   "Prefix",

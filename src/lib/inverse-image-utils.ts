@@ -1,14 +1,11 @@
-import type { TalentNodeData } from "@/src/data/talent_tree";
+import type { TalentNodeData } from "@/src/data/talent-tree";
 import type { CraftedInverseImage, PlacedInverseImage } from "@/src/tli/core";
 
 // Reflection formula: source (x, y) -> target (6-x, 4-y)
 export const reflectPosition = (
   x: number,
   y: number,
-): { x: number; y: number } => ({
-  x: 6 - x,
-  y: 4 - y,
-});
+): { x: number; y: number } => ({ x: 6 - x, y: 4 - y });
 
 // Get all positions in a 3x3 area around center, clamped to grid bounds
 export const get3x3AreaPositions = (

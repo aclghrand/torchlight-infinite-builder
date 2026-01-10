@@ -42,14 +42,68 @@ src/routes/              # TanStack Router file-based routes
     └── calculations.tsx # Calculations section
 
 src/components/          # Feature-organized React components
+├── builder/             # BuilderLayout, StatsPanel
+├── calculations/        # ModRow, ModGroup, StatBreakdown, SkillSelector
+├── configuration/       # ConfigField, NumberInput, ConfigurationTab
+├── divinity/            # DivinityTab, DivinityGrid, SlateCrafter, SlateInventory
+├── equipment/           # EditGearModal, InventoryItem, AffixSlotComponent
+├── hero/                # HeroTab, HeroSelector, MemoryInventory, TraitSelector
+├── modals/              # ImportModal, ExportModal, DisclaimerModal, DestinySelectionModal
+├── pactspirit/          # PactspiritTab, PactspiritColumn, RingSlot
+├── skills/              # SkillSlot, SupportSkillSelector, SkillTooltipContent
+├── talents/             # TalentGrid, PrismSection, InverseImageSection, CoreTalentSelector
+├── ui/                  # Modal, Tooltip, SearchableSelect, NumberInput
+├── PageTabs.tsx         # Main navigation tabs
+├── SavesTab.tsx         # Save management UI
+├── DebugPanel.tsx       # Debug panel component
+└── Toast.tsx            # Toast notification component
+
 src/stores/              # Zustand state management
+├── builderStore/        # Main persisted store
+│   ├── internal.ts      # Zustand store with persist middleware
+│   ├── hooks.ts         # Public selectors (useLoadout, useBuilderState)
+│   ├── selectors.ts     # Selector functions
+│   ├── raw-access.ts    # Explicit raw access (useSaveDataRaw)
+│   └── index.ts         # Public exports only
+├── equipmentUIStore.ts  # Equipment crafting/preview state
+├── talentsUIStore.ts    # Prism/inverse image crafting state
+├── skillsUIStore.ts     # Skills UI state
+├── heroUIStore.ts       # Hero UI state
+├── divinityUIStore.ts   # Divinity UI state
+└── pactspiritUIStore.ts # Pactspirit UI state
+
 src/lib/                 # Utilities & types
+├── schemas/             # Zod schemas for validation
+│   ├── save-data.schema.ts
+│   ├── gear.schema.ts
+│   ├── skill.schema.ts
+│   ├── talent.schema.ts
+│   ├── hero.schema.ts
+│   ├── divinity.schema.ts
+│   ├── pactspirit.schema.ts
+│   ├── config.schema.ts
+│   ├── common.schema.ts
+│   └── index.ts
+├── save-data.ts         # SaveData types and factory functions
+├── build-code.ts        # Build code encoding/decoding
+├── types.ts             # Shared types
+├── constants.ts         # App constants
+├── storage.ts           # localStorage helpers
+└── *-utils.ts           # Feature-specific utilities
+
 src/hooks/               # Custom React hooks
+├── useAffixSelection.ts # Affix selection logic
+└── useTooltip.ts        # Tooltip positioning
 
 src/tli/                 # Game engine (pure TypeScript, no React)
 ├── core.ts              # Base types (Gear, HeroMemory, etc.)
 ├── mod.ts               # Mod type definitions
-├── mod_parser/          # Template-based mod parsing system
+├── constants.ts         # Engine constants
+├── gear-data-types.ts   # Gear data type definitions
+├── talent-tree.ts       # Talent tree utilities
+├── talent-affix-utils.ts # Talent affix parsing
+├── all-affixes.ts       # All affix aggregation
+├── mod-parser/          # Template-based mod parsing system
 │   ├── index.ts         # Public API exports
 │   ├── compiler.ts      # Template → regex compiler
 │   ├── template.ts      # Template parsing and matching
@@ -61,17 +115,22 @@ src/tli/                 # Game engine (pure TypeScript, no React)
 │   └── README.md        # Parser documentation
 ├── calcs/               # Calculation engine
 │   ├── offense.ts       # DPS calculations
-│   └── skill_confs.ts   # Skill configurations
+│   ├── damage-calc.ts   # Damage calculation helpers
+│   ├── skill-confs.ts   # Skill configurations
+│   ├── affix-collectors.ts # Affix collection utilities
+│   ├── mod-utils.ts     # Mod utility functions
+│   ├── util.ts          # General calc utilities
+│   └── test/            # Golden tests
 ├── skills/              # Skill factories and mods
 │   ├── types.ts         # Skill type definitions
-│   ├── active_factories.ts    # Active skill mod factories
-│   ├── active_mods.ts         # Active skill mod application
-│   ├── passive_factories.ts   # Passive skill mod factories
-│   ├── passive_mods.ts        # Passive skill mod application
-│   ├── support-mod-templates.ts # Support skill mod templates (template → regex)
+│   ├── active-factories.ts    # Active skill mod factories
+│   ├── active-mods.ts         # Active skill mod application
+│   ├── passive-factories.ts   # Passive skill mod factories
+│   ├── passive-mods.ts        # Passive skill mod application
+│   ├── support-mod-templates.ts # Support skill mod templates
 │   └── is-implemented.ts      # Skill implementation status checks
 ├── hero/                # Hero-related logic
-│   └── hero_trait_mods.ts
+│   └── hero-trait-mods.ts
 ├── storage/             # Save/load functionality
 │   └── load-save.ts     # SaveData parsing
 └── crafting/            # Gear crafting logic
@@ -80,17 +139,27 @@ src/tli/                 # Game engine (pure TypeScript, no React)
 src/scripts/             # Build-time scripts (scraping, code generation)
 ├── lib/                 # Shared utilities (codex.ts, tlidb.ts)
 ├── skills/              # Skill data parsers
-└── generate_*.ts        # Data generation scripts
+│   ├── active-parsers.ts
+│   ├── passive-parsers.ts
+│   ├── activation-medium-parser.ts
+│   ├── progression-table.ts
+│   ├── types.ts
+│   ├── utils.ts
+│   ├── index.ts
+│   └── template-compiler/  # Skill template compilation
+├── legendaries/         # Legendary data overrides
+├── generate-*.ts        # Data generation scripts
+└── fetch-*.ts           # HTML page fetchers
 
 src/data/                # Generated TypeScript data (from scripts)
-├── gear_affix/          # Gear affixes by slot/type
-├── skill/               # Active, passive, support skill data
-├── talent_tree/         # Talent tree node data
+├── gear-affix/          # Gear affixes by slot/type (many files)
+├── skill/               # Active, passive, support, activation medium data
+├── talent-tree/         # Talent tree node data
 ├── talent/              # Talent affix data
-├── core_talent/         # Core talent data
+├── core-talent/         # Core talent data
 ├── pactspirit/          # Pactspirit data
-├── hero_memory/         # Hero memory data
-├── hero_trait/          # Hero trait data
+├── hero-memory/         # Hero memory data
+├── hero-trait/          # Hero trait data
 ├── legendary/           # Legendary gear data
 ├── prism/               # Prism data
 ├── blend/               # Blend data
@@ -119,7 +188,7 @@ HTML sources from TLIDB are also cached in a gitignore'd directory: `.garbage`
 
 ```
 Raw UI strings (SaveData)
-    ↓ loadSave() / parseMod()  (src/tli/storage/, src/tli/mod_parser/)
+    ↓ loadSave() / parseMod()  (src/tli/storage/, src/tli/mod-parser/)
 Typed Loadout (engine types)
     ↓ calculateOffense()       (src/tli/calcs/offense.ts)
 Results (DPS, stats)
@@ -137,29 +206,30 @@ Two formats coexist:
 1. **Main Builder Store** (`stores/builderStore/`) - Persisted game build data
    - `internal.ts` - Zustand store with persist middleware
    - `hooks.ts` - Public selectors (`useLoadout`, `useBuilderState`)
-   - `actions.ts` - Mutable operations (`updateSaveData`, `save`, etc.)
+   - `selectors.ts` - Selector functions for derived state
    - `raw-access.ts` - Explicit raw access (`useSaveDataRaw("debug" | "export")`)
    - `index.ts` - Public exports only (internal store not exported)
 
 2. **Feature UI Stores** (`*UIStore.ts`) - Ephemeral crafting/preview state
    - Not persisted, reset on type changes
-   - Examples: `equipmentUIStore`, `divinityUIStore`, `talentsUIStore`
+   - Examples: `equipmentUIStore`, `divinityUIStore`, `talentsUIStore`, `heroUIStore`, `skillsUIStore`, `pactspiritUIStore`
    - Note: `talentsUIStore` only holds prism/inverse image crafting state (tree slot is in URL)
 
 **Key patterns:**
 
 ```typescript
+// Get actions via hook (stable reference, won't cause re-renders)
+const actions = useBuilderActions();
+
 // Use functional updaters for immutability
-builderActions.updateSaveData((current) => ({
+actions.updateSaveData((current) => ({
   ...current,
   itemsList: [...current.itemsList, newItem],
 }));
 
 // Access via hooks, not direct store access
 const loadout = useLoadout(); // Parsed data (memoized)
-const { currentSaveId } = useBuilderState((s) => ({
-  currentSaveId: s.currentSaveId,
-}));
+const currentSaveId = useCurrentSaveId();
 ```
 
 ## SaveData Structure
@@ -195,14 +265,14 @@ generateItemId(); // crypto.randomUUID()
 
 | Task                   | Key Files                                                                                                     |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------- |
-| Add mod type           | `src/tli/mod.ts` → `mod_parser/templates.ts` → `calcs/offense.ts` → test                                      |
-| Add skill              | `src/tli/calcs/skill_confs.ts` (skill configurations)                                                         |
+| Add mod type           | `src/tli/mod.ts` → `mod-parser/templates.ts` → `calcs/offense.ts` → test                                      |
+| Add skill              | `src/tli/calcs/skill-confs.ts` (skill configurations)                                                         |
 | Add skill mods         | `src/tli/skills/` (active, passive, or support mods/factories) - use `/implementing-game-skill-parsers` skill |
 | Add support skill mods | `src/tli/skills/support-mod-templates.ts` - uses template-based parsing                                       |
 | Add utility helper     | Create `src/lib/{feature}-utils.ts`                                                                           |
-| Update talent trees    | `pnpm exec tsx src/scripts/generate_talent_tree_data.ts`                                                      |
-| Regenerate affixes     | `pnpm exec tsx src/scripts/generate_gear_affix_data.ts`                                                       |
-| Regenerate skills      | `pnpm exec tsx src/scripts/generate_skill_data.ts`                                                            |
+| Update talent trees    | `pnpm exec tsx src/scripts/generate-talent-tree-data.ts`                                                      |
+| Regenerate affixes     | `pnpm exec tsx src/scripts/generate-gear-affix-data.ts`                                                       |
+| Regenerate skills      | `pnpm exec tsx src/scripts/generate-skill-data.ts`                                                            |
 
 ## Code Generation Pattern
 
@@ -212,7 +282,7 @@ For large datasets (5k+ entries), use build-time code generation:
 2. Groups/transforms data into TypeScript const arrays
 3. Generates files with `satisfies readonly T[]` for type safety
 4. Exports discriminated union from const array types
-5. See [generate_gear_affix_data.ts](src/scripts/generate_gear_affix_data.ts) for reference
+5. See [generate-gear-affix-data.ts](src/scripts/generate-gear-affix-data.ts) for reference
 
 ## Testing Patterns
 
@@ -249,7 +319,7 @@ Guided workflows for common tasks (invoke with `/skill-name`):
 
 ## Gotchas
 
-- **Store exports are restricted** - `builderStore/index.ts` only exports hooks/actions, not the internal store. This prevents accidental mutations.
+- **Store exports are restricted** - `builderStore/index.ts` only exports hooks and selectors, not the internal store. This prevents accidental mutations.
 
 - **Build codes are shareable** - Compressed JSON (fflate) + base64url encoding. Version field allows future migrations.
 

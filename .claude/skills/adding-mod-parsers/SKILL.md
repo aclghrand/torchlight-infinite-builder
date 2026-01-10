@@ -20,10 +20,10 @@ The mod parser converts raw mod strings (e.g., `"+10% all stats"`) into typed `M
 | Purpose | File Path |
 |---------|-----------|
 | Mod type definitions | `src/tli/mod.ts` |
-| Parser templates | `src/tli/mod_parser/templates.ts` |
-| Enum registrations | `src/tli/mod_parser/enums.ts` |
+| Parser templates | `src/tli/mod-parser/templates.ts` |
+| Enum registrations | `src/tli/mod-parser/enums.ts` |
 | Calculation handlers | `src/tli/calcs/offense.ts` |
-| Tests | `src/tli/mod_parser.test.ts` |
+| Tests | `src/tli/mod-parser.test.ts` |
 
 ## Implementation Checklist
 

@@ -6,8 +6,15 @@ import type {
   CritRatingModType,
   DmgModType,
 } from "../constants";
-import type { Configuration, DmgRange, Loadout } from "../core";
-import type { DmgChunkType, Mod, ModT, ResType } from "../mod";
+import type { Configuration, DmgRange, Gear } from "../core";
+import type {
+  AspdModType,
+  DmgChunkType,
+  DoubleDmgModType,
+  Mod,
+  ModT,
+  ResType,
+} from "../mod";
 import { getGearAffixes } from "./affix-collectors";
 import {
   calcEffMult,
@@ -38,10 +45,7 @@ export interface GearDmg {
 // === Damage Range Utilities ===
 
 export const addDR = (dr1: DmgRange, dr2: DmgRange): DmgRange => {
-  return {
-    min: dr1.min + dr2.min,
-    max: dr1.max + dr2.max,
-  };
+  return { min: dr1.min + dr2.min, max: dr1.max + dr2.max };
 };
 
 export const addValue = <T extends DmgRange | number>(v1: T, v2: T): T => {
@@ -62,10 +66,7 @@ export const addDRs = (drs1: DmgRanges, drs2: DmgRanges): DmgRanges => {
 };
 
 export const multDR = (dr: DmgRange, multiplier: number): DmgRange => {
-  return {
-    min: dr.min * multiplier,
-    max: dr.max * multiplier,
-  };
+  return { min: dr.min * multiplier, max: dr.max * multiplier };
 };
 
 export const multDRs = (drs: DmgRanges, multiplier: number): DmgRanges => {
@@ -93,9 +94,7 @@ export const emptyDmgRanges = (): DmgRanges => {
 };
 
 export const emptyGearDmg = (): GearDmg => {
-  return {
-    mainHand: emptyDmgRanges(),
-  };
+  return { mainHand: emptyDmgRanges() };
 };
 
 // === Damage Conversion ===
@@ -396,12 +395,32 @@ export const calculateDmgAddn = (mods: ModT<"DmgPct">[]): number => {
 
 // === Damage Pool Calculations ===
 
+// Filter AddnMinDmgPct/AddnMaxDmgPct mods by applicable damage types
+const filterAddnMinDmgMods = (
+  allMods: Mod[],
+  applicableTypes: DmgChunkType[],
+): ModT<"AddnMinDmgPct">[] => {
+  return filterMods(allMods, "AddnMinDmgPct").filter(
+    (m) => m.dmgType === undefined || applicableTypes.includes(m.dmgType),
+  );
+};
+
+const filterAddnMaxDmgMods = (
+  allMods: Mod[],
+  applicableTypes: DmgChunkType[],
+): ModT<"AddnMaxDmgPct">[] => {
+  return filterMods(allMods, "AddnMaxDmgPct").filter(
+    (m) => m.dmgType === undefined || applicableTypes.includes(m.dmgType),
+  );
+};
+
 // Apply damage % bonuses to a single chunk, considering its conversion history
 export const calculateChunkDmg = <T extends DmgRange | number>(
   chunk: DmgChunk<T>,
   currentType: DmgChunkType,
   allDmgPctMods: ModT<"DmgPct">[],
   baseDmgModTypes: DmgModType[],
+  allMods: Mod[],
 ): T => {
   // Chunk benefits from bonuses for current type AND all types in its history
   const allApplicableTypes: DmgChunkType[] = [currentType, ...chunk.history];
@@ -420,7 +439,21 @@ export const calculateChunkDmg = <T extends DmgRange | number>(
   const addn = calculateDmgAddn(applicableMods);
   const mult = (1 + inc) * addn;
 
-  return multValue(chunk.value, mult);
+  const scaledValue = multValue(chunk.value, mult);
+
+  // Apply additional min/max damage multipliers (only for DmgRange values)
+  if (typeof scaledValue === "number") {
+    return scaledValue;
+  }
+
+  const addnMinMods = filterAddnMinDmgMods(allMods, allApplicableTypes);
+  const addnMaxMods = filterAddnMaxDmgMods(allMods, allApplicableTypes);
+
+  const minMult = calcEffMult(addnMinMods);
+  const maxMult = calcEffMult(addnMaxMods);
+
+  const range = scaledValue as DmgRange;
+  return { min: range.min * minMult, max: range.max * maxMult } as T;
 };
 
 // Sum all chunks in a pool, applying bonuses to each based on its history
@@ -429,6 +462,7 @@ export const calculatePoolTotal = <T extends DmgRange | number>(
   poolType: DmgChunkType,
   allDmgPctMods: ModT<"DmgPct">[],
   baseDmgModTypes: DmgModType[],
+  allMods: Mod[],
   zero: T,
 ): T => {
   return pool.reduce((total, chunk) => {
@@ -437,6 +471,7 @@ export const calculatePoolTotal = <T extends DmgRange | number>(
       poolType,
       allDmgPctMods,
       baseDmgModTypes,
+      allMods,
     );
     return addValue(total, chunkDmg);
   }, zero);
@@ -447,6 +482,7 @@ export const calculateAllPoolTotals = <T extends DmgRange | number>(
   dmgPools: DmgPools<T>,
   allDmgPcts: ModT<"DmgPct">[],
   baseDmgModTypes: DmgModType[],
+  allMods: Mod[],
   zero: T,
 ): Record<DmgChunkType, T> => ({
   physical: calculatePoolTotal(
@@ -454,6 +490,7 @@ export const calculateAllPoolTotals = <T extends DmgRange | number>(
     "physical",
     allDmgPcts,
     baseDmgModTypes,
+    allMods,
     zero,
   ),
   cold: calculatePoolTotal(
@@ -461,6 +498,7 @@ export const calculateAllPoolTotals = <T extends DmgRange | number>(
     "cold",
     allDmgPcts,
     baseDmgModTypes,
+    allMods,
     zero,
   ),
   lightning: calculatePoolTotal(
@@ -468,6 +506,7 @@ export const calculateAllPoolTotals = <T extends DmgRange | number>(
     "lightning",
     allDmgPcts,
     baseDmgModTypes,
+    allMods,
     zero,
   ),
   fire: calculatePoolTotal(
@@ -475,6 +514,7 @@ export const calculateAllPoolTotals = <T extends DmgRange | number>(
     "fire",
     allDmgPcts,
     baseDmgModTypes,
+    allMods,
     zero,
   ),
   erosion: calculatePoolTotal(
@@ -482,6 +522,7 @@ export const calculateAllPoolTotals = <T extends DmgRange | number>(
     "erosion",
     allDmgPcts,
     baseDmgModTypes,
+    allMods,
     zero,
   ),
 });
@@ -538,6 +579,7 @@ export function applyDmgBonusesAndPen(
       dmgPools as DmgPools<DmgRange>,
       allDmgPcts,
       baseDmgModTypes,
+      mods,
       { min: 0, max: 0 },
     ) as DmgRanges;
     return calculatePenetration({ dmg: beforePen, mods, config, ignoreArmor });
@@ -547,6 +589,7 @@ export function applyDmgBonusesAndPen(
     dmgPools as DmgPools<number>,
     allDmgPcts,
     baseDmgModTypes,
+    mods,
     0,
   ) as NumDmgValues;
   return calculatePenetration({ dmg: beforePen, mods, config, ignoreArmor });
@@ -555,13 +598,9 @@ export function applyDmgBonusesAndPen(
 // === Gear Damage Calculations ===
 
 // currently only calculating mainhand
-export const calculateGearDmg = (loadout: Loadout, allMods: Mod[]): GearDmg => {
-  const mainhand = loadout.gearPage.equippedGear.mainHand;
-  if (mainhand === undefined) {
-    return emptyGearDmg();
-  }
-  const mainhandMods = collectModsFromAffixes(getGearAffixes(mainhand));
-  const basePhysDmgMod = mainhand.baseStats?.baseStatLines
+export const calculateGearDmg = (gear: Gear, allMods: Mod[]): GearDmg => {
+  const mainhandMods = collectModsFromAffixes(getGearAffixes(gear));
+  const basePhysDmgMod = gear.baseStats?.baseStatLines
     .flatMap((l) => l.mods ?? [])
     .find((m) => m.type === "GearBasePhysDmg");
   const basePhysDmg =
@@ -667,20 +706,13 @@ export const calculateFlatDmg = (
       })
       .exhaustive();
   }
-  return {
-    physical: phys,
-    cold,
-    lightning,
-    fire,
-    erosion,
-  };
+  return { physical: phys, cold, lightning, fire, erosion };
 };
 
-export const calculateGearAspd = (loadout: Loadout, allMods: Mod[]): number => {
-  const baseAspdMod =
-    loadout.gearPage.equippedGear.mainHand?.baseStats?.baseStatLines
-      .flatMap((l) => l.mods ?? [])
-      .find((m) => m.type === "GearBaseAttackSpeed");
+export const calculateGearAspd = (weapon: Gear, allMods: Mod[]): number => {
+  const baseAspdMod = weapon.baseStats?.baseStatLines
+    .flatMap((l) => l.mods ?? [])
+    .find((m) => m.type === "GearBaseAttackSpeed");
   const baseAspd =
     baseAspdMod?.type === "GearBaseAttackSpeed" ? baseAspdMod.value : 0;
   const gearAspdPctBonus = calculateInc(
@@ -705,14 +737,19 @@ export const calculateCritChance = (
   if (skill.tags.includes("Projectile")) {
     modTypes.push("projectile");
   }
+  if (skill.tags.includes("Melee")) {
+    modTypes.push("melee");
+  }
 
   const addedFlatCritRating = sumByValue(
     filterMods(allMods, "FlatCritRating").filter((m) =>
       modTypes.includes(m.modType),
     ),
   );
+  const gearCritRatingMult = calcEffMult(allMods, "GearCritRatingPct");
   const baseCritRating = 500;
-  const baseCritChance = (baseCritRating + addedFlatCritRating) / 100 / 100;
+  const baseCritChance =
+    (baseCritRating * gearCritRatingMult + addedFlatCritRating) / 100 / 100;
 
   const critRatingPctMods = filterMods(allMods, "CritRatingPct").filter((m) =>
     modTypes.includes(m.modType),
@@ -756,8 +793,18 @@ export const calculateCritDmg = (
   return (1.5 + inc) * addn;
 };
 
-export const calculateDoubleDmgMult = (mods: Mod[]): number => {
-  const doubleDmgMods = filterMods(mods, "DoubleDmgChancePct");
+export const calculateDoubleDmgMult = (
+  mods: Mod[],
+  skill: BaseActiveSkill,
+): number => {
+  const modTypes: DoubleDmgModType[] = [];
+  if (skill.tags.includes("Attack")) {
+    modTypes.push("attack");
+  }
+  const doubleDmgMods = filterMods(mods, "DoubleDmgChancePct").filter(
+    (m) =>
+      m.doubleDmgModType === undefined || modTypes.includes(m.doubleDmgModType),
+  );
   // capped at 100% chance to deal double damage
   const inc = Math.min(1, calculateInc(doubleDmgMods.map((v) => v.value)));
   return 1 + inc;
@@ -765,17 +812,22 @@ export const calculateDoubleDmgMult = (mods: Mod[]): number => {
 
 // === Attack Speed ===
 
-export const calculateAspd = (loadout: Loadout, allMods: Mod[]): number => {
-  const gearAspd = calculateGearAspd(loadout, allMods);
-  const aspdPctMods = filterMods(allMods, "AspdPct");
-  const inc = calculateInc(
-    aspdPctMods.filter((m) => !m.addn).map((v) => v.value),
+export const calculateAspd = (
+  weapon: Gear,
+  allMods: Mod[],
+  skill: BaseActiveSkill,
+): number => {
+  const modTypes: AspdModType[] = [];
+  if (skill.tags.includes("Melee")) {
+    modTypes.push("melee");
+  }
+  const gearAspd = calculateGearAspd(weapon, allMods);
+  const aspdMods = filterMods(allMods, "AspdPct").filter(
+    (m) => m.aspdModType === undefined || modTypes.includes(m.aspdModType),
   );
-  const addn = calculateAddn(
-    aspdPctMods.filter((m) => m.addn).map((v) => v.value),
-  );
+  const mult = calcEffMult(aspdMods);
 
-  return gearAspd * (1 + inc) * addn;
+  return gearAspd * mult;
 };
 
 export const calculateExtraOffenseMults = (

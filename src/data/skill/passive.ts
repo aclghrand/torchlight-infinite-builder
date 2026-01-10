@@ -293,6 +293,13 @@ export const PassiveSkills = [
       "Activates the Aura, you and allies within a certain area gain the following buff:\n21% additional Lightning Damage.",
       "Activates the Aura, you and allies within a certain area gain the following buff:\n+40% additional Lightning Damage",
     ],
+    levelValues: {
+      lightningDmgPct: [
+        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
+        39, 40, 41, 41.5, 42, 42.5, 43, 43.5, 44, 44.5, 45, 45.5, 46, 46.5, 47,
+        47.5, 48, 48.5, 49, 49.5, 50, 50.5,
+      ],
+    },
   },
   {
     type: "Passive",
@@ -336,6 +343,22 @@ export const PassiveSkills = [
       "Activates the Aura, you and allies within a certain area gain the following buff:\nMelee Skills 60% Critical Strike Rating, 10% additional damage, and 8% Attack Speed.",
       "Activates the Aura, you and allies within a certain area gain the following buff:\n+79% Critical Strike Rating for Melee Skills\n+29% additional Melee Skill Damage\n+8% Melee Attack Speed",
     ],
+    levelValues: {
+      meleeCritRatingPct: [
+        60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77,
+        78, 79, 80, 80.5, 81, 81.5, 82, 82.5, 83, 83.5, 84, 84.5, 85, 85.5, 86,
+        86.5, 87, 87.5, 88, 88.5, 89, 89.5,
+      ],
+      meleeDmgPct: [
+        10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
+        28, 29, 30, 30.5, 31, 31.5, 32, 32.5, 33, 33.5, 34, 34.5, 35, 35.5, 36,
+        36.5, 37, 37.5, 38, 38.5, 39, 39.5,
+      ],
+      meleeAspdPct: [
+        8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+        8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      ],
+    },
   },
   {
     type: "Passive",
@@ -428,6 +451,13 @@ export const PassiveSkills = [
       "Activates the Aura, you and allies within a certain area gain the following buff:\n21% additional damage for Spell Skills.",
       "Activates the Aura, you and allies within a certain area gain the following buff:\n+40% additional Spell Damage",
     ],
+    levelValues: {
+      spellDmgPct: [
+        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
+        39, 40, 41, 41.5, 42, 42.5, 43, 43.5, 44, 44.5, 45, 45.5, 46, 46.5, 47,
+        47.5, 48, 48.5, 49, 49.5, 50, 50.5,
+      ],
+    },
   },
   {
     type: "Passive",
@@ -446,6 +476,13 @@ export const PassiveSkills = [
       "Activates the Aura, you and allies within a certain area gain the following buff:\n11% Movement Speed.",
       "Activates the Aura, you and allies within a certain area gain the following buff:\n20.5% Movement Speed",
     ],
+    levelValues: {
+      movementSpeedPct: [
+        11, 11.5, 12, 12.5, 13, 13.5, 14, 14.5, 15, 15.5, 16, 16.5, 17, 17.5,
+        18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5, 24, 24.5,
+        25, 25.5, 26, 26.5, 27, 27.5, 28, 28.5, 29, 29.5, 30, 30.5,
+      ],
+    },
   },
   {
     type: "Passive",
@@ -543,6 +580,13 @@ export const PassiveSkills = [
       "Fire Magus:\nBase Skill: Blazing Dance.\nEmpower Skill: Blazing Spin.\nEnhanced Skill: Blazing Incineration.\nUltimate: Rising Molten.",
     ],
     mainStats: ["str", "int"],
+    levelValues: {
+      critRating: [
+        58, 61, 64, 67, 70, 73, 76, 79, 82, 85, 88, 91, 94, 97, 100, 103, 106,
+        109, 112, 115, 118, 121, 124, 127, 130, 133, 136, 139, 142, 145, 148,
+        151, 154, 157, 160, 163, 166, 169, 172, 175,
+      ],
+    },
   },
   {
     type: "Passive",

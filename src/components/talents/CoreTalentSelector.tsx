@@ -1,8 +1,8 @@
 import React from "react";
 import { Tooltip, TooltipTitle } from "@/src/components/ui/Tooltip";
-import type { BaseCoreTalent } from "@/src/data/core_talent";
-import { CoreTalentMods } from "@/src/data/core_talent/core_talent_mods";
-import type { CoreTalentName } from "@/src/data/core_talent/types";
+import type { BaseCoreTalent } from "@/src/data/core-talent";
+import { CoreTalentMods } from "@/src/data/core-talent/core-talent-mods";
+import type { CoreTalentName } from "@/src/data/core-talent/types";
 import { useTooltip } from "@/src/hooks/useTooltip";
 import {
   getAvailableGodGoddessCoreTalents,

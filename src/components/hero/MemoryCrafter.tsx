@@ -179,10 +179,7 @@ export const MemoryCrafter = ({ onMemorySave }: MemoryCrafterProps) => {
             <SearchableSelect
               value={craftingBaseStat}
               onChange={setCraftingBaseStat}
-              options={baseStats.map((stat) => ({
-                value: stat,
-                label: stat,
-              }))}
+              options={baseStats.map((stat) => ({ value: stat, label: stat }))}
               placeholder="Select base stat..."
               size="lg"
             />

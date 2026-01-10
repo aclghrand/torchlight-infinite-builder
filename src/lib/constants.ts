@@ -1,4 +1,4 @@
-import type { EquipmentSlot, EquipmentType } from "@/src/tli/gear_data_types";
+import type { EquipmentSlot, EquipmentType } from "@/src/tli/gear-data-types";
 import type { GearSlot } from "./types";
 
 export const GEAR_SLOTS: { key: GearSlot; label: string }[] = [

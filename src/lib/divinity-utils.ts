@@ -17,10 +17,7 @@ export const getDivinityAffixes = (god: DivinityGod): DivinityAffix[] => {
   ).forEach((t) => {
     if (!seen.has(t.effect)) {
       seen.add(t.effect);
-      result.push({
-        effect: t.effect,
-        type: t.type as DivinityAffixType,
-      });
+      result.push({ effect: t.effect, type: t.type as DivinityAffixType });
     }
   });
 

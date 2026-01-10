@@ -31,10 +31,7 @@ export const SkillSelector: React.FC<SkillSelectorProps> = ({
   }, [loadout.skillPage.activeSkills]);
 
   const options: SearchableSelectOption<ImplementedActiveSkillName>[] =
-    availableSkills.map((name) => ({
-      value: name,
-      label: name,
-    }));
+    availableSkills.map((name) => ({ value: name, label: name }));
 
   const handleChange = (value: ImplementedActiveSkillName | undefined) => {
     onSkillChange(value);

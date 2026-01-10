@@ -166,10 +166,7 @@ export const StatsPanel = (): React.ReactNode => {
     | undefined;
 
   const offenseResults = useMemo(() => {
-    const input: OffenseInput = {
-      loadout,
-      configuration,
-    };
+    const input: OffenseInput = { loadout, configuration };
     return calculateOffense(input);
   }, [loadout, configuration]);
 
@@ -208,35 +205,79 @@ export const StatsPanel = (): React.ReactNode => {
                   highlight
                 />
                 <StatLine
-                  label="Avg Hit"
-                  value={formatStatValue.damage(
-                    offenseSummary.attackDpsSummary.avgHit,
-                  )}
-                />
-                <StatLine
-                  label="Avg Hit (crit)"
-                  value={formatStatValue.damage(
-                    offenseSummary.attackDpsSummary.avgHitWithCrit,
-                  )}
-                />
-                <StatLine
-                  label="Crit Chance"
-                  value={formatStatValue.percentage(
-                    offenseSummary.attackDpsSummary.critChance,
-                  )}
-                />
-                <StatLine
                   label="Crit Multiplier"
                   value={formatStatValue.multiplier(
                     offenseSummary.attackDpsSummary.critDmgMult,
                   )}
                 />
                 <StatLine
-                  label="Attack Speed"
-                  value={formatStatValue.aps(
-                    offenseSummary.attackDpsSummary.aspd,
+                  label={
+                    offenseSummary.attackDpsSummary.offhand !== undefined
+                      ? "Avg Hit (MH)"
+                      : "Avg Hit"
+                  }
+                  value={formatStatValue.damage(
+                    offenseSummary.attackDpsSummary.mainhand.avgHit,
                   )}
                 />
+                <StatLine
+                  label={
+                    offenseSummary.attackDpsSummary.offhand !== undefined
+                      ? "Avg Hit crit (MH)"
+                      : "Avg Hit (crit)"
+                  }
+                  value={formatStatValue.damage(
+                    offenseSummary.attackDpsSummary.mainhand.avgHitWithCrit,
+                  )}
+                />
+                <StatLine
+                  label={
+                    offenseSummary.attackDpsSummary.offhand !== undefined
+                      ? "Crit Chance (MH)"
+                      : "Crit Chance"
+                  }
+                  value={formatStatValue.percentage(
+                    offenseSummary.attackDpsSummary.mainhand.critChance,
+                  )}
+                />
+                <StatLine
+                  label={
+                    offenseSummary.attackDpsSummary.offhand !== undefined
+                      ? "Attack Speed (MH)"
+                      : "Attack Speed"
+                  }
+                  value={formatStatValue.aps(
+                    offenseSummary.attackDpsSummary.mainhand.aspd,
+                  )}
+                />
+                {offenseSummary.attackDpsSummary.offhand !== undefined && (
+                  <>
+                    <StatLine
+                      label="Avg Hit (OH)"
+                      value={formatStatValue.damage(
+                        offenseSummary.attackDpsSummary.offhand.avgHit,
+                      )}
+                    />
+                    <StatLine
+                      label="Avg Hit crit (OH)"
+                      value={formatStatValue.damage(
+                        offenseSummary.attackDpsSummary.offhand.avgHitWithCrit,
+                      )}
+                    />
+                    <StatLine
+                      label="Crit Chance (OH)"
+                      value={formatStatValue.percentage(
+                        offenseSummary.attackDpsSummary.offhand.critChance,
+                      )}
+                    />
+                    <StatLine
+                      label="Attack Speed (OH)"
+                      value={formatStatValue.aps(
+                        offenseSummary.attackDpsSummary.offhand.aspd,
+                      )}
+                    />
+                  </>
+                )}
               </>
             )}
 

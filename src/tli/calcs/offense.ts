@@ -1,6 +1,6 @@
 import * as R from "remeda";
 import { match } from "ts-pattern";
-import { bing2, type HeroName } from "@/src/data/hero_trait";
+import { bing2, type HeroName } from "@/src/data/hero-trait";
 import type { PactspiritName } from "@/src/data/pactspirit";
 import {
   type ActiveSkillName,
@@ -23,15 +23,24 @@ import type {
   BaseSupportSkillSlot,
   Configuration,
   DmgRange,
+  Gear,
   Loadout,
   MagnificentSupportSkillSlot,
   NobleSupportSkillSlot,
   SkillSlot,
 } from "../core";
-import { getHeroTraitMods } from "../hero/hero_trait_mods";
-import type { DmgChunkType, Mod, ModT, ResType, StatType } from "../mod";
-import { getActiveSkillMods } from "../skills/active_mods";
-import { getPassiveSkillMods } from "../skills/passive_mods";
+import type { EquipmentType } from "../gear-data-types";
+import { getHeroTraitMods } from "../hero/hero-trait-mods";
+import type {
+  DmgChunkType,
+  Mod,
+  ModT,
+  ResType,
+  Stackable,
+  StatType,
+} from "../mod";
+import { getActiveSkillMods } from "../skills/active-mods";
+import { getPassiveSkillMods } from "../skills/passive-mods";
 import { buildSupportSkillAffixes } from "../storage/load-save";
 import {
   addDRs,
@@ -49,7 +58,6 @@ import {
   type DmgRanges,
   dmgModTypesForSkill,
   emptyDmgRanges,
-  type GearDmg,
   multDRs,
   type NumDmgValues,
 } from "./damage-calc";
@@ -64,21 +72,27 @@ import {
   findMod,
   modExists,
   normalizeStackables,
+  pushNormalizedStackable,
   sumByValue,
 } from "./mod-utils";
-import type { OffenseSkillName } from "./skill_confs";
+import type { OffenseSkillName } from "./skill-confs";
 import { multModValue, multValue } from "./util";
 
 // Re-export types that consumers expect from offense.ts
 export type { DmgChunk, DmgPools, DmgRanges };
 export { collectMods, convertDmg };
 
-export interface OffenseAttackDpsSummary {
+export interface WeaponAttackSummary {
   critChance: number;
-  critDmgMult: number;
   aspd: number;
   avgHit: number;
   avgHitWithCrit: number;
+}
+
+export interface OffenseAttackDpsSummary {
+  mainhand: WeaponAttackSummary;
+  offhand?: WeaponAttackSummary;
+  critDmgMult: number;
   avgDps: number;
 }
 
@@ -295,13 +309,25 @@ const calculateHeroTraitMods = (loadout: Loadout): Mod[] => {
 // includes any mods that always apply, but don't come from loadout, like damage from stats, non-skill buffs, etc
 const calculateImplicitMods = (): Mod[] => {
   return [
+    // dual wield
     {
-      type: "DmgPct",
-      value: 0.5,
-      dmgModType: "global",
+      type: "AspdPct",
+      value: 10,
       addn: true,
-      per: { stackable: "main_stat" },
-      src: "Additional Damage from skill Main Stat (.5% per stat)",
+      cond: "is_dual_wielding",
+      src: "Dual Wielding",
+    },
+    {
+      type: "AttackBlockChancePct",
+      value: 30,
+      cond: "is_dual_wielding",
+      src: "Dual Wielding",
+    },
+    {
+      type: "SpellBlockChancePct",
+      value: 30,
+      cond: "is_dual_wielding",
+      src: "Dual Wielding",
     },
     {
       type: "DmgPct",
@@ -400,34 +426,6 @@ const calculateImplicitMods = (): Mod[] => {
       cond: "has_hasten",
       src: "Hasten",
     },
-    // Infiltrations
-    {
-      type: "DmgPct",
-      value: 13,
-      addn: true,
-      dmgModType: "cold",
-      cond: "enemy_has_cold_infiltration",
-      isEnemyDebuff: true,
-      src: "Cold Infiltration",
-    },
-    {
-      type: "DmgPct",
-      value: 13,
-      addn: true,
-      dmgModType: "lightning",
-      cond: "enemy_has_lightning_infiltration",
-      isEnemyDebuff: true,
-      src: "Lightning Infiltration",
-    },
-    {
-      type: "DmgPct",
-      value: 13,
-      addn: true,
-      dmgModType: "fire",
-      cond: "enemy_has_fire_infiltration",
-      isEnemyDebuff: true,
-      src: "Fire Infiltration",
-    },
     // Pactspirit: Portrait of a Fallen Saintess
     {
       type: "DmgPct",
@@ -459,6 +457,8 @@ const calcBaseHitOverview = (
   dmgRanges: DmgRanges,
   derivedCtx: DerivedCtx,
 ): BaseHitOverview => {
+  // AddnMinDmgPct/AddnMaxDmgPct are now applied in calculateChunkDmg
+  // which properly respects the dmgType property for damage type filtering
   const { physical, cold, lightning, fire, erosion } = dmgRanges;
   const min = physical.min + cold.min + lightning.min + fire.min + erosion.min;
   const max = physical.max + cold.max + lightning.max + fire.max + erosion.max;
@@ -533,7 +533,7 @@ const calculateAddnDmgFromShadows = (
 interface SkillHitOverview extends BaseHitOverview {}
 
 const calculateAtkHit = (
-  gearDmg: GearDmg,
+  gearDmg: DmgRanges,
   flatDmg: DmgRanges,
   mods: Mod[],
   skill: BaseActiveSkill,
@@ -551,10 +551,21 @@ const calculateAtkHit = (
       if (typeof weaponAtkDmgPct !== "number") {
         return undefined;
       }
-      return multDRs(gearDmg.mainHand, weaponAtkDmgPct / 100);
+      return multDRs(gearDmg, weaponAtkDmgPct / 100);
+    })
+    .with("Thunder Spike", () => {
+      const weaponAtkDmgPct = getLevelOffenseValue(
+        skill,
+        "WeaponAtkDmgPct",
+        level,
+      );
+      if (typeof weaponAtkDmgPct !== "number") {
+        return undefined;
+      }
+      return multDRs(gearDmg, weaponAtkDmgPct / 100);
     })
     .with("[Test] Simple Attack", () => {
-      return gearDmg.mainHand;
+      return gearDmg;
     })
     .otherwise(() => {
       // either it's unimplemented, not an attack
@@ -607,14 +618,37 @@ interface DerivedCtx {
   hasBlasphemer: boolean;
   hero?: HeroName;
   luckyDmg: boolean;
+  dualWielding: boolean;
 }
+
+const isOneHandedWeapon = (gear: Gear): boolean => {
+  const validEquipmentTypes: EquipmentType[] = [
+    "Claw",
+    "Dagger",
+    "One-Handed Sword",
+    "One-Handed Hammer",
+    "One-Handed Axe",
+    "Wand",
+    "Rod",
+    "Scepter",
+    "Cane",
+    "Pistol",
+  ];
+  return validEquipmentTypes.includes(gear.equipmentType);
+};
 
 const resolveDerivedCtx = (loadout: Loadout, mods: Mod[]): DerivedCtx => {
   const hasHasten = findMod(mods, "HasHasten") !== undefined;
   const hasBlasphemer = findMod(mods, "Blasphemer") !== undefined;
   const luckyDmg = findMod(mods, "LuckyDmg") !== undefined;
   const hero = loadout.heroPage.selectedHero;
-  return { hasHasten, hasBlasphemer, luckyDmg, hero };
+  const equippedGear = loadout.gearPage.equippedGear;
+  const dualWielding =
+    equippedGear.mainHand !== undefined &&
+    equippedGear.offHand !== undefined &&
+    isOneHandedWeapon(equippedGear.mainHand) &&
+    isOneHandedWeapon(equippedGear.offHand);
+  return { hasHasten, hasBlasphemer, luckyDmg, hero, dualWielding };
 };
 
 const hasPactspirit = (name: PactspiritName, loadout: Loadout): boolean => {
@@ -681,6 +715,9 @@ const filterModsByCond = (
       .with("at_max_channeled_stacks", () => true)
       .with("enemy_at_max_affliction", () => calcAfflictionPts(config) === 100)
       .with("enemy_is_cursed", () => {
+        if (config.targetEnemyIsCursed !== undefined) {
+          return config.targetEnemyIsCursed;
+        }
         // assume enemy is cursed if we have an enabled curse skill
         return (
           listActiveSkillSlots(loadout)
@@ -735,6 +772,21 @@ const filterModsByCond = (
           offhand === "Shield (STR)"
         );
       })
+      .with("enemy_numbed", () => config.enemyNumbed)
+      .with(
+        "has_used_mobility_skill_recently",
+        () => config.hasUsedMobilitySkillRecently,
+      )
+      .with("has_moved_recently", () => config.hasMovedRecently)
+      .with("has_cast_curse_recently", () => config.hasCastCurseRecently)
+      .with("is_dual_wielding", () => derivedCtx.dualWielding)
+      .with("has_one_handed_weapon", () => {
+        const { mainHand, offHand } = loadout.gearPage.equippedGear;
+        return (
+          (mainHand !== undefined && isOneHandedWeapon(mainHand)) ||
+          (offHand !== undefined && isOneHandedWeapon(offHand))
+        );
+      })
       .exhaustive();
   });
 };
@@ -755,10 +807,7 @@ const applyModFilters = (
   const prenormMods = withCondThreshold
     ? filterModsByCondThreshold(condFiltered, config)
     : condFiltered;
-  return {
-    prenormMods,
-    mods: filterOutPerMods(prenormMods),
-  };
+  return { prenormMods, mods: filterOutPerMods(prenormMods) };
 };
 
 const listActiveSkillSlots = (loadout: Loadout): SkillSlot[] => {
@@ -791,6 +840,21 @@ const findSkill = (
   return PassiveSkills.find((s) => s.name === name) as BasePassiveSkill;
 };
 
+const calcBuffSkillType = (
+  skill: BaseActiveSkill | BasePassiveSkill,
+): "aura" | "curse" | "spirit_magus_origin" | "other" => {
+  if (skill.type === "Passive" && skill.tags?.includes("Aura")) {
+    return "aura";
+  }
+  if (skill.type === "Active" && skill.tags?.includes("Curse")) {
+    return "curse";
+  }
+  if (skill.type === "Passive" && skill.tags?.includes("Spirit Magus")) {
+    return "spirit_magus_origin";
+  }
+  return "other";
+};
+
 // resolves mods coming from skills that provide buffs (levelBuffMods)
 // for example, "Bull's Rage" provides a buff that increases all melee damage
 const resolveBuffSkillMods = (
@@ -812,10 +876,7 @@ const resolveBuffSkillMods = (
     const skill = findSkill(
       skillSlot.skillName as ActiveSkillName | PassiveSkillName,
     );
-    const isAuraSkill =
-      (skill.type === "Passive" && skill.tags?.includes("Aura")) ?? false;
-    const isCurseSkill =
-      (skill.type === "Active" && skill.tags?.includes("Curse")) ?? false;
+    const buffSkillType = calcBuffSkillType(skill);
 
     // Get support skill mods (includes SkillEffPct, AuraEffPct, etc.)
     const supportMods = resolveSelectedSkillSupportMods(
@@ -839,6 +900,7 @@ const resolveBuffSkillMods = (
         config,
         derivedCtx,
       );
+    const buffSrc = `${buffSkillType}: ${skill.name} Lv.${level}`;
     if (skill.type === "Active") {
       const activeMods = getActiveSkillMods(
         skill.name as ActiveSkillName,
@@ -850,10 +912,7 @@ const resolveBuffSkillMods = (
           src: `${skill.name} Lv.${level}`,
         })) ?? [];
       rawBuffMods =
-        activeMods.buffMods?.map((mod) => ({
-          ...mod,
-          src: `${isAuraSkill ? "Aura" : "Buff"}: ${skill.name} Lv.${level}`,
-        })) ?? [];
+        activeMods.buffMods?.map((mod) => ({ ...mod, src: buffSrc })) ?? [];
     } else if (skill.type === "Passive") {
       const passiveMods = getPassiveSkillMods(
         skill.name as PassiveSkillName,
@@ -865,15 +924,16 @@ const resolveBuffSkillMods = (
           src: `${skill.name} Lv.${level}`,
         })) ?? [];
       rawBuffMods =
-        passiveMods.buffMods?.map((mod) => ({
-          ...mod,
-          src: `${isAuraSkill ? "Aura" : "Buff"}: ${skill.name} Lv.${level}`,
-        })) ?? [];
+        passiveMods.buffMods?.map((mod) => ({ ...mod, src: buffSrc })) ?? [];
     }
 
     const prenormMods = [...loadoutMods, ...supportMods, ...levelMods];
-    const { skillEffMult, auraEffMult, curseEffMult } =
-      resolveBuffSkillEffMults(prenormMods, loadout, config, derivedCtx);
+    const {
+      skillEffMult,
+      auraEffMult,
+      curseEffMult,
+      spiritMagusOriginEffMult,
+    } = resolveBuffSkillEffMults(prenormMods, loadout, config, derivedCtx);
 
     // === Apply multipliers to buff mods ===
     for (const mod of rawBuffMods) {
@@ -886,10 +946,12 @@ const resolveBuffSkillMods = (
       // Calculate final value
       let finalValue = mod.value;
       if (!("unscalable" in mod && mod.unscalable === true)) {
-        if (isAuraSkill) {
+        if (buffSkillType === "aura") {
           finalValue = multValue(finalValue, auraEffMult);
-        } else if (isCurseSkill) {
+        } else if (buffSkillType === "curse") {
           finalValue = multValue(finalValue, curseEffMult);
+        } else if (buffSkillType === "spirit_magus_origin") {
+          finalValue = multValue(finalValue, spiritMagusOriginEffMult);
         } else {
           finalValue = multValue(finalValue, skillEffMult);
         }
@@ -933,10 +995,7 @@ const collectSupportAffixMods = (ss: TieredSupportSlot): Mod[] => {
   const mods: Mod[] = [];
   for (const affix of ss.affixes) {
     for (const { mod } of affix.mods ?? []) {
-      mods.push({
-        ...mod,
-        src: `${prefix}: ${ss.name}${tierPart}${rankPart}`,
-      });
+      mods.push({ ...mod, src: `${prefix}: ${ss.name}${tierPart}${rankPart}` });
     }
   }
   return mods;
@@ -1045,10 +1104,7 @@ const resolvePerSkillMods = (
     derivedCtx,
   );
 
-  return {
-    mods: [...selectedSkillMods, ...supportMods],
-    skill,
-  };
+  return { mods: [...selectedSkillMods, ...supportMods], skill };
 };
 
 interface EnemyFrostbittenCtx {
@@ -1087,12 +1143,18 @@ const resolveBuffSkillEffMults = (
   loadout: Loadout,
   config: Configuration,
   derivedCtx: DerivedCtx,
-): { skillEffMult: number; auraEffMult: number; curseEffMult: number } => {
+): {
+  skillEffMult: number;
+  auraEffMult: number;
+  curseEffMult: number;
+  spiritMagusOriginEffMult: number;
+} => {
   const buffSkillEffMods = unresolvedModsFromParam.filter(
     (m) =>
       m.type === "AuraEffPct" ||
       m.type === "SkillEffPct" ||
-      m.type === "CurseEffPct",
+      m.type === "CurseEffPct" ||
+      m.type === "SpiritMagusOriginEffPct",
   );
   const { prenormMods, mods } = applyModFilters(
     buffSkillEffMods,
@@ -1100,28 +1162,22 @@ const resolveBuffSkillEffMults = (
     config,
     derivedCtx,
   );
-  const skillUse = 3;
-  mods.push(...normalizeStackables(prenormMods, "skill_use", skillUse));
 
-  const skillChargesOnUse = 2;
-  mods.push(
-    ...normalizeStackables(
-      prenormMods,
-      "skill_charges_on_use",
-      skillChargesOnUse,
-    ),
-  );
-
-  const crueltyBuffStacks = config.crueltyBuffStacks ?? 40;
-  mods.push(
-    ...normalizeStackables(prenormMods, "cruelty_buff", crueltyBuffStacks),
+  pushNormalizedStackable(mods, prenormMods, "skill_use", 3);
+  pushNormalizedStackable(mods, prenormMods, "skill_charges_on_use", 2);
+  pushNormalizedStackable(
+    mods,
+    prenormMods,
+    "cruelty_buff",
+    config.crueltyBuffStacks ?? 40,
   );
 
   const skillEffMult = calcEffMult(mods, "SkillEffPct");
   const auraEffMult = calcEffMult(mods, "AuraEffPct");
   const curseEffMult = calcEffMult(mods, "CurseEffPct");
+  const spiritMagusOriginEffMult = calcEffMult(mods, "SpiritMagusOriginEffPct");
 
-  return { skillEffMult, auraEffMult, curseEffMult };
+  return { skillEffMult, auraEffMult, curseEffMult, spiritMagusOriginEffMult };
 };
 
 const calcMaxBlessings = (
@@ -1176,9 +1232,7 @@ const calculateAddedSkillLevels = (
   );
 
   const sealedLifePct = config.sealedLifePct ?? 0;
-  mods.push(
-    ...normalizeStackables(prenormMods, "sealed_life_pct", sealedLifePct),
-  );
+  pushNormalizedStackable(mods, prenormMods, "sealed_life_pct", sealedLifePct);
 
   let addedSkillLevels = 0;
   for (const mod of filterMods(mods, "SkillLevel")) {
@@ -1189,6 +1243,7 @@ const calculateAddedSkillLevels = (
       )
       .with("support", () => skill.type === "Support")
       .with("active", () => skill.type === "Active")
+      .with("attack", () => skill.tags.includes("Attack"))
       .with("persistent", () => skill.tags.includes("Persistent"))
       .with("erosion", () => skill.tags.includes("Erosion"))
       .with("spell", () => skill.tags.includes("Spell"))
@@ -1256,8 +1311,324 @@ const calcChainLightningInstances = (
   return 1 + jumps;
 };
 
+const calcInfiltration = (
+  mods: Mod[],
+  type: "cold" | "lightning" | "fire",
+  config: Configuration,
+): Mod | undefined => {
+  if (type === "cold" && !config.targetEnemyHasColdInfiltration) {
+    return undefined;
+  }
+  if (type === "lightning" && !config.targetEnemyHasLightningInfiltration) {
+    return undefined;
+  }
+  if (type === "fire" && !config.targetEnemyHasFireInfiltration) {
+    return undefined;
+  }
+  const infiltrationEffMult = calcEffMult(
+    filterMods(mods, "InfiltrationEffPct").filter(
+      (m) => m.infiltrationType === type,
+    ),
+  );
+  const baseVal = 13;
+  const finalVal = baseVal * infiltrationEffMult;
+  return {
+    type: "DmgPct",
+    value: finalVal,
+    addn: true,
+    dmgModType: type,
+    isEnemyDebuff: true,
+    src: `${type} Infiltration`,
+  };
+};
+
+const pushInfiltrations = (mods: Mod[], config: Configuration): void => {
+  const coldInfiltration = calcInfiltration(mods, "cold", config);
+  if (coldInfiltration !== undefined) {
+    mods.push(coldInfiltration);
+  }
+  const lightningInfiltration = calcInfiltration(mods, "lightning", config);
+  if (lightningInfiltration !== undefined) {
+    mods.push(lightningInfiltration);
+  }
+  const fireInfiltration = calcInfiltration(mods, "fire", config);
+  if (fireInfiltration !== undefined) {
+    mods.push(fireInfiltration);
+  }
+};
+
+const pushWhimsy = (mods: Mod[], config: Configuration): void => {
+  if (!config.targetEnemyHasWhimsySignal) return;
+
+  const whimsySignalEffMult = calcEffMult(mods, "WhimsySignalEffPct");
+  const whimsySignalDmgPctVal = 30 * whimsySignalEffMult;
+  mods.push({
+    type: "DmgPct",
+    value: whimsySignalDmgPctVal,
+    addn: true,
+    dmgModType: "spell",
+    isEnemyDebuff: true,
+    src: "Whimsy Signal",
+  });
+};
+
+const pushNumbed = (mods: Mod[], config: Configuration): void => {
+  if (!config.enemyNumbed) return;
+
+  const numbedStacks = config.enemyNumbedStacks ?? 10;
+  const numbedEffMult = calcEffMult(mods, "NumbedEffPct");
+
+  const conductive = findMod(mods, "Conductive");
+  if (conductive === undefined) {
+    const baseNumbedValPerStack = 5;
+    const numbedVal = baseNumbedValPerStack * numbedEffMult * numbedStacks;
+    mods.push({
+      type: "DmgPct",
+      value: numbedVal,
+      dmgModType: "global",
+      addn: true,
+      isEnemyDebuff: true,
+      src: "Numbed",
+    });
+  } else {
+    const baseNumbedValPerStack = 11;
+    const numbedVal = baseNumbedValPerStack * numbedEffMult * numbedStacks;
+    mods.push({
+      type: "DmgPct",
+      value: numbedVal,
+      dmgModType: "lightning",
+      addn: true,
+      isEnemyDebuff: true,
+      src: "Numbed:Conductive",
+    });
+  }
+};
+
+const pushSquidnova = (mods: Mod[], config: Configuration): void => {
+  if (!config.hasSquidnova) return;
+  const squidNovaEffMult = calcEffMult(mods, "SquidnovaEffPct");
+  const squidNovaDmgPctValue = 16 * squidNovaEffMult;
+  mods.push({
+    type: "DmgPct",
+    value: squidNovaDmgPctValue,
+    dmgModType: "hit",
+    addn: true,
+    src: "Squidnova",
+  });
+};
+
+const pushChainLightning = (
+  mods: Mod[],
+  config: Configuration,
+  jumps: number,
+): void => {
+  const chainLightningInstances = calcChainLightningInstances(
+    mods,
+    config,
+    jumps,
+  );
+
+  const chainLightningMerge = findMod(mods, "ChainLightningMerge");
+  if (chainLightningMerge !== undefined) {
+    mods.push({
+      type: "DmgPct",
+      value:
+        (chainLightningInstances - 1) *
+        (100 - chainLightningMerge.shotgunFalloffCoefficient),
+      addn: true,
+      dmgModType: "global",
+      src: "Chain Lightning: Merge (Noble)",
+    });
+  }
+};
+
+const pushFrail = (mods: Mod[], config: Configuration) => {
+  if (!config.targetEnemyHasFrail) return;
+
+  const frailEffMult = calcEffMult(mods, "FrailEffPct");
+  const frailSpellDmgPctValue = 15 * frailEffMult;
+  mods.push({
+    type: "DmgPct",
+    value: frailSpellDmgPctValue,
+    dmgModType: "spell",
+    addn: true,
+    isEnemyDebuff: true,
+    src: "Frail",
+  });
+};
+
+const pushAttackAggression = (mods: Mod[], config: Configuration): void => {
+  if (!config.hasAttackAggression) {
+    return;
+  }
+  const aspdBase = 5;
+  const dmgBase = 5;
+  const mspdBase = 10;
+  const mult = calcEffMult(mods, "AttackAggressionEffPct");
+  mods.push({
+    type: "AspdPct",
+    value: aspdBase * mult,
+    addn: true,
+    src: "Attack Aggression",
+  });
+  mods.push({
+    type: "DmgPct",
+    value: dmgBase * mult,
+    dmgModType: "attack",
+    addn: true,
+    src: "Attack Aggression",
+  });
+  mods.push({
+    type: "MovementSpeedPct",
+    value: mspdBase * mult,
+    src: "Attack Aggression",
+  });
+};
+
+const pushSpellAggression = (mods: Mod[], config: Configuration): void => {
+  if (!config.hasSpellAggression) {
+    return;
+  }
+  const cspdBase = 7;
+  const dmgBase = 7;
+  const mobilityCdr = 7;
+  const mult = calcEffMult(mods, "SpellAggressionEffPct");
+  mods.push({
+    type: "CspdPct",
+    value: cspdBase * mult,
+    addn: true,
+    src: "Spell Aggression",
+  });
+  mods.push({
+    type: "DmgPct",
+    value: dmgBase * mult,
+    dmgModType: "spell",
+    addn: true,
+    src: "Spell Aggression",
+  });
+  mods.push({
+    type: "MobilitySkillCdrPct",
+    value: mobilityCdr * mult,
+    src: "Spell Aggression",
+  });
+};
+
+const pushMark = (mods: Mod[], config: Configuration): void => {
+  if (!config.targetEnemyMarked) {
+    return;
+  }
+  const markEffMult = calcEffMult(mods, "MarkEffPct");
+  const baseValue = 20;
+  mods.push({
+    type: "CritDmgPct",
+    value: baseValue * markEffMult,
+    addn: true,
+    modType: "global",
+    isEnemyDebuff: true,
+    src: "Mark",
+  });
+};
+
+const calcSpellBurstChargeSpeedBonusPct = (mods: Mod[]): number => {
+  const playSafe = findMod(mods, "PlaySafe");
+  const chargeSpeedMods = [
+    ...filterMods(mods, "SpellBurstChargeSpeedPct"),
+    ...(playSafe !== undefined
+      ? filterMods(mods, "CspdPct").map((m) =>
+          multModValue(m, playSafe.value / 100),
+        )
+      : []),
+  ];
+  return (calcEffMult(chargeSpeedMods) - 1) * 100;
+};
+
+const pushMultistrikeAspd = (
+  mods: Mod[],
+  multistrikeChancePct: number,
+): void => {
+  const multistrikeAspdPct = 20;
+  if (multistrikeChancePct >= 100) {
+    mods.push({ type: "AspdPct", addn: false, value: multistrikeAspdPct });
+  } else if (multistrikeChancePct > 0) {
+    mods.push({
+      type: "AspdPct",
+      addn: false,
+      value: multistrikeAspdPct * (multistrikeChancePct / 100),
+      src: "Multistrike",
+    });
+  }
+};
+
+const pushMultistrikeDmgBonus = (
+  mods: Mod[],
+  multistrikeChancePct: number,
+  multistrikeIncDmgPct: number,
+): void => {
+  if (multistrikeChancePct <= 0 || multistrikeIncDmgPct <= 0) {
+    return;
+  }
+  const maxHits = Math.floor(multistrikeChancePct / 100) + 2;
+  let expectedDmgMult = 0;
+  for (let hitNumber = 0; hitNumber < maxHits; hitNumber++) {
+    const hitProbability =
+      hitNumber === 0
+        ? 1.0
+        : Math.min(1.0, multistrikeChancePct / 100 - (hitNumber - 1));
+
+    const hitDamageMultiplier = 1.0 + hitNumber * (multistrikeIncDmgPct / 100);
+    expectedDmgMult += hitProbability * hitDamageMultiplier;
+  }
+  const expectedHits = 1 + multistrikeChancePct / 100;
+  const expectedDmgBonusPct = (expectedDmgMult / expectedHits - 1) * 100;
+  mods.push({
+    type: "DmgPct",
+    value: expectedDmgBonusPct,
+    dmgModType: "global",
+    addn: true,
+    src: "Multistrike Increasing Damage",
+  });
+};
+
+const pushTradeoff = (mods: Mod[], resourcePool: ResourcePool) => {
+  const { str, dex } = resourcePool.stats;
+  const tradeoffDexGteStrAspdPct = findMod(mods, "TradeoffDexGteStrAspdPct");
+  const tradeoffStrGteDexDmgPct = findMod(mods, "TradeoffStrGteDexDmgPct");
+  if (tradeoffDexGteStrAspdPct !== undefined && dex >= str) {
+    mods.push({
+      type: "AspdPct",
+      addn: true,
+      value: tradeoffDexGteStrAspdPct.value,
+      src: "Tradeoff",
+    });
+  }
+  if (tradeoffStrGteDexDmgPct !== undefined && str >= dex) {
+    mods.push({
+      type: "DmgPct",
+      addn: true,
+      dmgModType: "attack",
+      value: tradeoffStrGteDexDmgPct.value,
+      src: "Tradeoff",
+    });
+  }
+};
+
+const pushMainStatDmgPct = (mods: Mod[], totalMainStats: number): void => {
+  if (findMod(mods, "DisableMainStatDmg") !== undefined) {
+    return;
+  }
+  const value = 0.5 * totalMainStats;
+  mods.push({
+    type: "DmgPct",
+    value,
+    dmgModType: "global",
+    addn: true,
+    src: "Additional Damage from skill Main Stat (.5% per stat)",
+  });
+};
+
 interface DerivedOffenseCtx {
   maxSpellBurst: number;
+  spellBurstChargeSpeedBonusPct: number;
   movementSpeedBonusPct: number;
   mods: Mod[];
 }
@@ -1290,165 +1661,88 @@ const resolveModsForOffenseSkill = (
   );
   const mods = [...baseMods, ...calculateSkillLevelDmgMods(skillLevel)];
 
-  mods.push(...normalizeStackables(prenormMods, "level", config.level));
+  // Local helper - captures mods and prenormMods in closure
+  const normalize = (stackable: Stackable, value: number | undefined): void => {
+    if (value !== undefined) {
+      mods.push(...normalizeStackables(prenormMods, stackable, value));
+    }
+  };
 
   const totalMainStats = calculateTotalMainStats(skill, stats);
-  mods.push(...normalizeStackables(prenormMods, "main_stat", totalMainStats));
-
   const highestStat = Math.max(stats.dex, stats.int, stats.str);
-  mods.push(...normalizeStackables(prenormMods, "highest_stat", highestStat));
-
   const sumStats = stats.dex + stats.int + stats.str;
-  mods.push(...normalizeStackables(prenormMods, "stat", sumStats));
 
-  if (config.targetEnemyHasWhimsySignal) {
-    const whimsySignalEffMult = calcEffMult(mods, "WhimsySignalEffPct");
-    const whimsySignalDmgPctVal = 30 * whimsySignalEffMult;
-    mods.push({
-      type: "DmgPct",
-      value: whimsySignalDmgPctVal,
-      addn: true,
-      dmgModType: "spell",
-      isEnemyDebuff: true,
-      src: "Whimsy Signal",
-    });
-  }
+  normalize("level", config.level);
+  normalize("main_stat", totalMainStats);
+  normalize("highest_stat", highestStat);
+  normalize("stat", sumStats);
+  pushNormalizedStackable(mods, prenormMods, "str", stats.str);
+  pushNormalizedStackable(mods, prenormMods, "dex", stats.dex);
+  pushNormalizedStackable(mods, prenormMods, "int", stats.int);
+  const { mainHand, offHand } = loadout.gearPage.equippedGear;
+  normalize(
+    "num_unique_weapon_types_equipped",
+    R.unique([mainHand?.equipmentType ?? "", offHand?.equipmentType ?? ""])
+      .length,
+  );
 
+  pushTradeoff(mods, resourcePool);
+  pushMainStatDmgPct(mods, totalMainStats);
+  pushWhimsy(mods, config);
+  pushAttackAggression(mods, config); // must happen before movement speed
+  pushSpellAggression(mods, config); // must happen before spell burst charge speed calculation
+  pushMark(mods, config);
+
+  // must happen before max_spell_burst normalization, after attack aggression
   const movementSpeedBonusPct =
     (calcEffMult(mods, "MovementSpeedPct") - 1) * 100;
-  mods.push(
-    ...normalizeStackables(
-      prenormMods,
-      "movement_speed_bonus_pct",
-      movementSpeedBonusPct,
-    ),
-  );
+  normalize("movement_speed_bonus_pct", movementSpeedBonusPct);
 
-  // squidnova
-  if (config.hasSquidnova) {
-    const squidNovaEffMult = calcEffMult(mods, "SquidnovaEffPct");
-    const squidNovaDmgPctValue = 16 * squidNovaEffMult;
-    mods.push({
-      type: "DmgPct",
-      value: squidNovaDmgPctValue,
-      dmgModType: "hit",
-      addn: true,
-      src: "Squidnova",
-    });
-  }
+  pushInfiltrations(mods, config);
+  pushNumbed(mods, config);
+  pushSquidnova(mods, config);
 
   const jumps = sumByValue(filterMods(mods, "Jump"));
-  mods.push(...normalizeStackables(prenormMods, "jump", jumps));
+  normalize("jump", jumps);
 
-  // chain lightning
-  const chainLightningInstances = calcChainLightningInstances(
-    mods,
-    config,
-    jumps,
-  );
-
-  const chainLightningMerge = findMod(mods, "ChainLightningMerge");
-  if (chainLightningMerge !== undefined) {
-    mods.push({
-      type: "DmgPct",
-      value:
-        (chainLightningInstances - 1) *
-        (100 - chainLightningMerge.shotgunFalloffCoefficient),
-      addn: true,
-      dmgModType: "global",
-      src: "Chain Lightning: Merge (Noble)",
-    });
-  }
-
-  // frail - additionally increases spell damage taken by 15%
-  if (config.targetEnemyHasFrail) {
-    const frailEffMult = calcEffMult(mods, "FrailEffPct");
-    const frailSpellDmgPctValue = 15 * frailEffMult;
-    mods.push({
-      type: "DmgPct",
-      value: frailSpellDmgPctValue,
-      dmgModType: "spell",
-      addn: true,
-      isEnemyDebuff: true,
-      src: "Frail",
-    });
-  }
+  pushChainLightning(mods, config, jumps);
+  pushFrail(mods, config);
 
   // must happen after movement_speed_bonus_pct normalization
   const maxSpellBurst = sumByValue(filterMods(mods, "MaxSpellBurst"));
-  mods.push(
-    ...normalizeStackables(prenormMods, "max_spell_burst", maxSpellBurst),
-  );
-
-  mods.push(
-    ...normalizeStackables(
-      prenormMods,
-      "additional_max_channel_stack",
-      additionalMaxChanneledStacks,
-    ),
-  );
+  normalize("max_spell_burst", maxSpellBurst);
+  normalize("additional_max_channel_stack", additionalMaxChanneledStacks);
 
   const maxChannelStacks =
     (findMod(mods, "InitialMaxChannel")?.value ?? 0) +
     additionalMaxChanneledStacks;
   const mcMaxLinks = maxChannelStacks;
   const mcLinks = config.numMindControlLinksUsed ?? mcMaxLinks;
-  mods.push(...normalizeStackables(prenormMods, "mind_control_link", mcLinks));
-  mods.push(
-    ...normalizeStackables(
-      prenormMods,
-      "unused_mind_control_link",
-      mcMaxLinks - mcLinks,
-    ),
-  );
+  normalize("mind_control_link", mcLinks);
+  normalize("unused_mind_control_link", mcMaxLinks - mcLinks);
 
   mods.push(...calculateTorment(config));
   mods.push(...calculateAffliction(mods, config));
 
   const repentanceStacks = 4 + sumByValue(filterMods(mods, "MaxRepentance"));
-  mods.push(
-    ...normalizeStackables(prenormMods, "repentance", repentanceStacks),
-  );
-
-  mods.push(
-    ...normalizeStackables(prenormMods, "focus_blessing", focusBlessings),
-  );
-
-  mods.push(
-    ...normalizeStackables(prenormMods, "agility_blessing", agilityBlessings),
-  );
-
-  mods.push(
-    ...normalizeStackables(prenormMods, "tenacity_blessing", tenacityBlessings),
-  );
-
-  mods.push(
-    ...normalizeStackables(prenormMods, "desecration", desecration ?? 0),
-  );
-
-  mods.push(
-    ...normalizeStackables(
-      prenormMods,
-      "has_hit_enemy_with_elemental_dmg_recently",
-      config.hasHitEnemyWithElementalDmgRecently,
-    ),
-  );
-
-  mods.push(
-    ...normalizeStackables(
-      prenormMods,
-      "num_spell_skills_used_recently",
-      config.numSpellSkillsUsedRecently,
-    ),
-  );
-
   const willpowerStacks = calculateWillpower(prenormMods);
-  mods.push(...normalizeStackables(prenormMods, "willpower", willpowerStacks));
-
   const frostbitten = calculateEnemyFrostbitten(config);
-  mods.push(
-    ...normalizeStackables(prenormMods, "frostbite_rating", frostbitten.points),
+
+  normalize("repentance", repentanceStacks);
+  normalize("focus_blessing", focusBlessings);
+  normalize("agility_blessing", agilityBlessings);
+  normalize("tenacity_blessing", tenacityBlessings);
+  normalize("desecration", desecration ?? 0);
+  normalize(
+    "has_hit_enemy_with_elemental_dmg_recently",
+    config.hasHitEnemyWithElementalDmgRecently,
   );
+  normalize(
+    "num_spell_skills_used_recently",
+    config.numSpellSkillsUsedRecently,
+  );
+  normalize("willpower", willpowerStacks);
+  normalize("frostbite_rating", frostbitten.points);
 
   // Note: BaseProjectileQuant is NOT counted toward "projectile" stackable
   const maxProjectiles = findMod(mods, "MaxProjectile")?.value;
@@ -1458,13 +1752,11 @@ const resolveModsForOffenseSkill = (
       maxProjectiles ?? Infinity,
     ),
   );
-  mods.push(...normalizeStackables(prenormMods, "projectile", projectiles));
+  normalize("projectile", projectiles);
 
   if (resourcePool.hasFervor) {
     mods.push(calculateFervorCritRateMod(mods, resourcePool));
-    mods.push(
-      ...normalizeStackables(prenormMods, "fervor", resourcePool.fervorPts),
-    );
+    normalize("fervor", resourcePool.fervorPts);
   }
 
   if (skill.tags.includes("Shadow Strike")) {
@@ -1480,40 +1772,43 @@ const resolveModsForOffenseSkill = (
     }
   }
 
-  mods.push(...normalizeStackables(prenormMods, "max_mana", maxMana));
-  if (mercuryPts !== undefined) {
-    mods.push(...normalizeStackables(prenormMods, "mercury_pt", mercuryPts));
-  }
-
-  const manaConsumedRecently = config.manaConsumedRecently ?? 0;
-  mods.push(
-    ...normalizeStackables(
-      prenormMods,
-      "mana_consumed_recently",
-      manaConsumedRecently,
-    ),
-  );
-
   const unsealedManaPct = 100 - (config.sealedManaPct ?? 0);
-  mods.push(
-    ...normalizeStackables(prenormMods, "unsealed_mana_pct", unsealedManaPct),
-  );
-
   const unsealedLifePct = 100 - (config.sealedLifePct ?? 0);
-  mods.push(
-    ...normalizeStackables(prenormMods, "unsealed_life_pct", unsealedLifePct),
+
+  normalize("max_mana", maxMana);
+  normalize("mercury_pt", mercuryPts);
+  normalize("mana_consumed_recently", config.manaConsumedRecently ?? 0);
+  normalize("unsealed_mana_pct", unsealedManaPct);
+  normalize("unsealed_life_pct", unsealedLifePct);
+  normalize(
+    "num_enemies_affected_by_warcry",
+    config.numEnemiesAffectedByWarcry,
   );
 
-  const numEnemiesAffectedByWarcry = config.numEnemiesAffectedByWarcry;
-  mods.push(
-    ...normalizeStackables(
-      prenormMods,
-      "num_enemies_affected_by_warcry",
-      numEnemiesAffectedByWarcry,
-    ),
+  // must happen after spell aggression and any other normalizations that can
+  // affect cast speed
+  const spellBurstChargeSpeedBonusPct = calcSpellBurstChargeSpeedBonusPct(mods);
+  normalize(
+    "spell_burst_charge_speed_bonus_pct",
+    spellBurstChargeSpeedBonusPct,
   );
 
-  return { mods, maxSpellBurst, movementSpeedBonusPct };
+  // Must happen after any multistrike chance normalization
+  const multistrikeChancePct = sumByValue(
+    filterMods(mods, "MultistrikeChancePct"),
+  );
+  const multistrikeIncDmgPct = sumByValue(
+    filterMods(mods, "MultistrikeIncDmgPct"),
+  );
+  pushMultistrikeAspd(mods, multistrikeChancePct);
+  pushMultistrikeDmgBonus(mods, multistrikeChancePct, multistrikeIncDmgPct);
+
+  return {
+    mods,
+    maxSpellBurst,
+    movementSpeedBonusPct,
+    spellBurstChargeSpeedBonusPct,
+  };
 };
 
 const calculateResourcePool = (
@@ -1533,13 +1828,13 @@ const calculateResourcePool = (
     false, // withCondThreshold
   );
 
-  mods.push(...normalizeStackables(prenormMods, "level", config.level));
+  pushNormalizedStackable(mods, prenormMods, "level", config.level);
 
   const stats = calculateStats(mods);
 
-  mods.push(...normalizeStackables(prenormMods, "str", stats.str));
-  mods.push(...normalizeStackables(prenormMods, "dex", stats.dex));
-  mods.push(...normalizeStackables(prenormMods, "int", stats.int));
+  pushNormalizedStackable(mods, prenormMods, "str", stats.str);
+  pushNormalizedStackable(mods, prenormMods, "dex", stats.dex);
+  pushNormalizedStackable(mods, prenormMods, "int", stats.int);
 
   const maxLifeFromMods = sumByValue(filterMods(mods, "MaxLife"));
   const maxLifeMult = calcEffMult(mods, "MaxLifePct");
@@ -1549,12 +1844,12 @@ const calculateResourcePool = (
   const maxManaMult = calcEffMult(mods, "MaxManaPct");
   const maxMana = (40 + config.level * 5 + maxManaFromMods) * maxManaMult;
 
-  mods.push(...normalizeStackables(prenormMods, "max_mana", maxMana));
+  // max_mana must be normalized before calculating mercuryPts
+  // (for mods with per: { stackable: "max_mana" })
+  pushNormalizedStackable(mods, prenormMods, "max_mana", maxMana);
 
   const mercuryPts = calculateMercuryPts(mods, loadout);
-  if (mercuryPts !== undefined) {
-    mods.push(...normalizeStackables(prenormMods, "mercury_pt", mercuryPts));
-  }
+  pushNormalizedStackable(mods, prenormMods, "mercury_pt", mercuryPts);
 
   const maxFocusBlessings = calcMaxBlessings(mods, "focus", derivedCtx);
   const focusBlessings = calcNumFocus(maxFocusBlessings, config);
@@ -1737,13 +2032,7 @@ const calcTotalReapDps = (
     const purificationDmg = remainingDotDuration * dotDps * reapPurificationPct;
     const dmgPerReap = baseReapDmg + purificationDmg;
     const reapDps = dmgPerReap * reapsPerSecond;
-    return {
-      rawCooldown,
-      duration,
-      reapsPerSecond,
-      dmgPerReap,
-      reapDps,
-    };
+    return { rawCooldown, duration, reapsPerSecond, dmgPerReap, reapDps };
   });
   if (reaps.length === 0) {
     return undefined;
@@ -1757,19 +2046,25 @@ const calcTotalReapDps = (
   };
 };
 
-const calcAvgAttackDps = (
-  mods: Mod[],
-  loadout: Loadout,
-  perSkillContext: PerSkillModContext,
-  skillLevel: number,
-  derivedCtx: DerivedCtx,
-  config: Configuration,
-): OffenseAttackDpsSummary | undefined => {
-  const skill = perSkillContext.skill;
-  const gearDmg = calculateGearDmg(loadout, mods);
+interface CalcWeaponAttackInput {
+  mods: Mod[];
+  skill: BaseActiveSkill;
+  skillLevel: number;
+  derivedCtx: DerivedCtx;
+  config: Configuration;
+  critDmgMult: number;
+}
+
+const calcWeaponAttack = (
+  weapon: Gear,
+  extraJoinedForceAvgHitDmg: number,
+  input: CalcWeaponAttackInput,
+): WeaponAttackSummary | undefined => {
+  const { mods, skill, skillLevel, derivedCtx, config, critDmgMult } = input;
+  const gearDmg = calculateGearDmg(weapon, mods);
   const flatDmg = calculateFlatDmg(mods, "attack");
   const skillHit = calculateAtkHit(
-    gearDmg,
+    gearDmg.mainHand,
     flatDmg,
     mods,
     skill,
@@ -1779,21 +2074,77 @@ const calcAvgAttackDps = (
   );
   if (skillHit === undefined) return;
 
-  const aspd = calculateAspd(loadout, mods);
+  const avgHit = skillHit.avg + extraJoinedForceAvgHitDmg;
+  const aspd = calculateAspd(weapon, mods, skill);
   const critChance = calculateCritChance(mods, skill);
+  const avgHitWithCrit =
+    avgHit * critChance * critDmgMult + avgHit * (1 - critChance);
+  return { avgHit, aspd, critChance, avgHitWithCrit };
+};
+
+const calcAvgAttackDps = (
+  mods: Mod[],
+  loadout: Loadout,
+  perSkillContext: PerSkillModContext,
+  skillLevel: number,
+  derivedCtx: DerivedCtx,
+  config: Configuration,
+): OffenseAttackDpsSummary | undefined => {
+  const skill = perSkillContext.skill;
   const critDmgMult = calculateCritDmg(mods, skill);
-  const doubleDmgMult = calculateDoubleDmgMult(mods);
+  const mainhand = loadout.gearPage.equippedGear.mainHand;
+  const offhand = loadout.gearPage.equippedGear.offHand;
+  if (mainhand === undefined) {
+    return undefined;
+  }
+  const calcWeaponAttackInput = {
+    mods,
+    skill,
+    skillLevel,
+    derivedCtx,
+    config,
+    critDmgMult,
+  };
+  // Only calculate offhand attack if offhand is a one-handed weapon (not a shield)
+  const offhandAtk =
+    offhand !== undefined && isOneHandedWeapon(offhand)
+      ? calcWeaponAttack(offhand, 0, calcWeaponAttackInput)
+      : undefined;
+  const joinedForceAddedDmgPct = findMod(
+    mods,
+    "JoinedForceAddOffhandToMainhandPct",
+  );
+  const joinedForceAddedDmg =
+    ((joinedForceAddedDmgPct?.value ?? 0) / 100) * (offhandAtk?.avgHit ?? 0);
+  const mainhandAtk = calcWeaponAttack(
+    mainhand,
+    joinedForceAddedDmg,
+    calcWeaponAttackInput,
+  );
+  if (mainhandAtk === undefined) {
+    return undefined;
+  }
+
+  let avgDpsWithoutExtras: number;
+  const disableOffhand = modExists(mods, "JoinedForceDisableOffhand");
+  if (offhandAtk === undefined || disableOffhand) {
+    avgDpsWithoutExtras = mainhandAtk.aspd * mainhandAtk.avgHitWithCrit;
+  } else {
+    const mainhandAtkInterval = 1 / mainhandAtk.aspd;
+    const offhandAtkInterval = 1 / offhandAtk.aspd;
+    const fullInterval = mainhandAtkInterval + offhandAtkInterval;
+    avgDpsWithoutExtras =
+      (mainhandAtk.avgHitWithCrit + offhandAtk.avgHitWithCrit) / fullInterval;
+  }
+
+  const doubleDmgMult = calculateDoubleDmgMult(mods, skill);
   const extraMult = calculateExtraOffenseMults(mods, config);
 
-  const avgHitWithCrit =
-    skillHit.avg * critChance * critDmgMult + skillHit.avg * (1 - critChance);
-  const avgDps = avgHitWithCrit * doubleDmgMult * aspd * extraMult;
+  const avgDps = avgDpsWithoutExtras * doubleDmgMult * extraMult;
   return {
-    critChance,
+    mainhand: mainhandAtk,
+    offhand: disableOffhand ? undefined : offhandAtk,
     critDmgMult,
-    aspd,
-    avgHit: skillHit.avg,
-    avgHitWithCrit,
     avgDps,
   };
 };
@@ -1830,10 +2181,7 @@ const calcSpellHit = (
     return undefined;
   }
   const { value: skillSpellDR, dmgType, castTime } = offense;
-  const skillSpellDRs = {
-    ...emptyDmgRanges(),
-    [dmgType]: skillSpellDR,
-  };
+  const skillSpellDRs = { ...emptyDmgRanges(), [dmgType]: skillSpellDR };
 
   const addedDmgEffPct = getLevelOffenseValue(skill, "AddedDmgEffPct", level);
   if (typeof addedDmgEffPct !== "number") {
@@ -1899,7 +2247,7 @@ const calcAvgSpellDps = (
   const cspd = (1 / castTime) * cspdMult;
   const critChance = calculateCritChance(mods, skill);
   const critDmgMult = calculateCritDmg(mods, skill);
-  const doubleDmgMult = calculateDoubleDmgMult(mods);
+  const doubleDmgMult = calculateDoubleDmgMult(mods, skill);
   const extraMult = calculateExtraOffenseMults(mods, config);
   const spellRippleMult = calcSpellRippleMult(mods);
 
@@ -1907,42 +2255,25 @@ const calcAvgSpellDps = (
     avg * critChance * critDmgMult + avg * (1 - critChance);
   const avgDps =
     avgHitWithCrit * doubleDmgMult * cspd * extraMult * spellRippleMult;
-  return {
-    critChance,
-    critDmgMult,
-    castsPerSec: cspd,
-    avgHitWithCrit,
-    avgDps,
-  };
+  return { critChance, critDmgMult, castsPerSec: cspd, avgHitWithCrit, avgDps };
 };
 
 export interface OffenseSpellBurstDpsSummary {
   burstsPerSec: number;
   maxSpellBurst: number;
   avgDps: number;
-  ingenuityOverload?: {
-    avgDps: number;
-    interval: number;
-  };
+  ingenuityOverload?: { avgDps: number; interval: number };
 }
 
 const calcAvgSpellBurstDps = (
   mods: Mod[],
   avgHit: number,
-  maxSpellBurst: number,
+  derivedOffenseCtx: DerivedOffenseCtx,
   derivedCtx: DerivedCtx,
 ): OffenseSpellBurstDpsSummary => {
-  const playSafe = findMod(mods, "PlaySafe");
+  const { maxSpellBurst, spellBurstChargeSpeedBonusPct } = derivedOffenseCtx;
   const baseBurstsPerSec = 0.5;
-  const chargeSpeedMods = [
-    ...filterMods(mods, "SpellBurstChargeSpeedPct"),
-    ...(playSafe !== undefined
-      ? filterMods(mods, "CspdPct").map((m) =>
-          multModValue(m, playSafe.value / 100),
-        )
-      : []),
-  ];
-  const burstsPerSecMult = calcEffMult(chargeSpeedMods);
+  const burstsPerSecMult = 1 + spellBurstChargeSpeedBonusPct / 100;
   const burstsPerSec = baseBurstsPerSec * burstsPerSecMult;
   const spellBurstDmgMult = calculateAddn(
     filterMods(mods, "SpellBurstAdditionalDmgPct").map((m) => m.value),
@@ -2067,16 +2398,16 @@ export const calculateOffense = (input: OffenseInput): OffenseResults => {
         derivedCtx,
       );
 
-    const { mods, maxSpellBurst, movementSpeedBonusPct } =
-      resolveModsForOffenseSkill(
-        [...unresolvedLoadoutAndBuffMods, ...perSkillContext.mods],
-        perSkillContext.skill,
-        skillLevel,
-        resourcePool,
-        loadout,
-        config,
-        derivedCtx,
-      );
+    const derivedOffenseCtx = resolveModsForOffenseSkill(
+      [...unresolvedLoadoutAndBuffMods, ...perSkillContext.mods],
+      perSkillContext.skill,
+      skillLevel,
+      resourcePool,
+      loadout,
+      config,
+      derivedCtx,
+    );
+    const { mods, movementSpeedBonusPct } = derivedOffenseCtx;
 
     const attackHitSummary = calcAvgAttackDps(
       mods,
@@ -2101,7 +2432,7 @@ export const calculateOffense = (input: OffenseInput): OffenseResults => {
         ? calcAvgSpellBurstDps(
             mods,
             spellDpsSummary.avgHitWithCrit,
-            maxSpellBurst,
+            derivedOffenseCtx,
             derivedCtx,
           )
         : undefined;

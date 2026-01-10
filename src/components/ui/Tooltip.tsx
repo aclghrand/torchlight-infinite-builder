@@ -11,11 +11,7 @@ interface TooltipProps {
   variant?: TooltipVariant;
 }
 
-const widthClasses = {
-  sm: "w-72",
-  md: "w-80",
-  lg: "w-96",
-} as const;
+const widthClasses = { sm: "w-72", md: "w-80", lg: "w-96" } as const;
 
 const variantClasses = {
   default: "border-zinc-700",

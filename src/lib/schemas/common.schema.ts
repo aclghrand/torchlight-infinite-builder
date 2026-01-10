@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { EQUIPMENT_TYPES } from "@/src/tli/gear_data_types";
+import { EQUIPMENT_TYPES } from "@/src/tli/gear-data-types";
 
 // Re-export const arrays from core.ts for runtime use
 export const SLATE_SHAPES = [

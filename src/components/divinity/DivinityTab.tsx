@@ -47,10 +47,7 @@ export const DivinityTab: React.FC<DivinityTabProps> = ({
 
   const handlePlaceSlate = (slateId: string) => {
     const center = findGridCenter();
-    const placement: PlacedSlate = {
-      slateId,
-      position: center,
-    };
+    const placement: PlacedSlate = { slateId, position: center };
     onPlaceSlate(placement);
   };
 

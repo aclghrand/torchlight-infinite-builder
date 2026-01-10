@@ -5,10 +5,7 @@ import { getGearAffixes } from "../calcs/affix-collectors";
 import { DEFAULT_CONFIGURATION, getAffixMods, getAffixText } from "../core";
 import { loadSave } from "./load-save";
 
-const createEmptySkillPage = () => ({
-  activeSkills: {},
-  passiveSkills: {},
-});
+const createEmptySkillPage = () => ({ activeSkills: {}, passiveSkills: {} });
 
 const createEmptyRings = () => ({
   innerRing1: {},
@@ -25,10 +22,7 @@ const createEmptyRings = () => ({
 const createMinimalSaveData = (
   overrides: Partial<SaveData> = {},
 ): SaveData => ({
-  equipmentPage: {
-    equippedGear: {},
-    inventory: [],
-  },
+  equipmentPage: { equippedGear: {}, inventory: [] },
   talentPage: {
     talentTrees: {},
     inventory: { prismList: [], inverseImageList: [] },
@@ -42,11 +36,7 @@ const createMinimalSaveData = (
       level60: undefined,
       level75: undefined,
     },
-    memorySlots: {
-      slot45: undefined,
-      slot60: undefined,
-      slot75: undefined,
-    },
+    memorySlots: { slot45: undefined, slot60: undefined, slot75: undefined },
     memoryInventory: [],
   },
   pactspiritPage: {
@@ -152,10 +142,7 @@ test("loadSave sets correct src for different gear slots", () => {
 
 test("loadSave handles empty gear page", () => {
   const saveData = createMinimalSaveData({
-    equipmentPage: {
-      equippedGear: {},
-      inventory: [],
-    },
+    equipmentPage: { equippedGear: {}, inventory: [] },
   });
 
   const loadout = loadSave(saveData);

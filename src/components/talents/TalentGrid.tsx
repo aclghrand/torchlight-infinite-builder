@@ -21,7 +21,7 @@ import {
   hasInverseImageAtPosition,
   hasPrismAtPosition,
   isPrerequisiteSatisfiedWithInverseImage,
-} from "@/src/tli/talent_tree";
+} from "@/src/tli/talent-tree";
 import { TalentNodeDisplay } from "./TalentNodeDisplay";
 
 interface TalentGridProps {

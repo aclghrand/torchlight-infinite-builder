@@ -1,11 +1,11 @@
-import type { HeroName, HeroTraitName } from "@/src/data/hero_trait/types";
+import type { HeroName, HeroTraitName } from "@/src/data/hero-trait/types";
 import type {
   ActivationMediumSkillNmae,
   MagnificentSupportSkillName,
   NobleSupportSkillName,
   SupportSkillName,
 } from "../data/skill";
-import type { EquipmentType } from "./gear_data_types";
+import type { EquipmentType } from "./gear-data-types";
 import type { Mod } from "./mod";
 
 export const PRISM_RARITIES = ["rare", "legendary"] as const;
@@ -101,6 +101,10 @@ export interface Configuration {
   targetEnemyHasFrail: boolean;
   // default to false
   targetEnemyHasWhimsySignal: boolean;
+  // default to false
+  targetEnemyMarked: boolean;
+  // default to true if you have a curse skill, false otherwise
+  targetEnemyIsCursed?: boolean;
   // default to 0
   numEnemiesNearby: number;
   // default to 0
@@ -117,6 +121,8 @@ export interface Configuration {
   channeling: boolean;
   // Defaults to max channeled stacks
   channeledStacks?: number;
+  // default to max
+  stalkerStacks?: number;
   // default to false
   sagesInsightFireActivated: boolean;
   // default to false
@@ -157,6 +163,16 @@ export interface Configuration {
   numSpellSkillsUsedRecently: number;
   // default to max
   chainLightningInstancesOnTarget?: number;
+  // default to false
+  hasUsedMobilitySkillRecently: boolean;
+  // default to false
+  hasMovedRecently: boolean;
+  // default to false
+  hasCastCurseRecently: boolean;
+  // default to false
+  hasAttackAggression: boolean;
+  // default to false
+  hasSpellAggression: boolean;
 
   // --------------------
   // hero-specific config
@@ -208,6 +224,8 @@ export const DEFAULT_CONFIGURATION: Configuration = {
   targetEnemyIsInProximity: false,
   targetEnemyHasFrail: false,
   targetEnemyHasWhimsySignal: false,
+  targetEnemyMarked: false,
+  targetEnemyIsCursed: undefined,
   numEnemiesNearby: 0,
   numEnemiesAffectedByWarcry: 0,
   hasBlockedRecently: false,
@@ -216,6 +234,7 @@ export const DEFAULT_CONFIGURATION: Configuration = {
   hasCritRecently: false,
   channeling: false,
   channeledStacks: undefined,
+  stalkerStacks: undefined,
   sagesInsightFireActivated: false,
   sagesInsightColdActivated: false,
   sagesInsightLightningActivated: false,
@@ -236,6 +255,11 @@ export const DEFAULT_CONFIGURATION: Configuration = {
   hasHitEnemyWithElementalDmgRecently: 0,
   numSpellSkillsUsedRecently: 0,
   chainLightningInstancesOnTarget: undefined,
+  hasUsedMobilitySkillRecently: false,
+  hasMovedRecently: false,
+  hasCastCurseRecently: false,
+  hasAttackAggression: false,
+  hasSpellAggression: false,
   realmOfMercuryEnabled: false,
   baptismOfPurityEnabled: false,
   enemyColdRes: undefined,

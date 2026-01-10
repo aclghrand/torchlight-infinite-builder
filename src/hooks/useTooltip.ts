@@ -97,9 +97,5 @@ export const useTooltip = (): UseTooltipReturn => {
     };
   }, [tooltipId]);
 
-  return {
-    isVisible,
-    triggerRef,
-    triggerRect,
-  };
+  return { isVisible, triggerRef, triggerRect };
 };

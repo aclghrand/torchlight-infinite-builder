@@ -38,10 +38,7 @@ export type CraftedPrism = z.infer<typeof BaseCraftedPrismSchema>;
 export const CraftedPrismSchema = BaseCraftedPrismSchema;
 
 // Position for prism/inverse image placement
-export const PositionSchema = z.object({
-  x: z.number(),
-  y: z.number(),
-});
+export const PositionSchema = z.object({ x: z.number(), y: z.number() });
 
 // Placed prism
 const BasePlacedPrismSchema = z.object({
@@ -119,25 +116,16 @@ export const TalentInventorySchema = z
     prismList: z.array(CraftedPrismSchema).catch([]),
     inverseImageList: z.array(CraftedInverseImageSchema).catch([]),
   })
-  .catch({
-    prismList: [],
-    inverseImageList: [],
-  });
+  .catch({ prismList: [], inverseImageList: [] });
 
 export type TalentInventory = z.infer<typeof TalentInventorySchema>;
 
 // Talent page
 export const TalentPageSchema = z
-  .object({
-    talentTrees: TalentTreesSchema,
-    inventory: TalentInventorySchema,
-  })
+  .object({ talentTrees: TalentTreesSchema, inventory: TalentInventorySchema })
   .catch({
     talentTrees: EMPTY_TALENT_TREES,
-    inventory: {
-      prismList: [],
-      inverseImageList: [],
-    },
+    inventory: { prismList: [], inverseImageList: [] },
   });
 
 export type TalentPage = z.infer<typeof TalentPageSchema>;

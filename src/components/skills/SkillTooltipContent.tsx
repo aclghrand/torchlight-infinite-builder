@@ -15,6 +15,11 @@ export const SkillTooltipContent: React.FC<SkillTooltipContentProps> = ({
   return (
     <>
       <TooltipTitle>{skill.name}</TooltipTitle>
+      {!implemented && (
+        <div className="text-xs text-red-500 italic mb-2">
+          Skill not supported in TOB yet
+        </div>
+      )}
       {skill.tags.length > 0 && (
         <div className="text-xs text-zinc-500 mb-2">
           {skill.tags.join(" • ")}
@@ -26,14 +31,6 @@ export const SkillTooltipContent: React.FC<SkillTooltipContentProps> = ({
           <TooltipContent>{desc}</TooltipContent>
         </Fragment>
       ))}
-      {!implemented && (
-        <>
-          <hr className="border-zinc-700 my-2" />
-          <div className="text-xs text-orange-400 italic">
-            Skill not implemented yet
-          </div>
-        </>
-      )}
     </>
   );
 };

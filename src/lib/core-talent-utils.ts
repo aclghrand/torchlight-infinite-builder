@@ -1,5 +1,5 @@
-import { type BaseCoreTalent, CoreTalents } from "@/src/data/core_talent";
-import { isGodGoddessTree } from "@/src/tli/talent_tree";
+import { type BaseCoreTalent, CoreTalents } from "@/src/data/core-talent";
+import { isGodGoddessTree } from "@/src/tli/talent-tree";
 
 export type TreeSlot = "tree1" | "tree2" | "tree3" | "tree4";
 

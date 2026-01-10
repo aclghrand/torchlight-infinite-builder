@@ -50,11 +50,7 @@ export const SlatePreview: React.FC<SlatePreviewProps> = ({
         <div
           key={`${row}-${col}`}
           className={`${isFilled ? cellColor : "bg-transparent"}`}
-          style={{
-            width: cellSize,
-            height: cellSize,
-            borderRadius: 2,
-          }}
+          style={{ width: cellSize, height: cellSize, borderRadius: 2 }}
         />,
       );
     }

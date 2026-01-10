@@ -1005,9 +1005,7 @@ export const internalStore = create(
       setCalculationsSelectedSkill: (skillName: string | undefined) => {
         set((state) => {
           if (!state.saveData.calculationsPage) {
-            state.saveData.calculationsPage = {
-              selectedSkillName: skillName,
-            };
+            state.saveData.calculationsPage = { selectedSkillName: skillName };
           } else {
             state.saveData.calculationsPage.selectedSkillName = skillName;
           }
