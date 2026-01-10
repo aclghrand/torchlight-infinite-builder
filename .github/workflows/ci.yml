@@ -23,7 +23,7 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile && pnpm lingui:compile
+        run: pnpm install --frozen-lockfile && pnpm lingui:compile && tsr generate
 
       - name: Typecheck
         run: pnpm typecheck
