@@ -1003,6 +1003,42 @@ const collectSupportAffixMods = (ss: TieredSupportSlot): Mod[] => {
   return mods;
 };
 
+const resolveNormalSupportSkillMods = (
+  ss: { name: string; level?: number },
+  loadoutMods: Mod[],
+  loadout: Loadout,
+  config: Configuration,
+  derivedCtx: DerivedCtx,
+): Mod[] => {
+  const supportSkill = SupportSkills.find((s) => s.name === ss.name) as
+    | BaseSupportSkill
+    | undefined;
+  if (supportSkill === undefined) return [];
+
+  const level =
+    (ss.level ?? 20) +
+    calculateAddedSkillLevels(
+      loadoutMods,
+      supportSkill,
+      loadout,
+      config,
+      derivedCtx,
+    );
+
+  // Build affixes with the calculated level (includes added skill levels)
+  // This ensures level bonuses are properly applied to templated mods
+  const ret: Mod[] = [];
+  const affixes = buildSupportSkillAffixes(ss.name, level);
+  for (const affix of affixes) {
+    if (affix.mods !== undefined) {
+      for (const { mod } of affix.mods) {
+        ret.push({ ...mod, src: `Support: ${ss.name} Lv.${level}` });
+      }
+    }
+  }
+  return ret;
+};
+
 const resolveSelectedSkillSupportMods = (
   slot: SkillSlot,
   loadoutMods: Mod[],
@@ -1021,38 +1057,36 @@ const resolveSelectedSkillSupportMods = (
 
     // Handle regular support skills
     if (ss.skillType === "support") {
-      const supportSkill = SupportSkills.find((s) => s.name === ss.name) as
-        | BaseSupportSkill
-        | undefined;
-      if (supportSkill === undefined) continue;
-
-      const level =
-        (ss.level ?? 20) +
-        calculateAddedSkillLevels(
+      supportMods.push(
+        ...resolveNormalSupportSkillMods(
+          ss,
           loadoutMods,
-          supportSkill,
           loadout,
           config,
           derivedCtx,
-        );
-
-      // Build affixes with the calculated level (includes added skill levels)
-      // This ensures level bonuses are properly applied to templated mods
-      const affixes = buildSupportSkillAffixes(ss.name, level);
-      for (const affix of affixes) {
-        if (affix.mods !== undefined) {
-          for (const { mod } of affix.mods) {
-            supportMods.push({
-              ...mod,
-              src: `Support: ${ss.name} Lv.${level}`,
-            });
-          }
-        }
-      }
+        ),
+      );
     }
     // Handle magnificent, noble, and activation medium support skills
     else {
       supportMods.push(...collectSupportAffixMods(ss));
+    }
+  }
+  // Support skills coming from gear
+  if (slot.skillName !== undefined && isMainSkill(slot.skillName, loadout)) {
+    const extraSupports = filterMods(loadoutMods, "MainSkillSupportedBy").map(
+      (m) => ({ name: m.skillName, level: m.level }),
+    );
+    for (const ss of extraSupports) {
+      supportMods.push(
+        ...resolveNormalSupportSkillMods(
+          ss,
+          loadoutMods,
+          loadout,
+          config,
+          derivedCtx,
+        ),
+      );
     }
   }
   return supportMods;
@@ -1219,6 +1253,10 @@ const calcDesecration = (
   );
 };
 
+const isMainSkill = (skillName: string, loadout: Loadout) => {
+  return skillName === loadout.skillPage.activeSkills[1]?.skillName;
+};
+
 const calculateAddedSkillLevels = (
   loadoutMods: Mod[],
   skill: BaseSkill,
@@ -1239,10 +1277,7 @@ const calculateAddedSkillLevels = (
   let addedSkillLevels = 0;
   for (const mod of filterMods(mods, "SkillLevel")) {
     const matches = match(mod.skillLevelType)
-      .with(
-        "main",
-        () => skill.name === loadout.skillPage.activeSkills[1]?.skillName,
-      )
+      .with("main", () => isMainSkill(skill.name, loadout))
       .with("support", () => skill.type === "Support")
       .with("active", () => skill.type === "Active")
       .with("attack", () => skill.tags.includes("Attack"))

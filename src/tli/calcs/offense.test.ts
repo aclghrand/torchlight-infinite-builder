@@ -5673,3 +5673,74 @@ describe("multistrike damage bonus", () => {
     validate(results, skillName, { avgHit: 175 });
   });
 });
+
+describe("MainSkillSupportedBy mods", () => {
+  // Tests for mods that add support skills to the main skill (e.g., from hero traits)
+  // Uses Electric Overload which provides a simple additional lightning damage bonus
+
+  const skillName = "[Test] Simple Attack" as const;
+
+  test("MainSkillSupportedBy adds support skill mods to main skill", () => {
+    // Electric Overload at level 10: 12.5% additional lightning damage
+    // With 100% phys to lightning conversion: 100 lightning → 100 * 1.125 = 112.5
+    const input = {
+      loadout: initLoadout({
+        gearPage: { equippedGear: { mainHand: baseWeapon }, inventory: [] },
+        customAffixLines: affixLines([
+          {
+            type: "ConvertDmgPct",
+            from: "physical",
+            to: "lightning",
+            value: 100,
+          },
+          {
+            type: "MainSkillSupportedBy",
+            skillName: "Electric Overload",
+            level: 10,
+          },
+        ]),
+        skillPage: {
+          activeSkills: {
+            1: { skillName, enabled: true, level: 20, supportSkills: {} },
+          },
+          passiveSkills: {},
+        },
+      }),
+      configuration: defaultConfiguration,
+    };
+    const results = calculateOffense(input);
+    validate(results, skillName, { avgHit: 112.5 });
+  });
+
+  test("MainSkillSupportedBy only applies to main skill (slot 1), not other slots", () => {
+    // Skill in slot 2 should NOT receive the Electric Overload support
+    // Expected: no bonus, avgHit = 100
+    const input = {
+      loadout: initLoadout({
+        gearPage: { equippedGear: { mainHand: baseWeapon }, inventory: [] },
+        customAffixLines: affixLines([
+          {
+            type: "ConvertDmgPct",
+            from: "physical",
+            to: "lightning",
+            value: 100,
+          },
+          {
+            type: "MainSkillSupportedBy",
+            skillName: "Electric Overload",
+            level: 10,
+          },
+        ]),
+        skillPage: {
+          activeSkills: {
+            2: { skillName, enabled: true, level: 20, supportSkills: {} },
+          },
+          passiveSkills: {},
+        },
+      }),
+      configuration: defaultConfiguration,
+    };
+    const results = calculateOffense(input);
+    validate(results, skillName, { avgHit: 100 });
+  });
+});
