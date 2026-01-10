@@ -2,6 +2,7 @@ import { execSync } from "node:child_process";
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import * as cheerio from "cheerio";
+import { program } from "commander";
 import type {
   Legendary,
   LegendaryAffix,
@@ -10,6 +11,129 @@ import type {
 import type { EquipmentSlot, EquipmentType } from "../tli/gear-data-types";
 import { LegendaryDataOverrides } from "./legendaries/legendary-data-overrides";
 import { readCodexHtml } from "./lib/codex";
+
+// ============================================================================
+// Fetching
+// ============================================================================
+
+const BASE_URL = "https://tlidb.com/en";
+const LEGENDARY_GEAR_LIST_URL = `${BASE_URL}/Legendary_Gear`;
+const LEGENDARY_GEAR_DIR = join(
+  process.cwd(),
+  ".garbage",
+  "tlidb",
+  "legendary_gear",
+);
+
+const delay = (ms: number): Promise<void> =>
+  new Promise((resolve) => setTimeout(resolve, ms));
+
+const CONCURRENCY_LIMIT = 10;
+
+const processInBatches = async <T, R>(
+  items: T[],
+  processor: (item: T) => Promise<R>,
+): Promise<R[]> => {
+  const results: R[] = [];
+  for (let i = 0; i < items.length; i += CONCURRENCY_LIMIT) {
+    const batch = items.slice(i, i + CONCURRENCY_LIMIT);
+    console.log(
+      `Processing batch ${Math.floor(i / CONCURRENCY_LIMIT) + 1}/${Math.ceil(items.length / CONCURRENCY_LIMIT)} (${batch.length} items)`,
+    );
+    const batchResults = await Promise.all(batch.map(processor));
+    results.push(...batchResults);
+    if (i + CONCURRENCY_LIMIT < items.length) {
+      await delay(500);
+    }
+  }
+  return results;
+};
+
+const fetchPage = async (url: string): Promise<string> => {
+  console.log(`Fetching: ${url}`);
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch ${url}: ${response.status}`);
+  }
+  return response.text();
+};
+
+const toSnakeCase = (name: string): string => {
+  return name
+    .toLowerCase()
+    .replace(/['']/g, "")
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_+|_+$/g, "");
+};
+
+const extractLegendaryGearLinks = (
+  html: string,
+): { href: string; name: string }[] => {
+  const linkRegex =
+    /<a[^>]*data-hover="[^"]*ItemGold[^"]*"[^>]*href="([^"]+)"[^>]*>([^<]+)<\/a>/gi;
+  const links: { href: string; name: string }[] = [];
+
+  let match: RegExpExecArray | null = linkRegex.exec(html);
+  while (match !== null) {
+    const href = match[1];
+    const name = match[2];
+
+    if (
+      href !== undefined &&
+      !href.startsWith("http") &&
+      !href.startsWith("#") &&
+      !href.startsWith("/")
+    ) {
+      links.push({ href, name });
+    }
+    match = linkRegex.exec(html);
+  }
+
+  const seen = new Set<string>();
+  return links.filter((link) => {
+    if (seen.has(link.href)) return false;
+    seen.add(link.href);
+    return true;
+  });
+};
+
+const fetchLegendaryPages = async (): Promise<void> => {
+  await mkdir(LEGENDARY_GEAR_DIR, { recursive: true });
+
+  console.log("Fetching legendary gear list page...");
+  const listHtml = await fetchPage(LEGENDARY_GEAR_LIST_URL);
+
+  const gearLinks = extractLegendaryGearLinks(listHtml);
+  console.log(`Found ${gearLinks.length} legendary gear links`);
+
+  if (gearLinks.length === 0) {
+    throw new Error("No legendary gear links found. Check the page structure.");
+  }
+
+  console.log(`Fetching ${gearLinks.length} pages...`);
+
+  await processInBatches(gearLinks, async ({ href, name }) => {
+    const snakeCaseName = toSnakeCase(name);
+    const filename = `${snakeCaseName}.html`;
+    const filepath = join(LEGENDARY_GEAR_DIR, filename);
+
+    try {
+      const decodedHref = decodeURIComponent(href);
+      const url = `${BASE_URL}/${encodeURIComponent(decodedHref)}`;
+      const html = await fetchPage(url);
+      await writeFile(filepath, html);
+      console.log(`Saved: ${filepath}`);
+    } catch (error) {
+      console.error(`Error fetching ${name} (${href}):`, error);
+    }
+  });
+
+  console.log("Fetching complete!");
+};
+
+// ============================================================================
+// Parsing
+// ============================================================================
 
 const cleanHtmlText = (
   // biome-ignore lint/suspicious/noExplicitAny: cheerio internal type
@@ -344,8 +468,17 @@ export const Legendaries: readonly Legendary[] = ${JSON.stringify(items)};
 `;
 };
 
-const main = async (): Promise<void> => {
-  const inputDir = join(process.cwd(), ".garbage", "tlidb", "legendary_gear");
+interface Options {
+  refetch: boolean;
+}
+
+const main = async (options: Options): Promise<void> => {
+  if (options.refetch) {
+    console.log("Refetching legendary pages from tlidb...\n");
+    await fetchLegendaryPages();
+    console.log("");
+  }
+
   const outDir = join(process.cwd(), "src", "data", "legendary");
 
   // Step 1: Read codex.html and extract equipment slot/type mapping
@@ -354,8 +487,8 @@ const main = async (): Promise<void> => {
   const codexLegendaryMap = extractCodexLegendaryData(codexHtml);
 
   // Step 2: Read tlidb legendary files
-  console.log("Reading HTML files from:", inputDir);
-  const files = await readdir(inputDir);
+  console.log("Reading HTML files from:", LEGENDARY_GEAR_DIR);
+  const files = await readdir(LEGENDARY_GEAR_DIR);
   const htmlFiles = files.filter((f) => f.endsWith(".html"));
   console.log(`Found ${htmlFiles.length} HTML files`);
 
@@ -363,7 +496,7 @@ const main = async (): Promise<void> => {
   let skippedCount = 0;
 
   for (const filename of htmlFiles) {
-    const filepath = join(inputDir, filename);
+    const filepath = join(LEGENDARY_GEAR_DIR, filename);
     const html = await readFile(filepath, "utf-8");
     const $ = cheerio.load(html);
 
@@ -413,11 +546,15 @@ const main = async (): Promise<void> => {
   execSync("pnpm format", { stdio: "inherit" });
 };
 
-main()
-  .then(() => process.exit(0))
-  .catch((error) => {
-    console.error("Script failed:", error);
-    process.exit(1);
-  });
-
-export { main as generateLegendaryData };
+program
+  .description("Generate legendary data from cached HTML pages")
+  .option("--refetch", "Refetch HTML pages from tlidb before generating")
+  .action((options: Options) => {
+    main(options)
+      .then(() => process.exit(0))
+      .catch((error) => {
+        console.error("Script failed:", error);
+        process.exit(1);
+      });
+  })
+  .parse();

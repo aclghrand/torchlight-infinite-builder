@@ -2,6 +2,7 @@ import { execSync } from "node:child_process";
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import * as cheerio from "cheerio";
+import { program } from "commander";
 import {
   type ActivationMediumAffixDef,
   type BaseActivationMediumSkill,
@@ -30,6 +31,183 @@ import type {
   SkillCategory,
   SupportParserInput,
 } from "./skills/types";
+
+// ============================================================================
+// Fetching
+// ============================================================================
+
+const BASE_URL = "https://tlidb.com/en";
+const SKILL_OUTPUT_DIR = join(process.cwd(), ".garbage", "tlidb", "skill");
+
+const SKILL_TYPES = [
+  {
+    name: "Active",
+    listPath: "Active_Skill",
+    outputDir: "active",
+    tabId: "ActiveSkillTag",
+    expectedCount: 148,
+  },
+  {
+    name: "Support",
+    listPath: "Support_Skill",
+    outputDir: "support",
+    tabId: "SupportSkillTag",
+    expectedCount: 121,
+  },
+  {
+    name: "Passive",
+    listPath: "Passive_Skill",
+    outputDir: "passive",
+    tabId: "PassiveSkillTag",
+    expectedCount: 53,
+  },
+  {
+    name: "Activation Medium",
+    listPath: "Activation_Medium_Skill",
+    outputDir: "activation_medium",
+    tabId: "ActivationMediumSkillTag",
+    expectedCount: 27,
+  },
+  {
+    name: "Noble Support",
+    listPath: "Noble_Support_Skill",
+    outputDir: "noble_support",
+    tabId: "ExclusiveSupportSkillTag",
+    expectedCount: 137,
+  },
+  {
+    name: "Magnificent Support",
+    listPath: "Magnificent_Support_Skill",
+    outputDir: "magnificent_support",
+    tabId: "ExclusiveSupportSkillTag",
+    expectedCount: 130,
+  },
+] as const;
+
+const delay = (ms: number): Promise<void> =>
+  new Promise((resolve) => setTimeout(resolve, ms));
+
+const fetchPage = async (url: string): Promise<string> => {
+  console.log(`Fetching: ${url}`);
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch ${url}: ${response.status}`);
+  }
+  return response.text();
+};
+
+const extractSkillLinks = (html: string, tabId: string): string[] => {
+  const tabStartRegex = new RegExp(`<div\\s+id="${tabId}"[^>]*>`);
+  const tabMatch = html.match(tabStartRegex);
+  if (tabMatch === null || tabMatch.index === undefined) {
+    console.warn(`Could not find tab with id="${tabId}"`);
+    return [];
+  }
+
+  const startIdx = tabMatch.index;
+  const afterStart = html.slice(startIdx);
+  const nextTabMatch = afterStart.match(
+    /<div\s+id="[^"]+"\s+class="tab-pane[^"]*"[^>]*>/,
+  );
+  const endIdx =
+    nextTabMatch?.index !== undefined
+      ? startIdx + nextTabMatch.index
+      : html.length;
+
+  const tabContent = html.slice(startIdx, endIdx);
+
+  const colRegex = /<div class="col"[^>]*>[\s\S]*?<\/div><\/div><\/div>/g;
+  const hrefRegex = /<a[^>]+href="([^"]+)"[^>]*>/;
+  const links: string[] = [];
+
+  for (const colMatch of tabContent.matchAll(colRegex)) {
+    const colHtml = colMatch[0];
+    const hrefMatch = colHtml.match(hrefRegex);
+    if (hrefMatch !== null) {
+      const href = hrefMatch[1];
+      if (
+        href !== undefined &&
+        !href.startsWith("http") &&
+        !href.startsWith("#") &&
+        !href.startsWith("/")
+      ) {
+        links.push(href);
+      }
+    }
+  }
+
+  return [...new Set(links)];
+};
+
+const fetchSkillType = async (
+  skillType: (typeof SKILL_TYPES)[number],
+): Promise<number> => {
+  const skillDir = join(SKILL_OUTPUT_DIR, skillType.outputDir);
+  await mkdir(skillDir, { recursive: true });
+
+  const listUrl = `${BASE_URL}/${skillType.listPath}`;
+  const listHtml = await fetchPage(listUrl);
+
+  const skillLinks = extractSkillLinks(listHtml, skillType.tabId);
+  console.log(
+    `Found ${skillLinks.length} ${skillType.name} skills (expected: ${skillType.expectedCount})`,
+  );
+
+  if (skillLinks.length !== skillType.expectedCount) {
+    console.warn(
+      `Warning: Count mismatch for ${skillType.name}: found ${skillLinks.length}, expected ${skillType.expectedCount}`,
+    );
+  }
+
+  for (const link of skillLinks) {
+    const decodedLink = decodeURIComponent(link);
+    const filename = `${decodedLink}.html`;
+    const filepath = join(skillDir, filename);
+
+    try {
+      const url = `${BASE_URL}/${encodeURIComponent(decodedLink)}`;
+      const html = await fetchPage(url);
+      await writeFile(filepath, html);
+      console.log(`Saved: ${filepath}`);
+      await delay(200);
+    } catch (error) {
+      console.error(`Error fetching ${link}:`, error);
+    }
+  }
+
+  return skillLinks.length;
+};
+
+const fetchSkillPages = async (): Promise<void> => {
+  await mkdir(SKILL_OUTPUT_DIR, { recursive: true });
+
+  let totalSkills = 0;
+  const expectedTotal = SKILL_TYPES.reduce(
+    (sum, type) => sum + type.expectedCount,
+    0,
+  );
+
+  for (const skillType of SKILL_TYPES) {
+    console.log(`\n--- Processing ${skillType.name} Skills ---`);
+    const count = await fetchSkillType(skillType);
+    totalSkills += count;
+  }
+
+  console.log(`\n=== Summary ===`);
+  console.log(
+    `Total skills fetched: ${totalSkills} (expected: ${expectedTotal})`,
+  );
+
+  if (totalSkills !== expectedTotal) {
+    console.warn(`Warning: Total count mismatch!`);
+  }
+
+  console.log("Fetching complete!");
+};
+
+// ============================================================================
+// Parsing
+// ============================================================================
 
 interface RawSkill {
   type: string;
@@ -868,7 +1046,17 @@ export const ${constName} = ${toTypeScript(skills)} as const satisfies readonly 
 `;
 };
 
-const main = async (): Promise<void> => {
+interface Options {
+  refetch: boolean;
+}
+
+const main = async (options: Options): Promise<void> => {
+  if (options.refetch) {
+    console.log("Refetching skill pages from tlidb...\n");
+    await fetchSkillPages();
+    console.log("");
+  }
+
   console.log("Reading tlidb skill HTML files...");
   const allFiles = await readAllTlidbSkills();
   console.log(`Found ${allFiles.length} skill files`);
@@ -1201,11 +1389,15 @@ const main = async (): Promise<void> => {
   execSync("pnpm format", { stdio: "inherit" });
 };
 
-main()
-  .then(() => process.exit(0))
-  .catch((error) => {
-    console.error("Script failed:", error);
-    process.exit(1);
-  });
-
-export { main as generateSkillData };
+program
+  .description("Generate skill data from cached HTML pages")
+  .option("--refetch", "Refetch HTML pages from tlidb before generating")
+  .action((options: Options) => {
+    main(options)
+      .then(() => process.exit(0))
+      .catch((error) => {
+        console.error("Script failed:", error);
+        process.exit(1);
+      });
+  })
+  .parse();

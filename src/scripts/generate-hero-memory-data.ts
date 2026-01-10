@@ -2,13 +2,56 @@ import { execSync } from "node:child_process";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import * as cheerio from "cheerio";
+import { program } from "commander";
 import type { HeroMemory } from "../data/hero-memory/types";
 
-const TLIDB_HTML_PATH = join(
+// ============================================================================
+// Fetching
+// ============================================================================
+
+const HERO_MEMORIES_URL = "https://tlidb.com/en/Hero_Memories";
+const HERO_MEMORIES_DIR = join(
   process.cwd(),
   ".garbage",
   "tlidb",
   "hero_memories",
+);
+
+const HERO_MEMORIES_FILES = [
+  "hero_memories_base_stats.html",
+  "hero_memories_fixed_affix.html",
+  "hero_memories_random_affix.html",
+] as const;
+
+const fetchPage = async (url: string): Promise<string> => {
+  console.log(`Fetching: ${url}`);
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch ${url}: ${response.status}`);
+  }
+  return response.text();
+};
+
+const fetchHeroMemoriesPages = async (): Promise<void> => {
+  await mkdir(HERO_MEMORIES_DIR, { recursive: true });
+
+  const html = await fetchPage(HERO_MEMORIES_URL);
+
+  for (const filename of HERO_MEMORIES_FILES) {
+    const filepath = join(HERO_MEMORIES_DIR, filename);
+    await writeFile(filepath, html);
+    console.log(`Saved: ${filepath}`);
+  }
+
+  console.log("Fetching complete!");
+};
+
+// ============================================================================
+// Parsing
+// ============================================================================
+
+const TLIDB_HTML_PATH = join(
+  HERO_MEMORIES_DIR,
   "hero_memories_random_affix.html",
 );
 
@@ -127,7 +170,17 @@ export const HeroMemories: readonly HeroMemory[] = ${JSON.stringify(items)};
 `;
 };
 
-const main = async (): Promise<void> => {
+interface Options {
+  refetch: boolean;
+}
+
+const main = async (options: Options): Promise<void> => {
+  if (options.refetch) {
+    console.log("Refetching hero memories pages from tlidb...\n");
+    await fetchHeroMemoriesPages();
+    console.log("");
+  }
+
   console.log("Reading tlidb HTML file...");
   const html = await readFile(TLIDB_HTML_PATH, "utf-8");
 
@@ -158,11 +211,15 @@ const main = async (): Promise<void> => {
   execSync("pnpm format", { stdio: "inherit" });
 };
 
-main()
-  .then(() => process.exit(0))
-  .catch((error) => {
-    console.error("Script failed:", error);
-    process.exit(1);
-  });
-
-export { main as generateHeroMemoryData };
+program
+  .description("Generate hero memory data from cached HTML pages")
+  .option("--refetch", "Refetch HTML pages from tlidb before generating")
+  .action((options: Options) => {
+    main(options)
+      .then(() => process.exit(0))
+      .catch((error) => {
+        console.error("Script failed:", error);
+        process.exit(1);
+      });
+  })
+  .parse();
