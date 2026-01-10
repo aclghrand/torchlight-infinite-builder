@@ -72,4 +72,22 @@ describe("parseSupportAffixes", () => {
     ]);
     expect(result).toEqual([[]]);
   });
+
+  test("parse multistrike chance", () => {
+    const result = parseSupportAffixes([
+      "+101% chance for the supported skill to trigger Multistrike",
+    ]);
+    expect(result).toEqual([
+      [{ mod: { type: "MultistrikeChancePct", value: 101 } }],
+    ]);
+  });
+
+  test("parse multistrike increasing damage", () => {
+    const result = parseSupportAffixes([
+      "Multistrikes of the supported skill deal 27% increasing damage",
+    ]);
+    expect(result).toEqual([
+      [{ mod: { type: "MultistrikeIncDmgPct", value: 27 } }],
+    ]);
+  });
 });

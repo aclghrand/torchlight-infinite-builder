@@ -262,6 +262,12 @@ const allSupportParsers = [
   t(
     "triggers the supported skill upon reaching the max multistrike count. interval: {_:dec}s",
   ).outputMany([]),
+  t(
+    "{value:+int%} chance for the supported skill to trigger multistrike",
+  ).output("MultistrikeChancePct", (c) => ({ value: c.value })),
+  t(
+    "multistrikes of the supported skill deal {value:int%} increasing damage",
+  ).output("MultistrikeIncDmgPct", (c) => ({ value: c.value })),
 ];
 
 const parseSupportAffix = (text: string): SupportMod[] | undefined => {
