@@ -252,7 +252,9 @@ export const SearchableSelect = <T extends string | number>({
                     >
                       {({ active, selected }) => (
                         <div
-                          onMouseEnter={(e) => handleOptionMouseEnter(option, e)}
+                          onMouseEnter={(e) =>
+                            handleOptionMouseEnter(option, e)
+                          }
                           onMouseLeave={handleOptionMouseLeave}
                         >
                           {renderOption ? (

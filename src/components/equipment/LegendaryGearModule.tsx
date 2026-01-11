@@ -4,8 +4,8 @@ import { useMemo, useState } from "react";
 import { Legendaries } from "@/src/data/legendary/legendaries";
 import type { LegendaryAffix } from "@/src/data/legendary/types";
 import type { Gear } from "@/src/lib/save-data";
+import type { Affix, AffixLine, Gear as CoreGear } from "@/src/tli/core";
 import { craft } from "@/src/tli/crafting/craft";
-import type { Gear as CoreGear, Affix, AffixLine } from "@/src/tli/core";
 import { parseMod } from "@/src/tli/mod-parser";
 import {
   formatBlendAffix,
@@ -15,13 +15,14 @@ import {
 } from "../../lib/blend-utils";
 import { DEFAULT_QUALITY } from "../../lib/constants";
 import { generateItemId } from "../../lib/storage";
-import { Tooltip } from "../ui/Tooltip";
 import { SearchableSelect } from "../ui/SearchableSelect";
+import { Tooltip } from "../ui/Tooltip";
 import { GearTooltipContent } from "./GearTooltipContent";
 import {
   LegendaryAffixRow,
   type LegendaryAffixState,
 } from "./LegendaryAffixRow";
+
 const isChoiceType = (
   affix: LegendaryAffix,
 ): affix is { choiceDescriptor: string; choices: string[] } => {
@@ -122,10 +123,10 @@ export const LegendaryGearModule: React.FC<LegendaryGearModuleProps> = ({
       prev.map((state, i) =>
         i === index
           ? {
-              ...state,
-              isCorrupted: !state.isCorrupted,
-              selectedChoiceIndex: undefined,
-            }
+            ...state,
+            isCorrupted: !state.isCorrupted,
+            selectedChoiceIndex: undefined,
+          }
           : state,
       ),
     );
@@ -219,11 +220,7 @@ export const LegendaryGearModule: React.FC<LegendaryGearModuleProps> = ({
   ): React.ReactNode => {
     const gearPreview = createGearPreview(option.value);
     return (
-      <Tooltip
-        isVisible={true}
-        triggerRect={triggerRect}
-        variant="legendary"
-      >
+      <Tooltip isVisible={true} triggerRect={triggerRect} variant="legendary">
         <GearTooltipContent item={gearPreview} />
       </Tooltip>
     );
@@ -318,11 +315,10 @@ export const LegendaryGearModule: React.FC<LegendaryGearModuleProps> = ({
             type="button"
             onClick={handleSaveToInventory}
             disabled={hasUnselectedChoices}
-            className={`w-full px-4 py-3 rounded-lg font-semibold transition-colors ${
-              hasUnselectedChoices
+            className={`w-full px-4 py-3 rounded-lg font-semibold transition-colors ${hasUnselectedChoices
                 ? "bg-zinc-600 text-zinc-400 cursor-not-allowed"
                 : "bg-amber-500 text-zinc-950 hover:bg-amber-600"
-            }`}
+              }`}
           >
             {hasUnselectedChoices
               ? "Select all affix options to save"
