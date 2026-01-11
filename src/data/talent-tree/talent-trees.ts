@@ -45,7 +45,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "legendary",
         rawAffix:
-          "+1 Spirit Magus Skill Level\nSpirit Magi -80% additional damage taken",
+          "+1 Spirit Magus Skill Level\n-80% additional damage taken by Spirit Magi",
         position: { x: 6, y: 0 },
         prerequisite: { x: 5, y: 0 },
         maxPoints: 1,
@@ -68,14 +68,14 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "Spirit Magi +2% chance to use an Enhanced Skill",
+        rawAffix: "+2% chance for Spirit Magi to use an Enhanced Skill",
         position: { x: 3, y: 1 },
         maxPoints: 3,
         iconName: "Area",
       },
       {
         nodeType: "medium",
-        rawAffix: "Spirit Magi +4% chance to use an Enhanced Skill",
+        rawAffix: "+4% chance for Spirit Magi to use an Enhanced Skill",
         position: { x: 4, y: 1 },
         prerequisite: { x: 3, y: 1 },
         maxPoints: 3,
@@ -145,7 +145,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "micro",
         rawAffix:
-          "+8% Minion Damage\n+12% chance for Minions to inflict Ailment",
+          "+8% Minion Damage\n+12% chance for Minions to inflict Damaging Ailments",
         position: { x: 1, y: 3 },
         maxPoints: 3,
         iconName: "DmgExtra",
@@ -153,7 +153,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "medium",
         rawAffix:
-          "+16% Minion Damage\n+24% chance for Minions to inflict Ailment",
+          "+16% Minion Damage\n+24% chance for Minions to inflict Damaging Ailments",
         position: { x: 2, y: 3 },
         prerequisite: { x: 1, y: 3 },
         maxPoints: 3,
@@ -186,7 +186,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "legendary",
         rawAffix:
-          "8% of damage taken is transferred to a random Minion\nSpirit Magi -80% additional damage taken",
+          "8% of damage taken is transferred to a random Minion\n-80% additional damage taken by Spirit Magi",
         position: { x: 6, y: 3 },
         prerequisite: { x: 5, y: 3 },
         maxPoints: 1,
@@ -337,7 +337,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "micro",
         rawAffix:
-          "+10% Focus Blessing Duration\nRegenerates 0.4% Mana per second when Focus Blessing is active",
+          "+10% Focus Blessing Duration\nRegenerates 0.4% Mana per second while Focus Blessing is active",
         position: { x: 5, y: 1 },
         maxPoints: 3,
         iconName: "Crit01",
@@ -345,7 +345,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "legendary",
         rawAffix:
-          "Max Focus Blessing Stacks +1\nRegenerates 0.4% Mana per second when Focus Blessing is active",
+          "+1 to Max Focus Blessing Stacks\nRegenerates 0.4% Mana per second while Focus Blessing is active",
         position: { x: 6, y: 1 },
         prerequisite: { x: 5, y: 1 },
         maxPoints: 1,
@@ -759,25 +759,10 @@ export const TalentTrees: readonly TalentTreeData[] = [
         iconName: "Crit04",
       },
       {
-        nodeType: "micro",
-        rawAffix: "+8% Lightning Damage\n+6% Numbed chance",
-        position: { x: 4, y: 0 },
-        maxPoints: 3,
-        iconName: "DmgAll",
-      },
-      {
-        nodeType: "medium",
-        rawAffix: "+16% Lightning Damage\n+12% Numbed chance",
-        position: { x: 5, y: 0 },
-        prerequisite: { x: 4, y: 0 },
-        maxPoints: 3,
-        iconName: "DmgAll",
-      },
-      {
         nodeType: "legendary",
         rawAffix: "+20% Numbed Effect",
         position: { x: 6, y: 0 },
-        prerequisite: { x: 5, y: 0 },
+        prerequisite: { x: 5, y: 1 },
         maxPoints: 1,
         iconName: "Electrocute",
       },
@@ -813,11 +798,18 @@ export const TalentTrees: readonly TalentTreeData[] = [
         iconName: "DmgAll",
       },
       {
+        nodeType: "micro",
+        rawAffix: "+9% Lightning Damage",
+        position: { x: 5, y: 1 },
+        maxPoints: 3,
+        iconName: "DmgAll",
+      },
+      {
         nodeType: "legendary",
         rawAffix:
           "-4% to the Max Life and Energy Shield thresholds for inflicting Numbed\nInflicts 1 additional stack(s) of Numbed",
         position: { x: 6, y: 1 },
-        prerequisite: { x: 5, y: 0 },
+        prerequisite: { x: 5, y: 1 },
         maxPoints: 1,
         iconName: "Electrocute",
       },
@@ -852,18 +844,18 @@ export const TalentTrees: readonly TalentTreeData[] = [
         iconName: "Es",
       },
       {
-        nodeType: "micro",
-        rawAffix:
-          "1.5% Lightning Penetration\n1.5% Lightning Penetration for Minions",
-        position: { x: 5, y: 2 },
-        maxPoints: 3,
-        iconName: "DmgExtra",
+        nodeType: "legendary",
+        rawAffix: "Converts 50% of Lightning Damage to Fire Damage",
+        position: { x: 4, y: 2 },
+        prerequisite: { x: 3, y: 3 },
+        maxPoints: 1,
+        iconName: "Area",
       },
       {
         nodeType: "legendary",
-        rawAffix: "Inflicts Lightning Infiltration on Critical Strike",
+        rawAffix: "Inflicts Numbed when dealing Hit Lightning Damage",
         position: { x: 6, y: 2 },
-        prerequisite: { x: 5, y: 2 },
+        prerequisite: { x: 5, y: 1 },
         maxPoints: 1,
         iconName: "DmgLightning",
       },
@@ -884,30 +876,45 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+9% Lightning Damage\n+9% Minion Lightning Damage",
-        position: { x: 4, y: 3 },
+        rawAffix: "+9% Lightning Damage",
+        position: { x: 3, y: 3 },
         maxPoints: 3,
         iconName: "DmgExtra",
       },
       {
         nodeType: "legendary",
-        rawAffix:
-          "Adds 10% of Physical Damage as Lightning Damage\nAdds 10% of Physical Damage as Lightning Damage to Minions",
-        position: { x: 5, y: 3 },
-        prerequisite: { x: 4, y: 3 },
+        rawAffix: "Converts 50% of Lightning Damage to Cold Damage",
+        position: { x: 4, y: 3 },
+        prerequisite: { x: 3, y: 3 },
         maxPoints: 1,
-        iconName: "Area",
+        iconName: "DmgExtra",
       },
       {
         nodeType: "micro",
-        rawAffix: "4.5% Projectile Speed",
+        rawAffix:
+          "1.5% Lightning Penetration\n1.5% Lightning Penetration for Minions",
+        position: { x: 5, y: 3 },
+        maxPoints: 3,
+        iconName: "DmgExtra",
+      },
+      {
+        nodeType: "legendary",
+        rawAffix: "Inflicts Lightning Infiltration on Critical Strike",
+        position: { x: 6, y: 3 },
+        prerequisite: { x: 5, y: 3 },
+        maxPoints: 1,
+        iconName: "DmgLightning",
+      },
+      {
+        nodeType: "micro",
+        rawAffix: "+6% Projectile Speed",
         position: { x: 0, y: 4 },
         maxPoints: 3,
         iconName: "Area",
       },
       {
         nodeType: "medium",
-        rawAffix: "+9% Projectile Speed",
+        rawAffix: "+12% Projectile Speed",
         position: { x: 1, y: 4 },
         prerequisite: { x: 0, y: 4 },
         maxPoints: 3,
@@ -925,7 +932,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
         rawAffix: "+5% Dexterity",
         position: { x: 3, y: 4 },
         prerequisite: { x: 2, y: 4 },
-        maxPoints: 2,
+        maxPoints: 3,
         iconName: "Electrocute",
       },
       {
@@ -939,7 +946,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "micro",
         rawAffix:
-          "+2% additional max damage\n+2% additional Max Damage for Minions",
+          "+2% additional Max Damage\n+2% additional Max Damage for Minions",
         position: { x: 5, y: 4 },
         maxPoints: 3,
         iconName: "DmgExtra",
@@ -947,7 +954,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "legendary",
         rawAffix:
-          "+12% additional max damage\n+12% additional Max Damage for Minions",
+          "+12% additional Max Damage\n+12% additional Max Damage for Minions",
         position: { x: 6, y: 4 },
         prerequisite: { x: 5, y: 4 },
         maxPoints: 1,
@@ -990,7 +997,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+9% Attack Damage when Dual Wielding",
+        rawAffix: "+9% Attack Damage while Dual Wielding",
         position: { x: 4, y: 0 },
         maxPoints: 3,
         iconName: "DmgLightning",
@@ -1000,7 +1007,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
         rawAffix: "+6% Attack Speed while Dual Wielding",
         position: { x: 5, y: 0 },
         prerequisite: { x: 4, y: 0 },
-        maxPoints: 2,
+        maxPoints: 3,
         iconName: "DmgAll",
       },
       {
@@ -1036,7 +1043,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "medium",
-        rawAffix: "+18% Attack Damage when Dual Wielding",
+        rawAffix: "+18% Attack Damage while Dual Wielding",
         position: { x: 5, y: 1 },
         prerequisite: { x: 4, y: 0 },
         maxPoints: 3,
@@ -1083,7 +1090,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "2.5% Movement Speed",
+        rawAffix: "+2% Movement Speed",
         position: { x: 4, y: 2 },
         maxPoints: 3,
         iconName: "Agi",
@@ -1107,14 +1114,14 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "4.5% Projectile Speed",
+        rawAffix: "+6% Projectile Speed",
         position: { x: 1, y: 3 },
         maxPoints: 3,
         iconName: "Area",
       },
       {
         nodeType: "medium",
-        rawAffix: "+9% Projectile Speed",
+        rawAffix: "+12% Projectile Speed",
         position: { x: 2, y: 3 },
         prerequisite: { x: 1, y: 3 },
         maxPoints: 3,
@@ -1182,7 +1189,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "legendary",
-        rawAffix: "+1% Attack Speed per 40 Dexterity",
+        rawAffix: "+1% Attack and Cast Speed per 40 Dexterity",
         position: { x: 6, y: 4 },
         prerequisite: { x: 5, y: 4 },
         maxPoints: 1,
@@ -1195,14 +1202,14 @@ export const TalentTrees: readonly TalentTreeData[] = [
     nodes: [
       {
         nodeType: "micro",
-        rawAffix: "+3% Cast Speed",
+        rawAffix: "+3% Attack and Cast Speed",
         position: { x: 0, y: 0 },
         maxPoints: 3,
         iconName: "CastSpeed",
       },
       {
         nodeType: "medium",
-        rawAffix: "+6% Cast Speed",
+        rawAffix: "+6% Attack and Cast Speed",
         position: { x: 1, y: 0 },
         prerequisite: { x: 0, y: 0 },
         maxPoints: 3,
@@ -1225,14 +1232,14 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+4% Spell Damage\n+2% Cast Speed",
+        rawAffix: "+12% damage if you have Regained in the last 8s",
         position: { x: 4, y: 0 },
         maxPoints: 3,
         iconName: "CastSpeed",
       },
       {
         nodeType: "medium",
-        rawAffix: "+18% Spell Damage",
+        rawAffix: "+24% Attack Damage if you have Regained in the last 8s",
         position: { x: 5, y: 0 },
         prerequisite: { x: 4, y: 0 },
         maxPoints: 3,
@@ -1241,7 +1248,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "legendary",
         rawAffix:
-          "For each Spell Skill used recently, +4% Critical Strike Damage, stacking up to 12 time(s)",
+          "+2% additional Attack Speed for each time you have Regained in the last 8s. Stacks up to 4 time(s)",
         position: { x: 6, y: 0 },
         prerequisite: { x: 5, y: 0 },
         maxPoints: 1,
@@ -1249,37 +1256,30 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "4.5% Projectile Speed",
+        rawAffix: "+6% Projectile Speed",
         position: { x: 1, y: 1 },
         maxPoints: 3,
         iconName: "Area",
       },
       {
         nodeType: "medium",
-        rawAffix: "+9% Projectile Speed",
+        rawAffix: "+12% Projectile Speed",
         position: { x: 2, y: 1 },
         prerequisite: { x: 1, y: 1 },
         maxPoints: 3,
         iconName: "Area",
       },
       {
-        nodeType: "micro",
-        rawAffix: "+4% Spell Burst Charge Speed",
-        position: { x: 3, y: 1 },
-        maxPoints: 3,
-        iconName: "Aura",
-      },
-      {
         nodeType: "legendary",
-        rawAffix: "+20% Spell Burst Charge Speed",
+        rawAffix: "-16% additional Regain Interval",
         position: { x: 4, y: 1 },
-        prerequisite: { x: 3, y: 1 },
+        prerequisite: { x: 3, y: 2 },
         maxPoints: 1,
-        iconName: "Aura",
+        iconName: "Dual03",
       },
       {
         nodeType: "medium",
-        rawAffix: "+6% Cast Speed",
+        rawAffix: "+24% Spell Damage if you have Regained in the last 8s",
         position: { x: 5, y: 1 },
         prerequisite: { x: 4, y: 0 },
         maxPoints: 3,
@@ -1287,7 +1287,8 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "legendary",
-        rawAffix: "25% chance to gain Spell Aggression on defeat",
+        rawAffix:
+          "+2% additional Cast Speed for each time you have Regained in the last 8s. Stacks up to 4 time(s)",
         position: { x: 6, y: 1 },
         prerequisite: { x: 5, y: 1 },
         maxPoints: 1,
@@ -1295,33 +1296,42 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+3% Max Life",
+        rawAffix: "+3% Max Life\n+3% Max Energy Shield",
         position: { x: 0, y: 2 },
         maxPoints: 3,
-        iconName: "Crit01",
+        iconName: "Aura",
       },
       {
         nodeType: "medium",
-        rawAffix: "+6% Max Life",
+        rawAffix: "+6% Max Life\n+6% Max Energy Shield",
         position: { x: 1, y: 2 },
         prerequisite: { x: 0, y: 2 },
         maxPoints: 3,
-        iconName: "Duration",
+        iconName: "Aura",
       },
       {
         nodeType: "micro",
-        rawAffix: "+3% Max Energy Shield",
+        rawAffix: "1.5% Life Regain\n1.5% Energy Shield Regain",
         position: { x: 2, y: 2 },
         maxPoints: 3,
-        iconName: "Defence02",
+        iconName: "Es",
       },
       {
         nodeType: "medium",
-        rawAffix: "+6% Max Energy Shield",
+        rawAffix: "+3% Life Regain\n+3% Energy Shield Regain",
         position: { x: 3, y: 2 },
         prerequisite: { x: 2, y: 2 },
         maxPoints: 3,
         iconName: "Es",
+      },
+      {
+        nodeType: "legendary",
+        rawAffix:
+          "Regains additional Life based on Missing Energy Shield\nRegains additional Energy Shield based on Missing Life",
+        position: { x: 4, y: 2 },
+        prerequisite: { x: 3, y: 2 },
+        maxPoints: 1,
+        iconName: "Defence02",
       },
       {
         nodeType: "micro",
@@ -1332,8 +1342,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "legendary",
-        rawAffix:
-          "Regains additional Life based on Missing Energy Shield\nRegains additional Energy Shield regain based on Missing Life",
+        rawAffix: "When Regaining, inflicts Paralysis on enemies within 10m",
         position: { x: 6, y: 2 },
         prerequisite: { x: 5, y: 2 },
         maxPoints: 1,
@@ -1341,87 +1350,64 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+7% Evasion",
+        rawAffix: "+3% Defense",
         position: { x: 1, y: 3 },
         maxPoints: 3,
-        iconName: "Evasion",
+        iconName: "Armor",
       },
       {
         nodeType: "medium",
-        rawAffix: "+14% Evasion",
+        rawAffix: "+6% Defense",
         position: { x: 2, y: 3 },
         prerequisite: { x: 1, y: 3 },
         maxPoints: 3,
-        iconName: "Evasion",
+        iconName: "Armor",
       },
       {
         nodeType: "micro",
-        rawAffix: "+8 Dexterity",
-        position: { x: 4, y: 3 },
+        rawAffix: "+3% Max Life",
+        position: { x: 3, y: 3 },
         maxPoints: 3,
-        iconName: "DmgLightning",
+        iconName: "Es",
       },
       {
         nodeType: "legendary",
-        rawAffix: "+1% Cast Speed per 40 Dexterity",
-        position: { x: 5, y: 3 },
-        prerequisite: { x: 4, y: 3 },
+        rawAffix: "+8% Injury Buffer if you have Regained Life in the last 8s",
+        position: { x: 4, y: 3 },
+        prerequisite: { x: 3, y: 3 },
         maxPoints: 1,
-        iconName: "Bleed",
-      },
-      {
-        nodeType: "legendary",
-        rawAffix: "-16% additional Regain Interval",
-        position: { x: 6, y: 3 },
-        prerequisite: { x: 5, y: 2 },
-        maxPoints: 1,
-        iconName: "Dual03",
+        iconName: "Defence02",
       },
       {
         nodeType: "micro",
-        rawAffix: "+9% Spell Damage",
+        rawAffix: "+9% damage",
         position: { x: 0, y: 4 },
         maxPoints: 3,
-        iconName: "Aura",
+        iconName: "DmgAll",
       },
       {
         nodeType: "medium",
-        rawAffix: "+18% Spell Damage",
+        rawAffix: "+18% damage",
         position: { x: 1, y: 4 },
         prerequisite: { x: 0, y: 4 },
         maxPoints: 3,
-        iconName: "Aura",
+        iconName: "DmgAll",
       },
       {
         nodeType: "micro",
-        rawAffix: "+4% Max Mana",
-        position: { x: 2, y: 4 },
-        maxPoints: 3,
-        iconName: "Dagger01",
-      },
-      {
-        nodeType: "medium",
-        rawAffix: "+6% Max Mana\nRegenerates 0.6% Mana per second",
+        rawAffix: "+3% Max Energy Shield",
         position: { x: 3, y: 4 },
-        prerequisite: { x: 2, y: 4 },
         maxPoints: 3,
-        iconName: "Flask01",
-      },
-      {
-        nodeType: "micro",
-        rawAffix:
-          "+10% Agility Blessing Duration\n+3% Cast Speed when Agility Blessing is active",
-        position: { x: 5, y: 4 },
-        maxPoints: 3,
-        iconName: "Area",
+        iconName: "Es",
       },
       {
         nodeType: "legendary",
-        rawAffix: "+3% Cast Speed per stack of Agility Blessing owned",
-        position: { x: 6, y: 4 },
-        prerequisite: { x: 5, y: 4 },
+        rawAffix:
+          "+8% additional Max Energy Shield if you have Regained Shield in the last 8s",
+        position: { x: 4, y: 4 },
+        prerequisite: { x: 3, y: 4 },
         maxPoints: 1,
-        iconName: "Dual02",
+        iconName: "Area",
       },
     ],
   },
@@ -1475,7 +1461,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "legendary",
-        rawAffix: "Max Channeled Stacks +1",
+        rawAffix: "+1 to Max Channeled Stacks",
         position: { x: 6, y: 0 },
         prerequisite: { x: 5, y: 0 },
         maxPoints: 1,
@@ -1597,15 +1583,6 @@ export const TalentTrees: readonly TalentTreeData[] = [
         iconName: "Crit04",
       },
       {
-        nodeType: "legendary",
-        rawAffix:
-          "+24% chance to inflict Elemental Ailments\nAdds 5 Base Elemental Ailment Damage",
-        position: { x: 3, y: 3 },
-        prerequisite: { x: 2, y: 4 },
-        maxPoints: 1,
-        iconName: "Crit01",
-      },
-      {
         nodeType: "micro",
         rawAffix:
           "Adds 2 - 2 Fire Damage to Attacks and Spells\nAdds 1 - 3 Lightning Damage to Attacks and Spells\nAdds 2 - 2 Cold Damage to Attacks and Spells",
@@ -1638,8 +1615,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix:
-          "+12% chance to inflict Elemental Ailments\nDamage Penetrates 1.5% Elemental Resistance",
+        rawAffix: "Damage Penetrates 1.5% Elemental Resistance",
         position: { x: 2, y: 4 },
         maxPoints: 3,
         iconName: "DmgEle",
@@ -1684,14 +1660,14 @@ export const TalentTrees: readonly TalentTreeData[] = [
     nodes: [
       {
         nodeType: "micro",
-        rawAffix: "+15% Minion Critical Strike Rating\n+7% Minion Skill Area",
+        rawAffix: "+15% Minion Critical Strike Rating\n+6% Minion Skill Area",
         position: { x: 2, y: 0 },
         maxPoints: 3,
         iconName: "Crit03",
       },
       {
         nodeType: "medium",
-        rawAffix: "+15% Minion Critical Strike Damage\n+10% Minion Skill Area",
+        rawAffix: "+15% Minion Critical Strike Damage\n+12% Minion Skill Area",
         position: { x: 3, y: 0 },
         prerequisite: { x: 2, y: 0 },
         maxPoints: 3,
@@ -1699,8 +1675,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "medium",
-        rawAffix:
-          "+27% Spirit Magus Ultimate Damage and Ailment Damage dealt by Ultimate.",
+        rawAffix: "+ 2 Command per second",
         position: { x: 4, y: 0 },
         prerequisite: { x: 3, y: 1 },
         maxPoints: 3,
@@ -1747,27 +1722,19 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "medium",
-        rawAffix: "+18% Minion Damage",
+        rawAffix:
+          "+6% chance for Spirit Magi to use an Enhanced Skill\n+27% Spirit Magus Ultimate Damage and Ailment Damage dealt by Ultimate.",
         position: { x: 4, y: 1 },
         prerequisite: { x: 3, y: 1 },
         maxPoints: 3,
         iconName: "CastSpeed",
       },
       {
-        nodeType: "micro",
-        rawAffix:
-          "+ 1 Command per second\nSpirit Magi +2% chance to use an Enhanced Skill",
-        position: { x: 5, y: 1 },
-        maxPoints: 3,
-        iconName: "Agi",
-      },
-      {
-        nodeType: "medium",
-        rawAffix:
-          "+ 2 Command per second\nSpirit Magi +6% chance to use an Enhanced Skill",
+        nodeType: "legendary",
+        rawAffix: "Gains Attack Aggression when Minions land a Critical Strike",
         position: { x: 6, y: 1 },
-        prerequisite: { x: 5, y: 1 },
-        maxPoints: 3,
+        prerequisite: { x: 5, y: 2 },
+        maxPoints: 1,
         iconName: "AtkSpeed",
       },
       {
@@ -1801,25 +1768,24 @@ export const TalentTrees: readonly TalentTreeData[] = [
         iconName: "Es",
       },
       {
-        nodeType: "medium",
-        rawAffix: "+9% Spirit Magus Ultimate Cooldown Recovery Speed",
+        nodeType: "micro",
+        rawAffix: "+9% Minion Damage",
         position: { x: 4, y: 2 },
-        prerequisite: { x: 3, y: 1 },
         maxPoints: 3,
-        iconName: "Area",
+        iconName: "Axe02",
       },
       {
-        nodeType: "micro",
-        rawAffix:
-          "Regenerates 0.4% Life per second\n+2% Energy Shield Charge Speed\n+2% Movement Speed",
+        nodeType: "legendary",
+        rawAffix: "Gains Hasten when Minions land a Critical Strike",
         position: { x: 5, y: 2 },
-        maxPoints: 3,
+        prerequisite: { x: 4, y: 2 },
+        maxPoints: 1,
         iconName: "Flask02",
       },
       {
         nodeType: "legendary",
         rawAffix:
-          "+10% Life Regeneration Speed\n-10% additional Energy Shield Charge Interval\n+8% Movement Speed",
+          "Gains Spell Aggression when Minion Spells land a Critical Strike",
         position: { x: 6, y: 2 },
         prerequisite: { x: 5, y: 2 },
         maxPoints: 1,
@@ -2020,14 +1986,14 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "micro",
         rawAffix:
-          "+10% Tenacity Blessing Duration\n+10% Attack Damage when Tenacity Blessing is active",
+          "+10% Tenacity Blessing Duration\n+10% Attack Damage while Tenacity Blessing is active",
         position: { x: 4, y: 2 },
         maxPoints: 3,
         iconName: "Dagger01",
       },
       {
         nodeType: "legendary",
-        rawAffix: "Max Tenacity Blessing Stacks +1",
+        rawAffix: "+1 to Max Tenacity Blessing Stacks",
         position: { x: 5, y: 2 },
         prerequisite: { x: 4, y: 2 },
         maxPoints: 1,
@@ -2073,7 +2039,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "legendary",
         rawAffix:
-          "+2% Life Regeneration Speed per stack of Tenacity Blessing owned\n25 Life Regeneration per second per stack of Tenacity Blessing owned",
+          "+2% Life Regeneration Speed per stack of Tenacity Blessing owned\nRegenerate 25 Life per second per stack of Tenacity Blessing owned",
         position: { x: 6, y: 3 },
         prerequisite: { x: 5, y: 3 },
         maxPoints: 1,
@@ -2081,14 +2047,14 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+7% Skill Area\n+5% Projectile Speed",
+        rawAffix: "+6% Skill Area\n+6% Projectile Speed",
         position: { x: 2, y: 4 },
         maxPoints: 3,
         iconName: "DmgAll",
       },
       {
         nodeType: "medium",
-        rawAffix: "+14% Skill Area\n+10% Projectile Speed",
+        rawAffix: "+12% Skill Area\n+12% Projectile Speed",
         position: { x: 3, y: 4 },
         prerequisite: { x: 2, y: 4 },
         maxPoints: 3,
@@ -2247,14 +2213,14 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+7% Skill Area\n+5% Projectile Speed\n+2% Movement Speed",
+        rawAffix: "+6% Skill Area\n+6% Projectile Speed",
         position: { x: 1, y: 3 },
         maxPoints: 3,
         iconName: "Area",
       },
       {
         nodeType: "medium",
-        rawAffix: "+14% Skill Area\n+10% Projectile Speed\n+3% Movement Speed",
+        rawAffix: "+12% Skill Area\n+12% Projectile Speed",
         position: { x: 2, y: 3 },
         prerequisite: { x: 1, y: 3 },
         maxPoints: 3,
@@ -2262,14 +2228,14 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+6% chance to inflict Trauma\n+8% Trauma Damage",
+        rawAffix: "+3% chance to inflict Trauma",
         position: { x: 3, y: 3 },
         maxPoints: 3,
         iconName: "Bleed",
       },
       {
         nodeType: "legendary",
-        rawAffix: "+33% Trauma Reaping Duration",
+        rawAffix: "+8% chance to inflict Trauma\n+16% Trauma Reaping Duration",
         position: { x: 4, y: 3 },
         prerequisite: { x: 3, y: 3 },
         maxPoints: 1,
@@ -2334,8 +2300,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "medium",
-        rawAffix:
-          "Reaps 0.09 s of Damage Over Time when dealing Damage Over Time. The effect has a 6 s cooldown against the same target",
+        rawAffix: "+12 Affliction inflicted per second\n+18% Damage Over Time",
         position: { x: 5, y: 0 },
         prerequisite: { x: 4, y: 0 },
         maxPoints: 3,
@@ -2351,14 +2316,14 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+2% Movement Speed\n+7% Skill Area",
+        rawAffix: "+2% Movement Speed\n+6% Skill Area",
         position: { x: 1, y: 1 },
         maxPoints: 3,
         iconName: "Curse",
       },
       {
         nodeType: "medium",
-        rawAffix: "+3% Movement Speed\n+14% Skill Area",
+        rawAffix: "+4% Movement Speed\n+12% Skill Area",
         position: { x: 2, y: 1 },
         prerequisite: { x: 1, y: 1 },
         maxPoints: 3,
@@ -2522,22 +2487,6 @@ export const TalentTrees: readonly TalentTreeData[] = [
     nodes: [
       {
         nodeType: "micro",
-        rawAffix: "+2% Movement Speed",
-        position: { x: 2, y: 0 },
-        maxPoints: 3,
-        iconName: "Agi",
-      },
-      {
-        nodeType: "medium",
-        rawAffix:
-          "+3% Movement Speed\n+15% Cooldown Recovery Speed for Mobility Skills",
-        position: { x: 3, y: 0 },
-        prerequisite: { x: 2, y: 0 },
-        maxPoints: 3,
-        iconName: "Agi",
-      },
-      {
-        nodeType: "micro",
         rawAffix: "+3% Attack and Cast Speed",
         position: { x: 4, y: 0 },
         maxPoints: 3,
@@ -2562,14 +2511,15 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+3% Attack and Cast Speed",
+        rawAffix: "+3% Attack and Cast Speed\n+2% Movement Speed",
         position: { x: 1, y: 1 },
         maxPoints: 3,
         iconName: "Atk",
       },
       {
         nodeType: "medium",
-        rawAffix: "+6% Attack and Cast Speed\n-4 Skill Cost",
+        rawAffix:
+          "+6% Attack and Cast Speed\n+4% Movement Speed\n-4 Skill Cost",
         position: { x: 2, y: 1 },
         prerequisite: { x: 1, y: 1 },
         maxPoints: 3,
@@ -2624,14 +2574,14 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+7% Skill Area\n+5% Projectile Speed",
+        rawAffix: "+6% Skill Area\n+6% Projectile Speed",
         position: { x: 2, y: 2 },
         maxPoints: 3,
         iconName: "Armor",
       },
       {
         nodeType: "medium",
-        rawAffix: "+14% Skill Area\n+10% Projectile Speed",
+        rawAffix: "+12% Skill Area\n+12% Projectile Speed",
         position: { x: 3, y: 2 },
         prerequisite: { x: 2, y: 2 },
         maxPoints: 3,
@@ -2677,7 +2627,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "legendary",
         rawAffix:
-          "+5% damage and +2% Movement Speed for 4 s on defeat. Stacks up to 8 time(s)",
+          "+5% damage and +1% Movement Speed for 4 s on defeat. Stacks up to 8 time(s)",
         position: { x: 4, y: 3 },
         prerequisite: { x: 3, y: 3 },
         maxPoints: 1,
@@ -2693,7 +2643,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "legendary",
-        rawAffix: "Max Agility Blessing Stacks +1",
+        rawAffix: "+1 to Max Agility Blessing Stacks",
         position: { x: 6, y: 3 },
         prerequisite: { x: 5, y: 3 },
         maxPoints: 1,
@@ -2767,14 +2717,14 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+3% Cast Speed\n2.5% Movement Speed",
+        rawAffix: "+3% Cast Speed\n+2% Movement Speed",
         position: { x: 1, y: 1 },
         maxPoints: 3,
         iconName: "CastSpeed",
       },
       {
         nodeType: "medium",
-        rawAffix: "+6% Cast Speed\n-4 Skill Cost\n+5% Movement Speed",
+        rawAffix: "+6% Cast Speed\n-4 Skill Cost\n+4% Movement Speed",
         position: { x: 2, y: 1 },
         prerequisite: { x: 1, y: 1 },
         maxPoints: 3,
@@ -2788,11 +2738,11 @@ export const TalentTrees: readonly TalentTreeData[] = [
         iconName: "DmgExtra",
       },
       {
-        nodeType: "medium",
-        rawAffix: "+8% Spell Burst Charge Speed",
+        nodeType: "legendary",
+        rawAffix: "+20% Spell Burst Charge Speed",
         position: { x: 4, y: 1 },
         prerequisite: { x: 3, y: 1 },
-        maxPoints: 3,
+        maxPoints: 1,
         iconName: "Aura",
       },
       {
@@ -2872,30 +2822,30 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+9% Spell Damage",
+        rawAffix: "+9% Tangle Damage\n+5% Tangle Duration",
         position: { x: 3, y: 3 },
         maxPoints: 3,
-        iconName: "DmgExtra",
+        iconName: "Defence02",
       },
       {
-        nodeType: "medium",
-        rawAffix: "+18% Spell Damage",
+        nodeType: "legendary",
+        rawAffix: "+2% Movement Speed for each activated Tangle",
         position: { x: 4, y: 3 },
         prerequisite: { x: 3, y: 3 },
-        maxPoints: 3,
-        iconName: "DmgExtra",
+        maxPoints: 1,
+        iconName: "Es",
       },
       {
         nodeType: "micro",
         rawAffix:
-          "+10% Focus Blessing Duration\n+10% damage when Focus Blessing is active",
+          "+10% Focus Blessing Duration\n+10% damage while Focus Blessing is active",
         position: { x: 5, y: 3 },
         maxPoints: 3,
         iconName: "Crit01",
       },
       {
         nodeType: "legendary",
-        rawAffix: "Max Focus Blessing Stacks +1",
+        rawAffix: "+1 to Max Focus Blessing Stacks",
         position: { x: 6, y: 3 },
         prerequisite: { x: 5, y: 3 },
         maxPoints: 1,
@@ -2903,14 +2853,14 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+7% Skill Area\n4.5% Projectile Speed",
+        rawAffix: "+6% Skill Area\n+6% Projectile Speed",
         position: { x: 2, y: 4 },
         maxPoints: 3,
         iconName: "Area",
       },
       {
         nodeType: "medium",
-        rawAffix: "+14% Skill Area\n+9% Projectile Speed",
+        rawAffix: "+12% Skill Area\n+12% Projectile Speed",
         position: { x: 3, y: 4 },
         prerequisite: { x: 2, y: 4 },
         maxPoints: 3,
@@ -2986,7 +2936,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "legendary",
-        rawAffix: "+1 all skills' level",
+        rawAffix: "+1 to All Skills' Levels",
         position: { x: 6, y: 0 },
         prerequisite: { x: 5, y: 0 },
         maxPoints: 1,
@@ -3009,14 +2959,14 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+5 all stats",
+        rawAffix: "+5 to All Stats",
         position: { x: 3, y: 1 },
         maxPoints: 3,
         iconName: "Dagger03",
       },
       {
         nodeType: "medium",
-        rawAffix: "+10 all stats",
+        rawAffix: "+10 to All Stats",
         position: { x: 4, y: 1 },
         prerequisite: { x: 3, y: 1 },
         maxPoints: 3,
@@ -3329,7 +3279,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "micro",
         rawAffix:
-          "+8% Minion Damage\n+12% chance for Minions to inflict Ailment",
+          "+8% Minion Damage\n+12% chance for Minions to inflict Damaging Ailments",
         position: { x: 3, y: 3 },
         maxPoints: 3,
         iconName: "DmgExtra",
@@ -3337,7 +3287,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "medium",
         rawAffix:
-          "+16% Minion Damage\n+24% chance for Minions to inflict Ailment",
+          "+16% Minion Damage\n+24% chance for Minions to inflict Damaging Ailments",
         position: { x: 4, y: 3 },
         prerequisite: { x: 3, y: 3 },
         maxPoints: 3,
@@ -3345,7 +3295,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "legendary",
-        rawAffix: "Adds 10 Base Ailment Damage to Minions",
+        rawAffix: "Adds 10 - 10 Base Ailment Damage to Minions",
         position: { x: 5, y: 3 },
         prerequisite: { x: 4, y: 3 },
         maxPoints: 1,
@@ -3553,14 +3503,14 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+12% Spell Damage when holding a shield",
+        rawAffix: "+12% Spell Damage when holding a Shield",
         position: { x: 1, y: 3 },
         maxPoints: 3,
         iconName: "Area",
       },
       {
         nodeType: "medium",
-        rawAffix: "+24% Spell Damage when holding a shield",
+        rawAffix: "+24% Spell Damage when holding a Shield",
         position: { x: 2, y: 3 },
         prerequisite: { x: 1, y: 3 },
         maxPoints: 3,
@@ -3646,7 +3596,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "legendary",
         rawAffix:
-          "Immediately starts Energy Shield Charge upon entering the Low Energy Shield status",
+          "Immediately starts Energy Shield Charge upon entering Low Energy Shield status",
         position: { x: 6, y: 4 },
         prerequisite: { x: 5, y: 4 },
         maxPoints: 1,
@@ -3674,7 +3624,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+5% Projectile Damage\n+3% Projectile Speed",
+        rawAffix: "4.5% Projectile Damage\n+3% Projectile Speed",
         position: { x: 2, y: 0 },
         maxPoints: 3,
         iconName: "DmgExtra",
@@ -3690,7 +3640,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "legendary",
         rawAffix:
-          "+10% Projectile Speed\nProjectile Damage increases with the distance traveled, dealing up to +48% damage to distant enemies",
+          "+8% Projectile Speed\nProjectile Damage increases with the distance traveled, dealing up to +48% damage to distant enemies",
         position: { x: 4, y: 0 },
         prerequisite: { x: 3, y: 0 },
         maxPoints: 1,
@@ -3698,7 +3648,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "legendary",
-        rawAffix: "Parabolic Projectile Splits quantity +1",
+        rawAffix: "+1 to Parabolic Projectile Splits quantity",
         position: { x: 6, y: 0 },
         prerequisite: { x: 5, y: 1 },
         maxPoints: 1,
@@ -4049,7 +3999,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "micro",
         rawAffix:
-          "+10% Tenacity Blessing Duration\n+10% Attack Damage when Tenacity Blessing is active",
+          "+10% Tenacity Blessing Duration\n+10% Attack Damage while Tenacity Blessing is active",
         position: { x: 3, y: 3 },
         maxPoints: 3,
         iconName: "Dagger01",
@@ -4095,14 +4045,14 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+7% Skill Area",
+        rawAffix: "+6% Skill Area",
         position: { x: 2, y: 4 },
         maxPoints: 3,
         iconName: "Dagger03",
       },
       {
         nodeType: "medium",
-        rawAffix: "+14% Skill Area",
+        rawAffix: "+12% Skill Area",
         position: { x: 3, y: 4 },
         prerequisite: { x: 2, y: 4 },
         maxPoints: 3,
@@ -4130,14 +4080,14 @@ export const TalentTrees: readonly TalentTreeData[] = [
     nodes: [
       {
         nodeType: "micro",
-        rawAffix: "+6% chance to inflict Frostbite\n+9% Cold Damage",
+        rawAffix: "+9% Cold Damage",
         position: { x: 0, y: 0 },
         maxPoints: 3,
         iconName: "Claw02",
       },
       {
-        nodeType: "micro",
-        rawAffix: "+12% chance to inflict Frostbite\n+18% Cold Damage",
+        nodeType: "medium",
+        rawAffix: "+18% Cold Damage",
         position: { x: 1, y: 0 },
         prerequisite: { x: 0, y: 0 },
         maxPoints: 3,
@@ -4162,14 +4112,14 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+6% Freeze Duration",
+        rawAffix: "+2 to Max Frostbite Rating",
         position: { x: 4, y: 0 },
         maxPoints: 3,
         iconName: "Bow02",
       },
       {
         nodeType: "medium",
-        rawAffix: "+12% Freeze Duration",
+        rawAffix: "+5 to Max Frostbite Rating",
         position: { x: 5, y: 0 },
         prerequisite: { x: 4, y: 0 },
         maxPoints: 3,
@@ -4177,8 +4127,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "legendary",
-        rawAffix:
-          "+10% additional damage taken by enemies Frozen by you recently",
+        rawAffix: "+10% additional damage against Frozen enemies",
         position: { x: 6, y: 0 },
         prerequisite: { x: 5, y: 0 },
         maxPoints: 1,
@@ -4200,15 +4149,23 @@ export const TalentTrees: readonly TalentTreeData[] = [
         iconName: "Atk",
       },
       {
+        nodeType: "medium",
+        rawAffix: "Inflicts Frostbite when dealing Hit Cold Damage",
+        position: { x: 3, y: 1 },
+        prerequisite: { x: 2, y: 1 },
+        maxPoints: 1,
+        iconName: "DmgExtra",
+      },
+      {
         nodeType: "micro",
-        rawAffix: "+5% Frostbite inflicted",
+        rawAffix: "+20% Critical Strike Rating against Frostbitten enemies",
         position: { x: 4, y: 1 },
         maxPoints: 3,
         iconName: "DmgExtra",
       },
       {
         nodeType: "medium",
-        rawAffix: "+10% Frostbite inflicted",
+        rawAffix: "+20% Critical Strike Damage against Frostbitten enemies",
         position: { x: 5, y: 1 },
         prerequisite: { x: 4, y: 1 },
         maxPoints: 3,
@@ -4216,8 +4173,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "legendary",
-        rawAffix:
-          "Inflicts 5 Frostbite Rating to Frostbitten enemies every second",
+        rawAffix: "+100 Critical Strike Rating against Frostbitten enemies",
         position: { x: 6, y: 1 },
         prerequisite: { x: 5, y: 1 },
         maxPoints: 1,
@@ -4302,7 +4258,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "micro",
         rawAffix:
-          "+10% Focus Blessing Duration\n+10% damage when Focus Blessing is active",
+          "+10% Focus Blessing Duration\n+10% damage while Focus Blessing is active",
         position: { x: 5, y: 3 },
         maxPoints: 3,
         iconName: "Crit01",
@@ -4400,14 +4356,14 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+6% Reaping Cooldown Recovery Speed",
+        rawAffix: "+6% Reaping Recovery Speed",
         position: { x: 4, y: 0 },
         maxPoints: 3,
         iconName: "Curse",
       },
       {
         nodeType: "medium",
-        rawAffix: "+12% Reaping Cooldown Recovery Speed",
+        rawAffix: "+12% Reaping Recovery Speed",
         position: { x: 5, y: 0 },
         prerequisite: { x: 4, y: 0 },
         maxPoints: 3,
@@ -4500,7 +4456,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "legendary",
         rawAffix:
-          "+10% Movement Speed while Blur is active\nMovement Speed cannot be reduced to below the base value when Blur is active",
+          "+10% Movement Speed while Blur is active\nMovement Speed cannot be reduced to below the base value while Blur is active",
         position: { x: 6, y: 2 },
         prerequisite: { x: 5, y: 2 },
         maxPoints: 1,
@@ -4515,7 +4471,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "medium",
-        rawAffix: "+3% injury buffer",
+        rawAffix: "+3% Injury Buffer",
         position: { x: 2, y: 3 },
         prerequisite: { x: 1, y: 3 },
         maxPoints: 3,
@@ -4672,7 +4628,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "legendary",
-        rawAffix: "Critical Strikes can eliminate enemies under 8% Life",
+        rawAffix: "Critical Strikes eliminate enemies under 8% Life",
         position: { x: 6, y: 1 },
         prerequisite: { x: 5, y: 1 },
         maxPoints: 1,
@@ -4787,14 +4743,14 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+9% Projectile Damage\n4.5% Projectile Speed",
+        rawAffix: "4.5% Projectile Damage\n+3% Projectile Speed",
         position: { x: 2, y: 4 },
         maxPoints: 3,
         iconName: "DmgAll",
       },
       {
         nodeType: "medium",
-        rawAffix: "+18% Projectile Damage\n+9% Projectile Speed",
+        rawAffix: "+9% Projectile Damage\n+6% Projectile Speed",
         position: { x: 3, y: 4 },
         prerequisite: { x: 2, y: 4 },
         maxPoints: 3,
@@ -4802,7 +4758,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+10% chance to cause Knockbacks",
+        rawAffix: "+10% Knockback Chance",
         position: { x: 4, y: 4 },
         maxPoints: 3,
         iconName: "Crossbow01",
@@ -5013,18 +4969,18 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+9% Melee Damage",
+        rawAffix: "+9% Attack Damage",
         position: { x: 0, y: 4 },
         maxPoints: 3,
         iconName: "DmgExtra",
       },
       {
         nodeType: "medium",
-        rawAffix: "+18% Melee Damage",
+        rawAffix: "+18% Attack Damage",
         position: { x: 1, y: 4 },
         prerequisite: { x: 0, y: 4 },
         maxPoints: 3,
-        iconName: "DmgAll",
+        iconName: "DmgExtra",
       },
       {
         nodeType: "micro",
@@ -5117,7 +5073,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+12% damage dealt when holding a shield",
+        rawAffix: "+12% damage dealt when holding a Shield",
         position: { x: 3, y: 1 },
         maxPoints: 3,
         iconName: "Crit04",
@@ -5125,7 +5081,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "medium",
         rawAffix:
-          "+12% damage dealt when holding a shield\n+4% Attack and Cast Speed while holding a Shield",
+          "+12% damage dealt when holding a Shield\n+4% Attack and Cast Speed when holding a Shield",
         position: { x: 4, y: 1 },
         prerequisite: { x: 3, y: 1 },
         maxPoints: 3,
@@ -5141,7 +5097,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "legendary",
         rawAffix:
-          "+5% Block Ratio\nRestores 1% Missing Life and Energy Shield when blocking",
+          "+5% Block Ratio\nRestores 1% Missing Life and Energy Shield when Blocking",
         position: { x: 6, y: 1 },
         prerequisite: { x: 5, y: 1 },
         maxPoints: 1,
@@ -5211,7 +5167,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "legendary",
         rawAffix:
-          "+6% Energy Shield Regain\nRestores 15% Missing Energy Shield when suffer Severe Injury",
+          "+6% Energy Shield Regain\nRestores 15% Missing Energy Shield when suffering a Severe Injury",
         position: { x: 3, y: 3 },
         prerequisite: { x: 2, y: 2 },
         maxPoints: 1,
@@ -5343,7 +5299,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "micro",
         rawAffix:
-          "+6% chance to inflict Trauma\n+8% Trauma Damage\n+10% chance for Minions to inflict Trauma",
+          "+3% chance to inflict Trauma\n+6% chance for Minions to inflict Trauma",
         position: { x: 1, y: 1 },
         maxPoints: 3,
         iconName: "Bleed",
@@ -5351,7 +5307,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "medium",
         rawAffix:
-          "+12% chance to inflict Trauma\n+16% Trauma Damage\n+20% chance for Minions to inflict Trauma",
+          "+6% chance to inflict Trauma\n+12% chance for Minions to inflict Trauma",
         position: { x: 2, y: 1 },
         prerequisite: { x: 1, y: 1 },
         maxPoints: 3,
@@ -5421,7 +5377,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+9% Trauma Damage\nAdds 8 Base Trauma Damage",
+        rawAffix: "+9% Trauma Damage\nAdds 8 - 8 Base Trauma Damage",
         position: { x: 5, y: 2 },
         maxPoints: 3,
         iconName: "DmgAll",
@@ -5557,7 +5513,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "medium",
-        rawAffix: "4% chance to inflict 1 additional stacks of Wilt",
+        rawAffix: "6% chance to inflict 1 additional stack(s) of Wilt",
         position: { x: 5, y: 0 },
         prerequisite: { x: 4, y: 0 },
         maxPoints: 3,
@@ -5595,11 +5551,11 @@ export const TalentTrees: readonly TalentTreeData[] = [
         iconName: "DmgChaos",
       },
       {
-        nodeType: "medium",
-        rawAffix: "+12% Erosion Damage\n2% additional damage applied to Life",
+        nodeType: "legendary",
+        rawAffix: "Gains Profane when inflicting Wilt or Deterioration",
         position: { x: 4, y: 1 },
         prerequisite: { x: 3, y: 1 },
-        maxPoints: 3,
+        maxPoints: 1,
         iconName: "DmgExtra",
       },
       {
@@ -5712,14 +5668,14 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+8% Wilt Damage\n+6% Wilt chance",
+        rawAffix: "+3% Wilt chance",
         position: { x: 0, y: 4 },
         maxPoints: 3,
         iconName: "Channel02",
       },
       {
         nodeType: "medium",
-        rawAffix: "+12% Wilt chance\n+4%  Wilt  Duration",
+        rawAffix: "+6% Wilt chance",
         position: { x: 1, y: 4 },
         prerequisite: { x: 0, y: 4 },
         maxPoints: 3,
@@ -5727,16 +5683,24 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+8% Wilt Damage\n+6% Wilt chance\nAdds 1 Base Wilt Damage",
+        rawAffix: "+3% Wilt chance\nAdds 1 - 1 Base Wilt Damage",
         position: { x: 3, y: 4 },
         maxPoints: 3,
         iconName: "Channel02",
       },
       {
         nodeType: "legendary",
-        rawAffix: "Gains Blur per 5 stacks of Wilt inflicted",
+        rawAffix: "+12% Wilt chance\n+6%  Wilt  Duration",
         position: { x: 4, y: 4 },
         prerequisite: { x: 3, y: 4 },
+        maxPoints: 1,
+        iconName: "Claw02",
+      },
+      {
+        nodeType: "legendary",
+        rawAffix: "Gains Blur per 5 stacks of Wilt inflicted",
+        position: { x: 5, y: 4 },
+        prerequisite: { x: 4, y: 4 },
         maxPoints: 1,
         iconName: "Claw02",
       },
@@ -6058,7 +6022,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "medium",
         rawAffix:
-          "+12% damage dealt when holding a shield\n+4% Attack Block Chance when holding a shield",
+          "+12% damage dealt when holding a Shield\n+4% Attack Block Chance when holding a Shield",
         position: { x: 5, y: 1 },
         prerequisite: { x: 4, y: 0 },
         maxPoints: 3,
@@ -6119,7 +6083,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "legendary",
-        rawAffix: "The minimum number of enemies affected by Warcry +4",
+        rawAffix: "+4 to the minimum number of enemies affected by Warcry",
         position: { x: 6, y: 2 },
         prerequisite: { x: 5, y: 2 },
         maxPoints: 1,
@@ -6211,7 +6175,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "legendary",
         rawAffix:
-          "0.5% Elemental Resistance per 3000 Armor. Stacks up to 6% .\n0.5% Erosion Resistance per 3000 Armor. Stacks up to 6% .",
+          "0.5% Elemental Resistance per 3000 Armor. Stacks up to 6%\n0.5% Erosion Resistance per 3000 Armor. Stacks up to 6%",
         position: { x: 6, y: 4 },
         prerequisite: { x: 5, y: 4 },
         maxPoints: 1,
@@ -6286,7 +6250,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "medium",
-        rawAffix: "+4% curse effect",
+        rawAffix: "+4% Curse Effect",
         position: { x: 3, y: 1 },
         prerequisite: { x: 2, y: 0 },
         maxPoints: 3,
@@ -6302,7 +6266,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix: "+2% crowd control effects",
+        rawAffix: "+2% Crowd Control Effects",
         position: { x: 5, y: 1 },
         maxPoints: 3,
         iconName: "Crit03",
@@ -6310,7 +6274,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "legendary",
         rawAffix:
-          "+20% chance to cause Blinding on hit\n+25% Critical Strike Damage Mitigation against Blinded enemies",
+          "+20% chance to Blind the target on hit\n+25% Critical Strike Damage Mitigation against Blinded enemies",
         position: { x: 6, y: 1 },
         prerequisite: { x: 5, y: 1 },
         maxPoints: 1,
@@ -6365,7 +6329,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "micro",
         rawAffix:
-          "+6% chance to cause Ailments\n+12% chance for Minions to inflict Ailment\n+2% Ailment Duration",
+          "+3% chance to inflict Damaging Ailments\n+6% chance for Minions to inflict Damaging Ailments",
         position: { x: 1, y: 3 },
         maxPoints: 3,
         iconName: "Ailment",
@@ -6373,7 +6337,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "medium",
         rawAffix:
-          "+12% chance to cause Ailments\n+24% chance for Minions to inflict Ailment\n+4% Ailment Duration",
+          "+6% chance to inflict Damaging Ailments\n+12% chance for Minions to inflict Damaging Ailments",
         position: { x: 2, y: 3 },
         prerequisite: { x: 1, y: 3 },
         maxPoints: 3,
@@ -6404,7 +6368,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "legendary",
         rawAffix:
-          "Upon inflicting damage, +15% damage for every type of Ailment the enemy has\nWhen Minions deal damage, +15% damage for every type of Ailment the enemy has",
+          "Upon inflicting damage, +15% Hit Damage for every type of Ailment the enemy has\nWhen Minions deal damage, +15% Hit Damage for every type of Ailment the enemy has",
         position: { x: 6, y: 3 },
         prerequisite: { x: 5, y: 3 },
         maxPoints: 1,
@@ -6436,7 +6400,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "medium",
         rawAffix:
-          "+20% Critical Strike Rating\n+20% Minion Critical Strike Rating\n+14% Critical Strike Damage against enemies affected by Ailment\n+14% Minion Critical Strike Damage against enemies affected by Ailments",
+          "+20% Critical Strike Rating\n+20% Minion Critical Strike Rating\n+14% Critical Strike Damage against enemies affected by Ailments\n+14% Minion Critical Strike Damage against enemies affected by Ailments",
         position: { x: 3, y: 4 },
         prerequisite: { x: 2, y: 4 },
         maxPoints: 3,
@@ -6451,7 +6415,8 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "legendary",
-        rawAffix: "Ailment Damage ignores Resistance",
+        rawAffix:
+          "For every +2% Ignite, Wilt, and Trauma Chance, +1% Ignite, Wilt, and Trauma Damage respectively",
         position: { x: 5, y: 4 },
         prerequisite: { x: 4, y: 4 },
         maxPoints: 1,
@@ -6504,7 +6469,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "legendary",
         rawAffix:
-          "Converts 100% Physical Damage to Fire Damage\nConverts 100% of Minion's Physical Damage to Fire Damage",
+          "Converts 100% of Physical Damage to Fire Damage\nConverts 100% of Minion Physical Damage to Fire Damage",
         position: { x: 5, y: 0 },
         prerequisite: { x: 4, y: 0 },
         maxPoints: 1,
@@ -6642,8 +6607,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "legendary",
-        rawAffix:
-          "+10% additional Fire Damage dealt by the next Main Skill every 1 s",
+        rawAffix: "+4% additional Fire Damage\n+8% chance to Ignite targets",
         position: { x: 6, y: 3 },
         prerequisite: { x: 5, y: 3 },
         maxPoints: 1,
@@ -6666,8 +6630,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "micro",
-        rawAffix:
-          "+8% Ignite damage\n+6% chance to Ignite targets\n+10% Ignite chance for Minions",
+        rawAffix: "+3% chance to Ignite targets\n+6% Ignite chance for Minions",
         position: { x: 2, y: 4 },
         maxPoints: 3,
         iconName: "DmgAll",
@@ -6675,7 +6638,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "medium",
         rawAffix:
-          "+16% Ignite damage\n+12% chance to Ignite targets\n+20% Ignite chance for Minions",
+          "+6% chance to Ignite targets\n+12% Ignite chance for Minions",
         position: { x: 3, y: 4 },
         prerequisite: { x: 2, y: 4 },
         maxPoints: 3,
@@ -6684,7 +6647,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       {
         nodeType: "micro",
         rawAffix:
-          "+9% Fire Damage Over Time\n+9% Minion Fire Damage\nAdds 10 Base Ignite Damage",
+          "+9% Fire Damage Over Time\n+9% Minion Fire Damage\nAdds 10 - 10 Base Ignite Damage",
         position: { x: 4, y: 4 },
         maxPoints: 3,
         iconName: "Dot",
@@ -6925,7 +6888,7 @@ export const TalentTrees: readonly TalentTreeData[] = [
       },
       {
         nodeType: "medium",
-        rawAffix: "+3% injury buffer",
+        rawAffix: "+3% Injury Buffer",
         position: { x: 6, y: 4 },
         prerequisite: { x: 5, y: 4 },
         maxPoints: 3,
