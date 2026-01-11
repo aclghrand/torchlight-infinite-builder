@@ -170,12 +170,37 @@ const calculateTotalMainStats = (
   return totalMainStats;
 };
 
+
+const calculateDefenseStat = (
+  mods: Mod[],
+  gearFlatModType: "GearEnergyShield" | "GearArmor" | "GearEvasion",
+  gearPctModType: "GearEnergyShieldPct" | "GearArmorPct" | "GearEvasionPct",
+  finalFlatModType: "MaxEnergyShield" | "Armor" | "Evasion",
+  finalPctModType: "MaxEnergyShieldPct" | "ArmorPct" | "EvasionPct",
+): number => {
+  // Sum up the flat mods on each item then multiply by the gear percentage mods
+  // The gear total is then multiplied by all other multiplicaiton mods (talents etc...)
+
+  const gearFlat = sumByValue(filterMods(mods, gearFlatModType));
+  const gearPctMult = calcEffMult(mods, gearPctModType);
+  const totalFromGear = (gearFlat) * gearPctMult;
+  
+  const finalFlat = sumByValue(filterMods(mods, finalFlatModType));
+  const finalPctMult = calcEffMult(mods, finalPctModType);
+  const finalValue = (totalFromGear + finalFlat) * finalPctMult;
+  
+  return Math.max(0, finalValue);
+};
+
 // === Resource Pool Types ===
 
 export interface ResourcePool {
   stats: Stats;
   maxLife: number;
   maxMana: number;
+  energyShield: number;
+  armor: number;
+  evasion: number;
   mercuryPts?: number;
   focusBlessings: number;
   maxFocusBlessings: number;
@@ -1845,6 +1870,8 @@ const resolveModsForOffenseSkill = (
   };
 };
 
+
+
 const calculateResourcePool = (
   paramMods: Mod[],
   loadout: Loadout,
@@ -1878,6 +1905,31 @@ const calculateResourcePool = (
   const maxManaMult = calcEffMult(mods, "MaxManaPct");
   const maxMana = (40 + config.level * 5 + maxManaFromMods) * maxManaMult;
 
+
+  const energyShield = calculateDefenseStat(
+    mods,
+    "GearEnergyShield",
+    "GearEnergyShieldPct",
+    "MaxEnergyShield",
+    "MaxEnergyShieldPct",
+  );
+
+  const armor = calculateDefenseStat(
+    mods,
+    "GearArmor",
+    "GearArmorPct",
+    "Armor",
+    "ArmorPct",
+  );
+
+  const evasion = calculateDefenseStat(
+    mods,
+    "GearEvasion",
+    "GearEvasionPct",
+    "Evasion",
+    "EvasionPct",
+  );
+
   // max_mana must be normalized before calculating mercuryPts
   // (for mods with per: { stackable: "max_mana" })
   pushNormalizedStackable(mods, prenormMods, "max_mana", maxMana);
@@ -1906,6 +1958,9 @@ const calculateResourcePool = (
     stats,
     maxLife,
     maxMana,
+    energyShield,
+    armor,
+    evasion,
     mercuryPts,
     maxFocusBlessings,
     focusBlessings,
