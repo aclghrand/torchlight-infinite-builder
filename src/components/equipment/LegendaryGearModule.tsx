@@ -5,6 +5,8 @@ import { Legendaries } from "@/src/data/legendary/legendaries";
 import type { LegendaryAffix } from "@/src/data/legendary/types";
 import type { Gear } from "@/src/lib/save-data";
 import { craft } from "@/src/tli/crafting/craft";
+import type { Gear as CoreGear, Affix, AffixLine } from "@/src/tli/core";
+import { parseMod } from "@/src/tli/mod-parser";
 import {
   formatBlendAffix,
   formatBlendOption,
@@ -13,12 +15,13 @@ import {
 } from "../../lib/blend-utils";
 import { DEFAULT_QUALITY } from "../../lib/constants";
 import { generateItemId } from "../../lib/storage";
+import { Tooltip } from "../ui/Tooltip";
 import { SearchableSelect } from "../ui/SearchableSelect";
+import { GearTooltipContent } from "./GearTooltipContent";
 import {
   LegendaryAffixRow,
   type LegendaryAffixState,
 } from "./LegendaryAffixRow";
-
 const isChoiceType = (
   affix: LegendaryAffix,
 ): affix is { choiceDescriptor: string; choices: string[] } => {
@@ -38,13 +41,26 @@ const getAffixString = (
   return undefined;
 };
 
-interface LegendaryGearModuleProps {
-  onSaveToInventory: (item: Gear) => void;
-}
-
 const craftAffix = (affix: string, percentage: number): string => {
   return craft({ craftableAffix: affix }, percentage);
 };
+
+const convertAffixStringToAffix = (affixText: string): Affix => {
+  const lines = affixText.split(/\n/);
+  const affixLines: AffixLine[] = lines.map((lineText) => ({
+    text: lineText,
+    mods: parseMod(lineText),
+  }));
+  return { affixLines };
+};
+
+const getAffixStringFromLegendary = (affix: LegendaryAffix): string => {
+  return typeof affix === "string" ? affix : affix.choices[0];
+};
+
+interface LegendaryGearModuleProps {
+  onSaveToInventory: (item: Gear) => void;
+}
 
 export const LegendaryGearModule: React.FC<LegendaryGearModuleProps> = ({
   onSaveToInventory,
@@ -180,6 +196,39 @@ export const LegendaryGearModule: React.FC<LegendaryGearModuleProps> = ({
     setSelectedBlendIndex(undefined);
   };
 
+  const createGearPreview = (index: number): CoreGear => {
+    const legendary = sortedLegendaries[index];
+
+    const legendary_affixes: Affix[] = legendary.normalAffixes.map((affix) => {
+      const affixString = getAffixStringFromLegendary(affix);
+      const crafted = craftAffix(affixString, DEFAULT_QUALITY);
+      return convertAffixStringToAffix(crafted);
+    });
+
+    return {
+      equipmentType: legendary.equipmentType,
+      rarity: "legendary",
+      legendaryName: legendary.name,
+      legendary_affixes,
+    };
+  };
+
+  const renderLegendaryTooltip = (
+    option: { value: number; label: string },
+    triggerRect: DOMRect,
+  ): React.ReactNode => {
+    const gearPreview = createGearPreview(option.value);
+    return (
+      <Tooltip
+        isVisible={true}
+        triggerRect={triggerRect}
+        variant="legendary"
+      >
+        <GearTooltipContent item={gearPreview} />
+      </Tooltip>
+    );
+  };
+
   return (
     <div className="bg-zinc-900 rounded-lg p-6 border border-zinc-700">
       <h2 className="text-xl font-semibold mb-4 text-zinc-50">
@@ -196,6 +245,7 @@ export const LegendaryGearModule: React.FC<LegendaryGearModuleProps> = ({
           onChange={handleLegendarySelect}
           options={legendaryOptions}
           placeholder="Select a legendary..."
+          renderOptionTooltip={renderLegendaryTooltip}
         />
       </div>
 
