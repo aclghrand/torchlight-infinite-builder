@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/react/macro";
 import { useMemo, useState } from "react";
 import { Legendaries } from "@/src/data/legendary/legendaries";
 import type { LegendaryAffix } from "@/src/data/legendary/types";
@@ -180,12 +181,14 @@ export const LegendaryGearModule: React.FC<LegendaryGearModuleProps> = ({
 
   return (
     <div className="bg-zinc-900 rounded-lg p-6 border border-zinc-700">
-      <h2 className="text-xl font-semibold mb-4 text-zinc-50">Add Legendary</h2>
+      <h2 className="text-xl font-semibold mb-4 text-zinc-50">
+        <Trans>Add Legendary</Trans>
+      </h2>
 
       {/* Legendary Selector */}
       <div className="mb-6">
         <label className="block text-sm font-medium mb-2 text-zinc-50">
-          Select Legendary
+          <Trans>Select Legendary</Trans>
         </label>
         <SearchableSelect
           value={selectedLegendaryIndex}

@@ -5,6 +5,12 @@ import { useEffect, useState } from "react";
 import { ImportModal } from "../components/modals/ImportModal";
 import { decodeBuildCode } from "../lib/build-code";
 import {
+  getStoredLocale,
+  type Locale,
+  SUPPORTED_LOCALES,
+  setStoredLocale,
+} from "../lib/i18n";
+import {
   deleteSaveData,
   generateSaveId,
   loadSaveData,
@@ -19,7 +25,7 @@ import { createEmptySaveData } from "../lib/storage";
 export const Route = createFileRoute("/")({ component: SavesPage });
 
 const formatDate = (timestamp: number): string => {
-  return new Date(timestamp).toLocaleDateString("en-US", {
+  return new Date(timestamp).toLocaleDateString(getStoredLocale(), {
     month: "short",
     day: "numeric",
     year: "numeric",
@@ -83,13 +89,13 @@ const SaveCard: React.FC<SaveCardProps> = ({
                 onClick={handleRenameSubmit}
                 className="px-2 py-1 bg-amber-500 text-zinc-950 rounded text-sm font-medium hover:bg-amber-600 transition-colors"
               >
-                Save
+                <Trans>Save</Trans>
               </button>
               <button
                 onClick={handleRenameCancel}
                 className="px-2 py-1 bg-zinc-700 text-zinc-50 rounded text-sm hover:bg-zinc-600 transition-colors"
               >
-                Cancel
+                <Trans>Cancel</Trans>
               </button>
             </div>
           ) : (
@@ -99,9 +105,13 @@ const SaveCard: React.FC<SaveCardProps> = ({
           )}
 
           <div className="mt-1 text-sm text-zinc-500">
-            <span>Created: {formatDate(save.createdAt)}</span>
+            <span>
+              <Trans>Created: {formatDate(save.createdAt)}</Trans>
+            </span>
             <span className="mx-2">•</span>
-            <span>Updated: {formatDate(save.updatedAt)}</span>
+            <span>
+              <Trans>Updated: {formatDate(save.updatedAt)}</Trans>
+            </span>
           </div>
         </div>
       </div>
@@ -112,7 +122,7 @@ const SaveCard: React.FC<SaveCardProps> = ({
           onClick={(e) => e.stopPropagation()}
         >
           <p className="text-sm text-zinc-300 mb-3">
-            Are you sure you want to delete &quot;{save.name}&quot;?
+            <Trans>Are you sure you want to delete "{save.name}"?</Trans>
           </p>
           <div className="flex gap-2">
             <button
@@ -122,13 +132,13 @@ const SaveCard: React.FC<SaveCardProps> = ({
               }}
               className="px-3 py-1.5 bg-red-500 text-white rounded text-sm font-medium hover:bg-red-600 transition-colors"
             >
-              Delete
+              <Trans>Delete</Trans>
             </button>
             <button
               onClick={() => setShowDeleteConfirm(false)}
               className="px-3 py-1.5 bg-zinc-700 text-zinc-50 rounded text-sm hover:bg-zinc-600 transition-colors"
             >
-              Cancel
+              <Trans>Cancel</Trans>
             </button>
           </div>
         </div>
@@ -144,19 +154,19 @@ const SaveCard: React.FC<SaveCardProps> = ({
             }}
             className="px-3 py-1.5 bg-zinc-700 text-zinc-50 rounded text-sm hover:bg-zinc-600 transition-colors"
           >
-            Rename
+            <Trans>Rename</Trans>
           </button>
           <button
             onClick={onCopy}
             className="px-3 py-1.5 bg-zinc-700 text-zinc-50 rounded text-sm hover:bg-zinc-600 transition-colors"
           >
-            Copy
+            <Trans>Copy</Trans>
           </button>
           <button
             onClick={() => setShowDeleteConfirm(true)}
             className="px-3 py-1.5 bg-zinc-700 text-red-400 rounded text-sm hover:bg-zinc-600 transition-colors"
           >
-            Delete
+            <Trans>Delete</Trans>
           </button>
         </div>
       )}
@@ -306,16 +316,33 @@ function SavesPage(): React.ReactNode {
           <span className="rounded-full bg-amber-500/20 px-2 py-0.5 text-xs font-medium text-amber-400 border border-amber-500/30">
             Pre-Alpha
           </span>
+          <div className="ml-auto flex items-center gap-2">
+            <select
+              value={getStoredLocale()}
+              onChange={(e) => setStoredLocale(e.target.value as Locale)}
+              className="px-3 py-1.5 bg-zinc-800 text-zinc-50 rounded-lg border border-zinc-700 text-sm focus:outline-none focus:border-amber-500"
+            >
+              {SUPPORTED_LOCALES.map((item) => (
+                <option key={item.locale} value={item.locale}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
         <div className="mb-6 p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg">
           <div className="flex items-start gap-3">
             <span className="text-amber-400 text-lg">🛠️</span>
             <div>
-              <p className="text-amber-200 font-medium">Early Development</p>
+              <p className="text-amber-200 font-medium">
+                <Trans>Early Development</Trans>
+              </p>
               <p className="text-zinc-400 text-sm mt-1">
-                Please be patient and bear with me on any issues you encounter
-                with this app, as it's still in early phases of development.
+                <Trans>
+                  Please be patient and bear with me on any issues you encounter
+                  with this app, as it's still in early phases of development.
+                </Trans>
               </p>
             </div>
           </div>
@@ -330,13 +357,13 @@ function SavesPage(): React.ReactNode {
               onClick={() => setImportModalOpen(true)}
               className="px-4 py-2 bg-zinc-700 text-zinc-50 rounded-lg font-medium hover:bg-zinc-600 transition-colors"
             >
-              Import Build
+              <Trans>Import Build</Trans>
             </button>
             <button
               onClick={handleCreateNew}
               className="px-4 py-2 bg-amber-500 text-zinc-950 rounded-lg font-medium hover:bg-amber-600 transition-colors"
             >
-              Create New
+              <Trans>Create New</Trans>
             </button>
           </div>
         </div>
@@ -359,16 +386,20 @@ function SavesPage(): React.ReactNode {
                     d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                   />
                 </svg>
-                <p className="text-lg">No builds yet</p>
+                <p className="text-lg">
+                  <Trans>No builds yet</Trans>
+                </p>
                 <p className="text-sm text-zinc-500 mt-1">
-                  Create your first character build to get started
+                  <Trans>
+                    Create your first character build to get started
+                  </Trans>
                 </p>
               </div>
               <button
                 onClick={handleCreateNew}
                 className="px-6 py-3 bg-amber-500 text-zinc-950 rounded-lg font-semibold hover:bg-amber-600 transition-colors"
               >
-                Create New Build
+                <Trans>Create New Build</Trans>
               </button>
             </div>
           ) : (

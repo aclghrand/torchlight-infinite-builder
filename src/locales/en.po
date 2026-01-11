@@ -13,6 +13,233 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/routes/index.tsx:326
+#. js-lingui-explicit-id
+#: src/lib/constants.ts:6
+msgid "Helmet"
+msgstr "Helmet"
+
+#. js-lingui-explicit-id
+#: src/lib/constants.ts:7
+msgid "Chest"
+msgstr "Chest"
+
+#. js-lingui-explicit-id
+#: src/lib/constants.ts:8
+msgid "Neck"
+msgstr "Neck"
+
+#. js-lingui-explicit-id
+#: src/lib/constants.ts:9
+msgid "Gloves"
+msgstr "Gloves"
+
+#. js-lingui-explicit-id
+#: src/lib/constants.ts:10
+msgid "Belt"
+msgstr "Belt"
+
+#. js-lingui-explicit-id
+#: src/lib/constants.ts:11
+msgid "Boots"
+msgstr "Boots"
+
+#. js-lingui-explicit-id
+#: src/lib/constants.ts:12
+msgid "Left Ring"
+msgstr "Left Ring"
+
+#. js-lingui-explicit-id
+#: src/lib/constants.ts:13
+msgid "Right Ring"
+msgstr "Right Ring"
+
+#. js-lingui-explicit-id
+#: src/lib/constants.ts:14
+msgid "Main Hand"
+msgstr "Main Hand"
+
+#. js-lingui-explicit-id
+#: src/lib/constants.ts:15
+msgid "Off Hand"
+msgstr "Off Hand"
+
+#. js-lingui-explicit-id
+#: src/components/PageTabs.tsx:5
+msgid "Equipment"
+msgstr "Equipment"
+
+#. js-lingui-explicit-id
+#: src/components/PageTabs.tsx:6
+msgid "Talents"
+msgstr "Talents"
+
+#. js-lingui-explicit-id
+#: src/components/PageTabs.tsx:7
+msgid "Skills"
+msgstr "Skills"
+
+#. js-lingui-explicit-id
+#: src/components/PageTabs.tsx:8
+msgid "Hero"
+msgstr "Hero"
+
+#. js-lingui-explicit-id
+#: src/components/PageTabs.tsx:9
+msgid "Pactspirit"
+msgstr "Pactspirit"
+
+#. js-lingui-explicit-id
+#: src/components/PageTabs.tsx:10
+msgid "Divinity"
+msgstr "Divinity"
+
+#. js-lingui-explicit-id
+#: src/components/PageTabs.tsx:11
+msgid "Configuration"
+msgstr "Configuration"
+
+#. js-lingui-explicit-id
+#: src/components/PageTabs.tsx:12
+msgid "Calculations"
+msgstr "Calculations"
+
+#: src/components/equipment/LegendaryGearModule.tsx:184
+msgid "Add Legendary"
+msgstr "Add Legendary"
+
+#. placeholder {0}: save.name
+#: src/routes/index.tsx:120
+msgid "Are you sure you want to delete \"{0}\"?"
+msgstr "Are you sure you want to delete \"{0}\"?"
+
+#: src/routes/builder/equipment.tsx:469
+msgid "Base Affixes (2 max)"
+msgstr "Base Affixes (2 max)"
+
+#: src/routes/builder/equipment.tsx:448
+msgid "Base Stats (1 max)"
+msgstr "Base Stats (1 max)"
+
+#: src/routes/builder/equipment.tsx:534
+msgid "Blending (1 max)"
+msgstr "Blending (1 max)"
+
+#: src/routes/index.tsx:93
+#: src/routes/index.tsx:136
+msgid "Cancel"
+msgstr "Cancel"
+
+#: src/routes/index.tsx:158
+msgid "Copy"
+msgstr "Copy"
+
+#: src/routes/builder/equipment.tsx:415
+msgid "Craft New Item"
+msgstr "Craft New Item"
+
+#: src/routes/index.tsx:348
+msgid "Create New"
+msgstr "Create New"
+
+#: src/routes/index.tsx:384
+msgid "Create New Build"
+msgstr "Create New Build"
+
+#: src/routes/index.tsx:375
+msgid "Create your first character build to get started"
+msgstr "Create your first character build to get started"
+
+#. placeholder {0}: formatDate(save.createdAt)
+#: src/routes/index.tsx:104
+msgid "Created: {0}"
+msgstr "Created: {0}"
+
+#: src/routes/index.tsx:130
+#: src/routes/index.tsx:164
+msgid "Delete"
+msgstr "Delete"
+
+#: src/routes/index.tsx:321
+msgid "Early Development"
+msgstr "Early Development"
+
+#: src/routes/builder/equipment.tsx:393
+msgid "Equipment Slots"
+msgstr "Equipment Slots"
+
+#: src/routes/builder/equipment.tsx:423
+msgid "Equipment Type"
+msgstr "Equipment Type"
+
+#: src/routes/index.tsx:342
+msgid "Import Build"
+msgstr "Import Build"
+
+#: src/routes/builder/equipment.tsx:630
+msgid "Inventory"
+msgstr "Inventory"
+
+#: src/routes/builder/equipment.tsx:631
+msgid "items"
+msgstr "items"
+
+#: src/routes/index.tsx:335
 msgid "My Builds"
 msgstr "My Builds"
+
+#: src/routes/index.tsx:372
+msgid "No builds yet"
+msgstr "No builds yet"
+
+#: src/routes/builder/equipment.tsx:635
+msgid "No items in inventory. Craft items above to add them here."
+msgstr "No items in inventory. Craft items above to add them here."
+
+#: src/routes/index.tsx:324
+msgid "Please be patient and bear with me on any issues you encounter with this app, as it's still in early phases of development."
+msgstr "Please be patient and bear with me on any issues you encounter with this app, as it's still in early phases of development."
+
+#: src/routes/builder/equipment.tsx:575
+msgid "Prefixes (3 max)"
+msgstr "Prefixes (3 max)"
+
+#: src/routes/index.tsx:152
+msgid "Rename"
+msgstr "Rename"
+
+#: src/routes/index.tsx:87
+msgid "Save"
+msgstr "Save"
+
+#: src/routes/builder/equipment.tsx:618
+msgid "Save to Inventory"
+msgstr "Save to Inventory"
+
+#: src/routes/builder/equipment.tsx:623
+msgid "Select an equipment type to begin crafting"
+msgstr "Select an equipment type to begin crafting"
+
+#: src/routes/builder/equipment.tsx:432
+msgid "Select equipment type..."
+msgstr "Select equipment type..."
+
+#: src/components/equipment/LegendaryGearModule.tsx:189
+msgid "Select Legendary"
+msgstr "Select Legendary"
+
+#: src/routes/builder/equipment.tsx:595
+msgid "Suffixes (3 max)"
+msgstr "Suffixes (3 max)"
+
+#: src/routes/builder/equipment.tsx:492
+msgid "Sweet Dream Affix (1 max)"
+msgstr "Sweet Dream Affix (1 max)"
+
+#: src/routes/builder/equipment.tsx:513
+msgid "Tower Sequence (1 max)"
+msgstr "Tower Sequence (1 max)"
+
+#. placeholder {0}: formatDate(save.updatedAt)
+#: src/routes/index.tsx:108
+msgid "Updated: {0}"
+msgstr "Updated: {0}"

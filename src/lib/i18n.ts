@@ -11,6 +11,11 @@ const localeMessages: Record<Locale, typeof enMessages> = {
 
 export const defaultLocale: Locale = "en";
 
+export const SUPPORTED_LOCALES = [
+  { locale: "en" as const, name: "English" },
+  { locale: "zh" as const, name: "简体中文" },
+] as const;
+
 export const loadLocale = (locale: Locale): void => {
   i18n.load(locale, localeMessages[locale]);
   i18n.activate(locale);
@@ -27,13 +32,39 @@ export const getStoredLocale = (): Locale => {
   return defaultLocale;
 };
 
+export const detectBrowserLocale = (): Locale => {
+  if (typeof window === "undefined") {
+    return defaultLocale;
+  }
+  const browserLang = navigator.language || navigator.languages?.[0] || "";
+  if (browserLang.startsWith("zh")) {
+    return "zh";
+  }
+  if (browserLang.startsWith("en")) {
+    return "en";
+  }
+  return defaultLocale;
+};
+
 export const setStoredLocale = (locale: Locale): void => {
   localStorage.setItem("locale", locale);
   loadLocale(locale);
 };
 
-// Initialize with stored locale (falls back to default on SSR)
-loadLocale(getStoredLocale());
+// Initialize with stored locale, or auto-detect from browser language
+const initialLocale = ((): Locale => {
+  const stored = getStoredLocale();
+  if (stored !== defaultLocale) {
+    return stored;
+  }
+  if (typeof window === "undefined") {
+    return defaultLocale;
+  }
+  const detected = detectBrowserLocale();
+  setStoredLocale(detected);
+  return detected;
+})();
+loadLocale(initialLocale);
 
 // Expose for debugging
 if (typeof window !== "undefined") {

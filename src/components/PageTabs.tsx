@@ -1,3 +1,4 @@
+import { i18n } from "@lingui/core";
 import { Link, useRouterState } from "@tanstack/react-router";
 
 const TABS = [
@@ -31,7 +32,7 @@ export const PageTabs: React.FC = () => {
                 : "text-zinc-400 hover:text-zinc-50"
             }`}
           >
-            {tab.label}
+            {i18n._(tab.label)}
           </Link>
         );
       })}

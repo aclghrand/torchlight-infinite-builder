@@ -13,6 +13,233 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/routes/index.tsx:326
+#. js-lingui-explicit-id
+#: src/lib/constants.ts:6
+msgid "Helmet"
+msgstr "头盔"
+
+#. js-lingui-explicit-id
+#: src/lib/constants.ts:7
+msgid "Chest"
+msgstr "胸甲"
+
+#. js-lingui-explicit-id
+#: src/lib/constants.ts:8
+msgid "Neck"
+msgstr "项链"
+
+#. js-lingui-explicit-id
+#: src/lib/constants.ts:9
+msgid "Gloves"
+msgstr "手套"
+
+#. js-lingui-explicit-id
+#: src/lib/constants.ts:10
+msgid "Belt"
+msgstr "腰带"
+
+#. js-lingui-explicit-id
+#: src/lib/constants.ts:11
+msgid "Boots"
+msgstr "靴子"
+
+#. js-lingui-explicit-id
+#: src/lib/constants.ts:12
+msgid "Left Ring"
+msgstr "左戒指"
+
+#. js-lingui-explicit-id
+#: src/lib/constants.ts:13
+msgid "Right Ring"
+msgstr "右戒指"
+
+#. js-lingui-explicit-id
+#: src/lib/constants.ts:14
+msgid "Main Hand"
+msgstr "主手"
+
+#. js-lingui-explicit-id
+#: src/lib/constants.ts:15
+msgid "Off Hand"
+msgstr "副手"
+
+#. js-lingui-explicit-id
+#: src/components/PageTabs.tsx:5
+msgid "Equipment"
+msgstr "装备"
+
+#. js-lingui-explicit-id
+#: src/components/PageTabs.tsx:6
+msgid "Talents"
+msgstr "天赋"
+
+#. js-lingui-explicit-id
+#: src/components/PageTabs.tsx:7
+msgid "Skills"
+msgstr "技能"
+
+#. js-lingui-explicit-id
+#: src/components/PageTabs.tsx:8
+msgid "Hero"
+msgstr "英雄"
+
+#. js-lingui-explicit-id
+#: src/components/PageTabs.tsx:9
+msgid "Pactspirit"
+msgstr "契灵"
+
+#. js-lingui-explicit-id
+#: src/components/PageTabs.tsx:10
+msgid "Divinity"
+msgstr "神格石板"
+
+#. js-lingui-explicit-id
+#: src/components/PageTabs.tsx:11
+msgid "Configuration"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/components/PageTabs.tsx:12
+msgid "Calculations"
+msgstr "计算"
+
+#: src/components/equipment/LegendaryGearModule.tsx:184
+msgid "Add Legendary"
+msgstr "增加一个传奇物品"
+
+#. placeholder {0}: save.name
+#: src/routes/index.tsx:120
+msgid "Are you sure you want to delete \"{0}\"?"
+msgstr "您确定要删除“{0}”吗？"
+
+#: src/routes/builder/equipment.tsx:469
+msgid "Base Affixes (2 max)"
+msgstr "基础词缀 (2 max)"
+
+#: src/routes/builder/equipment.tsx:448
+msgid "Base Stats (1 max)"
+msgstr "基底词缀 (1 max)"
+
+#: src/routes/builder/equipment.tsx:534
+msgid "Blending (1 max)"
+msgstr "调香词缀 (1 max)"
+
+#: src/routes/index.tsx:93
+#: src/routes/index.tsx:136
+msgid "Cancel"
+msgstr "取消"
+
+#: src/routes/index.tsx:158
+msgid "Copy"
+msgstr "复制"
+
+#: src/routes/builder/equipment.tsx:415
+msgid "Craft New Item"
+msgstr "制作新物品"
+
+#: src/routes/index.tsx:348
+msgid "Create New"
+msgstr "新建"
+
+#: src/routes/index.tsx:384
+msgid "Create New Build"
+msgstr "创建新流派"
+
+#: src/routes/index.tsx:375
+msgid "Create your first character build to get started"
+msgstr "创建您的第一个角色流派以开始使用"
+
+#. placeholder {0}: formatDate(save.createdAt)
+#: src/routes/index.tsx:104
+msgid "Created: {0}"
+msgstr "创建时间：{0}"
+
+#: src/routes/index.tsx:130
+#: src/routes/index.tsx:164
+msgid "Delete"
+msgstr "删除"
+
+#: src/routes/index.tsx:321
+msgid "Early Development"
+msgstr "早期预览"
+
+#: src/routes/builder/equipment.tsx:393
+msgid "Equipment Slots"
+msgstr "装备槽位"
+
+#: src/routes/builder/equipment.tsx:423
+msgid "Equipment Type"
+msgstr "装备类型"
+
+#: src/routes/index.tsx:342
+msgid "Import Build"
+msgstr "导入流派"
+
+#: src/routes/builder/equipment.tsx:630
+msgid "Inventory"
+msgstr "库存"
+
+#: src/routes/builder/equipment.tsx:631
+msgid "items"
+msgstr "物品"
+
+#: src/routes/index.tsx:335
 msgid "My Builds"
 msgstr "我的配装"
+
+#: src/routes/index.tsx:372
+msgid "No builds yet"
+msgstr "暂无流派"
+
+#: src/routes/builder/equipment.tsx:635
+msgid "No items in inventory. Craft items above to add them here."
+msgstr "库存中没有物品。在上方制作物品以添加到此处。"
+
+#: src/routes/index.tsx:324
+msgid "Please be patient and bear with me on any issues you encounter with this app, as it's still in early phases of development."
+msgstr "请耐心等待，对于这个应用程序在早期开发阶段遇到的任何问题，请多多包涵。"
+
+#: src/routes/builder/equipment.tsx:575
+msgid "Prefixes (3 max)"
+msgstr "前缀 (3 max)"
+
+#: src/routes/index.tsx:152
+msgid "Rename"
+msgstr "重命名"
+
+#: src/routes/index.tsx:87
+msgid "Save"
+msgstr "保存"
+
+#: src/routes/builder/equipment.tsx:618
+msgid "Save to Inventory"
+msgstr "保存到库存"
+
+#: src/routes/builder/equipment.tsx:623
+msgid "Select an equipment type to begin crafting"
+msgstr "选择一个装备类型以开始制作"
+
+#: src/routes/builder/equipment.tsx:432
+msgid "Select equipment type..."
+msgstr "选择一个装备类型..."
+
+#: src/components/equipment/LegendaryGearModule.tsx:189
+msgid "Select Legendary"
+msgstr "选择一个传奇物品"
+
+#: src/routes/builder/equipment.tsx:595
+msgid "Suffixes (3 max)"
+msgstr "后缀 (3 max)"
+
+#: src/routes/builder/equipment.tsx:492
+msgid "Sweet Dream Affix (1 max)"
+msgstr "美梦词缀 (1 max)"
+
+#: src/routes/builder/equipment.tsx:513
+msgid "Tower Sequence (1 max)"
+msgstr "高塔词缀 (1 max)"
+
+#. placeholder {0}: formatDate(save.updatedAt)
+#: src/routes/index.tsx:108
+msgid "Updated: {0}"
+msgstr "更新时间: {0}"

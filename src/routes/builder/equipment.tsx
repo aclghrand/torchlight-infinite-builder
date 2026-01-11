@@ -1,3 +1,5 @@
+import { i18n } from "@lingui/core";
+import { Trans } from "@lingui/react/macro";
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useMemo } from "react";
 import { craft } from "@/src/tli/crafting/craft";
@@ -389,14 +391,14 @@ function EquipmentPage(): React.ReactNode {
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
       <div className="rounded-lg border border-zinc-700 bg-zinc-900 p-6">
         <h2 className="mb-4 text-xl font-semibold text-zinc-50">
-          Equipment Slots
+          <Trans>Equipment Slots</Trans>
         </h2>
         <div className="space-y-1">
           {GEAR_SLOTS.map(({ key, label }) => (
             <EquipmentSlotDropdown
               key={key}
               slot={key}
-              label={label}
+              label={i18n._(label)}
               selectedItemId={loadout.gearPage.equippedGear[key]?.id ?? null}
               compatibleItems={getCompatibleItems(
                 loadout.gearPage.inventory,
@@ -411,7 +413,7 @@ function EquipmentPage(): React.ReactNode {
       <div className="space-y-6">
         <div className="rounded-lg border border-zinc-700 bg-zinc-900 p-6">
           <h2 className="mb-4 text-xl font-semibold text-zinc-50">
-            Craft New Item
+            <Trans>Craft New Item</Trans>
           </h2>
 
           <div className="mb-6">
@@ -419,7 +421,7 @@ function EquipmentPage(): React.ReactNode {
               htmlFor="equipment-type-select"
               className="mb-2 block text-sm font-medium text-zinc-50"
             >
-              Equipment Type
+              <Trans>Equipment Type</Trans>
             </label>
             <select
               id="equipment-type-select"
@@ -427,7 +429,9 @@ function EquipmentPage(): React.ReactNode {
               onChange={handleEquipmentTypeChange}
               className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-4 py-2 text-zinc-50 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/30"
             >
-              <option value="">Select equipment type...</option>
+              <option value="">
+                <Trans>Select equipment type...</Trans>
+              </option>
               {allEquipmentTypes.map((type) => (
                 <option key={type} value={type}>
                   {type}
@@ -442,7 +446,7 @@ function EquipmentPage(): React.ReactNode {
               {baseStatsAffixes.length > 0 && (
                 <div className="mb-6">
                   <h3 className="mb-3 text-lg font-semibold text-zinc-50">
-                    Base Stats (1 max)
+                    <Trans>Base Stats (1 max)</Trans>
                   </h3>
                   <AffixSlotComponent
                     slotIndex={-2}
@@ -463,7 +467,7 @@ function EquipmentPage(): React.ReactNode {
               {baseAffixes.length > 0 && (
                 <div className="mb-6">
                   <h3 className="mb-3 text-lg font-semibold text-zinc-50">
-                    Base Affixes (2 max)
+                    <Trans>Base Affixes (2 max)</Trans>
                   </h3>
                   <div className="space-y-4">
                     {[0, 1].map((slotIndex) => (
@@ -486,7 +490,7 @@ function EquipmentPage(): React.ReactNode {
               {sweetDreamAffixes.length > 0 && (
                 <div className="mb-6">
                   <h3 className="mb-3 text-lg font-semibold text-zinc-50">
-                    Sweet Dream Affix (1 max)
+                    <Trans>Sweet Dream Affix (1 max)</Trans>
                   </h3>
                   <AffixSlotComponent
                     slotIndex={-3}
@@ -507,7 +511,7 @@ function EquipmentPage(): React.ReactNode {
               {towerSequenceAffixes.length > 0 && (
                 <div className="mb-6">
                   <h3 className="mb-3 text-lg font-semibold text-zinc-50">
-                    Tower Sequence (1 max)
+                    <Trans>Tower Sequence (1 max)</Trans>
                   </h3>
                   <AffixSlotComponent
                     slotIndex={-4}
@@ -528,7 +532,7 @@ function EquipmentPage(): React.ReactNode {
               {isBelt && (
                 <div className="mb-6">
                   <h3 className="mb-3 text-lg font-semibold text-zinc-50">
-                    Blending (1 max)
+                    <Trans>Blending (1 max)</Trans>
                   </h3>
                   <AffixSlotComponent
                     slotIndex={-1}
@@ -569,7 +573,7 @@ function EquipmentPage(): React.ReactNode {
               )}
               <div className="mb-6">
                 <h3 className="mb-3 text-lg font-semibold text-zinc-50">
-                  Prefixes (3 max)
+                  <Trans>Prefixes (3 max)</Trans>
                 </h3>
                 <div className="space-y-4">
                   {[0, 1, 2].map((slotIndex) => (
@@ -589,7 +593,7 @@ function EquipmentPage(): React.ReactNode {
 
               <div className="mb-6">
                 <h3 className="mb-3 text-lg font-semibold text-zinc-50">
-                  Suffixes (3 max)
+                  <Trans>Suffixes (3 max)</Trans>
                 </h3>
                 <div className="space-y-4">
                   {[3, 4, 5].map((slotIndex) => (
@@ -612,23 +616,26 @@ function EquipmentPage(): React.ReactNode {
                 onClick={handleSaveToInventory}
                 className="w-full rounded-lg bg-amber-500 px-4 py-3 font-semibold text-zinc-950 transition-colors hover:bg-amber-600"
               >
-                Save to Inventory
+                <Trans>Save to Inventory</Trans>
               </button>
             </>
           ) : (
             <p className="py-8 text-center italic text-zinc-500">
-              Select an equipment type to begin crafting
+              <Trans>Select an equipment type to begin crafting</Trans>
             </p>
           )}
         </div>
 
         <div className="rounded-lg border border-zinc-700 bg-zinc-900 p-6">
           <h2 className="mb-4 text-xl font-semibold text-zinc-50">
-            Inventory ({loadout.gearPage.inventory.length} items)
+            <Trans>Inventory</Trans> ({loadout.gearPage.inventory.length}
+            <Trans>items</Trans>)
           </h2>
           {loadout.gearPage.inventory.length === 0 ? (
             <p className="py-4 text-center italic text-zinc-500">
-              No items in inventory. Craft items above to add them here.
+              <Trans>
+                No items in inventory. Craft items above to add them here.
+              </Trans>
             </p>
           ) : (
             <div className="max-h-96 space-y-2 overflow-y-auto">
