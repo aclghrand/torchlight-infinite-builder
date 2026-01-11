@@ -976,6 +976,28 @@ const createTestSimpleSpell = (): BaseActiveSkill => {
   };
 };
 
+const createTestSlashStrikeSkill = (): BaseActiveSkill => {
+  // Simple values: sweep 100%, steep 200%, 50% steep strike chance
+  const sweepValues = Array.from({ length: 40 }, () => 100);
+  const steepValues = Array.from({ length: 40 }, () => 200);
+  const steepChanceValues = Array.from({ length: 40 }, () => 50);
+  return {
+    type: "Active",
+    name: "[Test] Slash Strike Skill",
+    kinds: ["deal_damage", "hit_enemies"],
+    tags: ["Attack", "Melee", "Slash-Strike"],
+    description: ["this is used for testing slash-strike damage calculations"],
+    mainStats: ["str", "dex"],
+    levelValues: {
+      sweepWeaponAtkDmgPct: sweepValues,
+      sweepAddedDmgEffPct: sweepValues,
+      steepWeaponAtkDmgPct: steepValues,
+      steepAddedDmgEffPct: steepValues,
+      steepStrikeChancePct: steepChanceValues,
+    },
+  };
+};
+
 const generateActiveSkillFile = (
   constName: string,
   skills: BaseActiveSkill[],
@@ -1291,9 +1313,11 @@ const main = async (options: Options): Promise<void> => {
   const testSkill = createTestActiveSkill();
   const testPersistentSpell = createTestPersistentSpell();
   const testSimpleSpell = createTestSimpleSpell();
+  const testSlashStrikeSkill = createTestSlashStrikeSkill();
   activeSkillGroups.get("Active")?.push(testSkill);
   activeSkillGroups.get("Active")?.push(testPersistentSpell);
   activeSkillGroups.get("Active")?.push(testSimpleSpell);
+  activeSkillGroups.get("Active")?.push(testSlashStrikeSkill);
 
   // Generate active skill files
   for (const [skillType, skills] of activeSkillGroups) {

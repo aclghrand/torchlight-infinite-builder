@@ -5872,3 +5872,73 @@ describe("slash-strike damage (Berserking Blade)", () => {
     );
   });
 });
+
+describe("slash-strike damage ([Test] Slash Strike Skill)", () => {
+  // Test skill has simple values:
+  // - sweep: 100% weapon damage, 100% added damage effectiveness
+  // - steep: 200% weapon damage, 200% added damage effectiveness
+  // - 50% base steep strike chance
+  const skillName = "[Test] Slash Strike Skill" as const;
+
+  const testSlashStrikeSkillPage = () => ({
+    activeSkills: {
+      1: { skillName, enabled: true, level: 20, supportSkills: {} },
+    },
+    passiveSkills: {},
+  });
+
+  const createTestSlashStrikeInput = (mods: AffixLine[]) => ({
+    loadout: initLoadout({
+      gearPage: { equippedGear: { mainHand: baseWeapon }, inventory: [] },
+      customAffixLines: mods,
+      skillPage: testSlashStrikeSkillPage(),
+    }),
+    configuration: defaultConfiguration,
+  });
+
+  test("basic sweep/steep calculation with 50% weighted average", () => {
+    // 100 phys weapon, level 20:
+    // - sweep: 100% weapon damage → avgHit = 100
+    // - steep: 200% weapon damage → avgHit = 200
+    // - 50% steep strike chance → avgDps = 0.5 * sweepDps + 0.5 * steepDps
+    const input = createTestSlashStrikeInput([]);
+    const results = calculateOffense(input);
+    const summary =
+      results.skills[skillName as ImplementedActiveSkillName]
+        ?.slashStrikeDpsSummary;
+
+    expect(summary).toBeDefined();
+    if (summary === undefined) return;
+
+    expect(summary.steepStrikeChancePct).toBe(50);
+    expect(summary.sweep.mainhand.avgHit).toBeCloseTo(100);
+    expect(summary.steep.mainhand.avgHit).toBeCloseTo(200);
+
+    const expectedAvgDps =
+      0.5 * summary.sweep.avgDps + 0.5 * summary.steep.avgDps;
+    expect(summary.avgDps).toBeCloseTo(expectedAvgDps);
+  });
+
+  test("adding steep strike chance shifts weighted average toward steep", () => {
+    // Add +30% steep strike chance from gear
+    // Total should be 50 (base) + 30 (gear) = 80%
+    const input = createTestSlashStrikeInput(
+      affixLines([{ type: "SteepStrikeChancePct", value: 30 }]),
+    );
+    const results = calculateOffense(input);
+    const summary =
+      results.skills[skillName as ImplementedActiveSkillName]
+        ?.slashStrikeDpsSummary;
+
+    expect(summary).toBeDefined();
+    if (summary === undefined) return;
+
+    expect(summary.steepStrikeChancePct).toBe(80);
+
+    // Verify weighted average uses 20/80 split (80% steep)
+    const sweepDps = summary.sweep.avgDps;
+    const steepDps = summary.steep.avgDps;
+    const expectedAvgDps = 0.2 * sweepDps + 0.8 * steepDps;
+    expect(summary.avgDps).toBeCloseTo(expectedAvgDps);
+  });
+});

@@ -39,6 +39,18 @@ export const activeSkillModFactories: Partial<
       },
     },
   }),
+  // Test skill for slash-strike (sweep/steep) damage testing
+  "[Test] Slash Strike Skill": (l, vals) => ({
+    offense: {
+      sweepWeaponAtkDmgPct: { value: v(vals.sweepWeaponAtkDmgPct, l) },
+      sweepAddedDmgEffPct: { value: v(vals.sweepAddedDmgEffPct, l) },
+      steepWeaponAtkDmgPct: { value: v(vals.steepWeaponAtkDmgPct, l) },
+      steepAddedDmgEffPct: { value: v(vals.steepAddedDmgEffPct, l) },
+    },
+    mods: [
+      { type: "SteepStrikeChancePct", value: v(vals.steepStrikeChancePct, l) },
+    ],
+  }),
   "Thunder Spike": (l, vals) => ({
     offense: {
       weaponAtkDmgPct: { value: v(vals.weaponAtkDmgPct, l) },

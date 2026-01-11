@@ -525,71 +525,6 @@ const calculateAtkHit = (
   flatDmg: DmgRanges,
   mods: Mod[],
   skill: BaseActiveSkill,
-  level: number,
-  derivedCtx: DerivedCtx,
-  config: Configuration,
-): SkillHitOverview | undefined => {
-  const skillMods = getActiveSkillMods(skill.name as ActiveSkillName, level);
-  const offense = skillMods.offense;
-
-  const skillWeaponDR = match(skill.name as ActiveSkillName)
-    .with("Frost Spike", () => {
-      const weaponAtkDmgPct = offense?.weaponAtkDmgPct?.value;
-      if (weaponAtkDmgPct === undefined) {
-        return undefined;
-      }
-      return multDRs(gearDmg, weaponAtkDmgPct / 100);
-    })
-    .with("Thunder Spike", () => {
-      const weaponAtkDmgPct = offense?.weaponAtkDmgPct?.value;
-      if (weaponAtkDmgPct === undefined) {
-        return undefined;
-      }
-      return multDRs(gearDmg, weaponAtkDmgPct / 100);
-    })
-    .with("[Test] Simple Attack", () => {
-      return gearDmg;
-    })
-    .otherwise(() => {
-      // either it's unimplemented, not an attack
-      return;
-    });
-  if (skillWeaponDR === undefined) {
-    return;
-  }
-  const addedDmgEffPct = offense?.addedDmgEffPct?.value;
-  if (addedDmgEffPct === undefined) {
-    return undefined;
-  }
-  const skillFlatDR = multDRs(flatDmg, addedDmgEffPct / 100);
-  const skillBaseDmg = addDRs(skillWeaponDR, skillFlatDR);
-
-  // Apply % bonuses to each pool, considering conversion history
-  const addSpellTag =
-    skill.tags.includes("Attack") &&
-    findMod(mods, "SpellDmgBonusAppliesToAtkDmg") !== undefined;
-
-  const baseDmgModTypes: DmgModType[] = addSpellTag
-    ? [...dmgModTypesForSkill(skill), "spell"]
-    : dmgModTypesForSkill(skill);
-
-  // Damage conversion happens after flat damage, before % bonuses
-  const dmgPools = convertDmg(skillBaseDmg, mods);
-  const finalDmgRanges = applyDmgBonusesAndPen({
-    dmgPools,
-    mods,
-    baseDmgModTypes,
-    config,
-    ignoreArmor: false,
-  });
-  return calcBaseHitOverview(finalDmgRanges, derivedCtx);
-};
-
-const calculateAtkHitWithOffense = (
-  gearDmg: DmgRanges,
-  flatDmg: DmgRanges,
-  mods: Mod[],
-  skill: BaseActiveSkill,
   derivedCtx: DerivedCtx,
   config: Configuration,
   weaponAtkDmgPct: number,
@@ -2153,48 +2088,17 @@ const calcTotalReapDps = (
 interface CalcWeaponAttackInput {
   mods: Mod[];
   skill: BaseActiveSkill;
-  skillLevel: number;
   derivedCtx: DerivedCtx;
   config: Configuration;
   critDmgMult: number;
+  weaponAtkDmgPct: number;
+  addedDmgEffPct: number;
 }
 
 const calcWeaponAttack = (
   weapon: Gear,
   extraJoinedForceAvgHitDmg: number,
   input: CalcWeaponAttackInput,
-): WeaponAttackSummary | undefined => {
-  const { mods, skill, skillLevel, derivedCtx, config, critDmgMult } = input;
-  const gearDmg = calculateGearDmg(weapon, mods);
-  const flatDmg = calculateFlatDmg(mods, "attack");
-  const skillHit = calculateAtkHit(
-    gearDmg.mainHand,
-    flatDmg,
-    mods,
-    skill,
-    skillLevel,
-    derivedCtx,
-    config,
-  );
-  if (skillHit === undefined) return;
-
-  const avgHit = skillHit.avg + extraJoinedForceAvgHitDmg;
-  const aspd = calculateAspd(weapon, mods, skill);
-  const critChance = calculateCritChance(mods, skill);
-  const avgHitWithCrit =
-    avgHit * critChance * critDmgMult + avgHit * (1 - critChance);
-  return { avgHit, aspd, critChance, avgHitWithCrit };
-};
-
-interface CalcSlashStrikeWeaponAttackInput extends CalcWeaponAttackInput {
-  weaponAtkDmgPct: number;
-  addedDmgEffPct: number;
-}
-
-const calcSlashStrikeWeaponAttack = (
-  weapon: Gear,
-  extraJoinedForceAvgHitDmg: number,
-  input: CalcSlashStrikeWeaponAttackInput,
 ): WeaponAttackSummary => {
   const {
     mods,
@@ -2207,7 +2111,7 @@ const calcSlashStrikeWeaponAttack = (
   } = input;
   const gearDmg = calculateGearDmg(weapon, mods);
   const flatDmg = calculateFlatDmg(mods, "attack");
-  const skillHit = calculateAtkHitWithOffense(
+  const skillHit = calculateAtkHit(
     gearDmg.mainHand,
     flatDmg,
     mods,
@@ -2252,20 +2156,51 @@ const calcAvgAttackDps = (
   config: Configuration,
 ): OffenseAttackDpsSummary | undefined => {
   const skill = perSkillContext.skill;
+
+  // Look up skill offense values early
+  const skillMods = getActiveSkillMods(
+    skill.name as ActiveSkillName,
+    skillLevel,
+  );
+  const offense = skillMods.offense;
+
+  // Get offense percentages based on skill type
+  const offenseValues = match(skill.name as ActiveSkillName)
+    .with("Frost Spike", "Thunder Spike", () => {
+      const weaponAtkDmgPct = offense?.weaponAtkDmgPct?.value;
+      const addedDmgEffPct = offense?.addedDmgEffPct?.value;
+      if (weaponAtkDmgPct === undefined || addedDmgEffPct === undefined) {
+        return undefined;
+      }
+      return { weaponAtkDmgPct, addedDmgEffPct };
+    })
+    .with("[Test] Simple Attack", () => ({
+      weaponAtkDmgPct: 100,
+      addedDmgEffPct: 100,
+    }))
+    .otherwise(() => undefined);
+
+  if (offenseValues === undefined) {
+    return undefined;
+  }
+
   const critDmgMult = calculateCritDmg(mods, skill);
   const mainhand = loadout.gearPage.equippedGear.mainHand;
   const offhand = loadout.gearPage.equippedGear.offHand;
   if (mainhand === undefined) {
     return undefined;
   }
-  const calcWeaponAttackInput = {
+
+  const calcWeaponAttackInput: CalcWeaponAttackInput = {
     mods,
     skill,
-    skillLevel,
     derivedCtx,
     config,
     critDmgMult,
+    weaponAtkDmgPct: offenseValues.weaponAtkDmgPct,
+    addedDmgEffPct: offenseValues.addedDmgEffPct,
   };
+
   // Only calculate offhand attack if offhand is a one-handed weapon (not a shield)
   const offhandAtk =
     offhand !== undefined && isOneHandedWeapon(offhand)
@@ -2282,9 +2217,6 @@ const calcAvgAttackDps = (
     joinedForceAddedDmg,
     calcWeaponAttackInput,
   );
-  if (mainhandAtk === undefined) {
-    return undefined;
-  }
 
   const disableOffhand = modExists(mods, "JoinedForceDisableOffhand");
   const avgDpsWithoutExtras = calcDualWieldDps(
@@ -2349,25 +2281,19 @@ const calcAvgSlashStrikeDps = (
   const critDmgMult = calculateCritDmg(mods, skill);
   const disableOffhand = modExists(mods, "JoinedForceDisableOffhand");
 
-  // Build base input for weapon attack calculations
-  const baseInput: CalcWeaponAttackInput = {
+  // Build sweep input for weapon attack calculations
+  const sweepInput: CalcWeaponAttackInput = {
     mods,
     skill,
-    skillLevel,
     derivedCtx,
     config,
     critDmgMult,
-  };
-
-  // Calculate joined force bonus (uses sweep offense since it's the base attack)
-  const sweepInput: CalcSlashStrikeWeaponAttackInput = {
-    ...baseInput,
     weaponAtkDmgPct: offense.sweepWeaponAtkDmgPct.value,
     addedDmgEffPct: offense.sweepAddedDmgEffPct.value,
   };
   const sweepOffhandAtk =
     offhand !== undefined && isOneHandedWeapon(offhand)
-      ? calcSlashStrikeWeaponAttack(offhand, 0, sweepInput)
+      ? calcWeaponAttack(offhand, 0, sweepInput)
       : undefined;
 
   const joinedForceAddedDmgPct = findMod(
@@ -2379,28 +2305,32 @@ const calcAvgSlashStrikeDps = (
     (sweepOffhandAtk?.avgHit ?? 0);
 
   // Calculate sweep mode attacks
-  const sweepMainhandAtk = calcSlashStrikeWeaponAttack(
+  const sweepMainhandAtk = calcWeaponAttack(
     mainhand,
     joinedForceAddedDmg,
     sweepInput,
   );
 
-  // Calculate steep mode attacks
-  const steepInput: CalcSlashStrikeWeaponAttackInput = {
-    ...baseInput,
+  // Build steep input for weapon attack calculations
+  const steepInput: CalcWeaponAttackInput = {
+    mods,
+    skill,
+    derivedCtx,
+    config,
+    critDmgMult,
     weaponAtkDmgPct: offense.steepWeaponAtkDmgPct.value,
     addedDmgEffPct: offense.steepAddedDmgEffPct.value,
   };
   const steepOffhandAtk =
     offhand !== undefined && isOneHandedWeapon(offhand)
-      ? calcSlashStrikeWeaponAttack(offhand, 0, steepInput)
+      ? calcWeaponAttack(offhand, 0, steepInput)
       : undefined;
 
   // For steep mode, recalculate joined force bonus with steep offhand damage
   const steepJoinedForceAddedDmg =
     ((joinedForceAddedDmgPct?.value ?? 0) / 100) *
     (steepOffhandAtk?.avgHit ?? 0);
-  const steepMainhandAtk = calcSlashStrikeWeaponAttack(
+  const steepMainhandAtk = calcWeaponAttack(
     mainhand,
     steepJoinedForceAddedDmg,
     steepInput,
