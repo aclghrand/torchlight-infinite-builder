@@ -170,8 +170,8 @@ function EquipmentPage(): React.ReactNode {
   const equipmentTypeOptions = useMemo(
     () =>
       allEquipmentTypes.map((type) => ({
-        value: type,
-        label: type,
+        value: i18n._(type),
+        label: i18n._(type),
       })),
     [allEquipmentTypes],
   );
