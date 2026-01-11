@@ -9,6 +9,7 @@ import { EditGearModal } from "../../components/equipment/EditGearModal";
 import { EquipmentSlotDropdown } from "../../components/equipment/EquipmentSlotDropdown";
 import { InventoryItem } from "../../components/equipment/InventoryItem";
 import { LegendaryGearModule } from "../../components/equipment/LegendaryGearModule";
+import { SearchableSelect } from "../../components/ui/SearchableSelect";
 import { getFilteredAffixes } from "../../lib/affix-utils";
 import {
   formatBlendAffix,
@@ -166,10 +167,18 @@ function EquipmentPage(): React.ReactNode {
     return Array.from(types).sort();
   }, []);
 
+  const equipmentTypeOptions = useMemo(
+    () =>
+      allEquipmentTypes.map((type) => ({
+        value: type,
+        label: type,
+      })),
+    [allEquipmentTypes],
+  );
+
   const handleEquipmentTypeChange = useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>) => {
-      const newType = e.target.value as EquipmentType;
-      setSelectedEquipmentType(newType || undefined);
+    (value: EquipmentType | undefined) => {
+      setSelectedEquipmentType(value);
     },
     [setSelectedEquipmentType],
   );
@@ -423,21 +432,12 @@ function EquipmentPage(): React.ReactNode {
             >
               <Trans>Equipment Type</Trans>
             </label>
-            <select
-              id="equipment-type-select"
-              value={selectedEquipmentType || ""}
+            <SearchableSelect
+              value={selectedEquipmentType}
               onChange={handleEquipmentTypeChange}
-              className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-4 py-2 text-zinc-50 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/30"
-            >
-              <option value="">
-                <Trans>Select equipment type...</Trans>
-              </option>
-              {allEquipmentTypes.map((type) => (
-                <option key={type} value={type}>
-                  {i18n._(type)}
-                </option>
-              ))}
-            </select>
+              options={equipmentTypeOptions}
+              placeholder={i18n._("Select equipment type...")}
+            />
           </div>
 
           {selectedEquipmentType ? (
