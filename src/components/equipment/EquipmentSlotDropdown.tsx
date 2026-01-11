@@ -4,6 +4,7 @@ import {
   type SearchableSelectOption,
 } from "@/src/components/ui/SearchableSelect";
 import { Tooltip } from "@/src/components/ui/Tooltip";
+import { i18n } from "@/src/lib/i18n";
 import { getGearAffixes } from "@/src/tli/calcs/affix-collectors";
 import type { Gear } from "@/src/tli/core";
 import type { GearSlot } from "../../lib/types";
@@ -118,7 +119,7 @@ export const EquipmentSlotDropdown: React.FC<EquipmentSlotDropdownProps> = ({
         options={compatibleItems.map((item) => ({
           // biome-ignore lint/style/noNonNullAssertion: inventory items always have id
           value: item.id!,
-          label: item.legendaryName ?? item.equipmentType,
+          label: i18n._(item.legendaryName ?? item.equipmentType),
           sublabel: `${getGearAffixes(item).length} affixes`,
         }))}
         placeholder="-- None --"

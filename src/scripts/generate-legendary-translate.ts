@@ -1,7 +1,6 @@
-import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { program } from "commander";
-import { url } from "zod";
 import { Legendaries } from "@/src/data/legendary/legendaries";
 import type { Legendary } from "@/src/data/legendary/types";
 import {
@@ -153,7 +152,7 @@ const main = async (options: Options) => {
     await fetchLegendaryPages("cn");
     console.log("");
   }
-  // await generateLegendaryTS();
+  await generateLegendaryTS();
   await generateLegendaryPO();
 };
 

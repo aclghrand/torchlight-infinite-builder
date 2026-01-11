@@ -1,5 +1,6 @@
 import { Tooltip } from "@/src/components/ui/Tooltip";
 import { useTooltip } from "@/src/hooks/useTooltip";
+import { i18n } from "@/src/lib/i18n";
 import { getGearAffixes } from "@/src/tli/calcs/affix-collectors";
 import type { Gear } from "@/src/tli/core";
 import { GearTooltipContent } from "./GearTooltipContent";
@@ -32,7 +33,7 @@ export const InventoryItem: React.FC<InventoryItemProps> = ({
     >
       <div className="flex items-center gap-2">
         <span className="font-medium text-zinc-50 text-sm">
-          {item.legendaryName ?? item.equipmentType}
+          {i18n._(item.legendaryName ?? item.equipmentType)}
         </span>
         {isLegendary && (
           <span className="text-xs text-amber-400 font-medium">Legendary</span>
