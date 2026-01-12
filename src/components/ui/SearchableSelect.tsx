@@ -36,6 +36,10 @@ interface SearchableSelectProps<T extends string | number> {
     option: SearchableSelectOption<T>,
     triggerRect: DOMRect,
   ) => React.ReactNode;
+  renderOptionTooltip?: (
+    option: SearchableSelectOption<T>,
+    triggerRect: DOMRect,
+  ) => React.ReactNode;
 }
 
 const SIZE_CLASSES = {
@@ -72,11 +76,18 @@ export const SearchableSelect = <T extends string | number>({
   autoFocus = false,
   renderOption,
   renderSelectedTooltip,
+  renderOptionTooltip,
 }: SearchableSelectProps<T>) => {
   const [query, setQuery] = useState("");
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
   const [inputRect, setInputRect] = useState<DOMRect | undefined>(undefined);
+  const [hoveredOption, setHoveredOption] = useState<
+    SearchableSelectOption<T> | undefined
+  >(undefined);
+  const [hoveredOptionRect, setHoveredOptionRect] = useState<
+    DOMRect | undefined
+  >(undefined);
   const inputWrapperRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -95,6 +106,21 @@ export const SearchableSelect = <T extends string | number>({
 
   const handleInputMouseLeave = (): void => {
     setIsTooltipVisible(false);
+  };
+
+  const handleOptionMouseEnter = (
+    option: SearchableSelectOption<T>,
+    event: React.MouseEvent<HTMLDivElement>,
+  ): void => {
+    if (renderOptionTooltip) {
+      setHoveredOption(option);
+      setHoveredOptionRect(event.currentTarget.getBoundingClientRect());
+    }
+  };
+
+  const handleOptionMouseLeave = (): void => {
+    setHoveredOption(undefined);
+    setHoveredOptionRect(undefined);
   };
 
   const allOptions = useMemo(() => {
@@ -128,6 +154,8 @@ export const SearchableSelect = <T extends string | number>({
     onChange(option?.value);
     setQuery("");
     setIsInputFocused(false);
+    setHoveredOption(undefined);
+    setHoveredOptionRect(undefined);
   };
 
   const isEmpty = value === undefined || value === "";
@@ -163,7 +191,11 @@ export const SearchableSelect = <T extends string | number>({
                 setIsInputFocused(true);
                 setQuery("");
               }}
-              onBlur={() => setIsInputFocused(false)}
+              onBlur={() => {
+                setIsInputFocused(false);
+                setHoveredOption(undefined);
+                setHoveredOptionRect(undefined);
+              }}
               onKeyDown={(e) => {
                 if (e.key === " ") e.stopPropagation();
               }}
@@ -219,7 +251,12 @@ export const SearchableSelect = <T extends string | number>({
                       `}
                     >
                       {({ active, selected }) => (
-                        <div>
+                        <div
+                          onMouseEnter={(e) =>
+                            handleOptionMouseEnter(option, e)
+                          }
+                          onMouseLeave={handleOptionMouseLeave}
+                        >
                           {renderOption ? (
                             renderOption(option, { active, selected })
                           ) : (
@@ -251,7 +288,10 @@ export const SearchableSelect = <T extends string | number>({
                 `}
               >
                 {({ active, selected }) => (
-                  <div>
+                  <div
+                    onMouseEnter={(e) => handleOptionMouseEnter(option, e)}
+                    onMouseLeave={handleOptionMouseLeave}
+                  >
                     {renderOption ? (
                       renderOption(option, { active, selected })
                     ) : (
@@ -276,6 +316,11 @@ export const SearchableSelect = <T extends string | number>({
           isTooltipVisible &&
           inputRect !== undefined &&
           renderSelectedTooltip(selectedOption, inputRect)}
+
+        {renderOptionTooltip !== undefined &&
+          hoveredOption !== undefined &&
+          hoveredOptionRect !== undefined &&
+          renderOptionTooltip(hoveredOption, hoveredOptionRect)}
       </div>
     </Combobox>
   );
