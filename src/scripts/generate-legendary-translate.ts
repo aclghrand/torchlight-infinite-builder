@@ -135,7 +135,7 @@ const generateLegendaryPO = async () => {
   console.log("Done! Generated src/locales/zh/legendaries.po");
 };
 
-const _generateLegendaryTS = async () => {
+const generateLegendaryTS = async () => {
   const outDir = join(process.cwd(), "src", "data", "translate");
   await mkdir(outDir, { recursive: true });
 
