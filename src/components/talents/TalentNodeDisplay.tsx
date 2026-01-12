@@ -1,3 +1,4 @@
+import { i18n } from "@lingui/core";
 import {
   Tooltip,
   TooltipContent,
@@ -77,10 +78,10 @@ export const TalentNodeDisplay: React.FC<TalentNodeDisplayProps> = ({
 
   const talentTypeName =
     node.nodeType === "micro"
-      ? "Micro Talent"
+      ? i18n._("Micro Talent")
       : node.nodeType === "medium"
-        ? "Medium Talent"
-        : "Legendary Talent";
+        ? i18n._("Medium Talent")
+        : i18n._("Legendary Talent");
 
   const handleClick = () => {
     if (canPlacePrism && onPlacePrism) {

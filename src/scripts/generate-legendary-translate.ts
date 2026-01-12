@@ -8,7 +8,7 @@ import {
   fetchPage,
   processInBatches,
   toSnakeCase,
-} from "./generate-legendary-tools";
+} from "./tlidb-tools";
 
 export type Translate = "en" | "cn";
 

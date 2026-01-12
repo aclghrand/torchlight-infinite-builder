@@ -9,14 +9,14 @@ import type {
   LegendaryAffixChoice,
 } from "../data/legendary/types";
 import type { EquipmentSlot, EquipmentType } from "../tli/gear-data-types";
+import { LegendaryDataOverrides } from "./legendaries/legendary-data-overrides";
+import { readCodexHtml } from "./lib/codex";
 import {
   extractLegendaryGearLinks,
   fetchPage,
   processInBatches,
   toSnakeCase,
-} from "./generate-legendary-tools";
-import { LegendaryDataOverrides } from "./legendaries/legendary-data-overrides";
-import { readCodexHtml } from "./lib/codex";
+} from "./tlidb-tools";
 
 // ============================================================================
 // Fetching

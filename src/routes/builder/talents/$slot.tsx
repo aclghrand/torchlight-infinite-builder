@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/react/macro";
 import {
   createFileRoute,
   Link,
@@ -6,6 +7,7 @@ import {
 } from "@tanstack/react-router";
 import { useCallback } from "react";
 import { Prisms } from "@/src/data/prism/prisms";
+import { i18n } from "@/src/lib/i18n";
 import type { CraftedInverseImage, CraftedPrism } from "@/src/tli/core";
 import {
   canPlaceInverseImage,
@@ -302,7 +304,7 @@ function TalentsSlotPage(): React.ReactNode {
       <div>
         <div className="mb-6">
           <h2 className="mb-4 text-xl font-semibold text-zinc-50">
-            Tree Slots{" "}
+            <Trans>Tree Slots</Trans>
             <span className={isOverAllocated ? "text-red-500" : ""}>
               ({totalPointsUsed}/{totalPointsAvailable})
             </span>
@@ -328,11 +330,11 @@ function TalentsSlotPage(): React.ReactNode {
                 >
                   <div className="font-semibold">
                     {treeSlot === "tree1"
-                      ? "Slot 1 (God/Goddess)"
+                      ? i18n._("Slot 1 (God/Goddess)")
                       : `Slot ${treeSlot.slice(-1)}`}
                   </div>
                   <div className="mt-1 truncate text-sm">
-                    {tree ? tree.name.replace(/_/g, " ") : "None"}
+                    {tree ? i18n._(tree.name.replace(/_/g, " ")) : "None"}
                   </div>
                   <div className="mt-1 text-xs">{totalPoints} points</div>
                 </Link>
@@ -346,10 +348,12 @@ function TalentsSlotPage(): React.ReactNode {
             htmlFor="tree-select"
             className="mb-2 block text-sm font-medium text-zinc-400"
           >
-            Select Tree for{" "}
-            {activeTreeSlot === "tree1"
-              ? "Slot 1"
-              : `Slot ${activeTreeSlot.slice(-1)}`}
+            <Trans>
+              Select Tree for{" "}
+              {activeTreeSlot === "tree1"
+                ? i18n._("Slot 1")
+                : i18n._("Slot") + " " + activeTreeSlot.slice(-1)}
+            </Trans>
           </label>
           <div className="flex gap-2">
             <select
@@ -366,7 +370,7 @@ function TalentsSlotPage(): React.ReactNode {
                 <optgroup label="God/Goddess Trees">
                   {GOD_GODDESS_TREES.map((tree) => (
                     <option key={tree} value={tree}>
-                      {tree.replace(/_/g, " ")}
+                      {i18n._(tree.replace(/_/g, " "))}
                     </option>
                   ))}
                 </optgroup>
@@ -374,7 +378,7 @@ function TalentsSlotPage(): React.ReactNode {
                 <optgroup label="Profession Trees">
                   {PROFESSION_TREES.map((tree) => (
                     <option key={tree} value={tree}>
-                      {tree.replace(/_/g, " ")}
+                      {i18n._(tree.replace(/_/g, " "))}
                     </option>
                   ))}
                 </optgroup>
@@ -418,7 +422,7 @@ function TalentsSlotPage(): React.ReactNode {
         ) : currentTalentTree ? (
           <div className="rounded-lg border border-zinc-700 bg-zinc-900 p-6">
             <h2 className="mb-4 text-xl font-semibold text-zinc-50">
-              {currentTalentTree.name.replace(/_/g, " ")} Tree
+              {i18n._(currentTalentTree.name.replace(/_/g, " "))} Tree
             </h2>
 
             <div className="mb-2 grid grid-cols-7 gap-2">

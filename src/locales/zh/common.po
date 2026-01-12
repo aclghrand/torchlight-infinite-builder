@@ -14,6 +14,21 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
+#: src/routes/builder/talents/$slot.tsx:333
+msgid "Slot 1 (God/Goddess)"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/routes/builder/talents/$slot.tsx:354
+msgid "Slot 1"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/routes/builder/talents/$slot.tsx:355
+msgid "Slot"
+msgstr ""
+
+#. js-lingui-explicit-id
 #: src/data/translate/translate-tab.ts:4
 msgid "Equipment"
 msgstr "装备"
@@ -289,12 +304,47 @@ msgstr "双手剑"
 msgid "Wand"
 msgstr "法杖"
 
+#. js-lingui-explicit-id
+#: src/components/talents/TalentNodeDisplay.tsx:81
+msgid "Micro Talent"
+msgstr "微型天赋"
+
+#. js-lingui-explicit-id
+#: src/components/talents/TalentNodeDisplay.tsx:83
+msgid "Medium Talent"
+msgstr "中型天赋"
+
+#. js-lingui-explicit-id
+#: src/components/talents/TalentNodeDisplay.tsx:84
+msgid "Legendary Talent"
+msgstr "传奇天赋"
+
+#. js-lingui-explicit-id
+#: src/components/talents/PrismCrafter.tsx:149
+msgid "Edit Prism"
+msgstr "编辑棱镜"
+
+#. js-lingui-explicit-id
+#: src/components/talents/PrismCrafter.tsx:149
+msgid "Craft Prism"
+msgstr "制作棱镜"
+
+#. js-lingui-explicit-id
+#: src/components/talents/CoreTalentSelector.tsx:56
+msgid "Core Talent 1"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/components/talents/CoreTalentSelector.tsx:63
+msgid "Core Talent 2"
+msgstr ""
+
 #: src/components/equipment/LegendaryGearModule.tsx:186
 msgid "Add Legendary"
 msgstr "增加一个传奇物品"
 
 #. placeholder {0}: save.name
-#: src/routes/index.tsx:120
+#: src/routes/index.tsx:125
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "您确定要删除“{0}”吗？"
 
@@ -310,42 +360,47 @@ msgstr "基底词缀 (1 max)"
 msgid "Blending (1 max)"
 msgstr "调香词缀 (1 max)"
 
-#: src/routes/index.tsx:93
-#: src/routes/index.tsx:136
+#: src/routes/index.tsx:98
+#: src/routes/index.tsx:141
 msgid "Cancel"
 msgstr "取消"
 
-#: src/routes/index.tsx:158
+#: src/routes/index.tsx:163
 msgid "Copy"
 msgstr "复制"
+
+#: src/components/talents/CoreTalentSelector.tsx:86
+#: src/components/talents/CoreTalentSelector.tsx:98
+msgid "Core Talents"
+msgstr "核心天赋"
 
 #: src/routes/builder/equipment.tsx:416
 msgid "Craft New Item"
 msgstr "制作新物品"
 
-#: src/routes/index.tsx:348
+#: src/routes/index.tsx:366
 msgid "Create New"
 msgstr "新建"
 
-#: src/routes/index.tsx:384
+#: src/routes/index.tsx:402
 msgid "Create New Build"
 msgstr "创建新流派"
 
-#: src/routes/index.tsx:375
+#: src/routes/index.tsx:393
 msgid "Create your first character build to get started"
 msgstr "创建您的第一个角色流派以开始使用"
 
 #. placeholder {0}: formatDate(save.createdAt)
-#: src/routes/index.tsx:104
+#: src/routes/index.tsx:109
 msgid "Created: {0}"
 msgstr "创建时间：{0}"
 
-#: src/routes/index.tsx:130
-#: src/routes/index.tsx:164
+#: src/routes/index.tsx:135
+#: src/routes/index.tsx:169
 msgid "Delete"
 msgstr "删除"
 
-#: src/routes/index.tsx:321
+#: src/routes/index.tsx:339
 msgid "Early Development"
 msgstr "早期预览"
 
@@ -357,7 +412,7 @@ msgstr "装备槽位"
 msgid "Equipment Type"
 msgstr "装备类型"
 
-#: src/routes/index.tsx:342
+#: src/routes/index.tsx:360
 msgid "Import Build"
 msgstr "导入流派"
 
@@ -369,11 +424,11 @@ msgstr "库存"
 msgid "items"
 msgstr "物品"
 
-#: src/routes/index.tsx:335
+#: src/routes/index.tsx:353
 msgid "My Builds"
 msgstr "我的配装"
 
-#: src/routes/index.tsx:372
+#: src/routes/index.tsx:390
 msgid "No builds yet"
 msgstr "暂无流派"
 
@@ -381,7 +436,7 @@ msgstr "暂无流派"
 msgid "No items in inventory. Craft items above to add them here."
 msgstr "库存中没有物品。在上方制作物品以添加到此处。"
 
-#: src/routes/index.tsx:324
+#: src/routes/index.tsx:342
 msgid "Please be patient and bear with me on any issues you encounter with this app, as it's still in early phases of development."
 msgstr "请耐心等待，对于这个应用程序在早期开发阶段遇到的任何问题，请多多包涵。"
 
@@ -389,11 +444,15 @@ msgstr "请耐心等待，对于这个应用程序在早期开发阶段遇到的
 msgid "Prefixes (3 max)"
 msgstr "前缀 (3 max)"
 
-#: src/routes/index.tsx:152
+#: src/components/talents/PrismSection.tsx:54
+msgid "Prisms"
+msgstr "棱镜"
+
+#: src/routes/index.tsx:157
 msgid "Rename"
 msgstr "重命名"
 
-#: src/routes/index.tsx:87
+#: src/routes/index.tsx:92
 msgid "Save"
 msgstr "保存"
 
@@ -413,6 +472,11 @@ msgstr "选择一个装备类型..."
 msgid "Select Legendary"
 msgstr "选择一个传奇物品"
 
+#. placeholder {0}: activeTreeSlot === "tree1" ? i18n._("Slot 1") : i18n._("Slot") + " " + activeTreeSlot.slice(-1)
+#: src/routes/builder/talents/$slot.tsx:351
+msgid "Select Tree for {0}"
+msgstr "为 {0} 选择天赋树"
+
 #: src/routes/builder/equipment.tsx:596
 msgid "Suffixes (3 max)"
 msgstr "后缀 (3 max)"
@@ -425,7 +489,11 @@ msgstr "美梦词缀 (1 max)"
 msgid "Tower Sequence (1 max)"
 msgstr "高塔词缀 (1 max)"
 
+#: src/routes/builder/talents/$slot.tsx:307
+msgid "Tree Slots"
+msgstr "天赋树"
+
 #. placeholder {0}: formatDate(save.updatedAt)
-#: src/routes/index.tsx:108
+#: src/routes/index.tsx:113
 msgid "Updated: {0}"
 msgstr "更新时间: {0}"

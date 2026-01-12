@@ -14,6 +14,21 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
+#: src/routes/builder/talents/$slot.tsx:333
+msgid "Slot 1 (God/Goddess)"
+msgstr "Slot 1 (God/Goddess)"
+
+#. js-lingui-explicit-id
+#: src/routes/builder/talents/$slot.tsx:354
+msgid "Slot 1"
+msgstr "Slot 1"
+
+#. js-lingui-explicit-id
+#: src/routes/builder/talents/$slot.tsx:355
+msgid "Slot"
+msgstr "Slot"
+
+#. js-lingui-explicit-id
 #: src/data/translate/translate-tab.ts:4
 msgid "Equipment"
 msgstr "Equipment"
@@ -289,12 +304,47 @@ msgstr "Two-Handed Sword"
 msgid "Wand"
 msgstr "Wand"
 
+#. js-lingui-explicit-id
+#: src/components/talents/TalentNodeDisplay.tsx:81
+msgid "Micro Talent"
+msgstr "Micro Talent"
+
+#. js-lingui-explicit-id
+#: src/components/talents/TalentNodeDisplay.tsx:83
+msgid "Medium Talent"
+msgstr "Medium Talent"
+
+#. js-lingui-explicit-id
+#: src/components/talents/TalentNodeDisplay.tsx:84
+msgid "Legendary Talent"
+msgstr "Legendary Talent"
+
+#. js-lingui-explicit-id
+#: src/components/talents/PrismCrafter.tsx:149
+msgid "Edit Prism"
+msgstr "Edit Prism"
+
+#. js-lingui-explicit-id
+#: src/components/talents/PrismCrafter.tsx:149
+msgid "Craft Prism"
+msgstr "Craft Prism"
+
+#. js-lingui-explicit-id
+#: src/components/talents/CoreTalentSelector.tsx:56
+msgid "Core Talent 1"
+msgstr "Core Talent 1"
+
+#. js-lingui-explicit-id
+#: src/components/talents/CoreTalentSelector.tsx:63
+msgid "Core Talent 2"
+msgstr "Core Talent 2"
+
 #: src/components/equipment/LegendaryGearModule.tsx:186
 msgid "Add Legendary"
 msgstr "Add Legendary"
 
 #. placeholder {0}: save.name
-#: src/routes/index.tsx:120
+#: src/routes/index.tsx:125
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "Are you sure you want to delete \"{0}\"?"
 
@@ -310,42 +360,47 @@ msgstr "Base Stats (1 max)"
 msgid "Blending (1 max)"
 msgstr "Blending (1 max)"
 
-#: src/routes/index.tsx:93
-#: src/routes/index.tsx:136
+#: src/routes/index.tsx:98
+#: src/routes/index.tsx:141
 msgid "Cancel"
 msgstr "Cancel"
 
-#: src/routes/index.tsx:158
+#: src/routes/index.tsx:163
 msgid "Copy"
 msgstr "Copy"
+
+#: src/components/talents/CoreTalentSelector.tsx:86
+#: src/components/talents/CoreTalentSelector.tsx:98
+msgid "Core Talents"
+msgstr "Core Talents"
 
 #: src/routes/builder/equipment.tsx:416
 msgid "Craft New Item"
 msgstr "Craft New Item"
 
-#: src/routes/index.tsx:348
+#: src/routes/index.tsx:366
 msgid "Create New"
 msgstr "Create New"
 
-#: src/routes/index.tsx:384
+#: src/routes/index.tsx:402
 msgid "Create New Build"
 msgstr "Create New Build"
 
-#: src/routes/index.tsx:375
+#: src/routes/index.tsx:393
 msgid "Create your first character build to get started"
 msgstr "Create your first character build to get started"
 
 #. placeholder {0}: formatDate(save.createdAt)
-#: src/routes/index.tsx:104
+#: src/routes/index.tsx:109
 msgid "Created: {0}"
 msgstr "Created: {0}"
 
-#: src/routes/index.tsx:130
-#: src/routes/index.tsx:164
+#: src/routes/index.tsx:135
+#: src/routes/index.tsx:169
 msgid "Delete"
 msgstr "Delete"
 
-#: src/routes/index.tsx:321
+#: src/routes/index.tsx:339
 msgid "Early Development"
 msgstr "Early Development"
 
@@ -357,7 +412,7 @@ msgstr "Equipment Slots"
 msgid "Equipment Type"
 msgstr "Equipment Type"
 
-#: src/routes/index.tsx:342
+#: src/routes/index.tsx:360
 msgid "Import Build"
 msgstr "Import Build"
 
@@ -369,11 +424,11 @@ msgstr "Inventory"
 msgid "items"
 msgstr "items"
 
-#: src/routes/index.tsx:335
+#: src/routes/index.tsx:353
 msgid "My Builds"
 msgstr "My Builds"
 
-#: src/routes/index.tsx:372
+#: src/routes/index.tsx:390
 msgid "No builds yet"
 msgstr "No builds yet"
 
@@ -381,7 +436,7 @@ msgstr "No builds yet"
 msgid "No items in inventory. Craft items above to add them here."
 msgstr "No items in inventory. Craft items above to add them here."
 
-#: src/routes/index.tsx:324
+#: src/routes/index.tsx:342
 msgid "Please be patient and bear with me on any issues you encounter with this app, as it's still in early phases of development."
 msgstr "Please be patient and bear with me on any issues you encounter with this app, as it's still in early phases of development."
 
@@ -389,11 +444,15 @@ msgstr "Please be patient and bear with me on any issues you encounter with this
 msgid "Prefixes (3 max)"
 msgstr "Prefixes (3 max)"
 
-#: src/routes/index.tsx:152
+#: src/components/talents/PrismSection.tsx:54
+msgid "Prisms"
+msgstr "Prisms"
+
+#: src/routes/index.tsx:157
 msgid "Rename"
 msgstr "Rename"
 
-#: src/routes/index.tsx:87
+#: src/routes/index.tsx:92
 msgid "Save"
 msgstr "Save"
 
@@ -413,6 +472,11 @@ msgstr "Select equipment type..."
 msgid "Select Legendary"
 msgstr "Select Legendary"
 
+#. placeholder {0}: activeTreeSlot === "tree1" ? i18n._("Slot 1") : i18n._("Slot") + " " + activeTreeSlot.slice(-1)
+#: src/routes/builder/talents/$slot.tsx:351
+msgid "Select Tree for {0}"
+msgstr "Select Tree for {0}"
+
 #: src/routes/builder/equipment.tsx:596
 msgid "Suffixes (3 max)"
 msgstr "Suffixes (3 max)"
@@ -425,7 +489,11 @@ msgstr "Sweet Dream Affix (1 max)"
 msgid "Tower Sequence (1 max)"
 msgstr "Tower Sequence (1 max)"
 
+#: src/routes/builder/talents/$slot.tsx:307
+msgid "Tree Slots"
+msgstr "Tree Slots"
+
 #. placeholder {0}: formatDate(save.updatedAt)
-#: src/routes/index.tsx:108
+#: src/routes/index.tsx:113
 msgid "Updated: {0}"
 msgstr "Updated: {0}"
