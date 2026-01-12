@@ -1,15 +1,38 @@
-import { i18n } from "@lingui/core";
-import { messages as enCommonMessages } from "@/src/locales/en/common";
-import { messages as enLegendariesMessages } from "@/src/locales/en/legendaries";
-import { messages as zhCommonMessages } from "@/src/locales/zh/common";
-import { messages as zhLegendariesMessages } from "@/src/locales/zh/legendaries";
+import { i18n, type Messages } from "@lingui/core";
 
 export type Locale = "en" | "zh";
 
-const localeMessages: Record<Locale, typeof enCommonMessages> = {
-  en: { ...enCommonMessages, ...enLegendariesMessages },
-  zh: { ...zhCommonMessages, ...zhLegendariesMessages },
-};
+const modules = ["common", "legendaries", "talents", "skills"] as const;
+
+async function loadMessages(locale: Locale): Promise<Messages> {
+  const allMessages: Messages = {};
+
+  await Promise.all(
+    modules.map(async (module) => {
+      try {
+        const mod = await import(`../locales/${locale}/${module}`);
+        if (mod.messages) {
+          Object.assign(allMessages, mod.messages);
+          console.log(
+            `[i18n] Loaded ${locale}/${module}:`,
+            Object.keys(mod.messages).length,
+            "messages",
+          );
+        }
+      } catch (e) {
+        console.warn(`[i18n] Failed to load ${locale}/${module}:`, e);
+      }
+    }),
+  );
+
+  console.log(
+    `[i18n] Total messages for ${locale}:`,
+    Object.keys(allMessages).length,
+  );
+  return allMessages;
+}
+
+const messageCache: Record<Locale, Messages | null> = { en: null, zh: null };
 
 export const defaultLocale: Locale = "en";
 
@@ -18,8 +41,13 @@ export const SUPPORTED_LOCALES = [
   { locale: "zh" as const, name: "简体中文" },
 ] as const;
 
-export const loadLocale = (locale: Locale): void => {
-  i18n.load(locale, localeMessages[locale]);
+export const loadLocale = async (locale: Locale): Promise<void> => {
+  let messages = messageCache[locale];
+  if (!messages) {
+    messages = await loadMessages(locale);
+    messageCache[locale] = messages;
+  }
+  i18n.load(locale, messages);
   i18n.activate(locale);
 };
 
